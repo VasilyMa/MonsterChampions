@@ -13,9 +13,14 @@ namespace Client
 
         public void Init (IEcsSystems systems)
         {
-            var boardEntity = _world.Value.NewEntity();
+            var board = GameObject.FindObjectOfType<BoardMB>()?.gameObject;
 
-            var board = GameObject.FindObjectOfType<BoardMB>().gameObject;
+            if (board == null)
+            {
+                return;
+            }
+
+            var boardEntity = _world.Value.NewEntity();
 
             ref var viewComponent = ref _viewPool.Value.Add(boardEntity);
             viewComponent.EntityNumber = boardEntity;
