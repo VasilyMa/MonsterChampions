@@ -10,6 +10,8 @@ namespace Client
     {
         private EcsWorld _ecsWorld;
 
+        //to do ay array of EnemyBases for some quantity bases
+
         public EcsWorld EcsWorld
         {
             get

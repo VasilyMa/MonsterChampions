@@ -26,7 +26,7 @@ namespace Client
                 ;
 
             _runSystems
-                .Add(new MoveToPoint());
+                .Add(new SetPointToMoveEventSystem());
 
             _delhereEvents
                 .DelHere<TestEvent>()
@@ -36,9 +36,13 @@ namespace Client
             _initSystems.Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(/*events*/));
 #endif
 
-            _initSystems.Inject().Init();
-            _runSystems.Inject().Init();
-            _delhereEvents.Inject().Init();
+            _initSystems.Inject();
+            _runSystems.Inject();
+            _delhereEvents.Inject();
+
+            _initSystems.Init();
+            _runSystems.Init();
+            _delhereEvents.Init();
         }
 
         void Update()
