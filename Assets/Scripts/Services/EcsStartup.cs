@@ -26,10 +26,12 @@ namespace Client
                 ;
 
             _runSystems
-                .Add(new SetPointToMoveEventSystem());
+                .Add(new SetPointToMoveEventSystem())
+                .Add(new TargetingSystem())
+                ;
 
             _delhereEvents
-                .DelHere<TestEvent>()
+                .DelHere<SetPointToMoveEvent>()
                 ;
 
 #if UNITY_EDITOR
@@ -49,6 +51,7 @@ namespace Client
         {
             _initSystems?.Run();
             _runSystems?.Run();
+
             _delhereEvents?.Run();
         }
 
