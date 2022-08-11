@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: Chibis
   m_EditorClassIdentifier: 
-  MonsterID: 0
-  NameUnit: 
-  Damage: 0
-  Health: 0
-  MoveSpeed: 0
+  MonsterID: 1
+  NameUnit: Chibis
+  Damage: 12
+  Health: 124
+  MoveSpeed: 10
   Prefabs: []
-  Elemental: 0
+  Elemental: 2

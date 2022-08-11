@@ -28,6 +28,9 @@ namespace Client
                 viewComponent.Transform = viewComponent.GameObject.transform;
                 viewComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
 
+                viewComponent.UnitMB = unitsMB;
+                viewComponent.UnitMB.Entity = unitEntity;
+
                 ref var unitComponent = ref _unitPool.Value.Add(unitEntity);
                 unitComponent.isFriendly = unitsMB.IsFriendly;
 

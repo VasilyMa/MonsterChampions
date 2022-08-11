@@ -18,6 +18,7 @@ namespace Client
         public Deck Deck = new Deck();
         public PlayableDeck PlayableDeck = new PlayableDeck();
         public int StorageEntity;
+        public int InputEntity;
         //to do ay array of EnemyBases for some quantity bases
 
         public EcsWorld EcsWorld

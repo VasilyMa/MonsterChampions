@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: FlyBird
   m_EditorClassIdentifier: 
-  MonsterID: 0
-  NameUnit: 
-  Damage: 0
-  Health: 0
-  MoveSpeed: 0
+  MonsterID: 2
+  NameUnit: FlyBird
+  Damage: 2
+  Health: 24
+  MoveSpeed: 1
   Prefabs: []
-  Elemental: 0
+  Elemental: 3

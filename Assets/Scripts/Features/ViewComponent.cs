@@ -10,5 +10,6 @@ namespace Client
         public GameObject GameObject;
         public Transform Transform;
         public Rigidbody Rigidbody;
+        public UnitMB UnitMB;
     }
 }

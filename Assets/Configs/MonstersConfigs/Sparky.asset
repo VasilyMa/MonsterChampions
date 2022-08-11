@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Sparky
   m_EditorClassIdentifier: 
   MonsterID: 0
-  NameUnit: 
-  Damage: 0
-  Health: 0
-  MoveSpeed: 0
+  NameUnit: Sparky
+  Damage: 10
+  Health: 100
+  MoveSpeed: 10
   Prefabs: []
-  Elemental: 0
+  Elemental: 1

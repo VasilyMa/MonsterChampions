@@ -26,15 +26,16 @@ namespace Client
             
 
             _initSystems
+                .Add(new InitInput())
                 .Add(new InitUnits())
                 .Add(new InitBoard())
-                .Add(new InitMonsterStorage())
                 ;
 
             _runSystems
                 .Add(new SetPointToMoveEventSystem())
                 .Add(new TargetingSystem())
-                .Add(new InputPlayerSystem())
+                .Add(new InputSystem())
+                .Add(new DragAndDropUnitSystem())
                 ;
             _hubSystems
                 .Add(new GetNewMonster())
