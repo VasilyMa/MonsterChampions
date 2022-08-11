@@ -33,10 +33,6 @@ namespace Client {
                         viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
                         viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
                     }
-
-
-
-
                     Debug.Log("EndTouch!");
                     _touchFilter.Pools.Inc2.Del(entity);
                     _touchFilter.Pools.Inc1.Del(entity);
