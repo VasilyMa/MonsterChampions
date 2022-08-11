@@ -9,25 +9,36 @@ namespace Client
     sealed class EcsStartup : MonoBehaviour
     {
         [SerializeField] EcsUguiEmitter _uguiEmitter;
+        [SerializeField] GetMonster _monsterStorage;
 
-        private EcsWorld _world;
-        private EcsSystems _initSystems, _runSystems, _delhereEvents;
+        EcsWorld _world;
+        GameState _state;
+        private EcsSystems _initSystems, _runSystems, _delhereEvents, _hubSystems;
 
         void Start()
         {
             _world = new EcsWorld ();
-            _initSystems = new EcsSystems (_world);
-            _runSystems = new EcsSystems(_world);
-            _delhereEvents = new EcsSystems(_world);
+            _state = new GameState(_world, _monsterStorage);
+            _initSystems = new EcsSystems (_world, _state);
+            _runSystems = new EcsSystems(_world, _state);
+            _hubSystems = new EcsSystems(_world, _state);
+            _delhereEvents = new EcsSystems(_world, _state);
+            
 
             _initSystems
                 .Add(new InitUnits())
                 .Add(new InitBoard())
+                .Add(new InitMonsterStorage())
                 ;
 
             _runSystems
                 .Add(new SetPointToMoveEventSystem())
                 .Add(new TargetingSystem())
+                .Add(new InputPlayerSystem())
+                ;
+            _hubSystems
+                .Add(new GetNewMonster())
+                
                 ;
 
             _delhereEvents
@@ -40,10 +51,12 @@ namespace Client
 
             _initSystems.Inject();
             _runSystems.Inject();
+            _hubSystems.Inject();
             _delhereEvents.Inject();
 
             _initSystems.Init();
             _runSystems.Init();
+            _hubSystems.Init();
             _delhereEvents.Init();
         }
 
@@ -51,6 +64,7 @@ namespace Client
         {
             _initSystems?.Run();
             _runSystems?.Run();
+            _hubSystems?.Run();
 
             _delhereEvents?.Run();
         }
@@ -60,7 +74,7 @@ namespace Client
             OnDestroySystem(_initSystems);
             OnDestroySystem(_runSystems);
             OnDestroySystem(_delhereEvents);
-
+            OnDestroySystem(_hubSystems);
             if (_world != null)
             {
                 _world.Destroy ();
