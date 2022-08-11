@@ -332,10 +332,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestUnit
       objectReference: {fileID: 0}
-    - target: {fileID: 3619796207659965039, guid: 1612234f6a8d60a46b5c5b2646cef4b6, type: 3}
-      propertyPath: _isFriendly
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3619796207659965330, guid: 1612234f6a8d60a46b5c5b2646cef4b6, type: 3}
       propertyPath: m_RootOrder
       value: 5

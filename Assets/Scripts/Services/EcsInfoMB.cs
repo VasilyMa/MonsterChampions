@@ -12,21 +12,23 @@ namespace Client
 
         private EcsPool<Targetable> _targetablePool;
 
-        public void Init(EcsWorldInject world)
+        [SerializeField] private int _objectEntity;
+
+        public void Init(EcsWorldInject world, int objectEntity)
         {
             _world = world;
+            _objectEntity = objectEntity;
             _targetablePool = world.Value.GetPool<Targetable>();
         }
 
-        void Start()
+        public EcsWorldInject GetWorld()
         {
-
+            return _world;
         }
 
-        // Update is called once per frame
-        void Update()
+        public int GetEntity()
         {
-
+            return _objectEntity;
         }
     }
 }

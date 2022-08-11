@@ -26,7 +26,9 @@ namespace Client
                 ;
 
             _runSystems
-                .Add(new SetPointToMoveEventSystem());
+                .Add(new SetPointToMoveEventSystem())
+                .Add(new TargetingSystem())
+                ;
 
             _delhereEvents
                 .DelHere<SetPointToMoveEvent>()

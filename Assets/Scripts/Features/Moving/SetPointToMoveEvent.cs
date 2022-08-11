@@ -4,7 +4,8 @@ namespace Client
 {
     struct SetPointToMoveEvent
     {
-        public Vector3 DestinationPoint;
+        public Vector3 NewDestination;
+        public Vector3 OldDestination;
         public bool ToEnemyBase;
     }
 }

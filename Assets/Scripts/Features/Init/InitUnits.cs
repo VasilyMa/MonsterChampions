@@ -36,6 +36,8 @@ namespace Client
                 movableComponent.NavMeshAgent.speed = 10;
 
                 movableComponent.NavMeshAgent.enabled = false;
+
+                viewComponent.GameObject.GetComponent<EcsInfoMB>()?.Init(_world, unitEntity);
             }
         }
     }
