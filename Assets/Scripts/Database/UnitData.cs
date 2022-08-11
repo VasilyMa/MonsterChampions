@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class UnitData
 {
-    public const string NameUnit;
+    public string NameUnit;
+    public float Health;
+    public float DPS;
+    public float Speed;
+    public float Amount;
 }
