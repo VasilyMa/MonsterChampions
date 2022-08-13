@@ -13,7 +13,7 @@ namespace Client
 
         public void Init (IEcsSystems systems)
         {
-            var board = GameObject.FindObjectOfType<BoardMB>()?.gameObject;
+            var board = GameObject.FindObjectOfType<BoardRagMB>()?.gameObject;
 
             if (board == null)
             {

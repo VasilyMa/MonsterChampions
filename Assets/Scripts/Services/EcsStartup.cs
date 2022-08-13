@@ -11,27 +11,36 @@ namespace Client
         [SerializeField] EcsUguiEmitter _uguiEmitter;
 
         private EcsWorld _world;
-        private EcsSystems _initSystems, _runSystems, _delhereEvents;
+        private BattleState _battleState;
+        private EcsSystems _initSystems, _runSystems, _fightSystems, _delhereEvents;
 
         void Start()
         {
-            _world = new EcsWorld ();
-            _initSystems = new EcsSystems (_world);
-            _runSystems = new EcsSystems(_world);
-            _delhereEvents = new EcsSystems(_world);
+            _world = new EcsWorld();
+            _battleState = new BattleState(_world);
+            _initSystems = new EcsSystems (_world, _battleState);
+            _runSystems = new EcsSystems(_world, _battleState);
+            _fightSystems = new EcsSystems(_world, _battleState);
+            _delhereEvents = new EcsSystems(_world, _battleState);
 
             _initSystems
+                .Add(new InitEnemyBase())
                 .Add(new InitUnits())
                 .Add(new InitBoard())
                 ;
 
             _runSystems
-                .Add(new SetPointToMoveEventSystem())
-                .Add(new TargetingSystem())
+                .Add(new UnitMovingSystem()) // to do ay del here SetPoint...System and write it in _fightSystems
                 ;
 
-            _delhereEvents
-                .DelHere<SetPointToMoveEvent>()
+            _fightSystems
+                .Add(new TargetingSystem())
+                .Add(new DieEventSystem())
+                .Add(new DamagingEventSystem())
+                ;
+
+            //_delhereEvents
+                
                 ;
 
 #if UNITY_EDITOR
@@ -40,10 +49,14 @@ namespace Client
 
             _initSystems.Inject();
             _runSystems.Inject();
+            _fightSystems.Inject();
+
             _delhereEvents.Inject();
 
             _initSystems.Init();
             _runSystems.Init();
+            _fightSystems.Init();
+
             _delhereEvents.Init();
         }
 
@@ -51,6 +64,7 @@ namespace Client
         {
             _initSystems?.Run();
             _runSystems?.Run();
+            _fightSystems?.Run();
 
             _delhereEvents?.Run();
         }
@@ -59,6 +73,7 @@ namespace Client
         {
             OnDestroySystem(_initSystems);
             OnDestroySystem(_runSystems);
+            OnDestroySystem(_fightSystems);
             OnDestroySystem(_delhereEvents);
 
             if (_world != null)
