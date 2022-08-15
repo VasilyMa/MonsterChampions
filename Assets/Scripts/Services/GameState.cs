@@ -38,7 +38,7 @@ namespace Client
         {
             _ecsWorld = EcsWorld;
             _monsterStorage = monsterStorage;
-            Load();
+            // Load(); to do
         }
         public void InitSotrages()
         {

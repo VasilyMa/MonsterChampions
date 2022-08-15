@@ -1,17 +1,23 @@
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using UnityEngine;
 
-namespace Client {
-    sealed class InitInput : IEcsInitSystem {
+namespace Client
+{
+    sealed class InitInput : IEcsInitSystem
+    {
+        readonly EcsWorldInject _world = default;
 
-        public void Init (IEcsSystems systems) {
-            var world = systems.GetWorld();
-            var state = systems.GetShared<GameState>();
+        readonly EcsSharedInject<GameState> _state = default;
 
-            var entity = world.NewEntity();
-            state.InputEntity = entity;
+        readonly EcsPoolInject<InputComponent> _inputPool = default;
 
-            world.GetPool<InputComponent>().Add(entity);
+        public void Init (IEcsSystems systems)
+        {
+            var entity = _world.Value.NewEntity();
+            _state.Value.InputEntity = entity;
+
+            _inputPool.Value.Add(entity);
         }
     }
 }

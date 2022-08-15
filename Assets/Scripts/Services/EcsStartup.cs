@@ -12,16 +12,22 @@ namespace Client
         [SerializeField] GetMonster _monsterStorage;
 
         private BattleState _battleState;
-        EcsWorld _world;
-        GameState _state;
+        private EcsWorld _world;
+        private GameState _state;
         private EcsSystems _globalInitSystem, _initSystems, _runSystems, _delhereEvents, _hubSystems, _fightSystems;
 
         void Start()
         {
-            _world = new EcsWorld ();
-            _initSystems = new EcsSystems (_world);
-            _runSystems = new EcsSystems(_world);
-            _delhereEvents = new EcsSystems(_world);
+            _world = new EcsWorld();
+            _state = new GameState(_world, _monsterStorage);
+            _battleState = new BattleState(_world);
+
+            _initSystems = new EcsSystems (_world, _state);
+            _runSystems = new EcsSystems(_world, _state);
+            _globalInitSystem = new EcsSystems(_world, _state);
+            _hubSystems = new EcsSystems(_world, _state);
+            _fightSystems = new EcsSystems(_world, _state);
+            _delhereEvents = new EcsSystems(_world, _state);
 
             _globalInitSystem
                 .Add(new InitInput())
