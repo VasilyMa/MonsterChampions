@@ -16,9 +16,10 @@ namespace Client
         public GetMonster _monsterStorage;
         public Collection Collection = new Collection();
         public Deck Deck = new Deck();
-        public PlayableDeck PlayableDeck = new PlayableDeck();
+        //public PlayableDeck PlayableDeck = new PlayableDeck();
         public int StorageEntity;
         public int InputEntity;
+        public bool runSysytem = true, hubSystem;
         //to do ay array of EnemyBases for some quantity bases
 
         public EcsWorld EcsWorld

@@ -13,7 +13,7 @@ namespace Client
 
         EcsWorld _world;
         GameState _state;
-        private EcsSystems _initSystems, _runSystems, _delhereEvents, _hubSystems;
+        private EcsSystems _globalInitSystem, _initSystems, _runSystems, _delhereEvents, _hubSystems;
 
         void Start()
         {
@@ -22,13 +22,18 @@ namespace Client
             _initSystems = new EcsSystems (_world, _state);
             _runSystems = new EcsSystems(_world, _state);
             _hubSystems = new EcsSystems(_world, _state);
+            _globalInitSystem = new EcsSystems(_world, _state);
             _delhereEvents = new EcsSystems(_world, _state);
-            
 
-            _initSystems
+            _globalInitSystem
                 .Add(new InitInput())
+
+                ;
+            _initSystems
                 .Add(new InitUnits())
                 .Add(new InitBoard())
+                .Add(new InitPlayableDeck())
+
                 ;
 
             _runSystems
@@ -37,6 +42,7 @@ namespace Client
                 .Add(new InputSystem())
                 .Add(new DragAndDropUnitSystem())
                 ;
+
             _hubSystems
                 .Add(new GetNewMonster())
                 
@@ -49,12 +55,13 @@ namespace Client
 #if UNITY_EDITOR
             _initSystems.Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(/*events*/));
 #endif
-
+            _globalInitSystem.Inject();
             _initSystems.Inject();
             _runSystems.Inject();
             _hubSystems.Inject();
             _delhereEvents.Inject();
 
+            _globalInitSystem.Init();
             _initSystems.Init();
             _runSystems.Init();
             _hubSystems.Init();
@@ -63,9 +70,11 @@ namespace Client
 
         void Update()
         {
-            _initSystems?.Run();
-            _runSystems?.Run();
-            _hubSystems?.Run();
+            _globalInitSystem?.Run();
+
+            if(_state.runSysytem) _initSystems?.Run();
+            if(_state.runSysytem) _runSystems?.Run();
+            if(_state.hubSystem) _hubSystems?.Run();
 
             _delhereEvents?.Run();
         }
@@ -76,6 +85,7 @@ namespace Client
             OnDestroySystem(_runSystems);
             OnDestroySystem(_delhereEvents);
             OnDestroySystem(_hubSystems);
+            OnDestroySystem(_globalInitSystem);
             if (_world != null)
             {
                 _world.Destroy ();

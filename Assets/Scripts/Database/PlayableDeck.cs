@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayableDeck
 {
-    public UnitData[] DeckPlayer = new UnitData[4];
+    public List<UnitData> PlayerDeck = new List<UnitData>();
 }
