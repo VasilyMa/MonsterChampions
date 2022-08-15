@@ -11,6 +11,6 @@ public class MonsterStorage : ScriptableObject
     public float Health;
     public float MoveSpeed;
     public GameObject[] Prefabs;
-    public Elemental.Type Elemental;
+    public ElementalType Elemental;
 
 }

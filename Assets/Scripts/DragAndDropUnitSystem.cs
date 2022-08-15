@@ -28,7 +28,7 @@ namespace Client {
                     {
                         if (hit.transform.childCount >= 1)
                         {
-                            if (hit.transform.GetComponentInChildren<UnitMB>().unitID == viewComp.UnitMB.unitID)
+                            if (hit.transform.GetComponentInChildren<UnitMB>().unitID == viewComp.EcsInfoMB.unitID)
                             {
                                 ref var mergeComp = ref _mergeEventPool.Value.Add(_world.Value.NewEntity());
                                 mergeComp.EntityfirstUnit = entity;

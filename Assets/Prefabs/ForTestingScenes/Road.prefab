@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7907724165430395867}
   - component: {fileID: 7907724165430395866}
   - component: {fileID: 7907724165430395865}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7907724165430395864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 80, y: 0, z: 0}
-  m_LocalScale: {x: 200, y: 0.4, z: 20}
+  m_LocalScale: {x: 20, y: 0.4, z: 200}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

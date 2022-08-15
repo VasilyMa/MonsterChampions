@@ -8,9 +8,13 @@ namespace Client
 {
     public class EcsInfoMB : MonoBehaviour
     {
+        public int Entity;
+        public int unitID;
+
         private EcsWorldInject _world;
 
         private EcsPool<Targetable> _targetablePool;
+        private EcsPool<DamagingEvent> _damagingEventPool;
 
         [SerializeField] private int _objectEntity;
 
@@ -19,6 +23,7 @@ namespace Client
             _world = world;
             _objectEntity = objectEntity;
             _targetablePool = world.Value.GetPool<Targetable>();
+            _damagingEventPool = world.Value.GetPool<DamagingEvent>();
         }
 
         public EcsWorldInject GetWorld()

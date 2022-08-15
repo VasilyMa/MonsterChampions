@@ -7,6 +7,7 @@ namespace Client {
         readonly EcsSharedInject<GameState> _state = default;
         readonly EcsFilterInject<Inc<MergeUnitEvent>> _mergeFilter = default;
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
+
         public void Run (IEcsSystems systems) {
             foreach (var entity in _mergeFilter.Value)
             {

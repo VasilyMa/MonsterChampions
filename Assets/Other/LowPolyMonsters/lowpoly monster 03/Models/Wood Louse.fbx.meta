@@ -1,0 +1,535 @@
+fileFormatVersion: 2
+guid: 8402859d9b084f141b2b346a51f7fb5b
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      74: -8342187505036127783
+    second: Wood Louse (Attack)
+  - first:
+      74: 97224955305655090
+    second: Wood Louse (Hit)
+  - first:
+      74: -8900100428856485214
+    second: Wood Louse (Prepare for battle)
+  - first:
+      74: 7680920680997451906
+    second: Wood Louse (Walk)
+  - first:
+      74: 8335336888966490142
+    second: Wood Louse (Run)
+  - first:
+      74: 1827226128182048838
+    second: Take 001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood Louse_
+    second: {fileID: 2100000, guid: 429af97aae2956c4e87818ca29bc60a7, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftUpperLeg' not found\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Wood Louse (Attack)
+      takeName: Wood Louse (Attack)
+      internalID: -8342187505036127783
+      firstFrame: 0
+      lastFrame: 13
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Wood Louse (Hit)
+      takeName: Wood Louse (Hit)
+      internalID: 97224955305655090
+      firstFrame: 0
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Wood Louse (Prepare for battle)
+      takeName: Wood Louse (Prepare for battle)
+      internalID: -8900100428856485214
+      firstFrame: 0
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Wood Louse (Walk)
+      takeName: Wood Louse (Walk)
+      internalID: 7680920680997451906
+      firstFrame: 0
+      lastFrame: 13
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Wood Louse (Run)
+      takeName: Wood Louse (Run)
+      internalID: 8335336888966490142
+      firstFrame: 0
+      lastFrame: 13
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Wood Louse(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Wood Louse (Attack)
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 'Wood Louse '
+      parentName: Wood Louse (Attack)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Dummy01
+      parentName: Wood Louse (Attack)
+      position: {x: -0.000000006071737, y: 0.85178244, z: -0.13890512}
+      rotation: {x: 0.8068128, y: 0.3401375, z: 0.3064201, w: 0.3734519}
+      scale: {x: 2.5400002, y: 2.54, z: 2.54}
+    - name: Bone_foot27
+      parentName: Dummy01
+      position: {x: 0.10125654, y: -0.15111099, z: 0.056781977}
+      rotation: {x: -0.4055943, y: -0.18951896, z: 0.8872364, w: -0.11129905}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone_foot25
+      parentName: Bone_foot27
+      position: {x: -0.12796034, y: 0.000000038146972, z: 0.000000057220458}
+      rotation: {x: 0.039189205, y: -0.03536079, z: 0.14604363, w: 0.987869}
+      scale: {x: 1, y: 1.0000001, z: 0.9999999}
+    - name: Bone_foot23
+      parentName: Bone_foot25
+      position: {x: -0.14451183, y: -0.000000009536743, z: -0.000000019073486}
+      rotation: {x: -0.00087791285, y: -0.0007060094, z: -0.0085919285, w: 0.9999625}
+      scale: {x: 0.9999999, y: 1, z: 1}
+    - name: Bone_foot03
+      parentName: Bone_foot23
+      position: {x: -0.23151858, y: 0.000000076293944, z: 0}
+      rotation: {x: -0.00000008195445, y: -5.628167e-10, z: 0.006867272, w: 0.99997646}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone_foot04
+      parentName: Dummy01
+      position: {x: 0.0120051, y: -0.1618702, z: 0.049658917}
+      rotation: {x: -0.62759745, y: -0.27509585, z: 0.67749035, w: 0.26730254}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1}
+    - name: Bone_foot20
+      parentName: Bone_foot04
+      position: {x: -0.12372284, y: 0, z: 0.000000038146972}
+      rotation: {x: 0.024649553, y: -0.016566645, z: 0.74765027, w: 0.66342825}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone_foot19
+      parentName: Bone_foot20
+      position: {x: -0.14561276, y: -0.000000076293944, z: -0.000000028610229}
+      rotation: {x: -0.0072501707, y: -0.0047910525, z: -0.82201195, w: 0.569404}
+      scale: {x: 0.9999999, y: 1, z: 1.0000001}
+    - name: Bone_foot07
+      parentName: Bone_foot19
+      position: {x: -0.24105528, y: 0.00000017166137, z: 0.000000028610229}
+      rotation: {x: -0.04486185, y: -0.03502012, z: -0.015234713, w: 0.99826294}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000001}
+    - name: Bone_foot13
+      parentName: Dummy01
+      position: {x: -0.07345559, y: -0.113576695, z: 0.059159867}
+      rotation: {x: 0.79065204, y: 0.27095813, z: -0.47901016, w: -0.26832896}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: Bone_foot09
+      parentName: Bone_foot13
+      position: {x: -0.14554122, y: -0.000000019073486, z: 0.000000030994414}
+      rotation: {x: -0.00000006709199, y: 0.000000267616, z: 0.75037044, w: 0.66101754}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Bone_foot10
+      parentName: Bone_foot09
+      position: {x: -0.121488646, y: -0.0000000047683715, z: -0.000000022649765}
+      rotation: {x: 0.000000022532273, y: -0.000000039858616, z: -0.8276046, w: 0.56131154}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000001}
+    - name: Bone_foot11
+      parentName: Bone_foot10
+      position: {x: -0.22286606, y: -0.000000019073486, z: -0.0000000011920929}
+      rotation: {x: -0.00000006741431, y: -0.000000011032537, z: -0.029828813, w: 0.99955505}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Bone_foot12
+      parentName: Dummy01
+      position: {x: -0.21883991, y: -0.07837658, z: 0.07746694}
+      rotation: {x: 0.85960066, y: 0.17427875, z: -0.39852634, w: -0.26812375}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Bone_foot26
+      parentName: Bone_foot12
+      position: {x: -0.15103592, y: 0, z: 0.000000038146972}
+      rotation: {x: -0.03044507, y: 0.02931285, z: 0.727742, w: 0.6845476}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: Bone_foot14
+      parentName: Bone_foot26
+      position: {x: -0.14795196, y: -0.000000076293944, z: -1.7763568e-17}
+      rotation: {x: -0.0075481907, y: -0.0083202, z: 0.89281267, w: -0.45028803}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: Bone_foot15
+      parentName: Bone_foot14
+      position: {x: -0.2815827, y: -0.000000038146972, z: -0.000000028610229}
+      rotation: {x: 0.050566975, y: 0.028332846, z: 0.06688638, w: 0.9960756}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+    - name: Bone_foot16
+      parentName: Dummy01
+      position: {x: 0.10125654, y: -0.15111105, z: -0.056779973}
+      rotation: {x: 0.33291382, y: 0.7747377, z: -0.36700964, w: -0.39275157}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Bone_foot17
+      parentName: Bone_foot16
+      position: {x: -0.12796031, y: -0.000000057220458, z: 0.000000038146972}
+      rotation: {x: -0.0000000026729057, y: 0.0000003588576, z: -0.7424404, w: 0.66991216}
+      scale: {x: 1, y: 0.9999998, z: 0.9999999}
+    - name: Bone_foot18
+      parentName: Bone_foot17
+      position: {x: -0.14451192, y: 0.000000057220458, z: -0.000000038146972}
+      rotation: {x: 0.00000009074465, y: -0.0000000060474563, z: 0.77928627, w: 0.6266681}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: Bone_foot06
+      parentName: Bone_foot18
+      position: {x: -0.2315187, y: -0.00000015258789, z: 0}
+      rotation: {x: -0.00000023086017, y: 0.000000016486894, z: -0.006867123, w: 0.99997646}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000001}
+    - name: Bone_foot05
+      parentName: Dummy01
+      position: {x: 0.012005119, y: -0.1618702, z: -0.049659986}
+      rotation: {x: -0.26111144, y: -0.5495341, z: 0.15152965, w: 0.77901983}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_foot21
+      parentName: Bone_foot05
+      position: {x: -0.123722866, y: -0.000000028610229, z: 0.000000019073486}
+      rotation: {x: 0.103406385, y: 0.12853163, z: -0.089818634, w: 0.98220134}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_foot22
+      parentName: Bone_foot21
+      position: {x: -0.14561276, y: 0.000000042915342, z: -0.000000019073486}
+      rotation: {x: 0.008621662, y: 0.00166665, z: 0.006131175, w: 0.9999427}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Bone_foot02
+      parentName: Bone_foot22
+      position: {x: -0.24105525, y: -0.000000076293944, z: 0.000000019073486}
+      rotation: {x: 0.04486186, y: -0.03502012, z: 0.015235031, w: 0.99826294}
+      scale: {x: 1, y: 1.0000001, z: 1.0000002}
+    - name: Bone_foot24
+      parentName: Dummy01
+      position: {x: -0.07345558, y: -0.113576695, z: -0.05916002}
+      rotation: {x: -0.2679303, y: -0.47824517, z: 0.26936337, w: 0.79179436}
+      scale: {x: 0.9999999, y: 1.0000001, z: 0.9999999}
+    - name: Bone_foot01
+      parentName: Bone_foot24
+      position: {x: -0.14554118, y: -0.000000019073486, z: 0.000000047683713}
+      rotation: {x: 0.000000011600414, y: 0.00000034572253, z: -0.7521439, w: 0.65899885}
+      scale: {x: 0.9999998, y: 0.99999994, z: 1.0000001}
+    - name: Bone_foot08
+      parentName: Bone_foot01
+      position: {x: -0.121488646, y: 0.0000000333786, z: -0.000000007152557}
+      rotation: {x: 0.00000017236113, y: 0.00000016834439, z: 0.83265936, w: 0.5537855}
+      scale: {x: 0.9999999, y: 1.0000001, z: 0.99999994}
+    - name: Bone_foot00
+      parentName: Bone_foot08
+      position: {x: -0.22286615, y: 0, z: 0.0000000166893}
+      rotation: {x: -0.000000014783407, y: -0.000000004168115, z: 0.02982864, w: 0.99955505}
+      scale: {x: 0.9999999, y: 1.0000001, z: 0.99999994}
+    - name: Bone_foot28
+      parentName: Dummy01
+      position: {x: -0.21883988, y: -0.07837656, z: -0.077470034}
+      rotation: {x: -0.26803643, y: -0.39850792, z: 0.17431803, w: 0.8596285}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: Bone_foot29
+      parentName: Bone_foot28
+      position: {x: -0.15103595, y: 0.000000019073486, z: -0.000000019073486}
+      rotation: {x: 0.030445104, y: 0.02931285, z: -0.7277422, w: 0.6845474}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1}
+    - name: Bone_foot30
+      parentName: Bone_foot29
+      position: {x: -0.14795193, y: 0.000000057220458, z: -0.000000095367426}
+      rotation: {x: -0.007548206, y: 0.008320206, z: 0.8928126, w: 0.4502882}
+      scale: {x: 0.9999997, y: 1.0000001, z: 1}
+    - name: Bone_foot31
+      parentName: Bone_foot30
+      position: {x: -0.28158274, y: 0.000000114440915, z: -0.000000038146972}
+      rotation: {x: -0.05056699, y: 0.028332626, z: -0.0668864, w: 0.9960756}
+      scale: {x: 1, y: 1.0000002, z: 1.0000001}
+    - name: Wood Louse (Attack)_02
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK Chain01
+      parentName: Wood Louse (Attack)_02
+      position: {x: 0.7094563, y: 0.024526099, z: -0.6462136}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Wood Louse (Attack)_02 1
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK Chain02
+      parentName: Wood Louse (Attack)_02 1
+      position: {x: 0.7184795, y: 0.0072608, z: -0.18479389}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Wood Louse (Attack)_02 2
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK Chain03
+      parentName: Wood Louse (Attack)_02 2
+      position: {x: 0.713286, y: 0.0100237, z: 0.31484908}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Wood Louse (Attack)_02 3
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK Chain04
+      parentName: Wood Louse (Attack)_02 3
+      position: {x: 0.7499342, y: 0.0685277, z: 0.84411174}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Wood Louse (Attack)_02 4
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK Chain05
+      parentName: Wood Louse (Attack)_02 4
+      position: {x: -0.7499421, y: 0.068527594, z: 0.8441116}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Wood Louse (Attack)_02 5
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK Chain06
+      parentName: Wood Louse (Attack)_02 5
+      position: {x: -0.7132864, y: 0.0100238, z: 0.3148489}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Wood Louse (Attack)_02 6
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK Chain07
+      parentName: Wood Louse (Attack)_02 6
+      position: {x: -0.71848226, y: 0.0072605996, z: -0.18479401}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Wood Louse (Attack)_02 7
+      parentName: Wood Louse(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK Chain08
+      parentName: Wood Louse (Attack)_02 7
+      position: {x: -0.709451, y: 0.0245264, z: -0.6462139}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

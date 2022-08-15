@@ -6,10 +6,10 @@ namespace Client {
         readonly EcsFilterInject<Inc<BuyUnitEvent>> _buyFilter = default;
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<Movable> _movablePool = default;
-        readonly EcsPoolInject<Unit> _unitPool = default;
+        readonly EcsPoolInject<UnitTag> _unitPool = default;
         readonly EcsPoolInject<OnBoardUnitTag> _onboardUnit = default;
-        readonly EcsPoolInject<Health> _healthPool = default;
-        readonly EcsPoolInject<Elemental> _elementPool = default;
+        readonly EcsPoolInject<HealthComponent> _healthPool = default;
+        readonly EcsPoolInject<ElementalComponent> _elementPool = default;
 
         public void Run (IEcsSystems systems) {
             foreach (var entity in _buyFilter.Value)
