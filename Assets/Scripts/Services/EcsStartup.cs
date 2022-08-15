@@ -30,7 +30,8 @@ namespace Client
                 ;
 
             _runSystems
-                .Add(new UnitMovingSystem()) // to do ay del here SetPoint...System and write it in _fightSystems
+                .Add(new ForcedStoppedEventSystem())
+                .Add(new UnitMoveToTargetSystem()) // to do ay del here UnitMoveToTargetSystem and write it in _fightSystems
                 ;
 
             _fightSystems

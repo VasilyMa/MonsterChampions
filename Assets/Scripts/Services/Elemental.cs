@@ -6,122 +6,122 @@ namespace Client
 {
     public static class Elemental
     {
-        private static float _highResist = 2;
-        private static float _mediumResist = 1;
-        private static float _lowResist = 0.5f;
-        private static float _defaultZero = 0;
+        private const float HIGH_RESIST = 2;
+        private const float MEDIUM_RESIST = 1;
+        private const float LOW_RESIST = 0.5f;
+        private const float DEFAULT_ZERO_RESIST = 0;
 
-        public static float GetDamageDivider(ElementalType damageElement, ElementalType healthElement)
+        public static float GetDamageDivider(ElementalType damageElemental, ElementalType healthElemental)
         {
-            switch (damageElement)
+            switch (damageElemental)
             {
                 case ElementalType.Earth:
-                    return GetEarthDivider(healthElement);
+                    return GetEarthDivider(healthElemental);
                 case ElementalType.Air:
-                    return GetAirDivider(healthElement);
+                    return GetAirDivider(healthElemental);
                 case ElementalType.Darkness:
-                    return GetDarknessDivider(healthElement);
+                    return GetDarknessDivider(healthElemental);
                 case ElementalType.Fire:
-                    return GetFireDivider(healthElement);
+                    return GetFireDivider(healthElemental);
                 case ElementalType.Water:
-                    return GetWaterDivider(healthElement);
+                    return GetWaterDivider(healthElemental);
                 default:
-                    return _defaultZero;
+                    return DEFAULT_ZERO_RESIST;
             }
         }
 
-        private static float GetEarthDivider(ElementalType healthElement)
+        private static float GetEarthDivider(ElementalType healthElemental)
         {
-            switch (healthElement)
+            switch (healthElemental)
             {
                 case ElementalType.Earth:
-                    return _highResist;
+                    return HIGH_RESIST;
                 case ElementalType.Air:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Darkness:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Fire:
-                    return _highResist;
+                    return HIGH_RESIST;
                 case ElementalType.Water:
-                    return _mediumResist;
+                    return MEDIUM_RESIST;
                 default:
-                    return _defaultZero;
+                    return DEFAULT_ZERO_RESIST;
             }
         }
 
-        private static float GetAirDivider(ElementalType healthElement)
+        private static float GetAirDivider(ElementalType healthElemental)
         {
-            switch (healthElement)
+            switch (healthElemental)
             {
                 case ElementalType.Earth:
-                    return _highResist;
+                    return HIGH_RESIST;
                 case ElementalType.Air:
-                    return _highResist;
+                    return HIGH_RESIST;
                 case ElementalType.Darkness:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Fire:
-                    return _mediumResist;
+                    return MEDIUM_RESIST;
                 case ElementalType.Water:
-                    return _lowResist;
+                    return LOW_RESIST;
                 default:
-                    return _defaultZero;
+                    return DEFAULT_ZERO_RESIST;
             }
         }
 
-        private static float GetDarknessDivider(ElementalType healthElement)
+        private static float GetDarknessDivider(ElementalType healthElemental)
         {
-            switch (healthElement)
+            switch (healthElemental)
             {
                 case ElementalType.Earth:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Air:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Darkness:
-                    return _highResist;
+                    return HIGH_RESIST;
                 case ElementalType.Fire:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Water:
-                    return _lowResist;
+                    return LOW_RESIST;
                 default:
-                    return _defaultZero;
+                    return DEFAULT_ZERO_RESIST;
             }
         }
 
-        private static float GetFireDivider(ElementalType healthElement)
+        private static float GetFireDivider(ElementalType healthElemental)
         {
-            switch (healthElement)
+            switch (healthElemental)
             {
                 case ElementalType.Earth:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Air:
-                    return _mediumResist;
+                    return MEDIUM_RESIST;
                 case ElementalType.Darkness:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Fire:
-                    return _highResist;
+                    return HIGH_RESIST;
                 case ElementalType.Water:
-                    return _highResist;
+                    return HIGH_RESIST;
                 default:
-                    return _defaultZero;
+                    return DEFAULT_ZERO_RESIST;
             }
         }
 
-        private static float GetWaterDivider(ElementalType healthElement)
+        private static float GetWaterDivider(ElementalType healthElemental)
         {
-            switch (healthElement)
+            switch (healthElemental)
             {
                 case ElementalType.Earth:
-                    return _mediumResist;
+                    return MEDIUM_RESIST;
                 case ElementalType.Air:
-                    return _highResist;
+                    return HIGH_RESIST;
                 case ElementalType.Darkness:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Fire:
-                    return _lowResist;
+                    return LOW_RESIST;
                 case ElementalType.Water:
-                    return _highResist;
+                    return HIGH_RESIST;
                 default:
-                    return _defaultZero;
+                    return DEFAULT_ZERO_RESIST;
             }
         }
     }

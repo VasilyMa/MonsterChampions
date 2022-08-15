@@ -2,7 +2,7 @@ namespace Client
 {
     struct DamagingEvent
     {
-        public int DamageEntity;
+        public int UndergoEntity;
         public int WhoDoDamageEntity;
         public float DamageValue;
         
@@ -13,7 +13,7 @@ namespace Client
         /// <param name="whoDoDamageEntity"></param>
         public void Invoke(int damageEntity, int whoDoDamageEntity)
         {
-            DamageEntity = damageEntity;
+            UndergoEntity = damageEntity;
             WhoDoDamageEntity = whoDoDamageEntity;
         }
 
@@ -25,7 +25,7 @@ namespace Client
         /// <param name="damageValue"></param>
         public void Invoke(int damageEntity, int whoDoDamageEntity, float damageValue)
         {
-            DamageEntity = damageEntity;
+            UndergoEntity = damageEntity;
             WhoDoDamageEntity = whoDoDamageEntity;
             DamageValue = damageValue;
         }

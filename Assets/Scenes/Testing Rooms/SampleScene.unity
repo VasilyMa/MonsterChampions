@@ -677,6 +677,18 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5981531330680182927, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981531330680182927, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 2720
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981531330680182927, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8715059026059523411, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
       propertyPath: m_Controller
       value: 

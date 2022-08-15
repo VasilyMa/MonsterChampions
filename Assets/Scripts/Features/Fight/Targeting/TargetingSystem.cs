@@ -23,7 +23,7 @@ namespace Client
                     continue;
                 }
 
-
+                // to do ay targetable
             }
         }
     }

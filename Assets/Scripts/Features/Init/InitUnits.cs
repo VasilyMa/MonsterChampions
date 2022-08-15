@@ -10,6 +10,8 @@ namespace Client
     {
         readonly EcsWorldInject _world;
 
+        readonly EcsSharedInject<BattleState> _battleState;
+
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<PhysicsComponent> _physicsPool = default;
         readonly EcsPoolInject<UnitTag> _unitPool = default;
@@ -51,8 +53,11 @@ namespace Client
                 targetableComponent.EntitysInMeleeZone = new List<int>();
                 targetableComponent.EntitysInRangeZone = new List<int>();
 
+                // to do ay del this after write targeting
                 targetableComponent.TargetEntity = BattleState.GetEnemyBaseEntity();
+                targetableComponent.TargetObject = _viewPool.Value.Get(targetableComponent.TargetEntity).GameObject;
                 movableComponent.Destination = _viewPool.Value.Get(targetableComponent.TargetEntity).Transform.position;
+                movableComponent.NavMeshAgent.SetDestination(movableComponent.Destination);
 
                 ref var healthComponent = ref _healthPool.Value.Add(unitEntity);
                 healthComponent.MaxValue = 100;
