@@ -4,5 +4,5 @@ using UnityEngine;
 [System.Serializable]
 public class Deck
 {
-    public UnitData[] DeckPlayer = new UnitData[5];
+    public UnitData[] DeckPlayer = new UnitData[3];
 }

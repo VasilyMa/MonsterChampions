@@ -2,13 +2,36 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 namespace Client {
-    sealed class InitPlayableDeck : IEcsInitSystem {
+    sealed class InitPlayableDeck : IEcsInitSystem 
+    {
         readonly EcsSharedInject<GameState> _state = default;
-        public void Init (IEcsSystems systems) {
-            PlayableDeck playableDeck = new PlayableDeck();
+        readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
+        public void Init (IEcsSystems systems) 
+        {
+            ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
+            var holder = interfaceComp.HolderCards;
+            var cards = interfaceComp.cards;
+            cards = new System.Collections.Generic.List<GameObject>();
             for (int card = 0; card < _state.Value.Deck.DeckPlayer.Length; card++)
             {
-                playableDeck.PlayerDeck.Add(_state.Value.Deck.DeckPlayer[card]);
+                if (_state.Value.Deck.DeckPlayer[card].UnitID == 0)
+                    break;
+                _state.Value.PlayableDeck.PlayerDeck.Add(_state.Value.Deck.DeckPlayer[card]);
+                for (int i = 0; i < holder.childCount; i++)
+                {
+                    if (holder.GetChild(i).transform.childCount >= 1)
+                        continue;
+                    else
+                    {
+                        var newCard = (GameObject)GameObject.Instantiate(Resources.Load("PlayCard"), holder.GetChild(i).transform);
+                        var newCardInfo = newCard.GetComponent<CardInfo>();
+                        newCardInfo.unitID = _state.Value.Deck.DeckPlayer[card].UnitID;
+                        newCardInfo.Damage = _state.Value.Deck.DeckPlayer[card].Damage;
+                        newCardInfo.Elemental = _state.Value.Deck.DeckPlayer[card].Elemental;
+                        newCardInfo.Health = _state.Value.Deck.DeckPlayer[card].Health;
+                        cards.Add(newCard);
+                    }
+                }
             }
         }
     }

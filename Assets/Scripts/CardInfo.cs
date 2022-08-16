@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Client;
-[System.Serializable]
-public class UnitData
+
+public class CardInfo : MonoBehaviour
 {
-    public int UnitID;
+    public Sprite sprite;
+    public int unitID;
     public string NameUnit;
     public float Damage;
     public float Health;

@@ -30,8 +30,8 @@ namespace Client
             _delhereEvents = new EcsSystems(_world, _state);
 
             _globalInitSystem
+                .Add(new InitInterface())
                 .Add(new InitInput())
-
                 ;
             _initSystems
                 .Add(new InitEnemyBase())
@@ -40,13 +40,20 @@ namespace Client
                 .Add(new InitPlayableDeck())
 
                 ;
-            _hubSystems
-                .Add(new BuyUnitSystem())
-                ;
+            /*_hubSystems
+                
+                
+                ;*/
             _runSystems
+                .Add(new InputSystem())
                 .Add(new ForcedStoppedEventSystem())
-                .Add(new UnitMoveToTargetSystem()) // to do ay del here UnitMoveToTargetSystem and write it in _fightSystems
-                ;
+                .Add(new DragAndDropUnitSystem())
+                .Add(new MergeUnitSystem())
+                .Add(new BuyUnitSystem())
+                .Add(new GetNewMonster())
+                .Add(new DragAndDropCardSystem());
+            //.Add(new UnitMoveToTargetSystem()) // to do ay del here UnitMoveToTargetSystem and write it in _fightSystems
+            ;
 
             _fightSystems
                 .Add(new TargetingSystem())

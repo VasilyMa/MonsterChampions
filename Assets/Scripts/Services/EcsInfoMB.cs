@@ -22,6 +22,7 @@ namespace Client
         {
             _world = world;
             _objectEntity = objectEntity;
+            Entity = objectEntity;
             _targetablePool = world.Value.GetPool<Targetable>();
             _damagingEventPool = world.Value.GetPool<DamagingEvent>();
         }

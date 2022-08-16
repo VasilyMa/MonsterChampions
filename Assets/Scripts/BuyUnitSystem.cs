@@ -2,20 +2,98 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 namespace Client {
-    sealed class BuyUnitSystem : IEcsRunSystem {
+    sealed class BuyUnitSystem : IEcsRunSystem 
+    {
+        readonly EcsWorldInject _world = default;
+        readonly EcsSharedInject<GameState> _state = default;
         readonly EcsFilterInject<Inc<BuyUnitEvent>> _buyFilter = default;
-        readonly EcsPoolInject<ViewComponent> _viewPool = default;
-        readonly EcsPoolInject<Movable> _movablePool = default;
-        readonly EcsPoolInject<UnitTag> _unitPool = default;
         readonly EcsPoolInject<OnBoardUnitTag> _onboardUnit = default;
+        readonly EcsPoolInject<ViewComponent> _viewPool = default;
+        readonly EcsPoolInject<PhysicsComponent> _physicsPool = default;
+        readonly EcsPoolInject<UnitTag> _unitPool = default;
+        readonly EcsPoolInject<Movable> _movablePool = default;
+        readonly EcsPoolInject<Targetable> _targetablePool = default;
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
-        readonly EcsPoolInject<ElementalComponent> _elementPool = default;
+        readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
+        readonly EcsPoolInject<LevelComponent> _levelPool = default;
+        readonly EcsPoolInject<DamageComponent> _damagePool = default;
 
         public void Run (IEcsSystems systems) {
             foreach (var entity in _buyFilter.Value)
             {
+                ref var buyInfoComp = ref _buyFilter.Pools.Inc1.Get(entity); //there save are info of new monster buyed buyInfoComp.CardInfo...
+                int unitEntity = _world.Value.NewEntity();
+                _onboardUnit.Value.Add(unitEntity);
+                var slot = FindEmptySlot();
+                var unitObject = GameObject.Instantiate(buyInfoComp.CardInfo.Prefabs[0], slot.position, Quaternion.identity);
+                unitObject.transform.SetParent(slot);
 
+                ref var viewComponent = ref _viewPool.Value.Add(unitEntity);
+                viewComponent.EntityNumber = unitEntity;
+
+                viewComponent.GameObject = unitObject;
+                viewComponent.Transform = viewComponent.GameObject.transform;
+
+                ref var PhysicsComponent = ref _physicsPool.Value.Add(unitEntity);
+                PhysicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
+
+
+                ref var unitComponent = ref _unitPool.Value.Add(unitEntity);
+
+                ref var movableComponent = ref _movablePool.Value.Add(unitEntity);
+                //movableComponent.NavMeshAgent = viewComponent.GameObject.GetComponent<NavMeshAgent>();
+                //movableComponent.NavMeshAgent.speed = 10;
+
+                viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
+                viewComponent.EcsInfoMB?.Init(_world, unitEntity);
+
+                //ref var targetableComponent = ref _targetablePool.Value.Add(unitEntity);
+                //targetableComponent.EntitysInDetectionZone = new List<int>();
+                //targetableComponent.EntitysInMeleeZone = new List<int>();
+                //targetableComponent.EntitysInRangeZone = new List<int>();
+
+                // to do ay del this after write targeting
+                //targetableComponent.TargetEntity = BattleState.GetEnemyBaseEntity();
+                //targetableComponent.TargetObject = _viewPool.Value.Get(targetableComponent.TargetEntity).GameObject;
+                //movableComponent.Destination = _viewPool.Value.Get(targetableComponent.TargetEntity).Transform.position;
+                //movableComponent.NavMeshAgent.SetDestination(movableComponent.Destination);
+
+                ref var healthComponent = ref _healthPool.Value.Add(unitEntity);
+                healthComponent.MaxValue = 100;
+                healthComponent.CurrentValue = healthComponent.MaxValue;
+
+                ref var elementalComponent = ref _elementalPool.Value.Add(unitEntity);
+                elementalComponent.CurrentType = ElementalType.Fire;
+
+                ref var levelComponent = ref _levelPool.Value.Add(unitEntity);
+                ref var damageComponent = ref _damagePool.Value.Add(unitEntity);
+
+                levelComponent.Value = 1;
+                damageComponent.Value = 10;
+
+
+
+                _buyFilter.Pools.Inc1.Del(entity);
             }
+
+        }
+        private Transform FindEmptySlot() //find the empty slot on board for buy unit and add it
+        {
+            Transform slot = null;
+            for (int i = 0; i < _viewPool.Value.Get(_state.Value.BoardEntity).GameObject.transform.childCount; i++)
+            {
+                slot = _viewPool.Value.Get(_state.Value.BoardEntity).GameObject.transform.GetChild(i);
+                if (slot.childCount >= 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    return slot;
+                }
+            }
+
+            return slot;
         }
     }
 }

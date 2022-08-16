@@ -10,15 +10,17 @@ namespace Client
 {
     public class GameState
     {
-        private string savePathCollection = "/Collection.Save";
-        private string savePathDeck = "/Deck.Save";
+        private string savePathCollection =  $"{Application.persistentDataPath}/Collection.Save";
+        private string savePathDeck = $"{Application.persistentDataPath}/Deck.Save";
         private EcsWorld _ecsWorld;
         public GetMonster _monsterStorage;
         public Collection Collection = new Collection();
         public Deck Deck = new Deck();
-        //public PlayableDeck PlayableDeck = new PlayableDeck();
+        public PlayableDeck PlayableDeck = new PlayableDeck();
         public int StorageEntity;
         public int InputEntity;
+        public int BoardEntity;
+        public int InterfaceEntity;
         public bool runSysytem = true, hubSystem;
         //to do ay array of EnemyBases for some quantity bases
 
@@ -38,6 +40,10 @@ namespace Client
         {
             _ecsWorld = EcsWorld;
             _monsterStorage = monsterStorage;
+            if (File.Exists(savePathDeck)&&File.Exists(savePathCollection))
+            {
+                Load();
+            }
             // Load(); to do
         }
         public void InitSotrages()
@@ -61,7 +67,7 @@ namespace Client
         {
             string saveDataDeck = JsonUtility.ToJson(Deck, true);
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = File.Create(string.Concat(Application.persistentDataPath, savePathDeck));
+            FileStream file = File.Create(string.Concat(savePathDeck));
             binaryFormatter.Serialize(file, saveDataDeck);
             file.Close();
         }
@@ -70,21 +76,21 @@ namespace Client
         {
             string saveDataCollection = JsonUtility.ToJson(Collection, true);
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = File.Create(string.Concat(Application.persistentDataPath, savePathCollection));
+            FileStream file = File.Create(string.Concat(savePathCollection));
             binaryFormatter.Serialize(file, saveDataCollection);
             file.Close();
         }
         private void LoadCollection()
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = File.Open(string.Concat(Application.persistentDataPath, savePathCollection), FileMode.Open, FileAccess.Read);
+            FileStream file = File.Open(string.Concat(savePathCollection), FileMode.Open, FileAccess.Read);
             JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), Collection);
             file.Close();
         }
         private void LoadDeck()
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = File.Open(string.Concat(Application.persistentDataPath, savePathDeck), FileMode.Open, FileAccess.Read);
+            FileStream file = File.Open(string.Concat(savePathDeck), FileMode.Open, FileAccess.Read);
             JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), Deck);
             file.Close();
         }

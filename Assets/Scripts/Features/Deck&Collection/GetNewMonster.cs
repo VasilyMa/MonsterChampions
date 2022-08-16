@@ -11,17 +11,39 @@ namespace Client {
             foreach (var entity in _monsterFilter.Value)
             {
                 ref  var monsterComp = ref _newMonster.Value.Get(entity);
-                ref var monster = ref _state.Value._monsterStorage.monster[Random.Range(0,2)];
-                UnitData unitData = new UnitData();
-                unitData.MonsterID = monster.MonsterID;
-                unitData.NameUnit = monster.NameUnit;
-                unitData.Damage = monster.Damage;
-                unitData.MoveSpeed = monster.MoveSpeed;
-                unitData.Health = monster.Health;
-                unitData.Prefabs = monster.Prefabs;
-                unitData.Elemental = monster.Elemental;
-                _state.Value.Collection.CollectionUnits.Add(unitData);
-                _state.Value.Save();
+                ref var monster = ref _state.Value._monsterStorage.monster[Random.Range(0,_state.Value._monsterStorage.monster.Length)];
+                foreach (var item in _state.Value.Collection.CollectionUnits)
+                {
+                    if (monster.MonsterID != item.UnitID)
+                    {
+                        UnitData unitData = new UnitData();
+                        unitData.UnitID = monster.MonsterID;
+                        unitData.NameUnit = monster.NameUnit;
+                        unitData.Damage = monster.Damage;
+                        unitData.MoveSpeed = monster.MoveSpeed;
+                        unitData.Health = monster.Health;
+                        unitData.Prefabs = monster.Prefabs;
+                        unitData.Elemental = monster.Elemental;
+                        _state.Value.Collection.CollectionUnits.Add(unitData);
+                        _state.Value.Save();
+                        break;
+                    }
+                    else
+                        break;
+                }
+                if (_state.Value.Collection.CollectionUnits.Count == 0)
+                {
+                    UnitData unitData = new UnitData();
+                    unitData.UnitID = monster.MonsterID;
+                    unitData.NameUnit = monster.NameUnit;
+                    unitData.Damage = monster.Damage;
+                    unitData.MoveSpeed = monster.MoveSpeed;
+                    unitData.Health = monster.Health;
+                    unitData.Prefabs = monster.Prefabs;
+                    unitData.Elemental = monster.Elemental;
+                    _state.Value.Collection.CollectionUnits.Add(unitData);
+                    _state.Value.Save();
+                }
                 _monsterFilter.Pools.Inc1.Del(entity);
             }
         }

@@ -8,9 +8,11 @@ namespace Client {
         readonly EcsPoolInject<DragAndDropUnitComponent> _unitPool = default;
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<MergeUnitEvent> _mergeEventPool = default;
+        readonly EcsPoolInject<Movable> _movablePool = default;
         public void Run (IEcsSystems systems) {
             foreach (var entity in _touchFilter.Value)
             {
+                ref var unitComp = ref _unitPool.Value.Get(entity);
                 ref var viewComp = ref _viewPool.Value.Get(_unitPool.Value.Get(entity).entity);
                 if (Input.GetMouseButton(0))
                 {
@@ -24,20 +26,22 @@ namespace Client {
                 if (Input.GetMouseButtonUp(0))
                 {
                     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Board")))
+                    if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Place")))
                     {
                         if (hit.transform.childCount >= 1)
                         {
-                            if (hit.transform.GetComponentInChildren<UnitMB>().unitID == viewComp.EcsInfoMB.unitID)
+                            if (hit.transform.GetComponentInChildren<EcsInfoMB>().unitID == viewComp.EcsInfoMB.unitID)
                             {
                                 ref var mergeComp = ref _mergeEventPool.Value.Add(_world.Value.NewEntity());
-                                mergeComp.EntityfirstUnit = entity;
-                                mergeComp.EntitysecondUnit = hit.transform.GetComponentInChildren<UnitMB>().Entity;
+                                mergeComp.EntityfirstUnit = _unitPool.Value.Get(entity).entity;
+                                mergeComp.EntitysecondUnit = hit.transform.GetComponentInChildren<EcsInfoMB>().Entity;
                             }
                             else
                             {
                                 viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
                                 viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
+                                viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
+                                _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                                 viewComp.GameObject.GetComponent<Collider>().enabled = true;
                             }
                         }
@@ -45,6 +49,7 @@ namespace Client {
                         {
                             viewComp.Transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 1.5f, hit.collider.transform.position.z);
                             viewComp.Transform.SetParent(hit.collider.transform);
+                            _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                             viewComp.GameObject.GetComponent<Collider>().enabled = true;
                         }
                     }
@@ -52,6 +57,8 @@ namespace Client {
                     {
                         viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
                         viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
+                        viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
+                        _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.GameObject.GetComponent<Collider>().enabled = true;
                     }
                     _touchFilter.Pools.Inc2.Del(entity);
