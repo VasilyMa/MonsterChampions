@@ -27,6 +27,10 @@ namespace Client
             interfaceComp.MenuHolder.gameObject.SetActive(false);
             interfaceComp.CollectionMenu.gameObject.SetActive(true);
         }
+        public void Exit()
+        {
+            Application.Quit();
+        }
     }
 }
 

@@ -22,9 +22,9 @@ namespace Client
                 var deck = _state.Value.Deck.DeckPlayer;
                 var collection = _state.Value.Collection.CollectionUnits;
                 var cardInfo = dragComp.CardObject.GetComponent<CardInfo>();
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0)) //if finger touch already
                     dragComp.CardObject.transform.position = Input.mousePosition;
-                if (Input.GetMouseButtonUp(0))
+                if (Input.GetMouseButtonUp(0)) //if finger end touch
                 {
                     inputComp.PointerEventData = new PointerEventData(inputComp.EventSystem);
                     //set the Pointer Event Position to that of the mouse position
@@ -33,7 +33,7 @@ namespace Client
                     List<RaycastResult> results = new List<RaycastResult>();
                     //raycast using the Graphics Raycaster and mouse click position
                     inputComp.Raycaster.Raycast(inputComp.PointerEventData, results);
-                    if (results.Count == 0)
+                    if (results.Count == 0) //if under finger is nothing then we return our card to default place
                     {
                         dragComp.CardObject.transform.parent = dragComp.DefaultParent;
                         dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
@@ -43,28 +43,36 @@ namespace Client
                     {
                         switch (result.gameObject.tag)
                         {
-                            case "Deck":
-                                dragComp.CardObject.transform.SetParent(result.gameObject.transform);
-                                dragComp.DefaultParent = result.gameObject.transform;
-                                dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
-                                for (int i = 0; i < deck.Length; i++) //add card to deck
+                            case "Deck": //if its deck then add to deck new item and add to array new card
+                                if (result.gameObject.transform.childCount <= 2)
                                 {
-                                    if (deck[i].UnitID == 0)
+                                    dragComp.CardObject.transform.SetParent(result.gameObject.transform);
+                                    dragComp.DefaultParent = result.gameObject.transform;
+                                    dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
+                                    for (int i = 0; i < deck.Length; i++) //add card to deck
                                     {
-                                        deck[i].UnitID = cardInfo.unitID;
-                                        break;
+                                        if (deck[i].UnitID == 0)
+                                        {
+                                            deck[i].UnitID = cardInfo.unitID;
+                                            break;
+                                        }
                                     }
+                                    for (int y = 0; y < collection.Count; y++) //remove are card from collection 
+                                    {
+                                        if (collection[y].UnitID == cardInfo.unitID)
+                                            collection.Remove(collection[y]);
+                                    }
+                                    _state.Value.Save();
+                                    Debug.Log("Hit " + result.gameObject.name);
                                 }
-                                for (int y = 0; y < collection.Count; y++) //remove are card from collection 
+                                else
                                 {
-                                    if (collection[y].UnitID == cardInfo.unitID)
-                                        collection.Remove(collection[y]);
+                                    dragComp.CardObject.transform.parent = dragComp.DefaultParent;
+                                    dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                 }
-                                _state.Value.Save();
-                                Debug.Log("Hit " + result.gameObject.name);
                                 break;
-                            case "Collection":
-                                dragComp.CardObject.transform.SetParent(result.gameObject.transform);
+                            case "Collection": //if its collection then add card from deck to collection and remove its from deck
+                                dragComp.CardObject.transform.SetParent(result.gameObject.transform.GetChild(0));
                                 dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                 for (int i = 0; i < deck.Length; i++)
                                 {
