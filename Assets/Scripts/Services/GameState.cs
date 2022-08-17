@@ -21,6 +21,7 @@ namespace Client
         public int InputEntity;
         public int BoardEntity;
         public int InterfaceEntity;
+        public int CurrentLevel;
         public bool runSysytem = true, hubSystem;
         //to do ay array of EnemyBases for some quantity bases
 

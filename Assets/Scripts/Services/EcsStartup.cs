@@ -10,7 +10,8 @@ namespace Client
     {
         [SerializeField] EcsUguiEmitter _uguiEmitter;
         [SerializeField] GetMonster _monsterStorage;
-
+        public Collection collection;
+        public Deck deck;
         private BattleState _battleState;
         private EcsWorld _world;
         private GameState _state;
@@ -21,7 +22,8 @@ namespace Client
             _world = new EcsWorld();
             _state = new GameState(_world, _monsterStorage);
             _battleState = new BattleState(_world);
-
+            collection = _state.Collection;
+            deck = _state.Deck;
             _initSystems = new EcsSystems (_world, _state);
             _runSystems = new EcsSystems(_world, _state);
             _globalInitSystem = new EcsSystems(_world, _state);
@@ -109,6 +111,10 @@ namespace Client
                 system.Destroy();
                 system = null;
             }
+        }
+        private void OnApplicationQuit()
+        {
+            _state.Save();
         }
     }
 }

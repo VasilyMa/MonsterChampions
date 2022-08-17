@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: Sparky
   m_EditorClassIdentifier: 
-  MonsterID: 0
+  MonsterID: 3
   NameUnit: Sparky
   Damage: 10
   Health: 100
