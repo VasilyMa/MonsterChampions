@@ -58,7 +58,7 @@ namespace Client
                 .Add(new ActivateEnemyBaseEventSystem())
 
                 .Add(new TargetingSystem())
-                // to do ay write RetargetOnEnemyInDamageZoneSystem()
+                .Add(new RetargetOnEnemyInDetectionZoneSystem())
 
                 .Add(new InOutFightUnitSystem())
                 .Add(new OnOffAttackUnitSystem())

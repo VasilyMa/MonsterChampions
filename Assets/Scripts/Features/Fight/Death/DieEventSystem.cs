@@ -12,6 +12,7 @@ namespace Client
 
         readonly EcsPoolInject<DeadTag> _deadPool = default;
         readonly EcsPoolInject<BaseTag> _basePool = default;
+        readonly EcsPoolInject<Targetable> _targetablePool = default;
 
         public void Run (IEcsSystems systems)
         {
@@ -24,6 +25,8 @@ namespace Client
                     DeleteEvent(dieEventEntity);
                     continue;
                 }
+
+                DisableTargetableComponent(dieEvent.DyingEntity);
 
                 _deadPool.Value.Add(dieEvent.DyingEntity);
 
@@ -39,6 +42,21 @@ namespace Client
         private void DeleteEvent(int dieEventEntity)
         {
             _dieEventPool.Value.Del(dieEventEntity);
+        }
+
+        private void DisableTargetableComponent(int dyingEntity)
+        {
+            if (!_targetablePool.Value.Has(dyingEntity))
+            {
+                return;
+            }
+
+            ref var targetableComponent = ref _targetablePool.Value.Get(dyingEntity);
+            targetableComponent.TargetEntity = BattleState.NULL_ENTITY;
+            targetableComponent.TargetObject = null;
+            targetableComponent.EntitysInDetectionZone?.Clear();
+            targetableComponent.EntitysInMeleeZone?.Clear();
+            targetableComponent.EntitysInRangeZone?.Clear();
         }
     }
 }

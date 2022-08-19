@@ -52,7 +52,7 @@ namespace Client
                 return;
             }
 
-            Debug.Log("ѕротивник обнаружен");
+            Debug.Log($"{_mainGameObject} обнаружил противника: {other.gameObject}");
             _world = _ecsInfoMB.GetWorld();
             _targetablePool = _world.Value.GetPool<Targetable>();
             ref var targetableComponent = ref _targetablePool.Get(_ecsInfoMB.GetEntity());
