@@ -33,23 +33,27 @@ namespace Client {
             interfaceComp.MenuHolder = interfaceComp.MainMenu.transform;
             interfaceComp.MainMenu.Init(systems.GetWorld(), systems.GetShared<GameState>());
 
-
-            foreach (var card in _state.Value.Collection.CollectionUnits)
+            if (_state.Value.Collection.CollectionUnits.Count > 0)
             {
-                var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.CollectionHolder);
-                var cardInfo = addedCard.GetComponent<CardInfo>();
-                cardInfo.unitID = card.UnitID;
-            }
-            foreach (var card in _state.Value.Deck.DeckPlayer)
-            {
-                if (card.UnitID != 0)
+                foreach (var card in _state.Value.Collection.CollectionUnits)
                 {
-                    var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
+                    var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.CollectionHolder);
                     var cardInfo = addedCard.GetComponent<CardInfo>();
                     cardInfo.unitID = card.UnitID;
-                }    
+                }
             }
-
+            if (_state.Value.Deck.DeckPlayer.LongLength > 0)
+            {
+                foreach (var card in _state.Value.Deck.DeckPlayer)
+                {
+                    if (card.UnitID != 0)
+                    {
+                        var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
+                        var cardInfo = addedCard.GetComponent<CardInfo>();
+                        cardInfo.unitID = card.UnitID;
+                    }
+                }
+            }
             interfaceComp.CollectionMenu.gameObject.SetActive(false);
             interfaceComp.HolderCards.gameObject.SetActive(false);
 

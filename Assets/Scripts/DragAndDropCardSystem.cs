@@ -13,10 +13,12 @@ namespace Client
         readonly EcsFilterInject<Inc<DragCardEvent>> _touchFilter = default;
         readonly EcsPoolInject<InputComponent> _inputPool = default;
         readonly EcsPoolInject<DragCardEvent> _dragPool = default;
+        readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
         public void Run(IEcsSystems systems)
         {
             foreach (var entity in _touchFilter.Value)
             {
+                ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 ref var inputComp = ref _inputPool.Value.Get(_state.Value.InputEntity);
                 ref var dragComp = ref _dragPool.Value.Get(entity);
                 var deck = _state.Value.Deck.DeckPlayer;
@@ -54,6 +56,12 @@ namespace Client
                                         if (deck[i].UnitID == 0)
                                         {
                                             deck[i].UnitID = cardInfo.unitID;
+                                            deck[i].NameUnit = cardInfo.NameUnit;
+                                            deck[i].Damage = cardInfo.Damage;
+                                            deck[i].Health = cardInfo.Health;
+                                            deck[i].Elemental = cardInfo.Elemental;
+                                            deck[i].MoveSpeed = cardInfo.MoveSpeed;
+                                            deck[i].Prefabs = cardInfo.Prefabs;
                                             break;
                                         }
                                     }
@@ -96,6 +104,7 @@ namespace Client
                                 break;
                         }
                     }
+                    interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = true;
                     _touchFilter.Pools.Inc1.Del(entity);
                 }
             }

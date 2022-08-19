@@ -39,7 +39,7 @@ namespace Client
                 .Add(new InitEnemyBase())
                 .Add(new InitUnits())
                 .Add(new InitBoard())
-                .Add(new InitPlayableDeck())
+                //.Add(new InitPlayableDeck())
 
                 ;
             /*_hubSystems

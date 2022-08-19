@@ -7,18 +7,20 @@ using UnityEngine.UI;
 
 namespace Client {
     sealed class InputSystem : IEcsRunSystem {
+        readonly EcsSharedInject<GameState> _state = default;
         readonly EcsWorldInject _world = default;
         readonly EcsFilterInject<Inc<InputComponent>> _inputFilter = default;
         readonly EcsFilterInject<Inc<TouchEvent>> _touchFilter = default;
         readonly EcsPoolInject<TouchEvent> _touchPool = default;
         readonly EcsPoolInject<DragAndDropUnitComponent> _dragUnitPool = default;
         readonly EcsPoolInject<Movable> _movablePool = default;
-        readonly EcsPoolInject<BuyUnitEvent> _buyPool = default;
         readonly EcsPoolInject<NewMonster> _newMonsterPool = default;
         readonly EcsPoolInject<DragCardEvent> _cardEventPool = default;
+        readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
         public void Run (IEcsSystems systems) {
             foreach (var entity in _inputFilter.Value)
             {
+                ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 ref var inputComp = ref _inputFilter.Pools.Inc1.Get(entity);
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -61,11 +63,12 @@ namespace Client {
                 {
                     if (result.gameObject.CompareTag("Card"))
                     {
+                        interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = false;
                         ref var cardComp = ref _cardEventPool.Value.Add(_world.Value.NewEntity());
                         cardComp.CardObject = result.gameObject;
                         cardComp.DefaultPos = result.gameObject.transform.position;
                         cardComp.DefaultParent = result.gameObject.transform.parent;
-                        cardComp.CardObject.transform.parent = result.gameObject.transform.parent.parent;
+                        cardComp.CardObject.transform.parent = GameObject.FindObjectOfType<CollectionMB>().transform;
                         cardComp.CardObject.GetComponent<Image>().raycastTarget = false;
                         Debug.Log("Hit " + result.gameObject.name);
                     }
