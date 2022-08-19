@@ -1,0 +1,14 @@
+using UnityEngine;
+
+namespace Client
+{
+    struct Animable
+    {
+        public Animator Animator;
+
+        public string Attack;
+        public string isRunning;
+        public string Melee;
+        public string Range;
+    }
+}

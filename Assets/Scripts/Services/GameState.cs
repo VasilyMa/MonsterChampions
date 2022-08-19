@@ -20,7 +20,6 @@ namespace Client
         public int StorageEntity;
         public int InputEntity;
         public bool runSysytem = true, hubSystem;
-        //to do ay array of EnemyBases for some quantity bases
 
         public EcsWorld EcsWorld
         {

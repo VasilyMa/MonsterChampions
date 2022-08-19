@@ -13,6 +13,7 @@ namespace Client
         readonly EcsSharedInject<BattleState> _battleState;
 
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
+        readonly EcsPoolInject<Animable> _animablePool = default;
         readonly EcsPoolInject<PhysicsComponent> _physicsPool = default;
         readonly EcsPoolInject<UnitTag> _unitPool = default;
         readonly EcsPoolInject<Movable> _movablePool = default;
@@ -21,6 +22,7 @@ namespace Client
         readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
+        readonly EcsPoolInject<FractionComponent> _fractionPool = default;
 
         public void Init (IEcsSystems systems)
         {
@@ -36,9 +38,14 @@ namespace Client
                 viewComponent.GameObject = unitsMB.gameObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
 
-                ref var PhysicsComponent = ref _physicsPool.Value.Add(unitEntity);
-                PhysicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
+                ref var fractionComponent = ref _fractionPool.Value.Add(unitEntity);
+                fractionComponent.isFriendly = unitsMB.IsFriendly;
 
+                ref var physicsComponent = ref _physicsPool.Value.Add(unitEntity);
+                physicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
+
+                ref var animableComponent = ref _animablePool.Value.Add(unitEntity);
+                animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
 
                 ref var unitComponent = ref _unitPool.Value.Add(unitEntity);
 
@@ -50,15 +57,10 @@ namespace Client
                 viewComponent.EcsInfoMB?.Init(_world, unitEntity);
 
                 ref var targetableComponent = ref _targetablePool.Value.Add(unitEntity);
+                targetableComponent.TargetEntity = BattleState.NULL_ENTITY;
                 targetableComponent.EntitysInDetectionZone = new List<int>();
                 targetableComponent.EntitysInMeleeZone = new List<int>();
                 targetableComponent.EntitysInRangeZone = new List<int>();
-
-                // to do ay del this after write targeting
-                targetableComponent.TargetEntity = BattleState.GetEnemyBaseEntity();
-                targetableComponent.TargetObject = _viewPool.Value.Get(targetableComponent.TargetEntity).GameObject;
-                movableComponent.Destination = _viewPool.Value.Get(targetableComponent.TargetEntity).Transform.position;
-                movableComponent.NavMeshAgent.SetDestination(movableComponent.Destination);
 
                 ref var healthComponent = ref _healthPool.Value.Add(unitEntity);
                 healthComponent.MaxValue = 100;

@@ -6,7 +6,7 @@ namespace Client
 {
     public class MeleeZoneMB : MonoBehaviour
     {
-        [SerializeField] private GameObject _mainGameObject;
+        [SerializeField] private GameObject _mainGameObject; // to do ay rewrite it on overlapsphere
         [SerializeField] private EcsInfoMB _ecsInfoMB;
 
         private EcsWorldInject _world;

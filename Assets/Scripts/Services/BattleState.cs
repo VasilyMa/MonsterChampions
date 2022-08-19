@@ -10,25 +10,46 @@ namespace Client
     {
         public EcsWorld EcsWorld { get; set; }
 
-        private static List<int> EnemyBaseEntity = new List<int>();
-        private const int NULL_ENTITY = -1;
+        private int _playerBaseEntity = -1;
+        private List<int> _enemyBaseEntity = new List<int>();
+        private int _currentActiveEnemyBaseInArray = -1;
+        public const int NULL_ENTITY = -1;
 
         public BattleState(EcsWorld EcsWorld)
         {
             this.EcsWorld = EcsWorld;
         }
 
-        public static void AddEnemyBaseEntity(int entity)
+        public void SetPlayerBaseEntity(int baseEntity)
         {
-            EnemyBaseEntity.Add(entity);
+            if (baseEntity > NULL_ENTITY)
+            {
+                _playerBaseEntity = baseEntity;
+            }
+            else
+            {
+                _playerBaseEntity = NULL_ENTITY;
+                Debug.LogError("Write incorrect number for PlayerBaseEntity. Value was match to -1");
+            }
+        }
+
+        public int GetPlayerBaseEntity()
+        {
+            if (_playerBaseEntity == NULL_ENTITY) Debug.LogError("Get nullable value (-1) for PlayerBaseEntity.");
+            return _playerBaseEntity;
+        }
+
+        public void AddEnemyBaseEntity(int entity)
+        {
+            _enemyBaseEntity.Add(entity);
             Debug.Log($"Добавили базу в BattleState: {entity}");
         }
 
-        public static int GetEnemyBaseEntity()
+        public int GetEnemyBaseEntity()
         {
-            if (isExistEnemyBase())
+            if (_enemyBaseEntity.Count > 0)
             {
-                return EnemyBaseEntity[0];
+                return _enemyBaseEntity[0];
             }
             else
             {
@@ -36,19 +57,15 @@ namespace Client
             }
         }
 
-        public static bool isNullableBaseEntity(int baseEntity)
+        public void ActivateNextEnemyBase()
         {
-            return baseEntity == NULL_ENTITY;
+            _currentActiveEnemyBaseInArray++;
+            EcsWorld.GetPool<ActivateEnemyBaseEvent>().Add(_enemyBaseEntity[_currentActiveEnemyBaseInArray]);
         }
 
         public static bool isNullableEntity(int entity)
         {
             return entity == NULL_ENTITY;
-        }
-
-        public static bool isExistEnemyBase()
-        {
-            return EnemyBaseEntity.Count > 0;
         }
     }
 }

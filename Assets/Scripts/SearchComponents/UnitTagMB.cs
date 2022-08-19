@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class UnitTagMB : MonoBehaviour
+namespace Client
 {
-
+    public class UnitTagMB : MonoBehaviour
+    {
+        public bool IsFriendly; // to do ay del this after create unitSpawnSystems
+    }
 }
