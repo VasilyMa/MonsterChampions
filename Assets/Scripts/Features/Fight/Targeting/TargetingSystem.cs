@@ -17,6 +17,7 @@ namespace Client
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<BaseTag> _basePool = default;
         readonly EcsPoolInject<UntargetableTag> _untargetablePool = default;
+        readonly EcsPoolInject<IsTarget> _isTargetPool = default;
 
         private int targetEntity = BattleState.NULL_ENTITY;
 
@@ -47,7 +48,9 @@ namespace Client
                     _untargetablePool.Value.Add(targetabelEntity);
                     continue;
                 }
-                // to do ay add component isTarget on the target
+
+                AddIsTargetComponent(targetEntity, targetabelEntity);
+                
                 targetableComponent.TargetEntity = targetEntity;
                 targetableComponent.TargetObject = _viewPool.Value.Get(targetEntity).GameObject;
 
@@ -58,6 +61,23 @@ namespace Client
         private void ClearTargetEntityField()
         {
             targetEntity = BattleState.NULL_ENTITY;
+        }
+
+        private void AddIsTargetComponent(int entity, int addedEntity)
+        {
+            if (!_isTargetPool.Value.Has(entity))
+            {
+                _isTargetPool.Value.Add(entity);
+            }
+
+            ref var isTarget = ref _isTargetPool.Value.Get(entity);
+
+            if (isTarget.OfEntitys == null)
+            {
+                isTarget.OfEntitys = new List<int>();
+            }
+
+            isTarget.OfEntitys.Add(addedEntity);
         }
 
         private void SetTargetEntityAsBase(int targetabelEntity)
