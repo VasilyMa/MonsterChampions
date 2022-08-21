@@ -49,9 +49,8 @@ namespace Client
                                 if (result.gameObject.transform.childCount <= 2)
                                 {
                                     dragComp.CardObject.transform.SetParent(result.gameObject.transform);
-                                    dragComp.DefaultParent = result.gameObject.transform;
                                     dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
-                                    if (dragComp.DefaultParent.CompareTag("Collection"))
+                                    if (dragComp.DefaultParent.name == "Cards")
                                     {
                                         for (int i = 0; i < deck.Length; i++) //add card to deck
                                         {
@@ -74,6 +73,7 @@ namespace Client
                                         }
                                         _state.Value.Save();
                                     }
+                                    dragComp.DefaultParent = result.gameObject.transform;
                                     Debug.Log("Hit " + result.gameObject.name);
                                 }
                                 else
@@ -89,13 +89,13 @@ namespace Client
                                 {
                                     if (deck[i].UnitID == cardInfo.unitID)
                                     {
-                                        deck[i].UnitID = cardInfo.unitID;
-                                        deck[i].Damage = cardInfo.Damage;
-                                        deck[i].NameUnit = cardInfo.NameUnit;
-                                        deck[i].Health = cardInfo.Health;
-                                        deck[i].Elemental = cardInfo.Elemental;
-                                        deck[i].Prefabs = cardInfo.Prefabs;
-                                        deck[i].MoveSpeed = cardInfo.MoveSpeed;
+                                        deck[i].UnitID = 0;
+                                        deck[i].Damage = 0;
+                                        deck[i].NameUnit = "";
+                                        deck[i].Health = 0;
+                                        deck[i].Elemental = 0;
+                                        deck[i].Prefabs = null;
+                                        deck[i].MoveSpeed = 0;
                                         break;
                                     }
                                 }

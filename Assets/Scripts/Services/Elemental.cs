@@ -128,6 +128,7 @@ namespace Client
 
     public enum ElementalType
     {
+        Default = 0,
         Earth = 1,
         Air = 2,
         Darkness = 3,
