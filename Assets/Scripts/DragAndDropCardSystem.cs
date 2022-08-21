@@ -51,26 +51,29 @@ namespace Client
                                     dragComp.CardObject.transform.SetParent(result.gameObject.transform);
                                     dragComp.DefaultParent = result.gameObject.transform;
                                     dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
-                                    for (int i = 0; i < deck.Length; i++) //add card to deck
+                                    if (dragComp.DefaultParent.CompareTag("Collection"))
                                     {
-                                        if (deck[i].UnitID == 0)
+                                        for (int i = 0; i < deck.Length; i++) //add card to deck
                                         {
-                                            deck[i].UnitID = cardInfo.unitID;
-                                            deck[i].NameUnit = cardInfo.NameUnit;
-                                            deck[i].Damage = cardInfo.Damage;
-                                            deck[i].Health = cardInfo.Health;
-                                            deck[i].Elemental = cardInfo.Elemental;
-                                            deck[i].MoveSpeed = cardInfo.MoveSpeed;
-                                            deck[i].Prefabs = cardInfo.Prefabs;
-                                            break;
+                                            if (deck[i].UnitID == 0)
+                                            {
+                                                deck[i].UnitID = cardInfo.unitID;
+                                                deck[i].NameUnit = cardInfo.NameUnit;
+                                                deck[i].Damage = cardInfo.Damage;
+                                                deck[i].Health = cardInfo.Health;
+                                                deck[i].Elemental = cardInfo.Elemental;
+                                                deck[i].MoveSpeed = cardInfo.MoveSpeed;
+                                                deck[i].Prefabs = cardInfo.Prefabs;
+                                                break;
+                                            }
                                         }
+                                        for (int y = 0; y < collection.Count; y++) //remove are card from collection 
+                                        {
+                                            if (collection[y].UnitID == cardInfo.unitID)
+                                                collection.Remove(collection[y]);
+                                        }
+                                        _state.Value.Save();
                                     }
-                                    for (int y = 0; y < collection.Count; y++) //remove are card from collection 
-                                    {
-                                        if (collection[y].UnitID == cardInfo.unitID)
-                                            collection.Remove(collection[y]);
-                                    }
-                                    _state.Value.Save();
                                     Debug.Log("Hit " + result.gameObject.name);
                                 }
                                 else
@@ -86,8 +89,13 @@ namespace Client
                                 {
                                     if (deck[i].UnitID == cardInfo.unitID)
                                     {
-                                        deck[i].UnitID = 0;
-
+                                        deck[i].UnitID = cardInfo.unitID;
+                                        deck[i].Damage = cardInfo.Damage;
+                                        deck[i].NameUnit = cardInfo.NameUnit;
+                                        deck[i].Health = cardInfo.Health;
+                                        deck[i].Elemental = cardInfo.Elemental;
+                                        deck[i].Prefabs = cardInfo.Prefabs;
+                                        deck[i].MoveSpeed = cardInfo.MoveSpeed;
                                         break;
                                     }
                                 }
@@ -95,6 +103,12 @@ namespace Client
                                 {
                                     UnitData unitData = new UnitData(); //there save the new card in collection
                                     unitData.UnitID = cardInfo.unitID;
+                                    unitData.Damage = cardInfo.Damage;
+                                    unitData.NameUnit = cardInfo.NameUnit;
+                                    unitData.Health = cardInfo.Health;
+                                    unitData.Elemental = cardInfo.Elemental;
+                                    unitData.Prefabs = cardInfo.Prefabs;
+                                    unitData.MoveSpeed = cardInfo.MoveSpeed;
                                     collection.Add(unitData);
                                 }
                                 dragComp.DefaultParent = result.gameObject.transform;

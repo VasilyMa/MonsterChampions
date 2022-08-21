@@ -31,18 +31,18 @@ namespace Client {
                     _monsterFilter.Pools.Inc1.Del(entity);
                     break;
                 }
-                var monster = _state.Value._monsterStorage.monster[Random.Range(0, _state.Value._monsterStorage.monster.Length)];
-                var list = collection.FindAll(x => x.UnitID == monster.MonsterID);
+                var newMonster = _state.Value._monsterStorage.monster[Random.Range(0, _state.Value._monsterStorage.monster.Length)];
+                var list = collection.FindAll(x => x.UnitID == newMonster.MonsterID);
                 if (list.Count == 0)
                 {
                     UnitData UnitData = new UnitData();
-                    UnitData.UnitID = monster.MonsterID;
-                    UnitData.NameUnit = monster.NameUnit;
-                    UnitData.Damage = monster.Damage;
-                    UnitData.MoveSpeed = monster.MoveSpeed;
-                    UnitData.Health = monster.Health;
-                    UnitData.Prefabs = monster.Prefabs;
-                    UnitData.Elemental = monster.Elemental;
+                    UnitData.UnitID = newMonster.MonsterID;
+                    UnitData.NameUnit = newMonster.NameUnit;
+                    UnitData.Damage = newMonster.Damage;
+                    UnitData.MoveSpeed = newMonster.MoveSpeed;
+                    UnitData.Health = newMonster.Health;
+                    UnitData.Prefabs = newMonster.Prefabs;
+                    UnitData.Elemental = newMonster.Elemental;
                     _state.Value.Collection.CollectionUnits.Add(UnitData);
                     _state.Value.Save();
                     _monsterFilter.Pools.Inc1.Del(entity);

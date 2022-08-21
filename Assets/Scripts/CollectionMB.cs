@@ -22,9 +22,4 @@ public class CollectionMB : MonoBehaviour
         interfaceComp.CollectionMenu.gameObject.SetActive(false);
     }
 
-
-    public void AddCardToDeck()
-    {
-
-    }
 }

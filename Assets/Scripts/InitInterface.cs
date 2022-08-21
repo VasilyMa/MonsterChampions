@@ -33,16 +33,8 @@ namespace Client {
             interfaceComp.MenuHolder = interfaceComp.MainMenu.transform;
             interfaceComp.MainMenu.Init(systems.GetWorld(), systems.GetShared<GameState>());
 
-            if (_state.Value.Collection.CollectionUnits.Count > 0)
-            {
-                foreach (var card in _state.Value.Collection.CollectionUnits)
-                {
-                    var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.CollectionHolder);
-                    var cardInfo = addedCard.GetComponent<CardInfo>();
-                    cardInfo.unitID = card.UnitID;
-                }
-            }
-            if (_state.Value.Deck.DeckPlayer.LongLength > 0)
+            
+            /*if (_state.Value.Deck.DeckPlayer.LongLength > 0)
             {
                 foreach (var card in _state.Value.Deck.DeckPlayer)
                 {
@@ -53,7 +45,7 @@ namespace Client {
                         cardInfo.unitID = card.UnitID;
                     }
                 }
-            }
+            }*/
             interfaceComp.CollectionMenu.gameObject.SetActive(false);
             interfaceComp.HolderCards.gameObject.SetActive(false);
 
