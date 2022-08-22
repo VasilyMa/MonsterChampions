@@ -21,6 +21,7 @@ public class CollectionMB : MonoBehaviour
         interfaceComp.MenuHolder.gameObject.SetActive(true);
         interfaceComp.CollectionMenu.gameObject.SetActive(false);
         RemoveCollection();
+        RemoveDeck();
     }
     public void RemoveCollection()
     {
@@ -30,6 +31,19 @@ public class CollectionMB : MonoBehaviour
         for (int i = 0; i < holder.childCount; i++)
         {
             if(holder.GetChild(i).GetComponent<CardInfo>().unitID > 0)
+            {
+                Destroy(holder.GetChild(i).gameObject);
+            }
+        }
+    }
+    public void RemoveDeck()
+    {
+        ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+        var deck = _state.Deck.DeckPlayer;
+        var holder = interfaceComp.DeckHolder;
+        for (int i = 0; i < holder.childCount; i++)
+        {
+            if (holder.GetChild(i).GetComponent<CardInfo>().unitID > 0)
             {
                 Destroy(holder.GetChild(i).gameObject);
             }

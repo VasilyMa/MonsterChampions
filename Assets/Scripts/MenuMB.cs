@@ -92,25 +92,30 @@ namespace Client
             var holder = interfaceComp.DeckHolder;
             foreach (var item in deck)
             {
-                if (item.UnitID > 0 && holder.childCount < 3)
+                if (item.UnitID > 0)
                 {
-                    for (int i = 0; i < holder.childCount; i++)
-                    {
-                        if (holder.GetChild(i).GetComponent<CardInfo>().unitID == 0)
-                        {
-                            var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
-                            var cardInfo = addedCard.GetComponent<CardInfo>();
-                            cardInfo.unitID = item.UnitID;
-                            cardInfo.NameUnit = item.NameUnit;
-                            cardInfo.Health = item.Health;
-                            cardInfo.Damage = item.Damage;
-                            cardInfo.Elemental = item.Elemental;
-                            cardInfo.MoveSpeed = item.MoveSpeed;
-                            cardInfo.Prefabs = item.Prefabs;
-                            cardInfo.UpdateCardInfo();
-                        }
-                    }
+                    var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
+                    var cardInfo = addedCard.GetComponent<CardInfo>();
+                    cardInfo.unitID = item.UnitID;
+                    cardInfo.NameUnit = item.NameUnit;
+                    cardInfo.Health = item.Health;
+                    cardInfo.Damage = item.Damage;
+                    cardInfo.Elemental = item.Elemental;
+                    cardInfo.MoveSpeed = item.MoveSpeed;
+                    cardInfo.Prefabs = item.Prefabs;
+                    cardInfo.UpdateCardInfo();
                 }
+                
+                //if (item.UnitID > 0 && holder.childCount < 3)
+                //{
+                //    for (int i = 0; i < holder.childCount; i++)
+                //    {
+                //        if (holder.GetChild(i).GetComponent<CardInfo>().unitID == 0)
+                //        {
+                            
+                //        }
+                //    }
+                //}
             }
         }
         public void Exit()

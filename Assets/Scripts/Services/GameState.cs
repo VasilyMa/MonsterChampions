@@ -10,12 +10,14 @@ namespace Client
 {
     public class GameState
     {
-        private string savePathCollection =  $"{Application.persistentDataPath}/Collection.Save";
+        private string savePathCollection = $"{Application.persistentDataPath}/Collection.Save";
         private string savePathDeck = $"{Application.persistentDataPath}/Deck.Save";
+        private string savePathSettings = $"{Application.persistentDataPath}/Settings.Save";
         private EcsWorld _ecsWorld;
         public GetMonster _monsterStorage;
         public Collection Collection = new Collection();
         public Deck Deck = new Deck();
+        public GameSettings Settings;
         public int StorageEntity;
         public int InputEntity;
         public int BoardEntity;
@@ -94,29 +96,38 @@ namespace Client
         {
             _ecsWorld = EcsWorld;
             _monsterStorage = monsterStorage;
-            if (File.Exists(savePathDeck)&&File.Exists(savePathCollection))
+            if (File.Exists(savePathDeck) && File.Exists(savePathCollection) && File.Exists(savePathSettings))
             {
                 Load();
             }
-
-        }
-        public void InitSotrages()
-        {
-            
+            else
+            {
+                Save();
+            }
         }
         public void Save()
         {
+            SaveGameSetting();
             SaveCollection();
             SaveDeck();
         }
         public void Load()
         {
+            LoadGameSettings();
             LoadCollection();
             LoadDeck();
         }
-        
+
 
         #region Save/Load
+        private void SaveGameSetting()
+        {
+            string saveDataSettings = JsonUtility.ToJson(Settings, true);
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream file = File.Create(string.Concat(savePathSettings));
+            binaryFormatter.Serialize(file, saveDataSettings);
+            file.Close();
+        }
         private void SaveDeck()
         {
             string saveDataDeck = JsonUtility.ToJson(Deck, true);
@@ -132,6 +143,13 @@ namespace Client
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = File.Create(string.Concat(savePathCollection));
             binaryFormatter.Serialize(file, saveDataCollection);
+            file.Close();
+        }
+        private void LoadGameSettings()
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream file = File.Open(string.Concat(savePathSettings), FileMode.Open, FileAccess.Read);
+            JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), Settings);
             file.Close();
         }
         private void LoadCollection()

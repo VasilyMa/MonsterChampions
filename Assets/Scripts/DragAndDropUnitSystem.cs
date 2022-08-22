@@ -50,9 +50,15 @@ namespace Client {
                         {
                             viewComp.Transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 1.5f, hit.collider.transform.position.z);
                             viewComp.Transform.SetParent(hit.collider.transform);
-                            _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                             viewComp.GameObject.GetComponent<Collider>().enabled = true;
                         }
+                    }
+                    else if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
+                    {
+
+                        _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
+                        viewComp.Transform.parent = null;
+                        _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
                     }
                     else
                     {
@@ -61,11 +67,6 @@ namespace Client {
                         viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
                         _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.GameObject.GetComponent<Collider>().enabled = true;
-                    }
-                    if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
-                    {
-                        viewComp.Transform.parent = null;
-                        _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
                     }
                     _touchFilter.Pools.Inc2.Del(entity);
                     _touchFilter.Pools.Inc1.Del(entity);
