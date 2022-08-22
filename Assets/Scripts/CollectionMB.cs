@@ -20,6 +20,19 @@ public class CollectionMB : MonoBehaviour
         ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
         interfaceComp.MenuHolder.gameObject.SetActive(true);
         interfaceComp.CollectionMenu.gameObject.SetActive(false);
+        RemoveCollection();
     }
-
+    public void RemoveCollection()
+    {
+        ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+        var collection = _state.Collection.CollectionUnits;
+        var holder = interfaceComp.CollectionHolder;
+        for (int i = 0; i < holder.childCount; i++)
+        {
+            if(holder.GetChild(i).GetComponent<CardInfo>().unitID > 0)
+            {
+                Destroy(holder.GetChild(i).gameObject);
+            }
+        }
+    }
 }

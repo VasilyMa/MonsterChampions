@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class CardInfo : MonoBehaviour
 {
-    [HideInInspector] public Sprite sprite;
-    [HideInInspector] public int unitID;
-    [HideInInspector] public string NameUnit;
-    [HideInInspector] public float Damage;
-    [HideInInspector] public float Health;
-    [HideInInspector] public float MoveSpeed;
-    [HideInInspector] public GameObject[] Prefabs;
-    [HideInInspector] public ElementalType Elemental;
+    public Sprite sprite;
+    public int unitID;
+    public string NameUnit;
+    public float Damage;
+    public float Health;
+    public float MoveSpeed;
+    public GameObject[] Prefabs;
+    public ElementalType Elemental;
 
     [SerializeField] private GameObject nameCard;
     [SerializeField] private GameObject unitImage;
@@ -25,5 +25,6 @@ public class CardInfo : MonoBehaviour
     public void UpdateCardInfo()
     {
         nameCard.GetComponentInChildren<Text>().text = NameUnit;
+        unitImage.GetComponentInChildren<Image>().sprite = sprite;
     }
 }
