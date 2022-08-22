@@ -38,11 +38,13 @@ namespace Client {
 
                 viewComponent.GameObject = unitObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
+                viewComponent.GameObject.tag = "Friendly";
 
                 viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(unitEntity);
                 fractionComponent.isFriendly = true;
+                viewComponent.GameObject.GetComponent<UnitTagMB>().IsFriendly = true;
 
                 ref var physicsComponent = ref _physicsPool.Value.Add(unitEntity);
                 physicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();

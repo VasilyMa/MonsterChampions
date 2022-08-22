@@ -18,6 +18,7 @@ namespace Client
         readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
         readonly EcsPoolInject<BaseTag> _baseTagPool = default;
         readonly EcsPoolInject<UnitTag> _unitTagPool = default;
+        readonly EcsPoolInject<Animable> _animablePool = default;
 
         private const float LEVELING_STANDART_VALUE = 1f;
         private const float LEVELING_INCREASER = 0.5f;
@@ -66,6 +67,7 @@ namespace Client
         private void DoDamageToBase(int baseEntity, int unitEntity)
         {
             ref var baseHealthComponent = ref _healthPool.Value.Get(baseEntity);
+            ref var animableComponent = ref _animablePool.Value.Get(baseEntity);
 
             ref var unitLevelComponent = ref _levelPool.Value.Get(unitEntity);
 
@@ -74,6 +76,8 @@ namespace Client
             damageToBase = MatchDamageComparedHealth(damageToBase, baseHealthComponent.CurrentValue);
 
             baseHealthComponent.CurrentValue -= damageToBase;
+
+            animableComponent.Animator.SetTrigger(nameof(animableComponent.isDamaged));
 
             _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
         }

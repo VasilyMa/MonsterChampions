@@ -83,8 +83,11 @@ namespace Client
 
             viewComponent.LayerBeforeDeath = viewComponent.GameObject.layer;
             viewComponent.GameObject.layer = LayerMask.NameToLayer(nameof(viewComponent.DeadUnit));
-            viewComponent.Model.layer = LayerMask.NameToLayer(nameof(viewComponent.DeadUnit));
 
+            if (viewComponent.Model != null)
+            {
+                viewComponent.Model.layer = LayerMask.NameToLayer(nameof(viewComponent.DeadUnit));
+            }
         }
 
         private void DisableTargetableComponent()
