@@ -18,21 +18,19 @@ namespace Client
             _board = _world.GetPool<ViewComponent>(); 
         }
 
-        public void BuyUnit()
+        public void BuyUnit(int buttonId)
         {
             ref var boardComp = ref _board.Get(_state.BoardEntity);
             for (int i = 0; i < boardComp.Transform.childCount; i++)
             {
                 if (boardComp.Transform.GetChild(i).transform.childCount == 0)
                 {
-                    var dataCard = GetComponentInChildren<CardInfo>();
+                    var dataCard = transform.GetChild(buttonId).GetComponentInChildren<CardInfo>();
                     ref var buyComp = ref _buyPool.Add(_world.NewEntity());
                     buyComp.CardInfo = dataCard;
                     break;
-                    Debug.Log("Zap zap");
                 }
             }
-            
         }
     }
 }

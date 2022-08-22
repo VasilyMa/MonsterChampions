@@ -76,6 +76,7 @@ namespace Client
                 .Add(new InitUnits())
 
                 .Add(new DragAndDropUnitSystem())
+                .Add(new MergeUnitSystem())
                 .Add(new ActivateEnemyBaseEventSystem())
 
                 .Add(new TargetingSystem())

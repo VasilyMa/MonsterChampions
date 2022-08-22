@@ -61,6 +61,7 @@ namespace Client {
                 viewComponent.Transform.position = slot.position;
 
                 viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
+                viewComponent.EcsInfoMB.unitID = buyInfoComp.CardInfo.unitID;
                 viewComponent.EcsInfoMB?.Init(_world, unitEntity);
 
                 ref var targetableComponent = ref _targetablePool.Value.Add(unitEntity);

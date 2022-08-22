@@ -42,7 +42,7 @@ namespace Client {
                                 viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
                                 viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
                                 viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
-                                _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
+                                //_movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                                 viewComp.GameObject.GetComponent<Collider>().enabled = true;
                             }
                         }
