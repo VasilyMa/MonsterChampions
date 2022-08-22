@@ -58,6 +58,7 @@ namespace Client {
 
                         _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.Transform.parent = null;
+                        viewComp.GameObject.GetComponent<Collider>().enabled = true;
                         _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
                     }
                     else

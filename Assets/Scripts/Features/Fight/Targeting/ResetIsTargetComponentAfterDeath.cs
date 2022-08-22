@@ -11,10 +11,14 @@ namespace Client
         readonly EcsPoolInject<IsTarget> _isTargetPool = default;
         readonly EcsPoolInject<Targetable> _targetablePool = default;
 
+        private int _deadTargetEntity = BattleState.NULL_ENTITY;
+
         public void Run (IEcsSystems systems)
         {
             foreach (var deadTargetEntity in _deadTargetFilter.Value)
             {
+                _deadTargetEntity = deadTargetEntity;
+
                 ref var isTarget = ref _isTargetPool.Value.Get(deadTargetEntity);
 
                 foreach (var targetableEntity in isTarget.OfEntitys)
@@ -23,6 +27,8 @@ namespace Client
                 }
 
                 isTarget.OfEntitys.Clear();
+
+                _deadTargetEntity = BattleState.NULL_ENTITY;
 
                 _isTargetPool.Value.Del(deadTargetEntity);
             }
@@ -33,6 +39,9 @@ namespace Client
             ref var targetableComponent = ref _targetablePool.Value.Get(entity);
             targetableComponent.TargetEntity = BattleState.NULL_ENTITY;
             targetableComponent.TargetObject = null;
+            targetableComponent.EntitysInDetectionZone?.Remove(_deadTargetEntity);
+            targetableComponent.EntitysInMeleeZone?.Remove(_deadTargetEntity);
+            targetableComponent.EntitysInRangeZone?.Remove(_deadTargetEntity);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Client
 {
     sealed class UnitMoveToTargetSystem : IEcsRunSystem
     {
-        readonly EcsFilterInject<Inc<Movable, Targetable>, Exc<IsForcedStoppedTag>> _movableFilter = default;
+        readonly EcsFilterInject<Inc<Movable, Targetable>, Exc<IsForcedStoppedTag, DeadTag>> _movableFilter = default;
 
         readonly EcsPoolInject<Movable> _movablePool = default;
         readonly EcsPoolInject<Targetable> _targetablePool = default;

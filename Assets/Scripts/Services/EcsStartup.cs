@@ -69,6 +69,9 @@ namespace Client
                 ;
 
             _fightSystems
+                .Add(new WinEventSystem())
+                .Add(new LoseEventSystem())
+
                 .Add(new InitBoard())
                 .Add(new InitPlayableDeck())
                 .Add(new BuyUnitSystem())

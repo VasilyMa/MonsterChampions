@@ -6,6 +6,8 @@ namespace Client
 {
     sealed class DieEventSystem : IEcsRunSystem
     {
+        readonly EcsWorldInject _world = default;
+
         readonly EcsFilterInject<Inc<DieEvent>> _dieEventFilter = default;
 
         readonly EcsPoolInject<DieEvent> _dieEventPool = default;
@@ -17,6 +19,11 @@ namespace Client
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<IsTarget> _isTargetPool = default;
         readonly EcsPoolInject<Movable> _movablePool = default;
+        readonly EcsPoolInject<FractionComponent> _fractionPool = default;
+        readonly EcsPoolInject<UnitTag> _unitPool = default;
+
+        readonly EcsPoolInject<WinEvent> _winEventPool = default;
+        readonly EcsPoolInject<LoseEvent> _loseEventPool = default;
 
         private int _dyingEntity = BattleState.NULL_ENTITY;
 
@@ -48,8 +55,12 @@ namespace Client
 
                 if (_basePool.Value.Has(_dyingEntity))
                 {
-                    // to do ay win or lose
+                    InvokeWinOrLoseEvent();
                 }
+
+                
+
+                DestroyUnit();
 
                 DeleteEvent(dieEventEntity);
             }
@@ -70,6 +81,37 @@ namespace Client
 
             ref var animableComponent = ref _animablePool.Value.Get(_dyingEntity);
             animableComponent.Animator.SetTrigger(nameof(animableComponent.Die));
+        }
+
+        private void InvokeWinOrLoseEvent()
+        {
+            ref var fractionComponent = ref _fractionPool.Value.Get(_dyingEntity);
+
+            if (fractionComponent.isFriendly)
+            {
+                _loseEventPool.Value.Add(_world.Value.NewEntity());
+            }
+            else
+            {
+                _winEventPool.Value.Add(_world.Value.NewEntity());
+            }
+        }
+
+        private void DestroyUnit()
+        {
+            if (!_unitPool.Value.Has(_dyingEntity))
+            {
+                return;
+            }
+
+            if (!_viewPool.Value.Has(_dyingEntity))
+            {
+                return;
+            }
+
+            ref var viewComponent = ref _viewPool.Value.Get(_dyingEntity);
+
+            viewComponent.GameObject.SetActive(false);
         }
 
         private void SetDeadLayer()
