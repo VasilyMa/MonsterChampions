@@ -10,5 +10,6 @@ namespace Client
         public string isRunning;
         public string Melee;
         public string Range;
+        public string Die;
     }
 }

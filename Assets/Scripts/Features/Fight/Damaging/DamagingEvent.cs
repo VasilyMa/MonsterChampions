@@ -3,31 +3,31 @@ namespace Client
     struct DamagingEvent
     {
         public int UndergoEntity;
-        public int WhoDoDamageEntity;
+        public int DamagingEntity;
         public float DamageValue;
-        
-        /// <summary>
-        /// Damage to Base
-        /// </summary>
-        /// <param name="damageEntity"></param>
-        /// <param name="whoDoDamageEntity"></param>
-        public void Invoke(int damageEntity, int whoDoDamageEntity)
-        {
-            UndergoEntity = damageEntity;
-            WhoDoDamageEntity = whoDoDamageEntity;
-        }
 
         /// <summary>
         /// Damage to Unit
         /// </summary>
-        /// <param name="damageEntity"></param>
-        /// <param name="whoDoDamageEntity"></param>
+        /// <param name="targetEntity"></param>
+        /// <param name="damagingEntity"></param>
         /// <param name="damageValue"></param>
-        public void Invoke(int damageEntity, int whoDoDamageEntity, float damageValue)
+        public void Invoke(int targetEntity, int damagingEntity, float damageValue)
         {
-            UndergoEntity = damageEntity;
-            WhoDoDamageEntity = whoDoDamageEntity;
+            UndergoEntity = targetEntity;
+            DamagingEntity = damagingEntity;
             DamageValue = damageValue;
+        }
+
+        /// <summary>
+        /// Damage to Base
+        /// </summary>
+        /// <param name="targetEntity"></param>
+        /// <param name="damagingEntity"></param>
+        public void Invoke(int targetEntity, int damagingEntity)
+        {
+            UndergoEntity = targetEntity;
+            DamagingEntity = damagingEntity;
         }
     }
 }

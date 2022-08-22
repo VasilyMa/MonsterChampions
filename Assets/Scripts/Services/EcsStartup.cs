@@ -44,8 +44,10 @@ namespace Client
 
                 ;
             _runSystems
-                .Add(new ForcedStoppedEventSystem())
+                //.Add(new ForcedStoppedEventSystem()) to do ay think about this system and StopUnitSystem()
                 .Add(new UnitMoveToTargetSystem())
+                .Add(new StopUnitSystem())
+                .Add(new OnOffRunAminationSystem())
                 ;
             _hubSystems
                 .Add(new BuyUnitSystem())
@@ -60,8 +62,8 @@ namespace Client
                 .Add(new TargetingSystem())
                 .Add(new RetargetOnEnemyInDetectionZoneSystem())
 
-                .Add(new InOutFightUnitSystem())
                 .Add(new OnOffAttackUnitSystem())
+                .Add(new InOutFightUnitSystem())
 
                 .Add(new DamagingEventSystem())
 

@@ -26,14 +26,12 @@ namespace Client
 
                 var targetPosition = targetableComponent.TargetObject.transform.position;
 
-                if (movableComponent.Destination == targetPosition)
+                if (movableComponent.NavMeshAgent.destination == targetPosition)
                 {
                     continue;
                 }
 
-                movableComponent.Destination = targetPosition;
-
-                movableComponent.NavMeshAgent.SetDestination(movableComponent.Destination);
+                movableComponent.NavMeshAgent.SetDestination(targetPosition);
             }
         }
     }

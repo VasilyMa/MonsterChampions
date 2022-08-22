@@ -52,7 +52,7 @@ namespace Client
                 return;
             }
 
-            Debug.Log($"{_mainGameObject} обнаружил противника: {other.gameObject}");
+            //Debug.Log($"{_mainGameObject} обнаружил противника: {other.gameObject}");
             _world = _ecsInfoMB.GetWorld();
             _targetablePool = _world.Value.GetPool<Targetable>();
             ref var targetableComponent = ref _targetablePool.Get(_ecsInfoMB.GetEntity());
@@ -68,12 +68,6 @@ namespace Client
 
             if (!other.gameObject.CompareTag(_targetTag))
             {
-                return;
-            }
-
-            if (_ecsInfoMB.GetWorld().Value.GetPool<DeadTag>().Has(other.GetComponent<EcsInfoMB>().GetEntity()))
-            {
-                Debug.Log("Этот чел уже мёртв, сорянба");
                 return;
             }
 

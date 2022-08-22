@@ -37,6 +37,7 @@ namespace Client
 
                 viewComponent.GameObject = unitsMB.gameObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
+                viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(unitEntity);
                 fractionComponent.isFriendly = unitsMB.IsFriendly;
