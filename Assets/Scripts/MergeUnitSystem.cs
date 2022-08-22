@@ -28,7 +28,7 @@ namespace Client {
                 ref var elementComp = ref _elementalPool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var levelComp = ref _levelPool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
-                //to do ay level up unit
+                //to do ay write there leveling
 
 
 

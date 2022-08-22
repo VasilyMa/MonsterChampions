@@ -29,6 +29,7 @@ namespace Client {
                         newCardInfo.Damage = _state.Value.Deck.DeckPlayer[card].Damage;
                         newCardInfo.Elemental = _state.Value.Deck.DeckPlayer[card].Elemental;
                         newCardInfo.Health = _state.Value.Deck.DeckPlayer[card].Health;
+                        newCardInfo.Prefabs = _state.Value.Deck.DeckPlayer[card].Prefabs;
                         cards.Add(newCard);
                     }
                 }

@@ -6,6 +6,5 @@ namespace Client
     struct Movable
     {
         public NavMeshAgent NavMeshAgent;
-        public Vector3 Destination;
     }
 }

@@ -92,7 +92,7 @@ namespace Client
             var holder = interfaceComp.DeckHolder;
             foreach (var item in deck)
             {
-                if (item.UnitID == 0)
+                if (item.UnitID > 0 && holder.childCount < 3)
                 {
                     for (int i = 0; i < holder.childCount; i++)
                     {

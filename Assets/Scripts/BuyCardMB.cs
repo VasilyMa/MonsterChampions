@@ -23,6 +23,7 @@ namespace Client
                 var dataCard = GetComponentInChildren<CardInfo>();
                 ref var buyComp = ref _buyPool.Add(_world.NewEntity());
                 buyComp.CardInfo = dataCard;
+                Debug.Log("Zap zap");
             }
         }
     }

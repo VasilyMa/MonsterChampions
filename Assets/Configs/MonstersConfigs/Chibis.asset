@@ -17,5 +17,6 @@ MonoBehaviour:
   Damage: 12
   Health: 124
   MoveSpeed: 10
-  Prefabs: []
+  Prefabs:
+  - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
   Elemental: 2

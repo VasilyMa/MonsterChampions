@@ -9,6 +9,7 @@ namespace Client {
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<MergeUnitEvent> _mergeEventPool = default;
         readonly EcsPoolInject<Movable> _movablePool = default;
+        readonly EcsPoolInject<OnBoardUnitTag> _onBoardPool = default;
         public void Run (IEcsSystems systems) {
             foreach (var entity in _touchFilter.Value)
             {
@@ -60,6 +61,11 @@ namespace Client {
                         viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
                         _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.GameObject.GetComponent<Collider>().enabled = true;
+                    }
+                    if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
+                    {
+                        viewComp.Transform.parent = null;
+                        _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
                     }
                     _touchFilter.Pools.Inc2.Del(entity);
                     _touchFilter.Pools.Inc1.Del(entity);

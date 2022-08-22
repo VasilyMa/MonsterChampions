@@ -1,6 +1,8 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 namespace Client {
     sealed class BuyUnitSystem : IEcsRunSystem 
     {
@@ -18,6 +20,9 @@ namespace Client {
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
 
+        readonly EcsPoolInject<FractionComponent> _fractionPool = default;
+        readonly EcsPoolInject<Animable> _animablePool = default;
+
         public void Run (IEcsSystems systems) {
             foreach (var entity in _buyFilter.Value)
             {
@@ -34,29 +39,33 @@ namespace Client {
                 viewComponent.GameObject = unitObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
 
-                ref var PhysicsComponent = ref _physicsPool.Value.Add(unitEntity);
-                PhysicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
+                viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
 
+                ref var fractionComponent = ref _fractionPool.Value.Add(unitEntity);
+                fractionComponent.isFriendly = true;
+
+                ref var physicsComponent = ref _physicsPool.Value.Add(unitEntity);
+                physicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
+
+                ref var animableComponent = ref _animablePool.Value.Add(unitEntity);
+                animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
 
                 ref var unitComponent = ref _unitPool.Value.Add(unitEntity);
 
                 ref var movableComponent = ref _movablePool.Value.Add(unitEntity);
-                //movableComponent.NavMeshAgent = viewComponent.GameObject.GetComponent<NavMeshAgent>();
-                //movableComponent.NavMeshAgent.speed = 10;
+                movableComponent.NavMeshAgent = viewComponent.GameObject.GetComponent<NavMeshAgent>();
+                movableComponent.NavMeshAgent.speed = 10;
+                movableComponent.NavMeshAgent.enabled = false;
+                viewComponent.Transform.position = slot.position;
 
                 viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
                 viewComponent.EcsInfoMB?.Init(_world, unitEntity);
 
-                //ref var targetableComponent = ref _targetablePool.Value.Add(unitEntity);
-                //targetableComponent.EntitysInDetectionZone = new List<int>();
-                //targetableComponent.EntitysInMeleeZone = new List<int>();
-                //targetableComponent.EntitysInRangeZone = new List<int>();
-
-                // to do ay del this after write targeting
-                //targetableComponent.TargetEntity = BattleState.GetEnemyBaseEntity();
-                //targetableComponent.TargetObject = _viewPool.Value.Get(targetableComponent.TargetEntity).GameObject;
-                //movableComponent.Destination = _viewPool.Value.Get(targetableComponent.TargetEntity).Transform.position;
-                //movableComponent.NavMeshAgent.SetDestination(movableComponent.Destination);
+                ref var targetableComponent = ref _targetablePool.Value.Add(unitEntity);
+                targetableComponent.TargetEntity = BattleState.NULL_ENTITY;
+                targetableComponent.EntitysInDetectionZone = new List<int>();
+                targetableComponent.EntitysInMeleeZone = new List<int>();
+                targetableComponent.EntitysInRangeZone = new List<int>();
 
                 ref var healthComponent = ref _healthPool.Value.Add(unitEntity);
                 healthComponent.MaxValue = 100;

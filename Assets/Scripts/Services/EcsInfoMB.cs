@@ -15,6 +15,7 @@ namespace Client
 
         private EcsPool<Targetable> _targetablePool;
         private EcsPool<DamagingEvent> _damagingEventPool;
+        private EcsPool<DamageComponent> _damageComponentPool;
 
         [SerializeField] private int _objectEntity;
 
@@ -25,6 +26,7 @@ namespace Client
             Entity = objectEntity;
             _targetablePool = world.Value.GetPool<Targetable>();
             _damagingEventPool = world.Value.GetPool<DamagingEvent>();
+            _damageComponentPool = world.Value.GetPool<DamageComponent>();
         }
 
         public EcsWorldInject GetWorld()
@@ -35,6 +37,22 @@ namespace Client
         public int GetEntity()
         {
             return _objectEntity;
+        }
+
+        public void DealMeleeDamage()
+        {
+            ref var damageComponent = ref _damageComponentPool.Get(_objectEntity);
+            ref var targetableComponent = ref _targetablePool.Get(_objectEntity);
+            foreach (var targetEntity in targetableComponent.EntitysInMeleeZone)
+            {
+                ref var damagingEventComponent = ref _damagingEventPool.Add(_world.Value.NewEntity());
+                damagingEventComponent.Invoke(targetEntity, _objectEntity, damageComponent.Value);
+            }
+        }
+
+        private void CheckingForHash()
+        {
+
         }
     }
 }

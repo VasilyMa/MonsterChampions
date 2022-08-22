@@ -49,10 +49,14 @@ namespace Client {
             interfaceComp.CollectionMenu.gameObject.SetActive(false);
             interfaceComp.HolderCards.gameObject.SetActive(false);
 
-            if(SceneManager.GetActiveScene().buildIndex == 0)
+            if (SceneManager.GetActiveScene().buildIndex == 0)
                 interfaceComp.MenuHolder.gameObject.SetActive(true);
             else
+            {
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
+                interfaceComp.HolderCards.gameObject.SetActive(true);
+            }
+                
         }
     }
 }

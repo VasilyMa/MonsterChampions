@@ -6,6 +6,8 @@ namespace Client
 {
     sealed class DamagingEventSystem : IEcsRunSystem
     {
+        readonly EcsWorldInject _world = default;
+
         readonly EcsFilterInject<Inc<DamagingEvent>> _damagingEventFilter = default;
 
         readonly EcsPoolInject<DamagingEvent> _damagingEventPool = default;
@@ -21,32 +23,40 @@ namespace Client
         private const float LEVELING_INCREASER = 0.5f;
         private const float LEVELING_DECREASER = 0.25f;
 
+        private int _undergoEntity = BattleState.NULL_ENTITY;
+        private int _damagingEntity = BattleState.NULL_ENTITY;
+        private float _damageValue = 0;
+
         public void Run (IEcsSystems systems)
         {
             foreach (var damagingEventEntity in _damagingEventFilter.Value)
             {
                 ref var damagingEvent = ref _damagingEventPool.Value.Get(damagingEventEntity);
-                ref var healthComponent = ref _healthPool.Value.Get(damagingEvent.UndergoEntity);
 
-                if (_unitTagPool.Value.Has(damagingEvent.UndergoEntity))
+                _undergoEntity = damagingEvent.UndergoEntity;
+                _damagingEntity = damagingEvent.DamagingEntity;
+                if (damagingEvent.DamageValue != 0)
+                    _damageValue = damagingEvent.DamageValue;
+
+                ref var healthComponent = ref _healthPool.Value.Get(_undergoEntity);
+
+
+                if (_unitTagPool.Value.Has(_undergoEntity))
                 {
-                    DoDamageToUnit(damagingEvent.UndergoEntity, damagingEvent.WhoDoDamageEntity, damagingEvent.DamageValue);
+                    DoDamageToUnit(_undergoEntity, _damagingEntity, damagingEvent.DamageValue);
                 }
                 else if (_baseTagPool.Value.Has(damagingEvent.UndergoEntity))
                 {
-                    DoDamageToBase(damagingEvent.UndergoEntity, damagingEvent.WhoDoDamageEntity);
+                    DoDamageToBase(_undergoEntity, _damagingEntity);
                 }
                 else
                 {
-                    Debug.LogError($"Error with «{damagingEvent.UndergoEntity}» entity. It's don't have «BaseTag» or «UnitTag»");
+                    Debug.LogError($"Error with «{_undergoEntity}» entity. It's don't have «BaseTag» or «UnitTag»");
                     DeleteEvent(damagingEventEntity);
                     continue;
                 }
 
-                if (healthComponent.CurrentValue <= 0)
-                {
-                    _dieEventPool.Value.Add(damagingEvent.UndergoEntity);
-                }
+                InvokeDieEnent();
 
                 DeleteEvent(damagingEventEntity);
             }
@@ -64,6 +74,8 @@ namespace Client
             damageToBase = MatchDamageComparedHealth(damageToBase, baseHealthComponent.CurrentValue);
 
             baseHealthComponent.CurrentValue -= damageToBase;
+
+            _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
         }
 
         private float CalculateDamageToBase(int unitLevel)
@@ -118,9 +130,27 @@ namespace Client
             return damage;
         }
 
+        private void InvokeDieEnent()
+        {
+            if (_healthPool.Value.Get(_undergoEntity).CurrentValue > 0)
+            {
+                return;
+            }
+
+            if (_dieEventPool.Value.Has(_undergoEntity))
+            {
+                return;
+            }
+
+            _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
+        }
+
         private void DeleteEvent(int damagingEventEntity)
         {
             _damagingEventPool.Value.Del(damagingEventEntity);
+
+            _undergoEntity = BattleState.NULL_ENTITY;
+            _damagingEntity = BattleState.NULL_ENTITY;
         }
     }
 }
