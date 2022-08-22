@@ -74,6 +74,8 @@ namespace Client
             damageToBase = MatchDamageComparedHealth(damageToBase, baseHealthComponent.CurrentValue);
 
             baseHealthComponent.CurrentValue -= damageToBase;
+
+            _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
         }
 
         private float CalculateDamageToBase(int unitLevel)

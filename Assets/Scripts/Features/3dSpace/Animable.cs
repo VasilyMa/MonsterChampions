@@ -8,6 +8,7 @@ namespace Client
 
         public string Attack;
         public string isRunning;
+        public string isDamaged;
         public string Melee;
         public string Range;
         public string Die;

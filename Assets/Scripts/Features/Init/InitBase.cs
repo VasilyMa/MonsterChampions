@@ -17,6 +17,7 @@ namespace Client
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
         readonly EcsPoolInject<DisabledBaseTag> _disabledBasePool = default;
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
+        readonly EcsPoolInject<Animable> _animablePool = default;
 
         public void Init (IEcsSystems systems)
         {
@@ -42,6 +43,9 @@ namespace Client
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(baseEntity);
                 fractionComponent.isFriendly = enemyBaseMB.isFriendly;
+
+                ref var animableComponent = ref _animablePool.Value.Add(baseEntity);
+                animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
 
                 if (fractionComponent.isFriendly)
                 {
