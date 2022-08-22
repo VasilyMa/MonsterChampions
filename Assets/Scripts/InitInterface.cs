@@ -20,8 +20,10 @@ namespace Client {
             interfaceComp.MainCanvas = FindObjectOfType<Canvas>();
             interfaceComp.BuyCard = FindObjectOfType<BuyCardMB>();
             interfaceComp.MainMenu = FindObjectOfType<MenuMB>();
+            interfaceComp.TempButton = FindObjectOfType<StartDeckForDevelop>();
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
             interfaceComp.BuyCard.Init(systems.GetWorld(), systems.GetShared<GameState>());
+            interfaceComp.TempButton.Init(systems.GetWorld(), systems.GetShared<GameState>());
 
             interfaceComp.CollectionManager = FindObjectOfType<CollectionMB>();
             interfaceComp.CollectionMenu = interfaceComp.CollectionManager.transform;
@@ -32,6 +34,7 @@ namespace Client {
             interfaceComp.CollectionManager.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.MenuHolder = interfaceComp.MainMenu.transform;
             interfaceComp.MainMenu.Init(systems.GetWorld(), systems.GetShared<GameState>());
+            
 
             
             /*if (_state.Value.Deck.DeckPlayer.LongLength > 0)
@@ -50,9 +53,12 @@ namespace Client {
             interfaceComp.HolderCards.gameObject.SetActive(false);
 
             if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
                 interfaceComp.MenuHolder.gameObject.SetActive(true);
+            }
             else
             {
+                interfaceComp.TempButton.gameObject.SetActive(false);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
             }
