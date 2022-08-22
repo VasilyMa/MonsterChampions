@@ -92,7 +92,6 @@ namespace Client {
                     return slot;
                 }
             }
-
             return slot;
         }
     }

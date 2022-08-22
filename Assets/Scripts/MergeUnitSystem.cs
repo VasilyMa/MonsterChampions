@@ -30,6 +30,11 @@ namespace Client {
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
                 //to do ay level up unit
 
+
+
+
+
+
                 //
                 ref var viewCompFirst = ref _viewPool.Value.Get(mergeComp.EntityfirstUnit);//there delete another unit and entity
                 GameObject.Destroy(viewCompFirst.GameObject);
