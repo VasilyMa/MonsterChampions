@@ -9,7 +9,7 @@ namespace Client
         private const float HIGH_RESIST = 2;
         private const float MEDIUM_RESIST = 1;
         private const float LOW_RESIST = 0.5f;
-        private const float DEFAULT_ZERO_RESIST = 0;
+        private const float DEFAULT_ZERO_RESIST = 0; // to do ay think about ZERO_RESIST
 
         public static float GetDamageDivider(ElementalType damageElemental, ElementalType healthElemental)
         {

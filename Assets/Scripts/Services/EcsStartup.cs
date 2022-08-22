@@ -88,6 +88,9 @@ namespace Client
                 .Add(new OnOffAttackUnitSystem())
                 .Add(new InOutFightUnitSystem())
 
+                .Add(new CreateSlevDebuffAuraSystem())
+                .Add(new WorkingSlevDebuffAuraSystem())
+
                 .Add(new DamagingEventSystem())
 
                 .Add(new SpawnEnemyUnitsEventSystem())

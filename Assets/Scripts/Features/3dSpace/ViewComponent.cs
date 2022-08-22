@@ -12,6 +12,8 @@ namespace Client
 
         public int LayerBeforeDeath;
 
+        public string AliveUnit;
+        public string InteractionZone;
         public string DeadUnit;
     }
 }

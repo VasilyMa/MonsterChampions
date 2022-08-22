@@ -23,6 +23,8 @@ namespace Client {
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
 
+        readonly EcsPoolInject<SlevComponent> _slevPool = default;
+
         public void Run (IEcsSystems systems) {
             foreach (var entity in _buyFilter.Value)
             {
@@ -83,7 +85,9 @@ namespace Client {
                 levelComponent.Value = 1;
                 damageComponent.Value = 10;
 
-
+                ref var slevComponent = ref _slevPool.Value.Add(unitEntity);
+                slevComponent.TimerToCreateAuraMaxValue = 1f;
+                slevComponent.TimerToCreateAuraCurrentValue = 0;
 
                 _buyFilter.Pools.Inc1.Del(entity);
             }

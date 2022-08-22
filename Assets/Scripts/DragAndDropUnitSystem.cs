@@ -18,10 +18,10 @@ namespace Client {
                 if (Input.GetMouseButton(0))
                 {
                     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Ground")))
+                    if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("BoardRaycast")))
                     {
                         var point = hit.point;
-                        viewComp.Transform.position = new Vector3(point.x, 1.5f, point.z);
+                        viewComp.Transform.position = new Vector3(point.x, point.y, point.z);
                     }
                 }
                 if (Input.GetMouseButtonUp(0))
