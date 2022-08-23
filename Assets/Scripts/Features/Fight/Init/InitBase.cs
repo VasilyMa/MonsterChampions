@@ -31,8 +31,6 @@ namespace Client
                 ref var viewComponent = ref _viewPool.Value.Add(baseEntity);
                 viewComponent.EntityNumber = baseEntity;
 
-                //enemyBaseMB.monster[0];
-
                 viewComponent.GameObject = enemyBaseMB.gameObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
                 viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
@@ -60,9 +58,16 @@ namespace Client
                     _battleState.Value.AddEnemyBaseEntity(baseEntity);
                 }
 
+                if (enemyBaseMB.monster.Count <= 0) // to do rewrite thin in method
+                {
+                    continue;
+                }
+
                 ref var unitSpawner = ref _unitSpawnerPool.Value.Add(baseEntity);
                 unitSpawner.TimerMaxValue = 3;
                 unitSpawner.TimerCurrentValue = unitSpawner.TimerMaxValue;
+                unitSpawner.MonsterStorage = new List<MonsterStorage>();
+                unitSpawner.MonsterStorage = enemyBaseMB.monster;
 
             }
             if(allEnemyBasesMB.Length > 0)
