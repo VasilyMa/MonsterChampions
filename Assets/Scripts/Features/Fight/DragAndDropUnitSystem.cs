@@ -19,6 +19,11 @@ namespace Client {
                 if (Input.GetMouseButton(0))
                 {
                     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
+                    {
+                        var point = hitGround.point;
+                        viewComp.Transform.position = new Vector3(point.x, point.y, point.z);
+                    }
                     if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("BoardRaycast")))
                     {
                         var point = hit.point;
@@ -48,7 +53,6 @@ namespace Client {
                                     viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
                                     viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
                                     viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
-                                    //_movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                                     viewComp.GameObject.GetComponent<Collider>().enabled = true;
                                 }
                             }
@@ -57,7 +61,6 @@ namespace Client {
                                 viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
                                 viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
                                 viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
-                                //_movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                                 viewComp.GameObject.GetComponent<Collider>().enabled = true;
                             }
                         }
@@ -68,21 +71,25 @@ namespace Client {
                             viewComp.GameObject.GetComponent<Collider>().enabled = true;
                         }
                     }
-                    else if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
-                    {
-
-                        _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
-                        viewComp.Transform.parent = null;
-                        viewComp.GameObject.GetComponent<Collider>().enabled = true;
-                        _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
-                    }
-                    else
+                    if (Physics.Raycast(ray, out RaycastHit hitBoard, float.MaxValue, LayerMask.GetMask("BoardRaycast")))
                     {
                         viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
                         viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
                         viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
+                        _touchFilter.Pools.Inc2.Del(entity);
+                        _touchFilter.Pools.Inc1.Del(entity);
+                        viewComp.GameObject.GetComponent<Collider>().enabled = true;
+                        break;
+                    }
+                    if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
+                    {
+                        viewComp.Transform.parent = null; 
                         _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.GameObject.GetComponent<Collider>().enabled = true;
+                        _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
+                        _touchFilter.Pools.Inc2.Del(entity);
+                        _touchFilter.Pools.Inc1.Del(entity);
+                        break;
                     }
                     _touchFilter.Pools.Inc2.Del(entity);
                     _touchFilter.Pools.Inc1.Del(entity);
