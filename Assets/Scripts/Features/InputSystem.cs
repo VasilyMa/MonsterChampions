@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 namespace Client {
     sealed class InputSystem : IEcsRunSystem {
         readonly EcsSharedInject<GameState> _state = default;
@@ -61,7 +60,7 @@ namespace Client {
                 //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
                 foreach (RaycastResult result in results)
                 {
-                    if (result.gameObject.CompareTag("Card"))
+                    if (result.gameObject.CompareTag("Card")&&_state.Value.hubSystem)
                     {
                         interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = false;
                         ref var cardComp = ref _cardEventPool.Value.Add(_world.Value.NewEntity());

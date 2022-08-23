@@ -18,8 +18,8 @@ namespace Client {
                 ref var viewComp = ref _viewPool.Value.Get(_unitPool.Value.Get(entity).entity);
                 if (Input.GetMouseButton(0))
                 {
-                    var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
+                    var ray = Camera.main.ScreenPointToRay(Input.mousePosition); //check when input
+                    if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground"))) 
                     {
                         var point = hitGround.point;
                         viewComp.Transform.position = new Vector3(point.x, point.y, point.z);

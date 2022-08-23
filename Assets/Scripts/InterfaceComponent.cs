@@ -15,8 +15,11 @@ namespace Client {
         public MenuMB MainMenu;
         public RewardPanelMB RewardPanel;
         public LosePanelMB LosePanel;
-        public Transform LoseHolder;
+        public RewardMB Reward;
+
         public Transform RewardHolder;
+        public Transform LoseHolder;
+        public Transform RewardPanelHolder;
         public Transform MenuHolder;
 
         public StartDeckForDevelop TempButton;
