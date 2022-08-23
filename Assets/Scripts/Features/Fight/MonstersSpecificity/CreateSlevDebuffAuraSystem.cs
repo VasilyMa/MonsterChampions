@@ -16,9 +16,9 @@ namespace Client
 
         private float _timerMaxValue = 5f;
 
-        private int _aliveUnitLayer = LayerMask.NameToLayer(nameof(ViewComponent.InteractionZone));
+        private int _aliveUnitLayer = LayerMask.NameToLayer(nameof(ViewComponent.AliveUnit));
 
-        public void Run (IEcsSystems systems) // to do ay rewrite this system with methods
+        public void Run (IEcsSystems systems) // to do ay rewrite this system with methods. And check how OverlapSphere working with layers
         {
             foreach (var slevEntity in _slevFilter.Value)
             {
@@ -36,15 +36,25 @@ namespace Client
                     slevComponent.TimerToCreateAuraCurrentValue = slevComponent.TimerToCreateAuraMaxValue;
                 }
 
-                var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f, _aliveUnitLayer);
+                var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f);
 
-                Debug.Log($"{viewComponent.GameObject} сделал сферу. В ней {_allUnitsInAura.Length} юнит(ов)");
+                Debug.Log($"Всего найдено: {_allUnitsInAura.Length}");
+
+                int collidersCount = 0;
+                int enemyCount = 0;
 
                 foreach (var unitInAura in _allUnitsInAura)
                 {
+                    if (unitInAura.gameObject.layer != _aliveUnitLayer)
+                    {
+                        continue;
+                    }
+
+                    collidersCount++;
+
                     var unitEcsInfoMB = unitInAura.GetComponent<EcsInfoMB>();
                     var unitEntity = unitEcsInfoMB.GetEntity();
-
+                    Debug.Log("Заход");
                     if (!_unitPool.Value.Has(unitEntity))
                     {
                         continue;
@@ -65,8 +75,12 @@ namespace Client
                         }
 
                         slevAuraDebuff.TimerToClearCurrentValue = slevAuraDebuff.TimerToClearMaxValue;
+
+                        enemyCount++;
                     }
                 }
+
+                Debug.Log($"Найдено коллайдеров: {collidersCount}. Найдено врагов: {enemyCount}");
             }
         }
     }
