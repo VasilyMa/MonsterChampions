@@ -58,7 +58,7 @@ namespace Client {
 
                 ref var movableComponent = ref _movablePool.Value.Add(unitEntity);
                 movableComponent.NavMeshAgent = viewComponent.GameObject.GetComponent<NavMeshAgent>();
-                movableComponent.NavMeshAgent.speed = 10;
+                movableComponent.NavMeshAgent.speed = buyInfoComp.CardInfo.MoveSpeed;
                 movableComponent.NavMeshAgent.enabled = false;
                 viewComponent.Transform.position = slot.position;
 
@@ -73,22 +73,22 @@ namespace Client {
                 targetableComponent.EntitysInRangeZone = new List<int>();
 
                 ref var healthComponent = ref _healthPool.Value.Add(unitEntity);
-                healthComponent.MaxValue = 100;
+                healthComponent.MaxValue = buyInfoComp.CardInfo.Health;
                 healthComponent.CurrentValue = healthComponent.MaxValue;
                 healthComponent.HealthBar = viewComponent.Transform.GetComponentInChildren<HealthBarMB>().gameObject;
                 healthComponent.HealthBarMaxWidth = healthComponent.HealthBar.transform.localScale.x;
                 healthComponent.HealthBar.SetActive(false);
 
                 ref var elementalComponent = ref _elementalPool.Value.Add(unitEntity);
-                elementalComponent.CurrentType = ElementalType.Fire;
+                elementalComponent.CurrentType = buyInfoComp.CardInfo.Elemental;
 
                 ref var levelComponent = ref _levelPool.Value.Add(unitEntity);
                 ref var damageComponent = ref _damagePool.Value.Add(unitEntity);
 
                 levelComponent.Value = 1;
-                damageComponent.Value = 10;
+                damageComponent.Value = buyInfoComp.CardInfo.Damage;
 
-                ref var slevComponent = ref _slevPool.Value.Add(unitEntity);
+                ref var slevComponent = ref _slevPool.Value.Add(unitEntity); // to do ay method for definition unitType
                 slevComponent.TimerToCreateAuraMaxValue = 1f;
                 slevComponent.TimerToCreateAuraCurrentValue = 0;
 

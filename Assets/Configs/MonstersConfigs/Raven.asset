@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MonsterID: 4
   NameUnit: Raven
-  Damage: 0
-  Health: 0
-  MoveSpeed: 0
+  Damage: 15
+  Health: 100
+  MoveSpeed: 10
   Prefabs:
   - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
-  Elemental: 0
+  Elemental: 5

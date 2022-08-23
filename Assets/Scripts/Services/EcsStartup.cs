@@ -96,7 +96,7 @@ namespace Client
                 .Add(new RefreshHealthBarEventSystem())
                 .Add(new HealthBarLookToCamera())
 
-                .Add(new SpawnEnemyUnitsEventSystem())
+                .Add(new EnemySpawnerSystem())
                 .Add(new DieEventSystem())
                 .Add(new ResetIsTargetComponentAfterDeath())
                 ;

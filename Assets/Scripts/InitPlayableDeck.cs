@@ -30,6 +30,7 @@ namespace Client {
                         newCardInfo.Elemental = _state.Value.Deck.DeckPlayer[card].Elemental;
                         newCardInfo.Health = _state.Value.Deck.DeckPlayer[card].Health;
                         newCardInfo.Prefabs = _state.Value.Deck.DeckPlayer[card].Prefabs;
+                        newCardInfo.MoveSpeed = _state.Value.Deck.DeckPlayer[card].MoveSpeed;
                         cards.Add(newCard);
                         break;
                     }
