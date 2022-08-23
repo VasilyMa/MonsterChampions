@@ -15,6 +15,7 @@ namespace Client
         private string savePathSettings = $"{Application.persistentDataPath}/Settings.Save";
         private EcsWorld _ecsWorld;
         public GetMonster _monsterStorage;
+        public MergeEffectsPool _mergeEffectsPool;
         public Collection Collection = new Collection();
         public Deck Deck = new Deck();
         public GameSettings Settings;
@@ -93,10 +94,11 @@ namespace Client
             }
         }
 
-        public GameState(EcsWorld EcsWorld, GetMonster monsterStorage)
+        public GameState(EcsWorld EcsWorld, GetMonster monsterStorage, MergeEffectsPool mergeEffectsPool)
         {
             _ecsWorld = EcsWorld;
             _monsterStorage = monsterStorage;
+            _mergeEffectsPool = mergeEffectsPool;
             if (File.Exists(savePathDeck) && File.Exists(savePathCollection) && File.Exists(savePathSettings))
             {
                 Load();

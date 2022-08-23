@@ -46,3 +46,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uguiEmitter: {fileID: 0}
   _monsterStorage: {fileID: 11400000, guid: 2d02acd0384d13946a0880baf4c57ab5, type: 2}
+  _mergeEffectsPool: {fileID: 11400000, guid: 071958abdf397d541a75f247cd4bee3d, type: 2}
+  collection:
+    CollectionUnits: []
+  deck:
+    DeckPlayer:
+    - UnitID: 0
+      NameUnit: 
+      Damage: 0
+      Health: 0
+      MoveSpeed: 0
+      Prefabs: []
+      Elemental: 0
+    - UnitID: 0
+      NameUnit: 
+      Damage: 0
+      Health: 0
+      MoveSpeed: 0
+      Prefabs: []
+      Elemental: 0
+    - UnitID: 0
+      NameUnit: 
+      Damage: 0
+      Health: 0
+      MoveSpeed: 0
+      Prefabs: []
+      Elemental: 0

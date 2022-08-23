@@ -10,6 +10,7 @@ namespace Client
     {
         [SerializeField] EcsUguiEmitter _uguiEmitter;
         [SerializeField] GetMonster _monsterStorage;
+        [SerializeField] MergeEffectsPool _mergeEffectsPool;
         public Collection collection;
         public Deck deck;
         private BattleState _battleState;
@@ -20,7 +21,7 @@ namespace Client
         void Start()
         {
             _world = new EcsWorld();
-            _state = new GameState(_world, _monsterStorage);
+            _state = new GameState(_world, _monsterStorage, _mergeEffectsPool);
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
                 _state.hubSystem = true;
@@ -71,6 +72,8 @@ namespace Client
                 .Add(new BuyUnitSystem())
                 .Add(new InitBase())
                 .Add(new InitUnits())
+
+                .Add(new InitMergeEffectPool())
 
                 .Add(new InitCamera())
 
