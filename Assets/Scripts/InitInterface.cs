@@ -21,9 +21,15 @@ namespace Client {
             interfaceComp.BuyCard = FindObjectOfType<BuyCardMB>();
             interfaceComp.MainMenu = FindObjectOfType<MenuMB>();
             interfaceComp.TempButton = FindObjectOfType<StartDeckForDevelop>();
+            interfaceComp.RewardPanel = FindObjectOfType<RewardPanelMB>();
+            interfaceComp.LosePanel = FindObjectOfType<LosePanelMB>();
+            interfaceComp.RewardHolder = interfaceComp.RewardPanel.transform;
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
+            interfaceComp.LoseHolder = interfaceComp.LosePanel.transform;
             interfaceComp.BuyCard.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.TempButton.Init(systems.GetWorld(), systems.GetShared<GameState>());
+            interfaceComp.RewardPanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
+            interfaceComp.LosePanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
 
             interfaceComp.CollectionManager = FindObjectOfType<CollectionMB>();
             interfaceComp.CollectionMenu = interfaceComp.CollectionManager.transform;
@@ -51,7 +57,8 @@ namespace Client {
             }*/
             interfaceComp.CollectionMenu.gameObject.SetActive(false);
             interfaceComp.HolderCards.gameObject.SetActive(false);
-
+            interfaceComp.RewardHolder.gameObject.SetActive(false);
+            interfaceComp.LoseHolder.gameObject.SetActive(false);
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
                 interfaceComp.MenuHolder.gameObject.SetActive(true);

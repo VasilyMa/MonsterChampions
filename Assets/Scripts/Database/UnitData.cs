@@ -10,6 +10,8 @@ public class UnitData
     public float Damage;
     public float Health;
     public float MoveSpeed;
+    public int Cost;
+    public Sprite Sprite;
     public GameObject[] Prefabs;
     public ElementalType Elemental;
 }

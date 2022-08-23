@@ -13,6 +13,10 @@ namespace Client {
         public Transform DeckHolder;
         public CollectionMB CollectionManager;
         public MenuMB MainMenu;
+        public RewardPanelMB RewardPanel;
+        public LosePanelMB LosePanel;
+        public Transform LoseHolder;
+        public Transform RewardHolder;
         public Transform MenuHolder;
 
         public StartDeckForDevelop TempButton;
