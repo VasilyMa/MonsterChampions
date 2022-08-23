@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca5996a3cc62acc41a1aabe0991e1137, type: 3}
+  m_Name: MergeEffectsPool
+  m_EditorClassIdentifier: 
+  MergeEffectPrefab:
+  - {fileID: 2198164410692003160, guid: 69e8659c23e205c4a922b85bfd95b941, type: 3}

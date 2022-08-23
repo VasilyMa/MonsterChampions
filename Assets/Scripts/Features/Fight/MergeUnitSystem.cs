@@ -30,10 +30,12 @@ namespace Client {
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
                 //to do ay write there leveling
 
+                levelComp.Value++;
+                healthComp.MaxValue = healthComp.MaxValue * 2;
+                healthComp.CurrentValue = healthComp.MaxValue;
+                damageComp.Value = damageComp.Value * 2;
 
-
-
-
+                GameObject.Instantiate(_state.Value._mergeEffectsPool.MergeEffectPrefab[0], viewCompMain.GameObject.transform.position, Quaternion.identity);
 
                 //
                 ref var viewCompFirst = ref _viewPool.Value.Get(mergeComp.EntityfirstUnit);//there delete another unit and entity
