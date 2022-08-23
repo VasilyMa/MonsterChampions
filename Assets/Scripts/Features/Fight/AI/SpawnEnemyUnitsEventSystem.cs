@@ -1,6 +1,7 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Client
 {
@@ -12,12 +13,70 @@ namespace Client
 
         readonly EcsPoolInject<SpawnEnemyUnitsEvent> _spawnEnemyUnitsEventPool = default;
 
-        public void Run (IEcsSystems systems)
+        readonly EcsPoolInject<ViewComponent> _viewPool = default;
+        readonly EcsPoolInject<Animable> _animablePool = default;
+        readonly EcsPoolInject<PhysicsComponent> _physicsPool = default;
+        readonly EcsPoolInject<UnitTag> _unitPool = default;
+        readonly EcsPoolInject<Movable> _movablePool = default;
+        readonly EcsPoolInject<Targetable> _targetablePool = default;
+        readonly EcsPoolInject<HealthComponent> _healthPool = default;
+        readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
+        readonly EcsPoolInject<LevelComponent> _levelPool = default;
+        readonly EcsPoolInject<DamageComponent> _damagePool = default;
+        readonly EcsPoolInject<FractionComponent> _fractionPool = default;
+
+        public void Run (IEcsSystems systems) // to do ay add any word row for working 
         {
             foreach (var spawnEnemyUnitsEventEntity in _spawnEnemyUnitsEventFilter.Value)
             {
+                var unitEntity = _world.Value.NewEntity();
 
-                // to do ay write enemy spawn
+                ref var viewComponent = ref _viewPool.Value.Add(unitEntity);
+                viewComponent.EntityNumber = unitEntity;
+
+                //viewComponent.GameObject = unitsMB.gameObject; this need to write prefab
+                viewComponent.Transform = viewComponent.GameObject.transform;
+                viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
+
+                ref var fractionComponent = ref _fractionPool.Value.Add(unitEntity);
+                fractionComponent.isFriendly = false;
+
+                ref var physicsComponent = ref _physicsPool.Value.Add(unitEntity);
+                physicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
+
+                ref var animableComponent = ref _animablePool.Value.Add(unitEntity);
+                animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
+
+                ref var unitComponent = ref _unitPool.Value.Add(unitEntity);
+
+                ref var movableComponent = ref _movablePool.Value.Add(unitEntity);
+                //movableComponent.NavMeshAgent = viewComponent.GameObject.GetComponent<NavMeshAgent>(); this also need to write prefab
+                movableComponent.NavMeshAgent.speed = 10;
+
+                viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
+                viewComponent.EcsInfoMB?.Init(_world, unitEntity);
+
+                ref var targetableComponent = ref _targetablePool.Value.Add(unitEntity);
+                targetableComponent.TargetEntity = BattleState.NULL_ENTITY;
+                targetableComponent.EntitysInDetectionZone = new List<int>();
+                targetableComponent.EntitysInMeleeZone = new List<int>();
+                targetableComponent.EntitysInRangeZone = new List<int>();
+
+                ref var healthComponent = ref _healthPool.Value.Add(unitEntity);
+                healthComponent.MaxValue = 100;
+                healthComponent.CurrentValue = healthComponent.MaxValue;
+                healthComponent.HealthBar = viewComponent.Transform.GetComponentInChildren<HealthBarMB>().gameObject;
+                healthComponent.HealthBarMaxWidth = healthComponent.HealthBar.transform.localScale.x;
+                healthComponent.HealthBar.SetActive(false);
+
+                ref var elementalComponent = ref _elementalPool.Value.Add(unitEntity);
+                elementalComponent.CurrentType = ElementalType.Fire;
+
+                ref var levelComponent = ref _levelPool.Value.Add(unitEntity);
+                ref var damageComponent = ref _damagePool.Value.Add(unitEntity);
+
+                levelComponent.Value = 1;
+                damageComponent.Value = 10;
 
                 DeleteEvent(spawnEnemyUnitsEventEntity);
             }

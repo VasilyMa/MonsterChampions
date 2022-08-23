@@ -21,6 +21,7 @@ namespace Client
         public int StorageEntity;
         public int InputEntity;
         public int BoardEntity;
+        public int CameraEntity;
         public int InterfaceEntity;
         public int CurrentLevel = 1;
         public bool runSysytem = false, hubSystem = true;

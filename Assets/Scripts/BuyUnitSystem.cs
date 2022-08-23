@@ -75,6 +75,9 @@ namespace Client {
                 ref var healthComponent = ref _healthPool.Value.Add(unitEntity);
                 healthComponent.MaxValue = 100;
                 healthComponent.CurrentValue = healthComponent.MaxValue;
+                healthComponent.HealthBar = viewComponent.Transform.GetComponentInChildren<HealthBarMB>().gameObject;
+                healthComponent.HealthBarMaxWidth = healthComponent.HealthBar.transform.localScale.x;
+                healthComponent.HealthBar.SetActive(false);
 
                 ref var elementalComponent = ref _elementalPool.Value.Add(unitEntity);
                 elementalComponent.CurrentType = ElementalType.Fire;

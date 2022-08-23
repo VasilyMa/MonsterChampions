@@ -12,6 +12,7 @@ namespace Client
 
         readonly EcsPoolInject<DamagingEvent> _damagingEventPool = default;
         readonly EcsPoolInject<DieEvent> _dieEventPool = default;
+        readonly EcsPoolInject<RefreshHealthBarEvent> _refreshHealthBarEventPool = default;
 
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
@@ -28,7 +29,7 @@ namespace Client
         private int _damagingEntity = BattleState.NULL_ENTITY;
         private float _damageValue = 0;
 
-        public void Run (IEcsSystems systems)
+        public void Run(IEcsSystems systems)
         {
             foreach (var damagingEventEntity in _damagingEventFilter.Value)
             {
@@ -58,12 +59,13 @@ namespace Client
                 }
 
                 InvokeDieEnent();
+                InvokeRefreshHealthBarEvent();
 
                 DeleteEvent(damagingEventEntity);
             }
         }
 
-#region BaseDamage
+        #region BaseDamage
         private void DoDamageToBase(int baseEntity, int unitEntity)
         {
             ref var baseHealthComponent = ref _healthPool.Value.Get(baseEntity);
@@ -88,7 +90,7 @@ namespace Client
         }
         #endregion BaseDamage
 
-#region UnitDamage
+        #region UnitDamage
         private void DoDamageToUnit(int undergoEntity, int whoDoDamageEntity, float damageValue)
         {
             ref var undergoUnitHealthComponent = ref _healthPool.Value.Get(undergoEntity);
@@ -100,7 +102,7 @@ namespace Client
 
             float levelingMultiply = CalculateLevelingMultiply(undergoUnitLevelComponent.Value, whoDoDamageLevelComponent.Value);
             float elementalDivider = Elemental.GetDamageDivider(whoDoDamageElementalComponent.CurrentType, undergoUnitElementalComponent.CurrentType);
-            
+
             float damageToUnit = damageValue * levelingMultiply / elementalDivider;
 
             damageToUnit = MatchDamageComparedHealth(damageToUnit, undergoUnitHealthComponent.CurrentValue);
@@ -132,6 +134,11 @@ namespace Client
             }
 
             return damage;
+        }
+
+        private void InvokeRefreshHealthBarEvent()
+        {
+            _refreshHealthBarEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
         }
 
         private void InvokeDieEnent()

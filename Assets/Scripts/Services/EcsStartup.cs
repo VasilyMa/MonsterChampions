@@ -15,7 +15,7 @@ namespace Client
         private BattleState _battleState;
         private EcsWorld _world;
         private GameState _state;
-        private EcsSystems _fixedTimeSystems, _globalInitSystem, _initSystems, _runSystems, _hubSystems, _fightSystems, _delhereEvents;
+        private EcsSystems _fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _fightSystems, _delhereEvents;
         
         void Start()
         {
@@ -39,7 +39,6 @@ namespace Client
             collection = _state.Collection;
             deck = _state.Deck;
             _initSystems = new EcsSystems (_world, _state);
-            _runSystems = new EcsSystems(_world, _state);
             _hubSystems = new EcsSystems(_world, _state);
             _fightSystems = new EcsSystems(_world, _state);
             _delhereEvents = new EcsSystems(_world, _state);
@@ -62,11 +61,6 @@ namespace Client
                 .Add(new GetNewMonster())
                
                 ;
-            _runSystems
-                .Add(new UnitMoveToTargetSystem())
-                .Add(new StopUnitSystem())
-                .Add(new OnOffRunAminationSystem())// to do ay del here UnitMoveToTargetSystem and write it in _fightSystems
-                ;
 
             _fightSystems
                 .Add(new WinEventSystem())
@@ -78,9 +72,15 @@ namespace Client
                 .Add(new InitBase())
                 .Add(new InitUnits())
 
+                .Add(new InitCamera())
+
                 .Add(new DragAndDropUnitSystem())
                 .Add(new MergeUnitSystem())
                 .Add(new ActivateEnemyBaseEventSystem())
+
+                .Add(new UnitMoveToTargetSystem())
+                .Add(new StopUnitSystem())
+                .Add(new OnOffRunAminationSystem())
 
                 .Add(new TargetingSystem())
                 .Add(new RetargetOnEnemyInDetectionZoneSystem())
@@ -92,6 +92,9 @@ namespace Client
                 .Add(new WorkingSlevDebuffAuraSystem())
 
                 .Add(new DamagingEventSystem())
+
+                .Add(new RefreshHealthBarEventSystem())
+                .Add(new HealthBarLookToCamera())
 
                 .Add(new SpawnEnemyUnitsEventSystem())
                 .Add(new DieEventSystem())
@@ -106,8 +109,8 @@ namespace Client
             _initSystems.Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(/*events*/));
 #endif
 
-            InjectAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _runSystems, _hubSystems, _fightSystems, _delhereEvents);
-            InitAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _runSystems, _hubSystems, _fightSystems, _delhereEvents);
+            InjectAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _fightSystems, _delhereEvents);
+            InitAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _fightSystems, _delhereEvents);
         }
 
         void Update()
@@ -115,7 +118,6 @@ namespace Client
             _globalInitSystem?.Run();
             _initSystems?.Run();
 
-            if(_state.runSysytem) _runSystems?.Run();
             if(_state.hubSystem) _hubSystems?.Run();
             if(_state.runSysytem) _fightSystems?.Run();
 
@@ -129,7 +131,7 @@ namespace Client
 
         void OnDestroy()
         {
-            OnDestroyAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _runSystems, _hubSystems, _fightSystems, _delhereEvents);
+            OnDestroyAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _fightSystems, _delhereEvents);
 
             if (_world != null)
             {
