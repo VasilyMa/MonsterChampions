@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFriendly: 0
-  GetMonster: {fileID: 11400000, guid: 2d02acd0384d13946a0880baf4c57ab5, type: 2}
+  monster: []
 --- !u!114 &249200229
 MonoBehaviour:
   m_ObjectHideFlags: 0
