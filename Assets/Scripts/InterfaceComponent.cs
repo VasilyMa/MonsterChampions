@@ -15,6 +15,8 @@ namespace Client {
         public MenuMB MainMenu;
         public Transform MenuHolder;
 
+        public StartDeckForDevelop TempButton;
+
         public Canvas MainCanvas;
     }
 }

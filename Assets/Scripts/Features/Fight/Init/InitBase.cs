@@ -18,6 +18,7 @@ namespace Client
         readonly EcsPoolInject<DisabledBaseTag> _disabledBasePool = default;
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
+        readonly EcsPoolInject<UnitSpawner> _unitSpawnerPool = default;
 
         public void Init (IEcsSystems systems)
         {
@@ -29,6 +30,8 @@ namespace Client
 
                 ref var viewComponent = ref _viewPool.Value.Add(baseEntity);
                 viewComponent.EntityNumber = baseEntity;
+
+                //enemyBaseMB.monster[0];
 
                 viewComponent.GameObject = enemyBaseMB.gameObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
@@ -56,6 +59,11 @@ namespace Client
                     _disabledBasePool.Value.Add(baseEntity);
                     _battleState.Value.AddEnemyBaseEntity(baseEntity);
                 }
+
+                ref var unitSpawner = ref _unitSpawnerPool.Value.Add(baseEntity);
+                unitSpawner.TimerMaxValue = 3;
+                unitSpawner.TimerCurrentValue = unitSpawner.TimerMaxValue;
+
             }
             if(allEnemyBasesMB.Length > 0)
                 _battleState.Value.ActivateNextEnemyBase();
