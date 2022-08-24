@@ -48,9 +48,9 @@ namespace Client
 
         public void RevomePlayerGold(int value)
         {
-            if (value > 0)
+            if (value <= 0)
             {
-                Debug.LogError("Trying to remove plus value for PlayerGold!");
+                Debug.LogError("Trying to remove minus value for PlayerGold!");
                 return;
             }
 

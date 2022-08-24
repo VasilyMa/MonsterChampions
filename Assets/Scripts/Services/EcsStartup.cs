@@ -102,8 +102,10 @@ namespace Client
                 .Add(new UnitSpawnerSystem())
 
                 .Add(new DieEventSystem())
-                .Add(new DropGoldEventSystem())
                 .Add(new ResetIsTargetComponentAfterDeath())
+
+                .Add(new DropGoldEventSystem())
+                .Add(new GoldAddingTimerSystem())
                 ;
 
             //_delhereEvents
