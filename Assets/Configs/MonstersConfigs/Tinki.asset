@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
-  m_Name: FlyBird
+  m_Name: Tinki
   m_EditorClassIdentifier: 
-  MonsterID: 2
-  NameUnit: FlyBird
-  Damage: 10
-  Health: 100
-  MoveSpeed: 10
+  MonsterID: 1
+  NameUnit: Tinki
+  Damage: 5
+  Health: 10
+  MoveSpeed: 13
   Prefabs:
   - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
-  Elemental: 3
+  Elemental: 2

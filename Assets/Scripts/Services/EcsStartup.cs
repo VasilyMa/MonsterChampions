@@ -100,7 +100,9 @@ namespace Client
                 .Add(new HealthBarLookToCamera())
 
                 .Add(new EnemySpawnerSystem())
+
                 .Add(new DieEventSystem())
+                .Add(new DropGoldEventSystem())
                 .Add(new ResetIsTargetComponentAfterDeath())
                 ;
 

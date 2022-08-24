@@ -22,6 +22,8 @@ namespace Client
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<UnitTag> _unitPool = default;
 
+        readonly EcsPoolInject<DropGoldComponent> _dropGoldPool = default;
+        readonly EcsPoolInject<DropGoldEvent> _dropGoldEventPool = default;
         readonly EcsPoolInject<WinEvent> _winEventPool = default;
         readonly EcsPoolInject<LoseEvent> _loseEventPool = default;
 
@@ -48,6 +50,8 @@ namespace Client
                 ClearTargetableComponentInEnemyUnits();
 
                 PlayDeadAnimation();
+
+                DropGold();
 
                 SetDeadLayer();
 
@@ -81,6 +85,16 @@ namespace Client
 
             ref var animableComponent = ref _animablePool.Value.Get(_dyingEntity);
             animableComponent.Animator.SetTrigger(nameof(animableComponent.Die));
+        }
+
+        private void DropGold()
+        {
+            if (!_dropGoldPool.Value.Has(_dyingEntity))
+            {
+                return;
+            }
+
+            _dropGoldEventPool.Value.Add(_world.Value.NewEntity());
         }
 
         private void InvokeWinOrLoseEvent()
