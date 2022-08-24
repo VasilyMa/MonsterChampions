@@ -99,7 +99,7 @@ namespace Client
                 .Add(new RefreshHealthBarEventSystem())
                 .Add(new HealthBarLookToCamera())
 
-                .Add(new EnemySpawnerSystem())
+                .Add(new UnitSpawnerSystem())
 
                 .Add(new DieEventSystem())
                 .Add(new DropGoldEventSystem())

@@ -1,6 +1,6 @@
 namespace Client
 {
-    struct DropGoldComponent
+    struct DroppingGoldComponent
     {
         public int GoldValue;
     }

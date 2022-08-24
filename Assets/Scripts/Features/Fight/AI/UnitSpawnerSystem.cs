@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Client
 {
-    sealed class EnemySpawnerSystem : IEcsRunSystem
+    sealed class UnitSpawnerSystem : IEcsRunSystem
     {        
         readonly EcsWorldInject _world = default;
 
@@ -25,6 +25,9 @@ namespace Client
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
+        readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
+
+        private int _standartGoldValue = 5;
 
         public void Run (IEcsSystems systems) // to do ay add any word row for working 
         {
@@ -48,7 +51,7 @@ namespace Client
                 ref var viewComponent = ref _viewPool.Value.Add(unitEntity);
                 viewComponent.EntityNumber = unitEntity;
 
-                viewComponent.GameObject = GameObject.Instantiate(unitSpawnerComponent.MonsterStorage[0].Prefabs[0], unitSpawnerViewComponent.Transform.position, Quaternion.identity); // to do write versatile system for so more monsters in MonsterStorage
+                viewComponent.GameObject = GameObject.Instantiate(unitSpawnerComponent.MonsterStorage[0].Prefabs[0], unitSpawnerViewComponent.Transform.position, Quaternion.identity); // to do ay write universale system for so more monsters in MonsterStorage
                 viewComponent.Transform = viewComponent.GameObject.transform;
                 viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
 
@@ -91,6 +94,9 @@ namespace Client
 
                 levelComponent.Value = 1;
                 damageComponent.Value = unitSpawnerComponent.MonsterStorage[0].Damage;
+
+                ref var droppingGoldComponent = ref _droppingGoldPool.Value.Add(unitEntity);
+                droppingGoldComponent.GoldValue = _standartGoldValue;
             }
         }
     }
