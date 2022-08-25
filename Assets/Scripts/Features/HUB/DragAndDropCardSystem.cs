@@ -70,7 +70,10 @@ namespace Client
                                         for (int y = 0; y < collection.Count; y++) //remove are card from collection 
                                         {
                                             if (collection[y].MonsterID == cardInfo.MonsterID)
+                                            {
                                                 collection.Remove(collection[y]);
+                                                break;
+                                            }   
                                         }
                                         _state.Value.Save();
                                     }

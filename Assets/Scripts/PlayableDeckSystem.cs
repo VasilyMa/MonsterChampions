@@ -45,7 +45,6 @@ namespace Client
                             newCardInfo.Health = _state.Value.Deck.DeckPlayer[card].Health;
                             newCardInfo.Prefabs = _state.Value.Deck.DeckPlayer[card].Prefabs;
                             newCardInfo.MoveSpeed = _state.Value.Deck.DeckPlayer[card].MoveSpeed;
-                            newCardInfo.VisualAndAnimations = new System.Collections.Generic.List<MonsterVisualAndAnimations>();
                             newCardInfo.VisualAndAnimations = _state.Value.Deck.DeckPlayer[card].VisualAndAnimations;
                             newCardInfo.UpdateCardInfo();
                             cards.Add(newCard);
