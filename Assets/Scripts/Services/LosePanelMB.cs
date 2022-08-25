@@ -20,16 +20,15 @@ namespace Client
             _interfacePool = _world.GetPool<InterfaceComponent>();
             defaultPosLose = _interfacePool.Get(_state.InterfaceEntity).LoseHolder.position;
         }
-        public void NextLevel()
+        public void Retry()
         {
-            Time.timeScale = 1;
-            SceneManager.LoadScene(1);
+            GameState.isStartMenu = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         public void BackToMenu()
         {
-            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
-            interfaceComp.LoseHolder.transform.DOMove(defaultPosLose, 1f, false);
-            interfaceComp.MenuHolder.gameObject.SetActive(true);
+            GameState.isStartMenu = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

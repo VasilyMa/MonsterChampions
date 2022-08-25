@@ -17,8 +17,19 @@ namespace Client
             _state = state;
             _interfacePool = _world.GetPool<InterfaceComponent>();
         }
+        public void ToMenu()
+        {
+            GameState.isStartMenu = true;
+            SceneManager.LoadScene(_state.Settings.SceneNumber);
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
+            interfaceComp.HolderCards.gameObject.SetActive(false);
+            interfaceComp.MenuHolder.gameObject.SetActive(true);
+        }
+
         public void NextLevel()
         {
+            GameState.isStartMenu = false;
             SceneManager.LoadScene(_state.Settings.SceneNumber);
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             interfaceComp.RewardPanelHolder.gameObject.SetActive(false);

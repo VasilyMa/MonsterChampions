@@ -12,6 +12,7 @@ namespace Client {
         readonly EcsSharedInject<GameState> _state = default;
 
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
+        readonly EcsPoolInject<PlayableDeckEvent> _playDeckPool = default;
 
         public void Init(IEcsSystems systems)
         {
@@ -48,17 +49,21 @@ namespace Client {
             interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
             interfaceComp.LoseHolder.gameObject.SetActive(false);
             interfaceComp.RewardHolder.gameObject.SetActive(false);
-            interfaceComp.DeckHolder.DOMove((GameObject.Find("TargetDeck").transform.position), 1f, false);
-            if (SceneManager.GetActiveScene().buildIndex == 0)
+            if (GameState.isStartMenu)
             {
                 interfaceComp.MenuHolder.gameObject.SetActive(true);
+                interfaceComp.DeckHolder.DOMove((GameObject.Find("TargetDeck").transform.position), 1f, false);
                 _state.Value.hubSystem = true;
                 _state.Value.runSysytem = false;
             }
             else
             {
-                interfaceComp.MenuHolder.gameObject.SetActive(false);
+                _state.Value.hubSystem = false;
+                _state.Value.runSysytem = true;
+                _playDeckPool.Value.Add(_world.Value.NewEntity());
                 interfaceComp.HolderCards.gameObject.SetActive(true);
+                interfaceComp.MenuHolder.gameObject.SetActive(false);
+                interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
             }
                 
         }
