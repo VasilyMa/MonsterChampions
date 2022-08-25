@@ -22,16 +22,8 @@ namespace Client
         {
             _world = new EcsWorld();
             _state = new GameState(_world, _monsterStorage, _mergeEffectsPool);
-            if (SceneManager.GetActiveScene().buildIndex == 0)
-            {
-                _state.hubSystem = true;
-                _state.runSysytem = false;
-            }
-            else
-            {
-                _state.hubSystem = false;
-                _state.runSysytem = true;
-            }
+            _state.hubSystem = false;
+            _state.runSysytem = true;
 
             _battleState = new BattleState(_world);
 
@@ -49,18 +41,19 @@ namespace Client
                 ;
 
             _globalInitSystem
+                .Add(new InitBaseDeck())
                 .Add(new InitInterface())
                 .Add(new InitInput())
                 .Add(new InputSystem())
+                .Add(new RewardSystem())
+                .Add(new GetNewMonster())
                 ;
             //_initSystems
                 
 
                 ;
             _hubSystems
-                .Add(new DragAndDropCardSystem())
-                .Add(new GetNewMonster())
-               
+               .Add(new DragAndDropCardSystem())
                 ;
 
             _fightSystems
@@ -68,7 +61,7 @@ namespace Client
                 .Add(new LoseEventSystem())
 
                 .Add(new InitBoard())
-                .Add(new InitPlayableDeck())
+                .Add(new PlayableDeckSystem())
                 .Add(new BuyUnitSystem())
                 .Add(new InitBase())
                 .Add(new InitUnits())
@@ -119,6 +112,7 @@ namespace Client
         void Update()
         {
             _globalInitSystem?.Run();
+
             _initSystems?.Run();
 
             if(_state.hubSystem) _hubSystems?.Run();

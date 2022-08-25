@@ -18,7 +18,7 @@ namespace Client
         public MergeEffectsPool _mergeEffectsPool;
         public Collection Collection = new Collection();
         public Deck Deck = new Deck();
-        public GameSettings Settings;
+        public GameSettings Settings = new GameSettings();
         public int StorageEntity;
         public int InputEntity;
         public int BoardEntity;

@@ -30,7 +30,7 @@ namespace Client {
                     return;
                 
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition); //create are raycast to target
-                if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Place")))
+                if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Place"))&&_state.Value.runSysytem)
                 {
                     if (hit.transform.childCount >= 1) //find the object under finger and save it
                     {
@@ -60,7 +60,7 @@ namespace Client {
                 //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
                 foreach (RaycastResult result in results)
                 {
-                    if (result.gameObject.CompareTag("Card")&&_state.Value.hubSystem)
+                    if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem)
                     {
                         interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = false;
                         ref var cardComp = ref _cardEventPool.Value.Add(_world.Value.NewEntity());

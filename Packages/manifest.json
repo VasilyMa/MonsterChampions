@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "com.coffee.ui-particle": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
+    "com.coffee.upm-git-extension": "https://github.com/mob-sakai/UpmGitExtension.git#2.0.1",
     "com.leopotam.ecslite": "https://github.com/Leopotam/ecslite.git",
     "com.leopotam.ecslite.di": "https://github.com/Leopotam/ecslite-di.git",
     "com.leopotam.ecslite.extendedsystems": "https://github.com/Leopotam/ecslite-extendedsystems.git",

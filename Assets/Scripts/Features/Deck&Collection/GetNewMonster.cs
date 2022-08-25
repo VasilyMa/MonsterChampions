@@ -15,6 +15,22 @@ namespace Client {
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 ref var monsterComp = ref _newMonster.Value.Get(entity);
                 var collection = _state.Value.Collection.CollectionUnits;
+                //ref var firstMonster = ref _state.Value._monsterStorage.monster[Random.Range(0, _state.Value._monsterStorage.monster.Length)];
+                ref var monster = ref monsterComp.cardInfo;
+                UnitData newUnitData = new UnitData();
+                newUnitData.Sprite = monster.Sprite;
+                newUnitData.Cost = monster.Cost;
+                newUnitData.UnitID = monster.unitID;
+                newUnitData.NameUnit = monster.NameUnit;
+                newUnitData.Damage = monster.Damage;
+                newUnitData.MoveSpeed = monster.MoveSpeed;
+                newUnitData.Health = monster.Health;
+                newUnitData.Prefabs = monster.Prefabs;
+                newUnitData.Elemental = monster.Elemental;
+                _state.Value.Collection.CollectionUnits.Add(newUnitData);
+                _state.Value.Save();
+                _monsterFilter.Pools.Inc1.Del(entity);
+                /*
                 if (_state.Value.Collection.CollectionUnits.Count == 0)
                 {
                     ref var firstMonster = ref _state.Value._monsterStorage.monster[Random.Range(0, _state.Value._monsterStorage.monster.Length)];
@@ -56,7 +72,7 @@ namespace Client {
                     }
                     else
                         break;
-                }
+                }*/
             }
         }
     }

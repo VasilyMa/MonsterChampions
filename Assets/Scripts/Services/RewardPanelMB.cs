@@ -19,8 +19,11 @@ namespace Client
         }
         public void NextLevel()
         {
-            Time.timeScale = 1;
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(_state.Settings.SceneNumber);
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
+            interfaceComp.HolderCards.gameObject.SetActive(false);
+            interfaceComp.MenuHolder.gameObject.SetActive(true);
         }
     }
 }

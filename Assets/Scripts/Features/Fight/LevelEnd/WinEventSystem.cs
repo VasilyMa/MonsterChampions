@@ -1,6 +1,7 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Client
 {
@@ -11,6 +12,7 @@ namespace Client
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
         readonly EcsPoolInject<RewardComponentEvent> _rewardPool = default;
         readonly EcsSharedInject<GameState> _state = default;
+        
 
         public void Run (IEcsSystems systems)
         {
@@ -19,8 +21,22 @@ namespace Client
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
                 _rewardPool.Value.Add(_world.Value.NewEntity());
-                Time.timeScale = 0;
-                Debug.Log("Ты победил, умничка");
+                Time.timeScale = 1;
+                _state.Value.hubSystem = true;
+                _state.Value.runSysytem = false;
+                Debug.Log("Ты победил, умничка"); 
+                int index = 0;
+                if (SceneManager.GetActiveScene().buildIndex + 1 > SceneManager.sceneCountInBuildSettings - 1)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    index = SceneManager.GetActiveScene().buildIndex + 1;
+                }
+                _state.Value.Settings.SceneNumber = index;
+                _state.Value.Settings.Level += 1;
+                _state.Value.Save();
                 _winEventFilter.Pools.Inc1.Del(eventEntity);
             }
         }

@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class CardInfo : MonoBehaviour
 {
-    public Sprite sprite;
+    public Sprite Sprite;
     public int unitID;
+    public int Cost;
     public string NameUnit;
     public float Damage;
     public float Health;
     public float MoveSpeed;
     public GameObject[] Prefabs;
     public ElementalType Elemental;
-    public int Cost;
 
     [SerializeField] private GameObject nameCard;
     [SerializeField] private GameObject unitImage;

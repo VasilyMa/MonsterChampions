@@ -10,6 +10,7 @@ namespace Client
         private GameState _state;
         private EcsPool<InterfaceComponent> _interfacePool;
         private EcsPool<NewMonster> _newMonsterPool;
+        private EcsPool<RewardComponentEvent> _rewardPool;
 
         public void Init(EcsWorld world, GameState state)
         {
@@ -17,14 +18,16 @@ namespace Client
             _state = state;
             _interfacePool = _world.GetPool<InterfaceComponent>();
             _newMonsterPool = _world.GetPool<NewMonster>();
+            _rewardPool = _world.GetPool<RewardComponentEvent>();
         }
         public void GetBaseDeck()
         {
-            Debug.LogWarning("You get base deck");
-            for (int i = 0; i < 2; i++)
-            {
-                _newMonsterPool.Add(_world.NewEntity());
-            }
+            _rewardPool.Add(_world.NewEntity());
+            //Debug.LogWarning("You get base deck");
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    _newMonsterPool.Add(_world.NewEntity());
+            //}
         }
     }
 }

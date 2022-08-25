@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
@@ -20,7 +21,6 @@ namespace Client {
             interfaceComp.MainCanvas = FindObjectOfType<Canvas>();
             interfaceComp.BuyCard = FindObjectOfType<BuyCardMB>();
             interfaceComp.MainMenu = FindObjectOfType<MenuMB>();
-            interfaceComp.TempButton = FindObjectOfType<StartDeckForDevelop>();
             interfaceComp.RewardPanel = FindObjectOfType<RewardPanelMB>();
             interfaceComp.LosePanel = FindObjectOfType<LosePanelMB>();
             interfaceComp.Reward = FindObjectOfType<RewardMB>();
@@ -29,7 +29,6 @@ namespace Client {
             interfaceComp.LoseHolder = interfaceComp.LosePanel.transform;
             interfaceComp.RewardHolder = interfaceComp.Reward.transform;
             interfaceComp.BuyCard.Init(systems.GetWorld(), systems.GetShared<GameState>());
-            interfaceComp.TempButton.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.RewardPanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.LosePanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.Reward.Init(systems.GetWorld(), systems.GetShared<GameState>());
@@ -43,32 +42,21 @@ namespace Client {
             interfaceComp.CollectionManager.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.MenuHolder = interfaceComp.MainMenu.transform;
             interfaceComp.MainMenu.Init(systems.GetWorld(), systems.GetShared<GameState>());
-            
 
-            
-            /*if (_state.Value.Deck.DeckPlayer.LongLength > 0)
-            {
-                foreach (var card in _state.Value.Deck.DeckPlayer)
-                {
-                    if (card.UnitID != 0)
-                    {
-                        var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
-                        var cardInfo = addedCard.GetComponent<CardInfo>();
-                        cardInfo.unitID = card.UnitID;
-                    }
-                }
-            }*/
-            interfaceComp.CollectionMenu.gameObject.SetActive(false);
+            interfaceComp.MainMenu.UpdateDeck();
             interfaceComp.HolderCards.gameObject.SetActive(false);
             interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
             interfaceComp.LoseHolder.gameObject.SetActive(false);
+            interfaceComp.RewardHolder.gameObject.SetActive(false);
+            interfaceComp.DeckHolder.DOMove((GameObject.Find("TargetDeck").transform.position), 1f, false);
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
                 interfaceComp.MenuHolder.gameObject.SetActive(true);
+                _state.Value.hubSystem = true;
+                _state.Value.runSysytem = false;
             }
             else
             {
-                interfaceComp.TempButton.gameObject.SetActive(false);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
             }
