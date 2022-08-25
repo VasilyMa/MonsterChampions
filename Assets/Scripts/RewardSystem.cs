@@ -19,13 +19,13 @@ namespace Client {
                 interfaceComp.RewardHolder.gameObject.SetActive(true);
                 var newCard = interfaceComp.RewardHolder.transform.GetChild(1).transform;
                 var infoNewCard = newCard.GetComponent<CardInfo>();
-                infoNewCard.Cost = (int)Random.Range(mosnterInfo.Cost - mosnterInfo.Cost * 0.25f, mosnterInfo.Cost + mosnterInfo.Cost * 0.25f);
+                infoNewCard.Cost = (int)Mathf.Round(Random.Range(mosnterInfo.Cost - mosnterInfo.Cost * 0.25f, mosnterInfo.Cost + mosnterInfo.Cost * 0.25f));
                 infoNewCard.Sprite = mosnterInfo.Sprite;
                 infoNewCard.NameUnit = mosnterInfo.NameUnit;
                 infoNewCard.unitID = mosnterInfo.MonsterID;
-                infoNewCard.Damage = Random.Range(mosnterInfo.Damage - mosnterInfo.Damage * 0.25f, mosnterInfo.Damage + mosnterInfo.Damage * 0.25f);
-                infoNewCard.Health = Random.Range(mosnterInfo.Health - mosnterInfo.Health * 0.25f, mosnterInfo.Health + mosnterInfo.Health * 0.25f);
-                infoNewCard.MoveSpeed = Random.Range(mosnterInfo.MoveSpeed - mosnterInfo.MoveSpeed * 0.25f, mosnterInfo.MoveSpeed + mosnterInfo.MoveSpeed * 0.25f);
+                infoNewCard.Damage = Mathf.Round(Random.Range(mosnterInfo.Damage - mosnterInfo.Damage * 0.25f, mosnterInfo.Damage + mosnterInfo.Damage * 0.25f));
+                infoNewCard.Health = Mathf.Round(Random.Range(mosnterInfo.Health - mosnterInfo.Health * 0.25f, mosnterInfo.Health + mosnterInfo.Health * 0.25f));
+                infoNewCard.MoveSpeed = Mathf.Round(Random.Range(mosnterInfo.MoveSpeed - mosnterInfo.MoveSpeed * 0.25f, mosnterInfo.MoveSpeed + mosnterInfo.MoveSpeed * 0.25f));
                 infoNewCard.Prefabs = mosnterInfo.Prefabs;
                 infoNewCard.Elemental = mosnterInfo.Elemental;
                 infoNewCard.VisualAndAnimations = mosnterInfo.VisualAndAnimations;
