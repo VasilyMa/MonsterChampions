@@ -1,6 +1,6 @@
 namespace Client
 {
-    struct SlevComponent
+    public struct SlevComponent
     {
         public float TimerToCreateAuraMaxValue;
         public float TimerToCreateAuraCurrentValue;
