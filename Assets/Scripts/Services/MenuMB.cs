@@ -4,6 +4,7 @@ using Leopotam.EcsLite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 namespace Client
 {
@@ -60,13 +61,14 @@ namespace Client
             }
             else if (isOpen)
             {
+                interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
                 _state.inCollection = false;
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).transform.DOMove(defaultPosPlayButton, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).transform.DOScale(1f, 0.5f);
-                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(defaultPosCollectionButton, 1f, false);
+                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(defaultPosCollectionButton, 1f, false).OnComplete(() => RemoveCollection());
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(1f, 0.5f);
-                StartCoroutine(RemoveCollectionTimer());
+                //StartCoroutine(RemoveCollectionTimer());
                 isOpen = false;
             }
         }
@@ -142,6 +144,7 @@ namespace Client
         public void RemoveCollection()
         {
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = true;
             var collection = _state.Collection.CollectionUnits;
             var holder = interfaceComp.CollectionHolder;
             for (int i = 0; i < holder.childCount; i++)
