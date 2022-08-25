@@ -26,7 +26,7 @@ namespace Client {
             interfaceComp.Reward = FindObjectOfType<RewardMB>();
             interfaceComp.RewardPanelHolder = interfaceComp.RewardPanel.transform;
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
-            interfaceComp.LoseHolder = interfaceComp.LosePanel.transform;
+            interfaceComp.LoseHolder = interfaceComp.LosePanel.transform.GetChild(0).transform;
             interfaceComp.RewardHolder = interfaceComp.Reward.transform;
             interfaceComp.BuyCard.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.RewardPanel.Init(systems.GetWorld(), systems.GetShared<GameState>());

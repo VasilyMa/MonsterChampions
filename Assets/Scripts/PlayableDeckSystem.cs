@@ -19,14 +19,14 @@ namespace Client
                 cards = new System.Collections.Generic.List<GameObject>();
                 for (int i = 0; i < _state.Value.Deck.DeckPlayer.Length; i++)
                 {
-                    if (_state.Value.Deck.DeckPlayer[i].MonsterID == 0)
+                    if (_state.Value.Deck.DeckPlayer[i].MonsterID == MonstersID.Value.Default)
                     {
                         GameObject.Destroy(holder.GetChild(i).gameObject);
                     }
                 }
                 for (int card = 0; card < _state.Value.Deck.DeckPlayer.Length; card++)
                 {
-                    if (_state.Value.Deck.DeckPlayer[card].MonsterID == 0)
+                    if (_state.Value.Deck.DeckPlayer[card].MonsterID == MonstersID.Value.Default)
                         continue;
                     _state.Value.PlayableDeck.PlayerDeck.Add(_state.Value.Deck.DeckPlayer[card]);
                     for (int i = 0; i < holder.childCount; i++)
