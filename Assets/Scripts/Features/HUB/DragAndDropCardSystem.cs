@@ -54,12 +54,11 @@ namespace Client
                                     {
                                         for (int i = 0; i < deck.Length; i++) //add card to deck
                                         {
-                                            if (deck[i].UnitID == 0)
+                                            if (deck[i].MonsterID == 0)
                                             {
                                                 deck[i].Cost = cardInfo.Cost;
                                                 deck[i].Sprite = cardInfo.Sprite;
-                                                deck[i].UnitID = cardInfo.unitID;
-                                                deck[i].NameUnit = cardInfo.NameUnit;
+                                                deck[i].MonsterID = cardInfo.MonsterID;
                                                 deck[i].Damage = cardInfo.Damage;
                                                 deck[i].Health = cardInfo.Health;
                                                 deck[i].Elemental = cardInfo.Elemental;
@@ -70,7 +69,7 @@ namespace Client
                                         }
                                         for (int y = 0; y < collection.Count; y++) //remove are card from collection 
                                         {
-                                            if (collection[y].UnitID == cardInfo.unitID)
+                                            if (collection[y].MonsterID == cardInfo.MonsterID)
                                                 collection.Remove(collection[y]);
                                         }
                                         _state.Value.Save();
@@ -89,13 +88,12 @@ namespace Client
                                 dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                 for (int i = 0; i < deck.Length; i++)
                                 {
-                                    if (deck[i].UnitID == cardInfo.unitID)
+                                    if (deck[i].MonsterID == cardInfo.MonsterID)
                                     {
                                         deck[i].Sprite = null;
                                         deck[i].Cost = 0;
-                                        deck[i].UnitID = 0;
                                         deck[i].Damage = 0;
-                                        deck[i].NameUnit = "";
+                                        deck[i].MonsterID = 0;
                                         deck[i].Health = 0;
                                         deck[i].Elemental = 0;
                                         deck[i].Prefabs = null;
@@ -108,9 +106,8 @@ namespace Client
                                     UnitData unitData = new UnitData(); //there save the new card in collection
                                     unitData.Sprite = cardInfo.Sprite;
                                     unitData.Cost  = cardInfo.Cost;
-                                    unitData.UnitID = cardInfo.unitID;
+                                    unitData.MonsterID = cardInfo.MonsterID;
                                     unitData.Damage = cardInfo.Damage;
-                                    unitData.NameUnit = cardInfo.NameUnit;
                                     unitData.Health = cardInfo.Health;
                                     unitData.Elemental = cardInfo.Elemental;
                                     unitData.Prefabs = cardInfo.Prefabs;

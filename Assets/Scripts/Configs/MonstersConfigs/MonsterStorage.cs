@@ -9,8 +9,6 @@ public class MonsterStorage : ScriptableObject
 {
     public Sprite Sprite;
     public int Cost;
-    public int MonsterID;
-    public string NameUnit;
     public float Damage;
     public float Health;
     public float MoveSpeed;

@@ -30,7 +30,7 @@ public class CollectionMB : MonoBehaviour
         var holder = interfaceComp.CollectionHolder;
         for (int i = 0; i < holder.childCount; i++)
         {
-            if(holder.GetChild(i).GetComponent<CardInfo>().unitID > 0)
+            if(holder.GetChild(i).GetComponent<CardInfo>().MonsterID > 0)
             {
                 Destroy(holder.GetChild(i).gameObject);
             }
@@ -43,7 +43,7 @@ public class CollectionMB : MonoBehaviour
         var holder = interfaceComp.DeckHolder;
         for (int i = 0; i < holder.childCount; i++)
         {
-            if (holder.GetChild(i).GetComponent<CardInfo>().unitID > 0)
+            if (holder.GetChild(i).GetComponent<CardInfo>().MonsterID > 0)
             {
                 Destroy(holder.GetChild(i).gameObject);
             }

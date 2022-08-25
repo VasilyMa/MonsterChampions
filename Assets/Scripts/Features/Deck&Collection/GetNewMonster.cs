@@ -20,8 +20,7 @@ namespace Client {
                 UnitData newUnitData = new UnitData();
                 newUnitData.Sprite = monster.Sprite;
                 newUnitData.Cost = monster.Cost;
-                newUnitData.UnitID = monster.unitID;
-                newUnitData.NameUnit = monster.NameUnit;
+                newUnitData.MonsterID = monster.MonsterID;
                 newUnitData.Damage = monster.Damage;
                 newUnitData.MoveSpeed = monster.MoveSpeed;
                 newUnitData.Health = monster.Health;

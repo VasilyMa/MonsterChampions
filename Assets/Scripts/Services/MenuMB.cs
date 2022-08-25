@@ -85,8 +85,7 @@ namespace Client
                     var cardInfo = addedCard.GetComponent<CardInfo>();
                     cardInfo.Cost = card.Cost;
                     cardInfo.Sprite = card.Sprite;
-                    cardInfo.unitID = card.UnitID;
-                    cardInfo.NameUnit = card.NameUnit;
+                    cardInfo.MonsterID = card.MonsterID;
                     cardInfo.Health = card.Health;
                     cardInfo.Damage = card.Damage;
                     cardInfo.Elemental = card.Elemental;
@@ -104,14 +103,13 @@ namespace Client
             var holder = interfaceComp.DeckHolder;
             foreach (var item in deck)
             {
-                if (item.UnitID > 0)
+                if (item.MonsterID > 0)
                 {
                     var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
                     var cardInfo = addedCard.GetComponent<CardInfo>();
                     cardInfo.Cost = item.Cost;
                     cardInfo.Sprite = item.Sprite;
-                    cardInfo.unitID = item.UnitID;
-                    cardInfo.NameUnit = item.NameUnit;
+                    cardInfo.MonsterID = item.MonsterID;
                     cardInfo.Health = item.Health;
                     cardInfo.Damage = item.Damage;
                     cardInfo.Elemental = item.Elemental;
@@ -149,7 +147,7 @@ namespace Client
             var holder = interfaceComp.CollectionHolder;
             for (int i = 0; i < holder.childCount; i++)
             {
-                if (holder.GetChild(i).GetComponent<CardInfo>().unitID > 0)
+                if (holder.GetChild(i).GetComponent<CardInfo>().MonsterID > 0)
                 {
                     Destroy(holder.GetChild(i).gameObject);
                 }
@@ -162,7 +160,7 @@ namespace Client
             var holder = interfaceComp.DeckHolder;
             for (int i = 0; i < holder.childCount; i++)
             {
-                if (holder.GetChild(i).GetComponent<CardInfo>().unitID > 0)
+                if (holder.GetChild(i).GetComponent<CardInfo>().MonsterID > 0)
                 {
                     Destroy(holder.GetChild(i).gameObject);
                 }
