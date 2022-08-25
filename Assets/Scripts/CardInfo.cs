@@ -15,6 +15,8 @@ public class CardInfo : MonoBehaviour
     public float MoveSpeed;
     public GameObject[] Prefabs;
     public ElementalType Elemental;
+    public List<MonsterVisualAndAnimations> VisualAndAnimations = new List<MonsterVisualAndAnimations>();
+
 
     [SerializeField] private GameObject nameCard;
     [SerializeField] private GameObject unitImage;

@@ -15,8 +15,9 @@ MonoBehaviour:
   MonsterID: 3
   NameUnit: Sparky
   Damage: 10
-  Health: 100
+  Health: 10
   MoveSpeed: 10
+  VisualAndAnimations: []
   Prefabs:
   - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
-  Elemental: 1
+  Elemental: 4

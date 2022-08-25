@@ -92,9 +92,13 @@ namespace Client
                 .Add(new RefreshHealthBarEventSystem())
                 .Add(new HealthBarLookToCamera())
 
-                .Add(new EnemySpawnerSystem())
+                .Add(new UnitSpawnerSystem())
+
                 .Add(new DieEventSystem())
                 .Add(new ResetIsTargetComponentAfterDeath())
+
+                .Add(new DropGoldEventSystem())
+                .Add(new GoldAddingTimerSystem())
                 ;
 
             //_delhereEvents

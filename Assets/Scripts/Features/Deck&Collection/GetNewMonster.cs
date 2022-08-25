@@ -27,6 +27,7 @@ namespace Client {
                 newUnitData.Health = monster.Health;
                 newUnitData.Prefabs = monster.Prefabs;
                 newUnitData.Elemental = monster.Elemental;
+                newUnitData.VisualAndAnimations = monster.VisualAndAnimations;
                 _state.Value.Collection.CollectionUnits.Add(newUnitData);
                 _state.Value.Save();
                 _monsterFilter.Pools.Inc1.Del(entity);

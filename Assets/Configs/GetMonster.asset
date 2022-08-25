@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a07e7e443afdc499601e8c10634688, type: 3}
   m_Name: GetMonster
   m_EditorClassIdentifier: 
+  MainMonsterPrefab: {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
   monster:
   - {fileID: 11400000, guid: 5b85081711c81d34aa61767d6ae807ef, type: 2}
   - {fileID: 11400000, guid: babe3013c12eee34a8653000f45b0c6b, type: 2}

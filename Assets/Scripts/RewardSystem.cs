@@ -28,6 +28,8 @@ namespace Client {
                 infoNewCard.MoveSpeed = Random.Range(mosnterInfo.MoveSpeed - mosnterInfo.MoveSpeed * 0.25f, mosnterInfo.MoveSpeed + mosnterInfo.MoveSpeed * 0.25f);
                 infoNewCard.Prefabs = mosnterInfo.Prefabs;
                 infoNewCard.Elemental = mosnterInfo.Elemental;
+                infoNewCard.VisualAndAnimations = mosnterInfo.VisualAndAnimations;
+
                 newCard.gameObject.SetActive(false);
                 ref var monsterComp = ref _newMonsterPool.Value.Add(_world.Value.NewEntity());
                 monsterComp.cardInfo = infoNewCard;

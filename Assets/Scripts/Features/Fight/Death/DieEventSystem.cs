@@ -21,7 +21,9 @@ namespace Client
         readonly EcsPoolInject<Movable> _movablePool = default;
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<UnitTag> _unitPool = default;
+        readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
 
+        readonly EcsPoolInject<DropGoldEvent> _dropGoldEventPool = default;
         readonly EcsPoolInject<WinEvent> _winEventPool = default;
         readonly EcsPoolInject<LoseEvent> _loseEventPool = default;
 
@@ -48,6 +50,8 @@ namespace Client
                 ClearTargetableComponentInEnemyUnits();
 
                 PlayDeadAnimation();
+
+                DropGold();
 
                 SetDeadLayer();
 
@@ -81,6 +85,25 @@ namespace Client
 
             ref var animableComponent = ref _animablePool.Value.Get(_dyingEntity);
             animableComponent.Animator.SetTrigger(nameof(animableComponent.Die));
+        }
+
+        private void DropGold()
+        {
+            if (!_droppingGoldPool.Value.Has(_dyingEntity))
+            {
+                return;
+            }
+
+            if (!_viewPool.Value.Has(_dyingEntity))
+            {
+                Debug.LogError($"{_dyingEntity} have the DroppingGoldComponent, but dont have the ViewComponent! DropGoldEvent wasnt start.");
+                return;
+            }
+
+            ref var droppingGoldComponent = ref _droppingGoldPool.Value.Get(_dyingEntity);
+            ref var viewComponent = ref _viewPool.Value.Get(_dyingEntity);
+
+            _dropGoldEventPool.Value.Add(_world.Value.NewEntity()).Invoke(droppingGoldComponent.GoldValue, viewComponent.Transform.position);
         }
 
         private void InvokeWinOrLoseEvent()

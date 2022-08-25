@@ -27,12 +27,40 @@ namespace Client
         public int CurrentLevel = 1;
         public bool runSysytem = false, hubSystem = true;
 
+        private int _playrGold;
 
         public PlayableDeck PlayableDeck = new PlayableDeck();
         private int _playerBaseEntity = -1;
         private List<int> _enemyBaseEntity = new List<int>();
         private int _currentActiveEnemyBaseInArray = -1;
         public const int NULL_ENTITY = -1;
+
+        public void AddPlayerGold(int value)
+        {
+            if (value <= 0)
+            {
+                Debug.LogError("Trying to added minus value for PlayerGold!");
+                return;
+            }
+
+            _playrGold += value;
+        }
+
+        public void RevomePlayerGold(int value)
+        {
+            if (value <= 0)
+            {
+                Debug.LogError("Trying to remove minus value for PlayerGold!");
+                return;
+            }
+
+            _playrGold -= value;
+        }
+
+        public int GetPlayerGold()
+        {
+            return _playrGold;
+        }
 
         public void SetPlayerBaseEntity(int baseEntity)
         {

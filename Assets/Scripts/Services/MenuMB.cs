@@ -93,6 +93,7 @@ namespace Client
                             cardInfo.Elemental = card.Elemental;
                             cardInfo.MoveSpeed = card.MoveSpeed;
                             cardInfo.Prefabs = card.Prefabs;
+                            cardInfo.VisualAndAnimations = card.VisualAndAnimations;
                             cardInfo.UpdateCardInfo();
                         }
                         else
@@ -110,6 +111,7 @@ namespace Client
                                     cardInfo.Elemental = card.Elemental;
                                     cardInfo.MoveSpeed = card.MoveSpeed;
                                     cardInfo.Prefabs = card.Prefabs;
+                                    cardInfo.VisualAndAnimations= card.VisualAndAnimations;
                                     cardInfo.UpdateCardInfo();
                                     break;
                                 }
@@ -137,6 +139,7 @@ namespace Client
                     cardInfo.Elemental = item.Elemental;
                     cardInfo.MoveSpeed = item.MoveSpeed;
                     cardInfo.Prefabs = item.Prefabs;
+                    cardInfo.VisualAndAnimations = item.VisualAndAnimations;
                     cardInfo.UpdateCardInfo();
                 }
                 
