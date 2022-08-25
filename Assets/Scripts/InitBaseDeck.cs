@@ -21,7 +21,6 @@ namespace Client
                     deck[i].Health = storage[i].Health;
                     deck[i].MoveSpeed = storage[i].MoveSpeed;
                     deck[i].Elemental = storage[i].Elemental;
-                    deck[i].Prefabs = storage[i].Prefabs;
                     deck[i].VisualAndAnimations = storage[i].VisualAndAnimations;
                 }
                 _state.Value.Settings.MaxLevelRewardedCard = 3;

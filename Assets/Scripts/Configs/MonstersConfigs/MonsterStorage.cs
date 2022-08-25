@@ -9,10 +9,10 @@ public class MonsterStorage : ScriptableObject
 {
     public Sprite Sprite;
     public int Cost;
+    public MonstersID.Value MonsterID;
     public float Damage;
     public float Health;
     public float MoveSpeed;
-    public MonstersID.Value MonsterID;
     public List<MonsterVisualAndAnimations> VisualAndAnimations = new List<MonsterVisualAndAnimations>();
     public GameObject[] Prefabs;
     public ElementalType Elemental;

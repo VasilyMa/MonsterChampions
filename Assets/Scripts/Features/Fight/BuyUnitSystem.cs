@@ -32,7 +32,7 @@ namespace Client {
                 int unitEntity = _world.Value.NewEntity();
                 _onboardUnit.Value.Add(unitEntity);
                 var slot = FindEmptySlot();
-                var unitObject = GameObject.Instantiate(buyInfoComp.CardInfo.Prefabs[0], slot.position, Quaternion.identity);
+                var unitObject = GameObject.Instantiate(_state.Value._monsterStorage.MainMonsterPrefab, slot.position, Quaternion.identity);
                 unitObject.transform.SetParent(slot);
 
                 ref var viewComponent = ref _viewPool.Value.Add(unitEntity);
@@ -41,6 +41,8 @@ namespace Client {
                 viewComponent.GameObject = unitObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
                 viewComponent.GameObject.tag = "Friendly";
+
+                viewComponent.CardInfo = buyInfoComp.CardInfo;
 
                 viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
 

@@ -63,14 +63,17 @@ namespace Client
                                                 deck[i].Health = cardInfo.Health;
                                                 deck[i].Elemental = cardInfo.Elemental;
                                                 deck[i].MoveSpeed = cardInfo.MoveSpeed;
-                                                deck[i].Prefabs = cardInfo.Prefabs;
+                                                deck[i].VisualAndAnimations = cardInfo.VisualAndAnimations;
                                                 break;
                                             }
                                         }
                                         for (int y = 0; y < collection.Count; y++) //remove are card from collection 
                                         {
                                             if (collection[y].MonsterID == cardInfo.MonsterID)
+                                            {
                                                 collection.Remove(collection[y]);
+                                                break;
+                                            }   
                                         }
                                         _state.Value.Save();
                                     }
@@ -110,7 +113,7 @@ namespace Client
                                     unitData.Damage = cardInfo.Damage;
                                     unitData.Health = cardInfo.Health;
                                     unitData.Elemental = cardInfo.Elemental;
-                                    unitData.Prefabs = cardInfo.Prefabs;
+                                    unitData.VisualAndAnimations = cardInfo.VisualAndAnimations;
                                     unitData.MoveSpeed = cardInfo.MoveSpeed;
                                     collection.Add(unitData);
                                 }

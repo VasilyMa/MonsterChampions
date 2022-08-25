@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: bc60cb9ff904f51408de7128b8021831, type: 3}
   Cost: 0
-  MonsterID: 3
-  NameUnit: Sparky
+  MonsterID: 2
   Damage: 10
   Health: 10
   MoveSpeed: 10

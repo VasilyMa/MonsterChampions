@@ -31,9 +31,15 @@ namespace Client {
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var animableComp = ref _animablePool.Value.Get(mergeComp.EntitysecondUnit);
 
+                viewCompMain.Model = GameObject.Instantiate(viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].Prefab, viewCompMain.GameObject.transform.position, Quaternion.identity);
+
+                viewCompMain.Model.transform.SetParent(viewCompMain.Transform);
+
+                animableComp.Animator.runtimeAnimatorController = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].RuntimeAnimatorController;
+                animableComp.Animator.avatar = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].Avatar;
+
                 // change controller
                 // change avatar
-                // change model
                 // to do ay write there leveling
                 // переопределить ModelUnitMB. А нужно-ли?
 
