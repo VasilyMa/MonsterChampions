@@ -10,7 +10,6 @@ public class MonsterStorage : ScriptableObject
     public Sprite Sprite;
     public int Cost;
     public MonstersID.Value MonsterID;
-    public string NameUnit;
     public float Damage;
     public float Health;
     public float MoveSpeed;

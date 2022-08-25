@@ -9,6 +9,7 @@ namespace Client
         public GameObject Model;
         public Transform Transform;
         public EcsInfoMB EcsInfoMB;
+        public CardInfo CardInfo;
 
         public int LayerBeforeDeath;
 

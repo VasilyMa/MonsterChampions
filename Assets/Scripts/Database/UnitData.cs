@@ -5,8 +5,7 @@ using Client;
 [System.Serializable]
 public class UnitData
 {
-    public int UnitID;
-    public string NameUnit;
+    public MonstersID.Value MonsterID;
     public float Damage;
     public float Health;
     public float MoveSpeed;

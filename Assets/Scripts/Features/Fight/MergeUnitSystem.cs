@@ -31,12 +31,12 @@ namespace Client {
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var animableComp = ref _animablePool.Value.Get(mergeComp.EntitysecondUnit);
 
-                viewCompMain.Model = GameObject.Instantiate(/* link on model[levelComp.Value] */, viewCompMain.GameObject.transform.position, Quaternion.identity);
+                viewCompMain.Model = GameObject.Instantiate(viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].Prefab, viewCompMain.GameObject.transform.position, Quaternion.identity);
 
                 viewCompMain.Model.transform.SetParent(viewCompMain.Transform);
 
-                animableComp.Animator.runtimeAnimatorController = /* link on controller[levelComp.Value] */;
-                animableComp.Animator.avatar = /* link on avatar[levelComp.Value] */;
+                animableComp.Animator.runtimeAnimatorController = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].RuntimeAnimatorController;
+                animableComp.Animator.avatar = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].Avatar;
 
                 // change controller
                 // change avatar

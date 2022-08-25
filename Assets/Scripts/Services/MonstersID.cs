@@ -9,11 +9,12 @@ namespace Client
     {
         public enum Value
         {
-            Stoon = 0,
-            Sparky = 1,
-            Tinki = 2,
-            Bable = 3,
-            Slev = 4,
+            Default = 0,
+            Stoon = 1,
+            Sparky = 2,
+            Tinki = 3,
+            Bable = 4,
+            Slev = 5,
         }
     }
 }

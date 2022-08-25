@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: Slev
   m_EditorClassIdentifier: 
-  MonsterID: 2
-  NameUnit: Slev
+  Sprite: {fileID: 21300000, guid: 6d3bbb3d86103d3448532a618c5e21d9, type: 3}
+  Cost: 0
+  MonsterID: 5
   Damage: 2
   Health: 10
   MoveSpeed: 10
@@ -21,11 +22,11 @@ MonoBehaviour:
   - Name: Level 1
     Avatar: {fileID: 9000000, guid: 27a53c8479aedd94eb3a6d1b0a98af36, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: 6eb5d53005d90504ab2aae14950ba288, type: 2}
-    Prefab: {fileID: 0}
+    Prefab: {fileID: 5873765718848905038, guid: 981964b0558e6a84f8ab9054fcd546ca, type: 3}
   - Name: Level 2
-    Avatar: {fileID: 0}
-    RuntimeAnimatorController: {fileID: 0}
-    Prefab: {fileID: 0}
+    Avatar: {fileID: 9000000, guid: 2ae80d6f54b96cf468cb03defb438e6f, type: 3}
+    RuntimeAnimatorController: {fileID: 22100000, guid: 3dc7fcb4289f0ae429d62f314045734a, type: 2}
+    Prefab: {fileID: 1753320271957481584, guid: a914dc8feecbaba46be0619d67a752ac, type: 3}
   - Name: Level 3
     Avatar: {fileID: 0}
     RuntimeAnimatorController: {fileID: 0}

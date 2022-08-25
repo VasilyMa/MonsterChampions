@@ -7,13 +7,12 @@ using UnityEngine.UI;
 public class CardInfo : MonoBehaviour
 {
     public Sprite Sprite;
-    public int unitID;
     public int Cost;
-    public string NameUnit;
     public float Damage;
     public float Health;
     public float MoveSpeed;
     public GameObject[] Prefabs;
+    public MonstersID.Value MonsterID;
     public ElementalType Elemental;
     public List<MonsterVisualAndAnimations> VisualAndAnimations = new List<MonsterVisualAndAnimations>();
 
@@ -27,8 +26,8 @@ public class CardInfo : MonoBehaviour
 
     public void UpdateCardInfo()
     {
-        nameCard.GetComponentInChildren<Text>().text = NameUnit;
-        //unitImage.GetComponentInChildren<Image>().sprite = sprite;
+        nameCard.GetComponentInChildren<Text>().text = MonsterID.ToString();
+        unitImage.GetComponentInChildren<Image>().sprite = Sprite;
         healthAmount.GetComponentInChildren<Text>().text = Health.ToString();
         damageAmount.GetComponentInChildren<Text>().text = Damage.ToString();
         cost.GetComponentInChildren<Text>().text = Cost.ToString();

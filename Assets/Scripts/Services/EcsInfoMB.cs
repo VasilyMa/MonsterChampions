@@ -10,6 +10,7 @@ namespace Client
     {
         public int Entity;
         public int unitID;
+        public MonstersID.Value monsterID;
 
         private EcsWorldInject _world;
 
