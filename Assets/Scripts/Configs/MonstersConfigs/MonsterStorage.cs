@@ -24,7 +24,7 @@ public class MonsterVisualAndAnimations
     public string Name = "View for different level";
     public Avatar Avatar;
     public RuntimeAnimatorController RuntimeAnimatorController;
-    public GameObject Prefab;
+    public GameObject ModelPrefab;
 }
 
 

@@ -4,5 +4,8 @@ using UnityEngine;
 public class BaseTagMB : MonoBehaviour
 {
     public bool isFriendly; // to do ay del this after create baseSpawnSystems
+
+    [Range(1, 4)]
+    public int MonsterLevel;
     public List<MonsterStorage> monster = new List<MonsterStorage>();
 }

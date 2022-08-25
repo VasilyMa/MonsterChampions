@@ -16,6 +16,9 @@ namespace Client {
         readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
+
+        private Vector3 _ebenya = new Vector3(0, 100, 0);
+
         public void Run (IEcsSystems systems) {
             foreach (var entity in _mergeFilter.Value)
             {
@@ -31,17 +34,16 @@ namespace Client {
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var animableComp = ref _animablePool.Value.Get(mergeComp.EntitysecondUnit);
 
-                viewCompMain.Model = GameObject.Instantiate(viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].Prefab, viewCompMain.GameObject.transform.position, Quaternion.identity);
+                // to do ay create objectPool for reuse models
+                viewCompMain.Model.transform.SetParent(null);
+                viewCompMain.Model.transform.position = _ebenya;
 
+                viewCompMain.Model = GameObject.Instantiate(viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].ModelPrefab, viewCompMain.GameObject.transform.position, Quaternion.identity);
                 viewCompMain.Model.transform.SetParent(viewCompMain.Transform);
 
                 animableComp.Animator.runtimeAnimatorController = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].RuntimeAnimatorController;
                 animableComp.Animator.avatar = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].Avatar;
-
-                // change controller
-                // change avatar
-                // to do ay write there leveling
-                // переопределить ModelUnitMB. А нужно-ли?
+                // end to do ay
 
                 levelComp.Value++;
                 healthComp.MaxValue *= 2;

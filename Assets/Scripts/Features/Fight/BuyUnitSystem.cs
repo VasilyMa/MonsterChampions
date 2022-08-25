@@ -25,7 +25,8 @@ namespace Client {
 
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
 
-        public void Run (IEcsSystems systems) {
+        public void Run (IEcsSystems systems)
+        {
             foreach (var entity in _buyFilter.Value)
             {
                 ref var buyInfoComp = ref _buyFilter.Pools.Inc1.Get(entity); //there save are info of new monster buyed buyInfoComp.CardInfo...
@@ -45,6 +46,10 @@ namespace Client {
                 viewComponent.CardInfo = buyInfoComp.CardInfo;
 
                 viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
+                viewComponent.Model = GameObject.Instantiate(viewComponent.CardInfo.VisualAndAnimations[0].ModelPrefab, viewComponent.GameObject.transform.position, Quaternion.identity);
+                viewComponent.Model.transform.SetParent(viewComponent.Transform);
+
+                SetActualModelView();
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(unitEntity);
                 fractionComponent.isFriendly = true;
@@ -55,6 +60,9 @@ namespace Client {
 
                 ref var animableComponent = ref _animablePool.Value.Add(unitEntity);
                 animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
+
+                animableComponent.Animator.runtimeAnimatorController = viewComponent.CardInfo.VisualAndAnimations[0].RuntimeAnimatorController;
+                animableComponent.Animator.avatar = viewComponent.CardInfo.VisualAndAnimations[0].Avatar;
 
                 ref var unitComponent = ref _unitPool.Value.Add(unitEntity);
 
@@ -98,6 +106,12 @@ namespace Client {
             }
 
         }
+
+        private void SetActualModelView()
+        {
+
+        }
+
         private Transform FindEmptySlot() //find the empty slot on board for buy unit and add it
         {
             Transform slot = null;
