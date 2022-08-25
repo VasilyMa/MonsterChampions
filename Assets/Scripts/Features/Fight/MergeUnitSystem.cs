@@ -31,9 +31,15 @@ namespace Client {
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var animableComp = ref _animablePool.Value.Get(mergeComp.EntitysecondUnit);
 
+                viewCompMain.Model = GameObject.Instantiate(/* link on model[levelComp.Value] */, viewCompMain.GameObject.transform.position, Quaternion.identity);
+
+                viewCompMain.Model.transform.SetParent(viewCompMain.Transform);
+
+                animableComp.Animator.runtimeAnimatorController = /* link on controller[levelComp.Value] */;
+                animableComp.Animator.avatar = /* link on avatar[levelComp.Value] */;
+
                 // change controller
                 // change avatar
-                // change model
                 // to do ay write there leveling
                 // переопределить ModelUnitMB. А нужно-ли?
 

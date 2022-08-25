@@ -22,7 +22,7 @@ namespace Client {
                 infoNewCard.Cost = (int)Mathf.Round(Random.Range(mosnterInfo.Cost - mosnterInfo.Cost * 0.25f, mosnterInfo.Cost + mosnterInfo.Cost * 0.25f));
                 infoNewCard.Sprite = mosnterInfo.Sprite;
                 infoNewCard.NameUnit = mosnterInfo.NameUnit;
-                infoNewCard.unitID = mosnterInfo.MonsterID;
+                infoNewCard.unitID = ((int)mosnterInfo.MonsterID);
                 infoNewCard.Damage = Mathf.Round(Random.Range(mosnterInfo.Damage - mosnterInfo.Damage * 0.25f, mosnterInfo.Damage + mosnterInfo.Damage * 0.25f));
                 infoNewCard.Health = Mathf.Round(Random.Range(mosnterInfo.Health - mosnterInfo.Health * 0.25f, mosnterInfo.Health + mosnterInfo.Health * 0.25f));
                 infoNewCard.MoveSpeed = Mathf.Round(Random.Range(mosnterInfo.MoveSpeed - mosnterInfo.MoveSpeed * 0.25f, mosnterInfo.MoveSpeed + mosnterInfo.MoveSpeed * 0.25f));

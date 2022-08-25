@@ -14,7 +14,7 @@ namespace Client
                 var storage = _state.Value._monsterStorage.monster;
                 for (int i = 0; i < deck.Length - 1; i++)
                 {
-                    deck[i].UnitID = storage[i].MonsterID;
+                    deck[i].UnitID = ((int)storage[i].MonsterID);
                     deck[i].NameUnit = storage[i].NameUnit;
                     deck[i].Sprite = storage[i].Sprite;
                     deck[i].Cost = storage[i].Cost;
