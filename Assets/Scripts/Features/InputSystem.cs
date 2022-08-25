@@ -21,10 +21,6 @@ namespace Client {
             {
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 ref var inputComp = ref _inputFilter.Pools.Inc1.Get(entity);
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    _newMonsterPool.Value.Add(_world.Value.NewEntity());
-                }
 
                 if (!Input.GetMouseButtonDown(0))
                     return;
@@ -60,7 +56,7 @@ namespace Client {
                 //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
                 foreach (RaycastResult result in results)
                 {
-                    if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem)
+                    if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && _state.Value.inCollection)
                     {
                         interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = false;
                         ref var cardComp = ref _cardEventPool.Value.Add(_world.Value.NewEntity());
@@ -70,6 +66,10 @@ namespace Client {
                         cardComp.CardObject.transform.parent = GameObject.FindObjectOfType<CollectionMB>().transform;
                         cardComp.CardObject.GetComponent<Image>().raycastTarget = false;
                         Debug.Log("Hit " + result.gameObject.name);
+                    }
+                    if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && !_state.Value.inCollection)
+                    {
+                        interfaceComp.MainMenu.ToCollection();
                     }
                 }
             }

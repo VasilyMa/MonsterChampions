@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: Slev
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 21300000, guid: 6d3bbb3d86103d3448532a618c5e21d9, type: 3}
+  Cost: 0
   MonsterID: 2
   NameUnit: Slev
   Damage: 2

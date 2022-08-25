@@ -22,7 +22,6 @@ namespace Client
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
                 _rewardPool.Value.Add(_world.Value.NewEntity());
                 Time.timeScale = 1;
-                _state.Value.hubSystem = true;
                 _state.Value.runSysytem = false;
                 Debug.Log("Ты победил, умничка"); 
                 int index = 0;

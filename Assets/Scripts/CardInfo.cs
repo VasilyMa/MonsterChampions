@@ -28,7 +28,7 @@ public class CardInfo : MonoBehaviour
     public void UpdateCardInfo()
     {
         nameCard.GetComponentInChildren<Text>().text = NameUnit;
-        //unitImage.GetComponentInChildren<Image>().sprite = sprite;
+        unitImage.GetComponentInChildren<Image>().sprite = Sprite;
         healthAmount.GetComponentInChildren<Text>().text = Health.ToString();
         damageAmount.GetComponentInChildren<Text>().text = Damage.ToString();
         cost.GetComponentInChildren<Text>().text = Cost.ToString();

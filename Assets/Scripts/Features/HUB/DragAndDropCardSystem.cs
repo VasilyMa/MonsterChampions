@@ -56,6 +56,8 @@ namespace Client
                                         {
                                             if (deck[i].UnitID == 0)
                                             {
+                                                deck[i].Cost = cardInfo.Cost;
+                                                deck[i].Sprite = cardInfo.Sprite;
                                                 deck[i].UnitID = cardInfo.unitID;
                                                 deck[i].NameUnit = cardInfo.NameUnit;
                                                 deck[i].Damage = cardInfo.Damage;
@@ -89,6 +91,8 @@ namespace Client
                                 {
                                     if (deck[i].UnitID == cardInfo.unitID)
                                     {
+                                        deck[i].Sprite = null;
+                                        deck[i].Cost = 0;
                                         deck[i].UnitID = 0;
                                         deck[i].Damage = 0;
                                         deck[i].NameUnit = "";
@@ -102,6 +106,8 @@ namespace Client
                                 if (dragComp.DefaultParent.CompareTag("Deck"))
                                 {
                                     UnitData unitData = new UnitData(); //there save the new card in collection
+                                    unitData.Sprite = cardInfo.Sprite;
+                                    unitData.Cost  = cardInfo.Cost;
                                     unitData.UnitID = cardInfo.unitID;
                                     unitData.Damage = cardInfo.Damage;
                                     unitData.NameUnit = cardInfo.NameUnit;
