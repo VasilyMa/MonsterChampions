@@ -17,6 +17,23 @@ MonoBehaviour:
   Damage: 5
   Health: 20
   MoveSpeed: 7
+  VisualAndAnimations:
+  - Name: View for different level
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    Prefab: {fileID: 0}
+  - Name: View for different level
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    Prefab: {fileID: 0}
+  - Name: View for different level
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    Prefab: {fileID: 0}
+  - Name: View for different level
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    Prefab: {fileID: 0}
   Prefabs:
   - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
   Elemental: 1

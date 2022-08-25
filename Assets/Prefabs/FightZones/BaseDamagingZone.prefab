@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6847377905963831959}
   - component: {fileID: 5856916547405508762}
   m_Layer: 8
-  m_Name: BaseDamagingZoneZone
+  m_Name: BaseDamagingZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

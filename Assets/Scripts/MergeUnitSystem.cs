@@ -8,6 +8,7 @@ namespace Client {
         readonly EcsFilterInject<Inc<MergeUnitEvent>> _mergeFilter = default;
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<PhysicsComponent> _physicsPool = default;
+        readonly EcsPoolInject<Animable> _animablePool = default;
         readonly EcsPoolInject<UnitTag> _unitPool = default;
         readonly EcsPoolInject<Movable> _movablePool = default;
         readonly EcsPoolInject<Targetable> _targetablePool = default;
@@ -28,12 +29,18 @@ namespace Client {
                 ref var elementComp = ref _elementalPool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var levelComp = ref _levelPool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
-                //to do ay write there leveling
+                ref var animableComp = ref _animablePool.Value.Get(mergeComp.EntitysecondUnit);
+
+                // change controller
+                // change avatar
+                // change model
+                // to do ay write there leveling
+                // переопределить ModelUnitMB. А нужно-ли?
 
                 levelComp.Value++;
-                healthComp.MaxValue = healthComp.MaxValue * 2;
+                healthComp.MaxValue *= 2;
                 healthComp.CurrentValue = healthComp.MaxValue;
-                damageComp.Value = damageComp.Value * 2;
+                damageComp.Value *= 2;
 
                 GameObject.Instantiate(_state.Value._mergeEffectsPool.MergeEffectPrefab[0], viewCompMain.GameObject.transform.position, Quaternion.identity);
 
@@ -49,6 +56,7 @@ namespace Client {
                 _movablePool.Value.Del(mergeComp.EntityfirstUnit);
                 _physicsPool.Value.Del(mergeComp.EntityfirstUnit);
                 _viewPool.Value.Del(mergeComp.EntityfirstUnit);
+                _animablePool.Value.Del(mergeComp.EntityfirstUnit);
                 //
                 _mergeFilter.Pools.Inc1.Del(entity);
             }

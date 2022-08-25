@@ -10,6 +10,7 @@ public class UnitData
     public float Damage;
     public float Health;
     public float MoveSpeed;
+    public List<MonsterVisualAndAnimations> VisualAndAnimations = new List<MonsterVisualAndAnimations>();
     public GameObject[] Prefabs;
     public ElementalType Elemental;
 }
