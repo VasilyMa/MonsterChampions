@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MergeEffectPrefab:
   - {fileID: 2198164410692003160, guid: 69e8659c23e205c4a922b85bfd95b941, type: 3}
+  - {fileID: 1134129239631916, guid: 1f59577db9a776c4f82a1ed90ea84298, type: 3}
+  - {fileID: 1134129239631916, guid: 1f59577db9a776c4f82a1ed90ea84298, type: 3}

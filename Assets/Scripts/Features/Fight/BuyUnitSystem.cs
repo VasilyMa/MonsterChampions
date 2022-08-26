@@ -25,6 +25,9 @@ namespace Client {
 
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
         readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
+        readonly EcsPoolInject<StoonComponent> _stoonPool = default;
+        readonly EcsPoolInject<TinkiComponent> _tinkiPool = default;
+        readonly EcsPoolInject<BableComponent> _bablePool = default;
 
         private int _unitEntity = BattleState.NULL_ENTITY;
 
@@ -144,13 +147,16 @@ namespace Client {
                     Debug.Log($"Monster {viewComponent.GameObject} have Default MonsterID.");
                     break;
                 case MonstersID.Value.Stoon:
+                    StoonComponents();
                     break;
                 case MonstersID.Value.Sparky:
                     SparkysComponents();
                     break;
                 case MonstersID.Value.Tinki:
+                    TinkisComponents();
                     break;
                 case MonstersID.Value.Bable:
+                    BablesComponents();
                     break;
                 case MonstersID.Value.Slev:
                     SlevsComponents();
@@ -163,7 +169,7 @@ namespace Client {
 
         private void StoonComponents()
         {
-            ref var slevComponent = ref _slevPool.Value.Add(_unitEntity); // need stoonComponent
+            ref var stoonComponent = ref _stoonPool.Value.Add(_unitEntity);
         }
 
         private void SlevsComponents()
@@ -174,6 +180,16 @@ namespace Client {
         private void SparkysComponents()
         {
             ref var sparkyComponent = ref _sparkyPool.Value.Add(_unitEntity);
+        }
+
+        private void TinkisComponents()
+        {
+            ref var tinkiComponent = ref _tinkiPool.Value.Add(_unitEntity);
+        }
+
+        private void BablesComponents()
+        {
+            ref var bableComponent = ref _bablePool.Value.Add(_unitEntity);
         }
     }
 }

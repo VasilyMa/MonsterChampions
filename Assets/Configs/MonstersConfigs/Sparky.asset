@@ -20,21 +20,21 @@ MonoBehaviour:
   MoveSpeed: 10
   VisualAndAnimations:
   - Name: Level 1
-    Avatar: {fileID: 9000000, guid: 0296b0adb89c71d4c9ae1c224ca82801, type: 2}
+    Avatar: {fileID: 9000000, guid: 45e42983055154b43beb5e6c8ace8b2b, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: 73232f5425172ff47ba895ef32fe1ae9, type: 2}
-    ModelPrefab: {fileID: 1473267055358643904, guid: 3e0b88a4936d82944a65a2f6f9de1ceb, type: 3}
+    ModelPrefab: {fileID: 1374706853107750011, guid: 3e0b88a4936d82944a65a2f6f9de1ceb, type: 3}
   - Name: Level 2
-    Avatar: {fileID: 9000000, guid: 136af2b9b1c522c4798b1d9d273c3944, type: 2}
+    Avatar: {fileID: 9000000, guid: d104235d3575015439e99a40d341c988, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: 275efe19c63802247996b84ef23373c0, type: 2}
-    ModelPrefab: {fileID: 9131099150095112911, guid: 84d52a5e94108714485ab4791c1632c9, type: 3}
+    ModelPrefab: {fileID: 208057629874199657, guid: 84d52a5e94108714485ab4791c1632c9, type: 3}
   - Name: Level 3
-    Avatar: {fileID: 9000000, guid: 03336fd3c6321dc42a362cda35a11115, type: 2}
+    Avatar: {fileID: 9000000, guid: 929b1b0d65d5fae449066b8918446eda, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: da4e6bfe472a4684c917cdcde57a7adc, type: 2}
-    ModelPrefab: {fileID: 1249700030279631903, guid: 70a90412b0f5f0a4995d96ca8d8ac82a, type: 3}
+    ModelPrefab: {fileID: 4768429663716727427, guid: 70a90412b0f5f0a4995d96ca8d8ac82a, type: 3}
   - Name: Level 4
-    Avatar: {fileID: 9000000, guid: 542dd7e91ec7da94ebc64197ba54fbef, type: 2}
+    Avatar: {fileID: 9000000, guid: 576809c569bcac742ac236721c5fec28, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: 7b2fc2cc9f98b8d4ca3cc11b494c0a96, type: 2}
-    ModelPrefab: {fileID: 6666388909067632817, guid: ee38770084522744ba46629a6cc21070, type: 3}
+    ModelPrefab: {fileID: 1294548983354283543, guid: ee38770084522744ba46629a6cc21070, type: 3}
   Prefabs:
   - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
   Elemental: 4

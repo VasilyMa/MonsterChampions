@@ -8,6 +8,8 @@ namespace Client
     {
         readonly EcsWorldInject _world;
 
+        readonly EcsSharedInject<GameState> _gameState;
+
         readonly EcsFilterInject<Inc<CreateSparkyExplosionEvent>> _sparkyExplosionEventFilter = default;
 
         readonly EcsPoolInject<CreateSparkyExplosionEvent> _sparkyExplosionEventPool = default;
@@ -38,6 +40,8 @@ namespace Client
                 ref var fractionComponent = ref _fractionPool.Value.Get(_sparkyEntity);
                 ref var healthComponent = ref _healthPool.Value.Get(_sparkyEntity);
                 ref var viewComponent = ref _viewPool.Value.Get(_sparkyEntity);
+
+                GameObject.Instantiate(_gameState.Value._mergeEffectsPool.MergeEffectPrefab[1], viewComponent.GameObject.transform.position, Quaternion.identity);
 
                 CreateExplosionEntity();
 
