@@ -34,17 +34,20 @@ namespace Client
         }
         public void Play()
         {
-            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
-            _state.hubSystem = false;
-            _state.runSysytem = true;
-            _state.inCollection = false;
-            interfaceComp.Resources.gameObject.SetActive(true);
-            interfaceComp.HolderCards.gameObject.SetActive(true);
-            interfaceComp.DeckHolder.transform.DOMoveY(Screen.height * 1.5f, 1f, false);
-            interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
-            interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
-            interfaceComp.MenuHolder.gameObject.SetActive(false);
-            _playableDeckEventPool.Add(_world.NewEntity());
+            if (!_state.isDrag)
+            {
+                ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+                _state.hubSystem = false;
+                _state.runSysytem = true;
+                _state.inCollection = false;
+                interfaceComp.Resources.gameObject.SetActive(true);
+                interfaceComp.HolderCards.gameObject.SetActive(true);
+                interfaceComp.DeckHolder.transform.DOMoveY(Screen.height * 1.5f, 1f, false);
+                interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
+                interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
+                interfaceComp.MenuHolder.gameObject.SetActive(false);
+                _playableDeckEventPool.Add(_world.NewEntity());
+            }
         }
         public void ToCollection()
         {
