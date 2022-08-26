@@ -61,11 +61,10 @@ namespace Client
                 .Add(new LoseEventSystem())
 
                 .Add(new InitBoard())
-                .Add(new PlayableDeckSystem())
+                
                 .Add(new BuyUnitSystem())
                 .Add(new InitBase())
                 .Add(new InitUnits())
-
                 .Add(new InitMergeEffectPool())
 
                 .Add(new InitCamera())
@@ -102,6 +101,8 @@ namespace Client
 
                 .Add(new DropGoldEventSystem())
                 .Add(new GoldAddingTimerSystem())
+
+                .Add(new PlayableDeckSystem())
                 ;
 
             //_delhereEvents

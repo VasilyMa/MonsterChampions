@@ -48,8 +48,6 @@ namespace Client
                             case "Deck": //if its deck then add to deck new item and add to array new card
                                 if (result.gameObject.transform.childCount <= 2)
                                 {
-                                    dragComp.CardObject.transform.SetParent(result.gameObject.transform);
-                                    dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                     if (dragComp.DefaultParent.name == "Cards")
                                     {
                                         for (int i = 0; i < deck.Length; i++) //add card to deck
@@ -75,40 +73,40 @@ namespace Client
                                                 break;
                                             }   
                                         }
+                                        dragComp.CardObject.transform.SetParent(result.gameObject.transform);
                                         _state.Value.Save();
                                     }
                                     dragComp.DefaultParent = result.gameObject.transform;
+                                    dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                     Debug.Log("Hit " + result.gameObject.name);
                                 }
                                 else
                                 {
-                                    dragComp.CardObject.transform.parent = dragComp.DefaultParent;
+                                    dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
                                     dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                 }
                                 break;
                             case "Collection": //if its collection then add card from deck to collection and remove its from deck
-                                dragComp.CardObject.transform.SetParent(result.gameObject.transform.GetChild(0));
-                                dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
-                                for (int i = 0; i < deck.Length; i++)
-                                {
-                                    if (deck[i].MonsterID == cardInfo.MonsterID)
-                                    {
-                                        deck[i].Sprite = null;
-                                        deck[i].Cost = 0;
-                                        deck[i].Damage = 0;
-                                        deck[i].MonsterID = 0;
-                                        deck[i].Health = 0;
-                                        deck[i].Elemental = 0;
-                                        deck[i].Prefabs = null;
-                                        deck[i].MoveSpeed = 0;
-                                        break;
-                                    }
-                                }
                                 if (dragComp.DefaultParent.CompareTag("Deck"))
                                 {
+                                    for (int i = 0; i < deck.Length; i++)
+                                    {
+                                        if (deck[i].MonsterID == cardInfo.MonsterID)
+                                        {
+                                            deck[i].Sprite = null;
+                                            deck[i].Cost = 0;
+                                            deck[i].Damage = 0;
+                                            deck[i].MonsterID = 0;
+                                            deck[i].Health = 0;
+                                            deck[i].Elemental = 0;
+                                            deck[i].Prefabs = null;
+                                            deck[i].MoveSpeed = 0;
+                                            break;
+                                        }
+                                    }
                                     UnitData unitData = new UnitData(); //there save the new card in collection
                                     unitData.Sprite = cardInfo.Sprite;
-                                    unitData.Cost  = cardInfo.Cost;
+                                    unitData.Cost = cardInfo.Cost;
                                     unitData.MonsterID = cardInfo.MonsterID;
                                     unitData.Damage = cardInfo.Damage;
                                     unitData.Health = cardInfo.Health;
@@ -116,22 +114,30 @@ namespace Client
                                     unitData.VisualAndAnimations = cardInfo.VisualAndAnimations;
                                     unitData.MoveSpeed = cardInfo.MoveSpeed;
                                     collection.Add(unitData);
+                                    dragComp.CardObject.transform.SetParent(result.gameObject.transform.GetChild(0));
                                 }
-                                dragComp.DefaultParent = result.gameObject.transform;
-                                _state.Value.Save();
+                                else
+                                {
+                                    dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
+                                }
+                                dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                 break;
                             default:
-                                dragComp.CardObject.transform.parent = dragComp.DefaultParent;
+                                dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
                                 dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                 break;
                         }
                     }
-                    _state.Value.isDrag = false;
-                    dragComp.CardObject.transform.DOScale(1f, 0.2f);
+                    _state.Value.Save();
+                    dragComp.CardObject.transform.DOScale(1f, 0.2f).OnComplete(()=>Complete());
                     interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = true;
                     _touchFilter.Pools.Inc1.Del(entity);
                 }
             }
+        }
+        private void Complete()
+        {
+            _state.Value.isDrag = false;
         }
     }
 }

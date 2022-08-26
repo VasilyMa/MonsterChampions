@@ -14,44 +14,53 @@ namespace Client
             foreach (var entity in _playableDeckFilter.Value)
             {
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
+                var deck = _state.Value.Deck.DeckPlayer;
                 var holder = interfaceComp.HolderCards;
-                var cards = interfaceComp.cards;
-                cards = new System.Collections.Generic.List<GameObject>();
-                for (int i = 0; i < _state.Value.Deck.DeckPlayer.Length; i++)
+                for (int i = 0; i < deck.Length; i++)
                 {
-                    if (_state.Value.Deck.DeckPlayer[i].MonsterID == MonstersID.Value.Default)
+                    if (deck[i].MonsterID == MonstersID.Value.Default)
                     {
-                        GameObject.Destroy(holder.GetChild(i).gameObject);
+                        holder.GetChild(i).gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        var newCard = (GameObject)GameObject.Instantiate(Resources.Load("PlayCard"), holder.GetChild(i).transform);
+                        var newCardInfo = newCard.GetComponent<CardInfo>();
+                        newCardInfo.Cost = _state.Value.Deck.DeckPlayer[i].Cost;
+                        newCardInfo.Sprite = _state.Value.Deck.DeckPlayer[i].Sprite;
+                        newCardInfo.MonsterID = _state.Value.Deck.DeckPlayer[i].MonsterID;
+                        newCardInfo.Damage = _state.Value.Deck.DeckPlayer[i].Damage;
+                        newCardInfo.Elemental = _state.Value.Deck.DeckPlayer[i].Elemental;
+                        newCardInfo.Health = _state.Value.Deck.DeckPlayer[i].Health;
+                        newCardInfo.Prefabs = _state.Value.Deck.DeckPlayer[i].Prefabs;
+                        newCardInfo.MoveSpeed = _state.Value.Deck.DeckPlayer[i].MoveSpeed;
+                        newCardInfo.VisualAndAnimations = _state.Value.Deck.DeckPlayer[i].VisualAndAnimations;
+                        newCardInfo.UpdateCardInfo();
                     }
                 }
-                for (int card = 0; card < _state.Value.Deck.DeckPlayer.Length; card++)
-                {
-                    if (_state.Value.Deck.DeckPlayer[card].MonsterID == MonstersID.Value.Default)
-                        continue;
-                    _state.Value.PlayableDeck.PlayerDeck.Add(_state.Value.Deck.DeckPlayer[card]);
-                    for (int i = 0; i < holder.childCount; i++)
-                    {
-                        if (holder.GetChild(i).transform.childCount >= 1)
-                            continue;
-                        else
-                        {
-                            var newCard = (GameObject)GameObject.Instantiate(Resources.Load("PlayCard"), holder.GetChild(i).transform);
-                            var newCardInfo = newCard.GetComponent<CardInfo>();
-                            newCardInfo.Cost = _state.Value.Deck.DeckPlayer[card].Cost;
-                            newCardInfo.Sprite = _state.Value.Deck.DeckPlayer[card].Sprite;
-                            newCardInfo.MonsterID = _state.Value.Deck.DeckPlayer[card].MonsterID;
-                            newCardInfo.Damage = _state.Value.Deck.DeckPlayer[card].Damage;
-                            newCardInfo.Elemental = _state.Value.Deck.DeckPlayer[card].Elemental;
-                            newCardInfo.Health = _state.Value.Deck.DeckPlayer[card].Health;
-                            newCardInfo.Prefabs = _state.Value.Deck.DeckPlayer[card].Prefabs;
-                            newCardInfo.MoveSpeed = _state.Value.Deck.DeckPlayer[card].MoveSpeed;
-                            newCardInfo.VisualAndAnimations = _state.Value.Deck.DeckPlayer[card].VisualAndAnimations;
-                            newCardInfo.UpdateCardInfo();
-                            cards.Add(newCard);
-                            break;
-                        }
-                    }
-                }
+
+                //for (int i = 0; i < deck.Length; i++)
+                //{
+                //    var newCard = (GameObject)GameObject.Instantiate(Resources.Load("PlayCard"), holder.GetChild(i).transform);
+                //    var newCardInfo = newCard.GetComponent<CardInfo>();
+                //    newCardInfo.Cost = _state.Value.Deck.DeckPlayer[i].Cost;
+                //    newCardInfo.Sprite = _state.Value.Deck.DeckPlayer[i].Sprite;
+                //    newCardInfo.MonsterID = _state.Value.Deck.DeckPlayer[i].MonsterID;
+                //    newCardInfo.Damage = _state.Value.Deck.DeckPlayer[i].Damage;
+                //    newCardInfo.Elemental = _state.Value.Deck.DeckPlayer[i].Elemental;
+                //    newCardInfo.Health = _state.Value.Deck.DeckPlayer[i].Health;
+                //    newCardInfo.Prefabs = _state.Value.Deck.DeckPlayer[i].Prefabs;
+                //    newCardInfo.MoveSpeed = _state.Value.Deck.DeckPlayer[i].MoveSpeed;
+                //    newCardInfo.VisualAndAnimations = _state.Value.Deck.DeckPlayer[i].VisualAndAnimations;
+                //    newCardInfo.UpdateCardInfo();
+                //}
+                //for (int i = 0; i < holder.childCount; i++)
+                //{
+                //    if (holder.GetChild(i).transform.GetComponentInChildren<CardInfo>().MonsterID == MonstersID.Value.Default)
+                //    {
+                //        GameObject.Destroy(holder.GetChild(i).gameObject);
+                //    }
+                //}
                 _playableDeckFilter.Pools.Inc1.Del(entity);
             }   
         }
