@@ -16,11 +16,14 @@ namespace Client {
         public RewardPanelMB RewardPanel;
         public LosePanelMB LosePanel;
         public RewardMB Reward;
+        public ResourcesMB Resources;
 
         public Transform RewardHolder;
         public Transform LoseHolder;
         public Transform RewardPanelHolder;
         public Transform MenuHolder;
+
+        public Vector3 defaultPosCardHolder;
 
         public StartDeckForDevelop TempButton;
 

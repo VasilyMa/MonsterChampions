@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 namespace Client {
     sealed class InputSystem : IEcsRunSystem {
         readonly EcsSharedInject<GameState> _state = default;
@@ -65,6 +66,7 @@ namespace Client {
                         cardComp.DefaultParent = result.gameObject.transform.parent;
                         cardComp.CardObject.transform.parent = GameObject.FindObjectOfType<CollectionMB>().transform;
                         cardComp.CardObject.GetComponent<Image>().raycastTarget = false;
+                        cardComp.CardObject.transform.DOScale(0.8f, 0.2f);
                         Debug.Log("Hit " + result.gameObject.name);
                     }
                     if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && !_state.Value.inCollection)

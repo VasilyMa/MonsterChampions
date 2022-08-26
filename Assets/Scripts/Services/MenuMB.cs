@@ -38,6 +38,7 @@ namespace Client
             _state.hubSystem = false;
             _state.runSysytem = true;
             _state.inCollection = false;
+            interfaceComp.Resources.gameObject.SetActive(true);
             interfaceComp.HolderCards.gameObject.SetActive(true);
             interfaceComp.DeckHolder.transform.DOMoveY(Screen.height * 1.5f, 1f, false);
             interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
@@ -54,9 +55,9 @@ namespace Client
                 UpdateCollection();
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollection").transform.position), 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).transform.DOMove((GameObject.Find("TargetPlayButton").transform.position), 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(0).transform.DOScale(0.5f, 0.5f);
+                interfaceComp.MenuHolder.transform.GetChild(0).transform.DOScale(0.75f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.5f, 0.5f);
+                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.75f, 0.5f);
                 isOpen = true;
             }
             else if (isOpen)

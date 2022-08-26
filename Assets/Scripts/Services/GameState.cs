@@ -29,7 +29,7 @@ namespace Client
         public bool inCollection;
         public bool runSysytem = false, hubSystem = true;
 
-        private int _playrGold;
+        public int PlayerGold;
 
         public PlayableDeck PlayableDeck = new PlayableDeck();
         private int _playerBaseEntity = -1;
@@ -45,7 +45,7 @@ namespace Client
                 return;
             }
 
-            _playrGold += value;
+            PlayerGold += value;
         }
 
         public void RevomePlayerGold(int value)
@@ -56,12 +56,12 @@ namespace Client
                 return;
             }
 
-            _playrGold -= value;
+            PlayerGold -= value;
         }
 
         public int GetPlayerGold()
         {
-            return _playrGold;
+            return PlayerGold;
         }
 
         public void SetPlayerBaseEntity(int baseEntity)
@@ -129,7 +129,21 @@ namespace Client
             _ecsWorld = EcsWorld;
             _monsterStorage = monsterStorage;
             _mergeEffectsPool = mergeEffectsPool;
-            if (File.Exists(savePathDeck) && File.Exists(savePathCollection) && File.Exists(savePathSettings))
+            if (File.Exists(savePathSettings))
+            {
+                LoadGameSettings();
+            }
+            else
+            {
+                Settings.BaseDeck = false;
+                Settings.TutorialStage = 0;
+                Settings.SceneNumber = 0;
+                Settings.GameVersion = Application.unityVersion;
+                Settings.Level = 1;
+                Settings.MaxLevelRewardedCard = 2;
+                SaveGameSetting();
+            }
+            if (File.Exists(savePathDeck) && File.Exists(savePathCollection))
             {
                 Load();
             }
@@ -140,20 +154,18 @@ namespace Client
         }
         public void Save()
         {
-            SaveGameSetting();
             SaveCollection();
             SaveDeck();
         }
         public void Load()
         {
-            LoadGameSettings();
             LoadCollection();
             LoadDeck();
         }
 
 
         #region Save/Load
-        private void SaveGameSetting()
+        public void SaveGameSetting()
         {
             string saveDataSettings = JsonUtility.ToJson(Settings, true);
             BinaryFormatter binaryFormatter = new BinaryFormatter();
