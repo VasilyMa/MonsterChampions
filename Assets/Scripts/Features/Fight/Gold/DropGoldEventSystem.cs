@@ -12,6 +12,8 @@ namespace Client
 
         readonly EcsPoolInject<DropGoldEvent> _dropGoldEventPool = default;
 
+        readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
+
         public void Run (IEcsSystems systems)
         {
             foreach (var eventEntity in _dropGoldEventFilter.Value)
@@ -19,7 +21,7 @@ namespace Client
                 ref var dropGoldEvent = ref _dropGoldEventPool.Value.Get(eventEntity);
 
                 _gameState.Value.AddPlayerGold(dropGoldEvent.GoldValue);
-
+                _interfacePool.Value.Get(_gameState.Value.InterfaceEntity).Resources.UpdateCoin();
                 GameObject.Instantiate(_gameState.Value._mergeEffectsPool.MergeEffectPrefab[0], dropGoldEvent.DropPoint, Quaternion.identity);
                 Debug.Log($"Player Gold = {_gameState.Value.GetPlayerGold()}");
                 DeleteEvent(eventEntity);

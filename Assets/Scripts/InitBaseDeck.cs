@@ -12,7 +12,7 @@ namespace Client
             {
                 var deck = _state.Value.Deck.DeckPlayer;
                 var storage = _state.Value._monsterStorage.monster;
-                for (int i = 0; i < deck.Length - 1; i++)
+                for (int i = 0; i < deck.Length - 2; i++)
                 {
                     deck[i].MonsterID = storage[i].MonsterID;
                     deck[i].Sprite = storage[i].Sprite;

@@ -38,6 +38,7 @@ namespace Client
             _state.hubSystem = false;
             _state.runSysytem = true;
             _state.inCollection = false;
+            interfaceComp.Resources.gameObject.SetActive(true);
             interfaceComp.HolderCards.gameObject.SetActive(true);
             interfaceComp.DeckHolder.transform.DOMoveY(Screen.height * 1.5f, 1f, false);
             interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);

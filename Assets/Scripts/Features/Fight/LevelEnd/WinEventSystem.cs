@@ -2,7 +2,7 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using DG.Tweening;
 namespace Client
 {
     sealed class WinEventSystem : IEcsRunSystem
@@ -20,6 +20,7 @@ namespace Client
             {
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
+                interfaceComp.HolderCards.transform.DOMove(interfaceComp.defaultPosCardHolder, 1f, false);
                 _rewardPool.Value.Add(_world.Value.NewEntity());
                 Time.timeScale = 1;
                 _state.Value.runSysytem = false;
@@ -33,9 +34,11 @@ namespace Client
                 {
                     index = SceneManager.GetActiveScene().buildIndex + 1;
                 }
+                _state.Value.Settings.TutorialStage = 1;
                 _state.Value.Settings.SceneNumber = index;
                 _state.Value.Settings.Level += 1;
                 _state.Value.Save();
+                _state.Value.SaveGameSetting();
                 _winEventFilter.Pools.Inc1.Del(eventEntity);
             }
         }
