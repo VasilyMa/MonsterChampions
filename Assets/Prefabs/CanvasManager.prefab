@@ -4789,7 +4789,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 25
     m_Bottom: 25
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 441}
