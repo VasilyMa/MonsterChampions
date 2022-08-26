@@ -59,6 +59,7 @@ namespace Client {
                 {
                     if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && _state.Value.inCollection)
                     {
+                        _state.Value.isDrag = true;
                         interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = false;
                         ref var cardComp = ref _cardEventPool.Value.Add(_world.Value.NewEntity());
                         cardComp.CardObject = result.gameObject;

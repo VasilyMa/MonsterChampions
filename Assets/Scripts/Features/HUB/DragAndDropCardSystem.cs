@@ -121,9 +121,12 @@ namespace Client
                                 _state.Value.Save();
                                 break;
                             default:
+                                dragComp.CardObject.transform.parent = dragComp.DefaultParent;
+                                dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                                 break;
                         }
                     }
+                    _state.Value.isDrag = false;
                     dragComp.CardObject.transform.DOScale(1f, 0.2f);
                     interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = true;
                     _touchFilter.Pools.Inc1.Del(entity);

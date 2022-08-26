@@ -26,6 +26,7 @@ namespace Client
         public int CameraEntity;
         public int InterfaceEntity;
         public int CurrentLevel = 1;
+        public bool isDrag;
         public bool inCollection;
         public bool runSysytem = false, hubSystem = true;
 
