@@ -18,7 +18,7 @@ namespace Client
         readonly EcsPoolInject<DisabledBaseTag> _disabledBasePool = default;
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
-        readonly EcsPoolInject<UnitSpawner> _unitSpawnerPool = default;
+        readonly EcsPoolInject<MonsterSpawner> _monsterSpawnerPool = default;
 
         public void Init (IEcsSystems systems)
         {
@@ -63,11 +63,12 @@ namespace Client
                     continue;
                 }
 
-                ref var unitSpawner = ref _unitSpawnerPool.Value.Add(baseEntity);
-                unitSpawner.TimerMaxValue = 3;
-                unitSpawner.TimerCurrentValue = unitSpawner.TimerMaxValue;
-                unitSpawner.MonsterStorage = new List<MonsterStorage>();
-                unitSpawner.MonsterStorage = enemyBaseMB.monster;
+                ref var monsterSpawner = ref _monsterSpawnerPool.Value.Add(baseEntity);
+                monsterSpawner.TimerMaxValue = (float)enemyBaseMB.TimeToSpawn;
+                monsterSpawner.TimerCurrentValue = monsterSpawner.TimerMaxValue;
+                monsterSpawner.MonsterStorage = new List<MonsterStorage>();
+                monsterSpawner.MonsterStorage = enemyBaseMB.monster;
+                monsterSpawner.MonsterLevel = enemyBaseMB.MonsterLevel;
 
             }
             if(allEnemyBasesMB.Length > 0)

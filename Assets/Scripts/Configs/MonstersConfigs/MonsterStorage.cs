@@ -21,7 +21,7 @@ public class MonsterStorage : ScriptableObject
 [System.Serializable]
 public class MonsterVisualAndAnimations
 {
-    public string Name = "View for different level";
+    public string Name = "Level_";
     public Avatar Avatar;
     public RuntimeAnimatorController RuntimeAnimatorController;
     public GameObject ModelPrefab;

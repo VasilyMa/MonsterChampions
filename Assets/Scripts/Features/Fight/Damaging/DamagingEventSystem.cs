@@ -13,6 +13,7 @@ namespace Client
         readonly EcsPoolInject<DamagingEvent> _damagingEventPool = default;
         readonly EcsPoolInject<DieEvent> _dieEventPool = default;
         readonly EcsPoolInject<RefreshHealthBarEvent> _refreshHealthBarEventPool = default;
+        readonly EcsPoolInject<CreateSparkyExplosionEvent> _sparkyExplosionEventPool = default;
 
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
@@ -20,6 +21,8 @@ namespace Client
         readonly EcsPoolInject<BaseTag> _baseTagPool = default;
         readonly EcsPoolInject<UnitTag> _unitTagPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
+
+        readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
 
         private const float LEVELING_STANDART_VALUE = 1f;
         private const float LEVELING_INCREASER = 0.5f;
@@ -108,6 +111,8 @@ namespace Client
             damageToUnit = MatchDamageComparedHealth(damageToUnit, undergoUnitHealthComponent.CurrentValue);
 
             undergoUnitHealthComponent.CurrentValue -= damageToUnit;
+
+            InvokeSparkyExplosion();
         }
 
         private float CalculateLevelingMultiply(int undergoUnitLevel, int whoDoDamageLevel)
@@ -124,6 +129,17 @@ namespace Client
 
             return LEVELING_STANDART_VALUE + (levelingOperand * (whoDoDamageLevel - undergoUnitLevel));
         }
+
+        private void InvokeSparkyExplosion()
+        {
+            if (!_sparkyPool.Value.Has(_damagingEntity))
+            {
+                return;
+            }
+
+            _sparkyExplosionEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
+        }
+
         #endregion UnitDamage
 
         private float MatchDamageComparedHealth(float damage, float health)

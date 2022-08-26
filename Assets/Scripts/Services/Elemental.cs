@@ -9,7 +9,7 @@ namespace Client
         private const float HIGH_RESIST = 2;
         private const float MEDIUM_RESIST = 1;
         private const float LOW_RESIST = 0.5f;
-        private const float DEFAULT_ZERO_RESIST = 0; // to do ay think about ZERO_RESIST
+        private const float DEFAULT_MEDIUM_RESIST = 1;
 
         public static float GetDamageDivider(ElementalType damageElemental, ElementalType healthElemental)
         {
@@ -26,7 +26,7 @@ namespace Client
                 case ElementalType.Water:
                     return GetWaterDivider(healthElemental);
                 default:
-                    return DEFAULT_ZERO_RESIST;
+                    return DEFAULT_MEDIUM_RESIST;
             }
         }
 
@@ -45,7 +45,7 @@ namespace Client
                 case ElementalType.Water:
                     return MEDIUM_RESIST;
                 default:
-                    return DEFAULT_ZERO_RESIST;
+                    return DEFAULT_MEDIUM_RESIST;
             }
         }
 
@@ -64,7 +64,7 @@ namespace Client
                 case ElementalType.Water:
                     return LOW_RESIST;
                 default:
-                    return DEFAULT_ZERO_RESIST;
+                    return DEFAULT_MEDIUM_RESIST;
             }
         }
 
@@ -83,7 +83,7 @@ namespace Client
                 case ElementalType.Water:
                     return LOW_RESIST;
                 default:
-                    return DEFAULT_ZERO_RESIST;
+                    return DEFAULT_MEDIUM_RESIST;
             }
         }
 
@@ -102,7 +102,7 @@ namespace Client
                 case ElementalType.Water:
                     return HIGH_RESIST;
                 default:
-                    return DEFAULT_ZERO_RESIST;
+                    return DEFAULT_MEDIUM_RESIST;
             }
         }
 
@@ -121,7 +121,7 @@ namespace Client
                 case ElementalType.Water:
                     return HIGH_RESIST;
                 default:
-                    return DEFAULT_ZERO_RESIST;
+                    return DEFAULT_MEDIUM_RESIST;
             }
         }
     }

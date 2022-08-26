@@ -24,20 +24,23 @@ namespace Client {
         readonly EcsPoolInject<Animable> _animablePool = default;
 
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
+        readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
+
+        private int _unitEntity = BattleState.NULL_ENTITY;
 
         public void Run (IEcsSystems systems)
         {
             foreach (var entity in _buyFilter.Value)
             {
                 ref var buyInfoComp = ref _buyFilter.Pools.Inc1.Get(entity); //there save are info of new monster buyed buyInfoComp.CardInfo...
-                int unitEntity = _world.Value.NewEntity();
-                _onboardUnit.Value.Add(unitEntity);
+                _unitEntity = _world.Value.NewEntity();
+                _onboardUnit.Value.Add(_unitEntity);
                 var slot = FindEmptySlot();
                 var unitObject = GameObject.Instantiate(_state.Value._monsterStorage.MainMonsterPrefab, slot.position, Quaternion.identity);
                 unitObject.transform.SetParent(slot);
 
-                ref var viewComponent = ref _viewPool.Value.Add(unitEntity);
-                viewComponent.EntityNumber = unitEntity;
+                ref var viewComponent = ref _viewPool.Value.Add(_unitEntity);
+                viewComponent.EntityNumber = _unitEntity;
 
                 viewComponent.GameObject = unitObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
@@ -49,24 +52,24 @@ namespace Client {
                 viewComponent.Model = GameObject.Instantiate(viewComponent.CardInfo.VisualAndAnimations[0].ModelPrefab, viewComponent.GameObject.transform.position, Quaternion.identity);
                 viewComponent.Model.transform.SetParent(viewComponent.Transform);
 
-                SetActualModelView();
+                SetActualModelView(); // to do ay write this method
 
-                ref var fractionComponent = ref _fractionPool.Value.Add(unitEntity);
+                ref var fractionComponent = ref _fractionPool.Value.Add(_unitEntity);
                 fractionComponent.isFriendly = true;
                 viewComponent.GameObject.GetComponent<UnitTagMB>().IsFriendly = true;
 
-                ref var physicsComponent = ref _physicsPool.Value.Add(unitEntity);
+                ref var physicsComponent = ref _physicsPool.Value.Add(_unitEntity);
                 physicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
 
-                ref var animableComponent = ref _animablePool.Value.Add(unitEntity);
+                ref var animableComponent = ref _animablePool.Value.Add(_unitEntity);
                 animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
 
                 animableComponent.Animator.runtimeAnimatorController = viewComponent.CardInfo.VisualAndAnimations[0].RuntimeAnimatorController;
                 animableComponent.Animator.avatar = viewComponent.CardInfo.VisualAndAnimations[0].Avatar;
 
-                ref var unitComponent = ref _unitPool.Value.Add(unitEntity);
+                ref var unitComponent = ref _unitPool.Value.Add(_unitEntity);
 
-                ref var movableComponent = ref _movablePool.Value.Add(unitEntity);
+                ref var movableComponent = ref _movablePool.Value.Add(_unitEntity);
                 movableComponent.NavMeshAgent = viewComponent.GameObject.GetComponent<NavMeshAgent>();
                 movableComponent.NavMeshAgent.speed = buyInfoComp.CardInfo.MoveSpeed;
                 movableComponent.NavMeshAgent.enabled = false;
@@ -74,34 +77,35 @@ namespace Client {
 
                 viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
                 viewComponent.EcsInfoMB.monsterID = buyInfoComp.CardInfo.MonsterID;
-                viewComponent.EcsInfoMB?.Init(_world, unitEntity);
+                viewComponent.EcsInfoMB?.Init(_world, _unitEntity);
 
-                ref var targetableComponent = ref _targetablePool.Value.Add(unitEntity);
+                ref var targetableComponent = ref _targetablePool.Value.Add(_unitEntity);
                 targetableComponent.TargetEntity = BattleState.NULL_ENTITY;
                 targetableComponent.EntitysInDetectionZone = new List<int>();
                 targetableComponent.EntitysInMeleeZone = new List<int>();
                 targetableComponent.EntitysInRangeZone = new List<int>();
 
-                ref var healthComponent = ref _healthPool.Value.Add(unitEntity);
+                ref var healthComponent = ref _healthPool.Value.Add(_unitEntity);
                 healthComponent.MaxValue = buyInfoComp.CardInfo.Health;
                 healthComponent.CurrentValue = healthComponent.MaxValue;
                 healthComponent.HealthBar = viewComponent.Transform.GetComponentInChildren<HealthBarMB>().gameObject;
                 healthComponent.HealthBarMaxWidth = healthComponent.HealthBar.transform.localScale.x;
                 healthComponent.HealthBar.SetActive(false);
 
-                ref var elementalComponent = ref _elementalPool.Value.Add(unitEntity);
+                ref var elementalComponent = ref _elementalPool.Value.Add(_unitEntity);
                 elementalComponent.CurrentType = buyInfoComp.CardInfo.Elemental;
 
-                ref var levelComponent = ref _levelPool.Value.Add(unitEntity);
-                ref var damageComponent = ref _damagePool.Value.Add(unitEntity);
+                ref var levelComponent = ref _levelPool.Value.Add(_unitEntity);
+                ref var damageComponent = ref _damagePool.Value.Add(_unitEntity);
 
                 levelComponent.Value = 1;
                 damageComponent.Value = buyInfoComp.CardInfo.Damage;
 
-                ref var slevComponent = ref _slevPool.Value.Add(unitEntity); // to do ay method for definition unitType
-                slevComponent.TimerToCreateAuraMaxValue = 1f;
-                slevComponent.TimerToCreateAuraCurrentValue = 0;
+                AddMonstersSpecificity();
 
+                
+
+                _unitEntity = BattleState.NULL_ENTITY;
                 _buyFilter.Pools.Inc1.Del(entity);
             }
 
@@ -128,6 +132,48 @@ namespace Client {
                 }
             }
             return slot;
+        }
+
+        private void AddMonstersSpecificity()
+        {
+            ref var viewComponent = ref _viewPool.Value.Get(_unitEntity);
+
+            switch (viewComponent.CardInfo.MonsterID)
+            {
+                case MonstersID.Value.Default:
+                    Debug.Log($"Monster {viewComponent.GameObject} have Default MonsterID.");
+                    break;
+                case MonstersID.Value.Stoon:
+                    break;
+                case MonstersID.Value.Sparky:
+                    SparkysComponents();
+                    break;
+                case MonstersID.Value.Tinki:
+                    break;
+                case MonstersID.Value.Bable:
+                    break;
+                case MonstersID.Value.Slev:
+                    SlevsComponents();
+                    break;
+                default:
+                    Debug.Log($"Monster {viewComponent.GameObject} have Unknown MonsterID or dont have it.");
+                    break;
+            }
+        }
+
+        private void StoonComponents()
+        {
+            ref var slevComponent = ref _slevPool.Value.Add(_unitEntity); // need stoonComponent
+        }
+
+        private void SlevsComponents()
+        {
+            ref var slevComponent = ref _slevPool.Value.Add(_unitEntity);
+        }
+
+        private void SparkysComponents()
+        {
+            ref var sparkyComponent = ref _sparkyPool.Value.Add(_unitEntity);
         }
     }
 }

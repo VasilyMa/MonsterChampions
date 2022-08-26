@@ -88,11 +88,12 @@ namespace Client
                 .Add(new WorkingSlevDebuffAuraSystem())
 
                 .Add(new DamagingEventSystem())
+                .Add(new CreateSparkyExplosionEventSystem())
 
                 .Add(new RefreshHealthBarEventSystem())
                 .Add(new HealthBarLookToCamera())
 
-                .Add(new UnitSpawnerSystem())
+                .Add(new MonsterSpawnerSystem())
 
                 .Add(new DieEventSystem())
                 .Add(new ResetIsTargetComponentAfterDeath())
