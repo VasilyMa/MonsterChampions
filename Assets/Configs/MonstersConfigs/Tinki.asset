@@ -18,7 +18,11 @@ MonoBehaviour:
   Damage: 5
   Health: 10
   MoveSpeed: 13
-  VisualAndAnimations: []
+  VisualAndAnimations:
+  - Name: 
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    ModelPrefab: {fileID: 0}
   Prefabs:
   - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
   Elemental: 2

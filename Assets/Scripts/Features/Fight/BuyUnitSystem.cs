@@ -24,13 +24,16 @@ namespace Client {
         readonly EcsPoolInject<Animable> _animablePool = default;
 
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
+        readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
+
+        private int unitEntity = BattleState.NULL_ENTITY;
 
         public void Run (IEcsSystems systems)
         {
             foreach (var entity in _buyFilter.Value)
             {
                 ref var buyInfoComp = ref _buyFilter.Pools.Inc1.Get(entity); //there save are info of new monster buyed buyInfoComp.CardInfo...
-                int unitEntity = _world.Value.NewEntity();
+                unitEntity = _world.Value.NewEntity();
                 _onboardUnit.Value.Add(unitEntity);
                 var slot = FindEmptySlot();
                 var unitObject = GameObject.Instantiate(_state.Value._monsterStorage.MainMonsterPrefab, slot.position, Quaternion.identity);
@@ -49,7 +52,7 @@ namespace Client {
                 viewComponent.Model = GameObject.Instantiate(viewComponent.CardInfo.VisualAndAnimations[0].ModelPrefab, viewComponent.GameObject.transform.position, Quaternion.identity);
                 viewComponent.Model.transform.SetParent(viewComponent.Transform);
 
-                SetActualModelView();
+                SetActualModelView(); // to do ay write this method
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(unitEntity);
                 fractionComponent.isFriendly = true;
@@ -98,10 +101,11 @@ namespace Client {
                 levelComponent.Value = 1;
                 damageComponent.Value = buyInfoComp.CardInfo.Damage;
 
-                ref var slevComponent = ref _slevPool.Value.Add(unitEntity); // to do ay method for definition unitType
-                slevComponent.TimerToCreateAuraMaxValue = 1f;
-                slevComponent.TimerToCreateAuraCurrentValue = 0;
+                AddMonstersSpecificity();
 
+                
+
+                unitEntity = BattleState.NULL_ENTITY;
                 _buyFilter.Pools.Inc1.Del(entity);
             }
 
@@ -128,6 +132,45 @@ namespace Client {
                 }
             }
             return slot;
+        }
+
+        private void AddMonstersSpecificity()
+        {
+            ref var viewComponent = ref _viewPool.Value.Get(unitEntity);
+
+            switch (viewComponent.CardInfo.MonsterID)
+            {
+                case MonstersID.Value.Default:
+                    Debug.Log($"Monster {viewComponent.GameObject} have Default MonsterID.");
+                    break;
+                case MonstersID.Value.Stoon:
+                    break;
+                case MonstersID.Value.Sparky:
+                    SparkysComponents();
+                    break;
+                case MonstersID.Value.Tinki:
+                    break;
+                case MonstersID.Value.Bable:
+                    break;
+                case MonstersID.Value.Slev:
+                    SlevsComponents();
+                    break;
+                default:
+                    Debug.Log($"Monster {viewComponent.GameObject} have Unknown MonsterID or dont have it.");
+                    break;
+            }
+        }
+
+        private void SlevsComponents()
+        {
+            ref var slevComponent = ref _slevPool.Value.Add(unitEntity);
+            slevComponent.TimerToCreateAuraMaxValue = 1f;
+            slevComponent.TimerToCreateAuraCurrentValue = 0;
+        }
+
+        private void SparkysComponents()
+        {
+            ref var sparkyComponent = ref _sparkyPool.Value.Add(unitEntity);
         }
     }
 }

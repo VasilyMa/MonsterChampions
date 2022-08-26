@@ -6,12 +6,12 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Slev_1lvl_Controller
+  m_Name: Sparky_4lvl_Controller
   m_Controller: {fileID: 9100000, guid: 174fb361325565041ab81d7e2e4d11c2, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: -1519603968563470464, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 0e4cd7c97bbb3784b81af4c4d13d108c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1769418444ffcea438b323b0f0428d19, type: 2}
   - m_OriginalClip: {fileID: -1499171786975459842, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 18093d00170157043aa6c781f8a05e42, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7c4122012f059514f85f0b3d6a97ed41, type: 2}
   - m_OriginalClip: {fileID: -4694296973510364946, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 2b488e07623a8f3498554434270f0049, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7fb7d2ae0b37090409fb6db1a5e7a799, type: 2}

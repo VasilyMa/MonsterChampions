@@ -15,11 +15,14 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 8a1437f1aa5945d45adcb967157b30be, type: 3}
   Cost: 0
   MonsterID: 4
-  NameUnit: Bable
   Damage: 2
   Health: 10
   MoveSpeed: 9
-  VisualAndAnimations: []
+  VisualAndAnimations:
+  - Name: 
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    ModelPrefab: {fileID: 0}
   Prefabs:
   - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
   Elemental: 5
