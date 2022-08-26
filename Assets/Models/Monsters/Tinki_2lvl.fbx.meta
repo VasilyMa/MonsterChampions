@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: ddadf4607505d7d46aae81efeaf3f48c
+guid: e3ffa3d9f0b4a3348b5d622128315845
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
+  - first:
+      74: -259280538970791951
+    second: Bee|Attack
   - first:
       74: 2914605299006897010
     second: Bee|Fly
@@ -12,9 +15,6 @@ ModelImporter:
   - first:
       74: -4005697361781444302
     second: Bee|Skill
-  - first:
-      74: -259280538970791951
-    second: Bee|Attack
   - first:
       74: 8797771671366228877
     second: Bee|Standby
@@ -42,7 +42,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -53,7 +53,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 0.005
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -106,7 +106,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.01
+    globalScale: 0.005
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -115,7 +115,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0

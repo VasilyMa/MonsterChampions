@@ -102,7 +102,7 @@ namespace Client
             ref var sparkyHealthCompnent = ref _healthPool.Value.Get(_sparkyEntity);
 
             ref var explosionDamageComponent = ref _damagePool.Value.Add(_explosionEntity);
-            explosionDamageComponent.Value = sparkyHealthCompnent.MaxValue;
+            explosionDamageComponent.Value = sparkyHealthCompnent.MaxValue * 2;
 
             ref var levelComponent = ref _levelPool.Value.Add(_explosionEntity);
             levelComponent.Value = _levelPool.Value.Get(_sparkyEntity).Value;

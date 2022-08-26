@@ -64,7 +64,7 @@ namespace Client
                 }
 
                 ref var monsterSpawner = ref _monsterSpawnerPool.Value.Add(baseEntity);
-                monsterSpawner.TimerMaxValue = 3;
+                monsterSpawner.TimerMaxValue = (float)enemyBaseMB.TimeToSpawn;
                 monsterSpawner.TimerCurrentValue = monsterSpawner.TimerMaxValue;
                 monsterSpawner.MonsterStorage = new List<MonsterStorage>();
                 monsterSpawner.MonsterStorage = enemyBaseMB.monster;

@@ -14,7 +14,10 @@ namespace Client
         readonly EcsPoolInject<UnitTag> _unitPool = default;
         readonly EcsPoolInject<SlevAuraDebuff> _slevAuraDebuffPool = default;
 
-        private float _timerMaxValue = 5f;
+
+        private float _timeToCreateAuraMaxValue = 1f;
+        private float _timeToCreateAuraCurrentValue = 1f;
+        private float _auraEffectMaxDuration = 5f;
 
         private int _aliveUnitLayer = LayerMask.NameToLayer(nameof(ViewComponent.AliveUnit));
 
@@ -26,14 +29,14 @@ namespace Client
                 ref var viewComponent = ref _viewPool.Value.Get(slevEntity);
                 ref var fractionComponent = ref _fractionPool.Value.Get(slevEntity);
 
-                if (slevComponent.TimerToCreateAuraCurrentValue > 0)
+                if (_timeToCreateAuraCurrentValue > 0)
                 {
-                    slevComponent.TimerToCreateAuraCurrentValue -= Time.deltaTime;
-                    continue;
+                    _timeToCreateAuraCurrentValue -= Time.deltaTime;
+                    return;
                 }
                 else
                 {
-                    slevComponent.TimerToCreateAuraCurrentValue = slevComponent.TimerToCreateAuraMaxValue;
+                    _timeToCreateAuraCurrentValue = _timeToCreateAuraMaxValue;
                 }
 
                 var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f);
@@ -71,7 +74,7 @@ namespace Client
 
                         if (!slevAuraDebuff.isWork)
                         {
-                            slevAuraDebuff.TimerToClearMaxValue = _timerMaxValue;
+                            slevAuraDebuff.TimerToClearMaxValue = _auraEffectMaxDuration;
                         }
 
                         slevAuraDebuff.TimerToClearCurrentValue = slevAuraDebuff.TimerToClearMaxValue;

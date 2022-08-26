@@ -19,10 +19,22 @@ MonoBehaviour:
   Health: 10
   MoveSpeed: 13
   VisualAndAnimations:
-  - Name: 
+  - Name: Level 1
     Avatar: {fileID: 0}
     RuntimeAnimatorController: {fileID: 0}
-    ModelPrefab: {fileID: 0}
+    ModelPrefab: {fileID: 5265279421943321071, guid: 3ec0aed72f722cd48b706d94a362d6cb, type: 3}
+  - Name: Level 2
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    ModelPrefab: {fileID: 7293114502745092006, guid: c2864c902b00dbb40a62ac8bcf6f2c57, type: 3}
+  - Name: Level 3
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    ModelPrefab: {fileID: 990377412774869954, guid: 7ad9345aba65d6b44a993e785b3416c1, type: 3}
+  - Name: Level 4
+    Avatar: {fileID: 0}
+    RuntimeAnimatorController: {fileID: 0}
+    ModelPrefab: {fileID: 2988343744088545209, guid: 57d710a6f2fb962459de339707116168, type: 3}
   Prefabs:
   - {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
   Elemental: 2
