@@ -21,7 +21,7 @@ namespace Client
                 _gameState.Value.AddPlayerGold(dropGoldEvent.GoldValue);
 
                 GameObject.Instantiate(_gameState.Value._mergeEffectsPool.MergeEffectPrefab[0], dropGoldEvent.DropPoint, Quaternion.identity);
-
+                Debug.Log($"Player Gold = {_gameState.Value.GetPlayerGold()}");
                 DeleteEvent(eventEntity);
             }
         }

@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Slev_1lvl_Controller
+  m_Name: Tinki_3lvl_Controller
   m_Controller: {fileID: 9100000, guid: 174fb361325565041ab81d7e2e4d11c2, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: -1519603968563470464, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
