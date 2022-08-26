@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Stoon_4lvl_Controller
+  m_Controller: {fileID: 9100000, guid: 174fb361325565041ab81d7e2e4d11c2, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -1519603968563470464, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
+    m_OverrideClip: {fileID: -1877822977403282364, guid: 61f9694c5a200884db0bcfd88fa51ce6, type: 3}
+  - m_OriginalClip: {fileID: -1499171786975459842, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
+    m_OverrideClip: {fileID: -6490582827902868919, guid: 61f9694c5a200884db0bcfd88fa51ce6, type: 3}
+  - m_OriginalClip: {fileID: -4694296973510364946, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
+    m_OverrideClip: {fileID: 5774151770118325718, guid: 61f9694c5a200884db0bcfd88fa51ce6, type: 3}

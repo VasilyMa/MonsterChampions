@@ -20,21 +20,21 @@ MonoBehaviour:
   MoveSpeed: 10
   VisualAndAnimations:
   - Name: Level 1
-    Avatar: {fileID: 9000000, guid: 1c1aa47b5c504704da6e145efadbb40c, type: 2}
+    Avatar: {fileID: 9000000, guid: e5cfb4758bbb4a34883d450d4aa80f92, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: 6eb5d53005d90504ab2aae14950ba288, type: 2}
-    ModelPrefab: {fileID: 4297986350595967963, guid: ff1a817e10611e04cb7e0025589e1bb3, type: 3}
+    ModelPrefab: {fileID: 1849340442136920210, guid: ff1a817e10611e04cb7e0025589e1bb3, type: 3}
   - Name: Level 2
-    Avatar: {fileID: 9000000, guid: 865bf1988f45a434bb416a65d83e8cc2, type: 2}
+    Avatar: {fileID: 9000000, guid: a1459395007bb3a4293c499f7be8c29b, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: 3dc7fcb4289f0ae429d62f314045734a, type: 2}
-    ModelPrefab: {fileID: 3524265390928883323, guid: 4e5cf2721ab224e4182bfeddd8276e6e, type: 3}
+    ModelPrefab: {fileID: 7799752658840792259, guid: 4e5cf2721ab224e4182bfeddd8276e6e, type: 3}
   - Name: Level 3
-    Avatar: {fileID: 9000000, guid: cf3da4a92633f06499f13346a7a23660, type: 2}
+    Avatar: {fileID: 9000000, guid: 46bf07018d509c44db8638890e3d369f, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: 6053cc4c233d7b146a716c834ddfe03d, type: 2}
-    ModelPrefab: {fileID: 2838545195615853236, guid: 630181b7a82b0554a846ba43b9aac699, type: 3}
+    ModelPrefab: {fileID: 2567123431361076831, guid: 630181b7a82b0554a846ba43b9aac699, type: 3}
   - Name: Level 4
-    Avatar: {fileID: 9000000, guid: dce98f059a24e6042b30f01725089372, type: 2}
+    Avatar: {fileID: 9000000, guid: f00462aeed281a24d9f460f662bfe2a2, type: 3}
     RuntimeAnimatorController: {fileID: 22100000, guid: 1123479f524cd4b4b8da351721332110, type: 2}
-    ModelPrefab: {fileID: 1078165196642570618, guid: 6e343bcc1bd070f4c856d593464ce19b, type: 3}
+    ModelPrefab: {fileID: 3763360826951695255, guid: 6e343bcc1bd070f4c856d593464ce19b, type: 3}
   Prefabs:
   - {fileID: 2592177473328330800, guid: b8a96e194bce81147b79186882483e6b, type: 3}
   - {fileID: 2592177473328330800, guid: b8a96e194bce81147b79186882483e6b, type: 3}

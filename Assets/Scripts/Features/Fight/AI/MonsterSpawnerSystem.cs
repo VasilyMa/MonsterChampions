@@ -29,8 +29,11 @@ namespace Client
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
 
+        readonly EcsPoolInject<StoonComponent> _stoonPool = default;
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
         readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
+        readonly EcsPoolInject<TinkiComponent> _tinkiPool = default;
+        readonly EcsPoolInject<BableComponent> _bablePool = default;
 
         private int _monsterEntity = BattleState.NULL_ENTITY;
         private int _monsterSpawnerEntity = BattleState.NULL_ENTITY;
@@ -39,7 +42,7 @@ namespace Client
 
         private int _spawnOnlyFirstMonster = 0;
 
-        public void Run (IEcsSystems systems) // to do ay add any word row for working 
+        public void Run (IEcsSystems systems)
         {
             foreach (var monsterSpawnerEntity in _monsterSpawnerFilter.Value)
             {
@@ -131,13 +134,16 @@ namespace Client
                 case MonstersID.Value.Default:
                     break;
                 case MonstersID.Value.Stoon:
+                    StoonsComponents();
                     break;
                 case MonstersID.Value.Sparky:
                     SparkysComponents();
                     break;
                 case MonstersID.Value.Tinki:
+                    TinkisComponents();
                     break;
                 case MonstersID.Value.Bable:
+                    BablesComponents();
                     break;
                 case MonstersID.Value.Slev:
                     SlevsComponents();
@@ -145,6 +151,11 @@ namespace Client
                 default:
                     break;
             }
+        }
+
+        private void StoonsComponents()
+        {
+            ref var stoonComponent = ref _stoonPool.Value.Add(_monsterEntity);
         }
 
         private void SlevsComponents()
@@ -155,6 +166,16 @@ namespace Client
         private void SparkysComponents()
         {
             ref var sparkyComponent = ref _sparkyPool.Value.Add(_monsterEntity);
+        }
+
+        private void TinkisComponents()
+        {
+            ref var tinkiComponent = ref _tinkiPool.Value.Add(_monsterEntity);
+        }
+
+        private void BablesComponents()
+        {
+            ref var bableComponent = ref _bablePool.Value.Add(_monsterEntity);
         }
     }
 }
