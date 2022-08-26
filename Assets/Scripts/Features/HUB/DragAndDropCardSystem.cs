@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using DG.Tweening;
 namespace Client
 {
     sealed class DragAndDropCardSystem : IEcsRunSystem
@@ -124,6 +124,7 @@ namespace Client
                                 break;
                         }
                     }
+                    dragComp.CardObject.transform.DOScale(1f, 0.2f);
                     interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = true;
                     _touchFilter.Pools.Inc1.Del(entity);
                 }

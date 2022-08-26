@@ -54,11 +54,10 @@ namespace Client {
             interfaceComp.RewardHolder.gameObject.SetActive(false);
             interfaceComp.Resources.gameObject.SetActive(false);
 
-            
 
+            _state.Value.PlayerGold = 1000;
             if (_state.Value.Settings.TutorialStage == 0)
             {
-                _state.Value.PlayerGold = 100;
                 GameState.isStartMenu = false;
             }
 

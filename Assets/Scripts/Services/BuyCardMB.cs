@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 using UnityEngine;
+using DG.Tweening;
 namespace Client
 {
     public class BuyCardMB : MonoBehaviour
@@ -23,6 +24,7 @@ namespace Client
         public void BuyUnit(int buttonId)
         {
             ref var boardComp = ref _board.Get(_state.BoardEntity);
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             for (int i = 0; i < boardComp.Transform.childCount; i++)
             {
                 if (boardComp.Transform.GetChild(i).transform.childCount == 0)
@@ -30,6 +32,7 @@ namespace Client
                     var dataCard = transform.GetChild(buttonId).GetComponentInChildren<CardInfo>();
                     if (_state.PlayerGold >= dataCard.Cost)
                     {
+                        interfaceComp.HolderCards.GetChild(buttonId).transform.DOScale(0.9f, 0.2f).OnComplete(() => ScaleDefault(buttonId));
                         _state.PlayerGold-=dataCard.Cost;
                         _interfacePool.Get(_state.InterfaceEntity).Resources.UpdateCoin();
                         ref var buyComp = ref _buyPool.Add(_world.NewEntity());
@@ -40,6 +43,11 @@ namespace Client
                         break;
                 }
             }
+        }
+        private void ScaleDefault(int index)
+        {
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.HolderCards.GetChild(index).transform.DOScale(1, 0.2f);
         }
     }
 }
