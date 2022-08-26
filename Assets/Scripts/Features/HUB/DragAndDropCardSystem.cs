@@ -74,7 +74,6 @@ namespace Client
                                             }   
                                         }
                                         dragComp.CardObject.transform.SetParent(result.gameObject.transform);
-                                        _state.Value.Save();
                                     }
                                     dragComp.DefaultParent = result.gameObject.transform;
                                     dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
@@ -114,7 +113,8 @@ namespace Client
                                     unitData.VisualAndAnimations = cardInfo.VisualAndAnimations;
                                     unitData.MoveSpeed = cardInfo.MoveSpeed;
                                     collection.Add(unitData);
-                                    dragComp.CardObject.transform.SetParent(result.gameObject.transform.GetChild(0));
+                                    dragComp.DefaultParent = result.gameObject.transform.GetChild(0);
+                                    dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
                                 }
                                 else
                                 {

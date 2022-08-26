@@ -42,7 +42,7 @@ namespace Client {
                         unitComp.defaultParent = unitComp.unit.transform.parent;
                         unitComp.unit.transform.parent = null;
                         _touchPool.Value.Add(entity);
-                        //Debug.Log($"StartDrag, {unit.Entity}");
+                        Debug.Log($"StartDrag, {unit.Entity}");
                     }
                 }
 
