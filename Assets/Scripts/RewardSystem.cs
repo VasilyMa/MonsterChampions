@@ -42,6 +42,7 @@ namespace Client {
                 newCard.gameObject.SetActive(false);
                 ref var monsterComp = ref _newMonsterPool.Value.Add(_world.Value.NewEntity());
                 monsterComp.cardInfo = infoNewCard;
+                _rewardFilter.Pools.Inc1.Del(entity);
             }
         }
         private void newUniqueID()

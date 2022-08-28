@@ -86,6 +86,7 @@ namespace Client
                 {
                     var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), holder);
                     var cardInfo = addedCard.GetComponent<CardInfo>();
+                    cardInfo.UniqueID = card.UniqueID;
                     cardInfo.Cost = card.Cost;
                     cardInfo.Sprite = card.Sprite;
                     cardInfo.MonsterID = card.MonsterID;
@@ -110,6 +111,7 @@ namespace Client
                 {
                     var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
                     var cardInfo = addedCard.GetComponent<CardInfo>();
+                    cardInfo.UniqueID = item.UniqueID;
                     cardInfo.Cost = item.Cost;
                     cardInfo.Sprite = item.Sprite;
                     cardInfo.MonsterID = item.MonsterID;
