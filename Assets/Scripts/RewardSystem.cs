@@ -35,5 +35,13 @@ namespace Client {
                 _rewardFilter.Pools.Inc1.Del(entity);
             }
         }
+        private bool FindEmptyInCollection(int value)
+        {
+            var id = _state.Value.Collection.CollectionUnits.Find(x => x.UniqueID == value);
+            if ( == value)
+                return false;
+            else
+                return true;
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace Client {
                 //ref var firstMonster = ref _state.Value._monsterStorage.monster[Random.Range(0, _state.Value._monsterStorage.monster.Length)];
                 ref var monster = ref monsterComp.cardInfo;
                 UnitData newUnitData = new UnitData();
+                newUnitData.UniqueID = monster.UniqueID;
                 newUnitData.Sprite = monster.Sprite;
                 newUnitData.Cost = monster.Cost;
                 newUnitData.MonsterID = monster.MonsterID;
