@@ -52,8 +52,9 @@ namespace Client
                                     {
                                         for (int i = 0; i < deck.Length; i++) //add card to deck
                                         {
-                                            if (deck[i].MonsterID == 0)
+                                            if (deck[i].UniqueID == 0)
                                             {
+                                                deck[i].UniqueID = cardInfo.UniqueID;
                                                 deck[i].Cost = cardInfo.Cost;
                                                 deck[i].Sprite = cardInfo.Sprite;
                                                 deck[i].MonsterID = cardInfo.MonsterID;
@@ -67,7 +68,7 @@ namespace Client
                                         }
                                         for (int y = 0; y < collection.Count; y++) //remove are card from collection 
                                         {
-                                            if (collection[y].MonsterID == cardInfo.MonsterID)
+                                            if (collection[y].UniqueID == cardInfo.UniqueID)
                                             {
                                                 collection.Remove(collection[y]);
                                                 break;
@@ -90,7 +91,7 @@ namespace Client
                                 {
                                     for (int i = 0; i < deck.Length; i++)
                                     {
-                                        if (deck[i].MonsterID == cardInfo.MonsterID)
+                                        if (deck[i].UniqueID == cardInfo.UniqueID)
                                         {
                                             deck[i].Sprite = null;
                                             deck[i].Cost = 0;
@@ -104,6 +105,7 @@ namespace Client
                                         }
                                     }
                                     UnitData unitData = new UnitData(); //there save the new card in collection
+                                    unitData.UniqueID = cardInfo.UniqueID;
                                     unitData.Sprite = cardInfo.Sprite;
                                     unitData.Cost = cardInfo.Cost;
                                     unitData.MonsterID = cardInfo.MonsterID;

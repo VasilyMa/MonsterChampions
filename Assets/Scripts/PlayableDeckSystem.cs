@@ -26,6 +26,7 @@ namespace Client
                     {
                         var newCard = (GameObject)GameObject.Instantiate(Resources.Load("PlayCard"), holder.GetChild(i).transform);
                         var newCardInfo = newCard.GetComponent<CardInfo>();
+                        newCardInfo.UniqueID = _state.Value.Deck.DeckPlayer[i].UniqueID;
                         newCardInfo.Cost = _state.Value.Deck.DeckPlayer[i].Cost;
                         newCardInfo.Sprite = _state.Value.Deck.DeckPlayer[i].Sprite;
                         newCardInfo.MonsterID = _state.Value.Deck.DeckPlayer[i].MonsterID;
