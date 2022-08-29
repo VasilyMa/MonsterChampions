@@ -18,6 +18,7 @@ namespace Client
                 interfaceComp.LoseHolder.gameObject.SetActive(true);
                 interfaceComp.LoseHolder.DOMove(GameObject.Find("TargetLoseWin").transform.position, 1f, false);
                 interfaceComp.HolderCards.transform.DOMove(interfaceComp.defaultPosCardHolder, 1f, false);
+                interfaceComp.Progress.transform.GetChild(0).transform.DOMove(interfaceComp.defaultPosProgressHolder, 1f, false);
                 _state.Value.runSysytem = false;
                 Debug.Log("Ты всрал, дружок-пирожок");
                 _loseEventFilter.Pools.Inc1.Del(eventEntity);

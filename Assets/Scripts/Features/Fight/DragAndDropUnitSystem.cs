@@ -48,6 +48,10 @@ namespace Client {
                                     ref var mergeComp = ref _mergeEventPool.Value.Add(_world.Value.NewEntity());
                                     mergeComp.EntityfirstUnit = _unitPool.Value.Get(entity).entity;
                                     mergeComp.EntitysecondUnit = hit.transform.GetComponentInChildren<EcsInfoMB>().Entity;
+                                    
+                                    _touchFilter.Pools.Inc2.Del(entity);
+                                    _touchFilter.Pools.Inc1.Del(entity); 
+                                    break;
                                 }
                                 else
                                 {
@@ -55,6 +59,10 @@ namespace Client {
                                     viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
                                     viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
                                     viewComp.GameObject.GetComponent<Collider>().enabled = true;
+
+                                    _touchFilter.Pools.Inc2.Del(entity);
+                                    _touchFilter.Pools.Inc1.Del(entity); 
+                                    break;
                                 }
                             }
                             else
@@ -63,6 +71,9 @@ namespace Client {
                                 viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
                                 viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
                                 viewComp.GameObject.GetComponent<Collider>().enabled = true;
+                                _touchFilter.Pools.Inc2.Del(entity);
+                                _touchFilter.Pools.Inc1.Del(entity);
+                                break;
                             }
                         }
                         else
@@ -70,6 +81,9 @@ namespace Client {
                             viewComp.Transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 1.5f, hit.collider.transform.position.z);
                             viewComp.Transform.SetParent(hit.collider.transform);
                             viewComp.GameObject.GetComponent<Collider>().enabled = true;
+                            _touchFilter.Pools.Inc2.Del(entity);
+                            _touchFilter.Pools.Inc1.Del(entity);
+                            break;
                         }
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitBoard, float.MaxValue, LayerMask.GetMask("BoardRaycast")))
@@ -84,8 +98,9 @@ namespace Client {
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
                     {
+                        ref var healthComp = ref _healthPool.Value.Get(_unitPool.Value.Get(entity).entity);
                         viewComp.HealthBarMB.gameObject.SetActive(true);
-                        //viewComp.HealthBarMB.SetMaxHealth();
+                        viewComp.HealthBarMB.SetMaxHealth(healthComp.MaxValue);
                         viewComp.Transform.parent = null; 
                         _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.GameObject.GetComponent<Collider>().enabled = true;

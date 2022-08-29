@@ -19,18 +19,43 @@ namespace Client
         [SerializeField] private float _maxHP;
         [SerializeField] private GameObject _healthBar;
         [SerializeField] private Text _amount;
+
+        [Header("ShieldInfo")]
+        [SerializeField] private Slider _sliderShield;
+        [SerializeField] private Image _imageShield;
+        [SerializeField] private float _durabilityCurrent;
+        [SerializeField] private float _durabilityMax;
+
         private EcsPool<CameraComponent> _cameraPool = null;
         public void Init(EcsWorldInject world, GameState state)
         {
             _world = world;
             _state = state;
             _cameraPool = _world.Value.GetPool<CameraComponent>();
+            _sliderShield.gameObject.SetActive(false);
         }
+        public void SetMaxShield(float amount)
+        {
+            _sliderShield.gameObject.SetActive(true);
+            _sliderShield.maxValue = amount;
+            _sliderShield.value = amount;
+        }
+        public void ShieldUpdate(float value)
+        {
+            _durabilityCurrent = value;
+            _sliderShield.value = _durabilityCurrent;
+            if (_sliderShield.value <= 0)
+            {
+                _sliderShield.gameObject.SetActive(false);
+            }
+        }
+
         public void SetMaxHealth(float health)
         {
             _slider.maxValue = health;
             _slider.value = health;
             _maxHP = health;
+            _curHp = health;
             _amount.text = health.ToString();
             _image.color = _gradient.Evaluate(1f);
         }
@@ -68,12 +93,11 @@ namespace Client
         }
         private void Update()
         {
-            
-            if (_curHp == _maxHP || _curHp <= 0)
+            if (/*_curHp == _maxHP || */_curHp <= 0)
                 _healthBar.SetActive(false);
             else
             {
-                CameraFollow(); 
+                CameraFollow();
                 _healthBar.SetActive(true);
             }
         }

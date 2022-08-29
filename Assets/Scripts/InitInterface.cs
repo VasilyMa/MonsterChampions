@@ -30,7 +30,6 @@ namespace Client {
             interfaceComp.Progress = FindObjectOfType<ProgressMB>();
             interfaceComp.RewardPanelHolder = interfaceComp.RewardPanel.transform;
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
-            interfaceComp.defaultPosCardHolder = interfaceComp.HolderCards.transform.position;
             interfaceComp.LoseHolder = interfaceComp.LosePanel.transform.GetChild(0).transform;
             interfaceComp.RewardHolder = interfaceComp.Reward.transform;
             interfaceComp.BuyCard.Init(systems.GetWorld(), systems.GetShared<GameState>());
@@ -49,6 +48,10 @@ namespace Client {
             interfaceComp.CollectionManager.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.MenuHolder = interfaceComp.MainMenu.transform;
             interfaceComp.MainMenu.Init(systems.GetWorld(), systems.GetShared<GameState>());
+
+
+            interfaceComp.defaultPosProgressHolder = interfaceComp.Progress.transform.GetChild(0).transform.position;
+            interfaceComp.defaultPosCardHolder = interfaceComp.HolderCards.transform.position;
 
             interfaceComp.MainMenu.UpdateDeck();
             interfaceComp.HolderCards.gameObject.SetActive(false);
@@ -82,6 +85,7 @@ namespace Client {
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.Resources.UpdateCoin();
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
+                interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);
             }
                 
         }
