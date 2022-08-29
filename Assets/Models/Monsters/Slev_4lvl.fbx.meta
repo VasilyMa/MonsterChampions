@@ -1,23 +1,23 @@
 fileFormatVersion: 2
-guid: f00462aeed281a24d9f460f662bfe2a2
+guid: 966993b56bbf360479126951f3d75eb5
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
-      74: 797142668345490221
-    second: Earth bug2 -  Attack
-  - first:
       74: -8919042783036584596
     second: Earth bug2 -  Hit
   - first:
-      74: -7766726706244156732
-    second: Earth bug2 -  PrepareBattle
+      74: -3898686063601538953
+    second: Earth bug2 -  Walk
   - first:
       74: 8981461817484673145
     second: Earth bug2 -  Skill
   - first:
-      74: -3898686063601538953
-    second: Earth bug2 -  Walk
+      74: 797142668345490221
+    second: Earth bug2 -  Attack
+  - first:
+      74: -7766726706244156732
+    second: Earth bug2 -  PrepareBattle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -48,42 +48,6 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Earth bug2 -  Attack
-      takeName: Earth bug2 -  Attack
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 13
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 0.5513513
-        functionName: DealMeleeDamage
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
       name: Earth bug2 -  Hit
       takeName: Earth bug2 -  Hit
       internalID: 0
@@ -113,11 +77,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Earth bug2 -  PrepareBattle
-      takeName: Earth bug2 -  PrepareBattle
+      name: Earth bug2 -  Walk
+      takeName: Earth bug2 -  Walk
       internalID: 0
       firstFrame: 0
-      lastFrame: 11
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -171,11 +135,47 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Earth bug2 -  Walk
-      takeName: Earth bug2 -  Walk
+      name: Earth bug2 -  Attack
+      takeName: Earth bug2 -  Attack
       internalID: 0
       firstFrame: 0
       lastFrame: 13
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.5405406
+        functionName: DealMeleeDamage
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Earth bug2 -  PrepareBattle
+      takeName: Earth bug2 -  PrepareBattle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 11
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -202,7 +202,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.009
+    globalScale: 0.0065
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -255,7 +255,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.009
+    globalScale: 0.0065
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

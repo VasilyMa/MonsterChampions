@@ -17,6 +17,7 @@ namespace Client
 
         private float _timeToCreateAuraMaxValue = 1f;
         private float _timeToCreateAuraCurrentValue = 1f;
+        private float _auraEffectRadius = 7f;
         private float _auraEffectMaxDuration = 5f;
 
         private int _aliveUnitLayer = LayerMask.GetMask(nameof(ViewComponent.AliveUnit));
@@ -38,7 +39,7 @@ namespace Client
                 ref var viewComponent = ref _viewPool.Value.Get(slevEntity);
                 ref var fractionComponent = ref _fractionPool.Value.Get(slevEntity);
 
-                var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f, _aliveUnitLayer);
+                var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, _auraEffectRadius, _aliveUnitLayer);
 
                 Debug.Log($"Всего найдено: {_allUnitsInAura.Length}");
 
