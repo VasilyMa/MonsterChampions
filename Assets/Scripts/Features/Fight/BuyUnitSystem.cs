@@ -42,7 +42,7 @@ namespace Client {
                 var slot = FindEmptySlot();
                 var unitObject = GameObject.Instantiate(_state.Value._monsterStorage.MainMonsterPrefab, slot.position, Quaternion.identity);
                 unitObject.transform.SetParent(slot);
-
+                
                 ref var viewComponent = ref _viewPool.Value.Add(_unitEntity);
                 viewComponent.EntityNumber = _unitEntity;
 
@@ -120,7 +120,6 @@ namespace Client {
                 _unitEntity = BattleState.NULL_ENTITY;
                 _buyFilter.Pools.Inc1.Del(entity);
             }
-
         }
 
         private void DisableAttackZonesIfNeed()

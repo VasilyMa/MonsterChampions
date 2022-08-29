@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: c26640f674646134db5239ed2fb912fc, type: 3}
   Cost: 10
-  MonsterID: 3
+  MonsterID: 2
   Damage: 5
   Health: 10
   MoveSpeed: 10

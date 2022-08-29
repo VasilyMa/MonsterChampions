@@ -165,7 +165,7 @@ namespace Client
 
         private void InvokeSparkyExplosion()
         {
-            _sparkyExplosionEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
+            _sparkyExplosionEventPool.Value.Add(_world.Value.NewEntity()).Invoke(sparkyEntity: _damagingEntity);
         }
 
         private bool damagingEntityIsTinki()
