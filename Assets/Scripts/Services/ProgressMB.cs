@@ -14,7 +14,8 @@ namespace Client
         private float _currentAmonut;
         private float _maxAmount;
         [SerializeField] private Slider _slider;
-
+        [SerializeField] private Text _ourHealthAmount;
+        [SerializeField] private Text _enemyHealthAmount;
         public void Init(GameState state, EcsWorld world)
         {
             _world = world;
@@ -26,9 +27,15 @@ namespace Client
             _currentAmonut = 0;
             _slider.value = _currentAmonut;
         }
-        public void UpdateSlider()
+        public void UpdateSlider(float ourHealth, float enemyHealth)
         {
-            
+            var allHealth = ourHealth + enemyHealth;
+            _slider.value = ourHealth / allHealth;
+        }
+        public void UpdateHealth(int ourHealth, int enemyHealth)
+        {
+            _ourHealthAmount.text = ourHealth.ToString();
+            _enemyHealthAmount.text = enemyHealth.ToString();
         }
     }
 }

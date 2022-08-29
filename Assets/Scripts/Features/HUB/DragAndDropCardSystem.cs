@@ -93,6 +93,7 @@ namespace Client
                                     {
                                         if (deck[i].UniqueID == cardInfo.UniqueID)
                                         {
+                                            deck[i].UniqueID = 0;
                                             deck[i].Sprite = null;
                                             deck[i].Cost = 0;
                                             deck[i].Damage = 0;

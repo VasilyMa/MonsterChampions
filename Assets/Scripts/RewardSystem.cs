@@ -47,7 +47,7 @@ namespace Client {
         }
         private void newUniqueID()
         {
-            var newId = Random.Range(0, 100);
+            var newId = Random.Range(1, 101);
             var isCollection = FindEmptyInCollection(newId);
             var isDeck = FindEmptyInDeck(newId);
             if (isCollection | isDeck)
