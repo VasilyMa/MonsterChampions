@@ -773,7 +773,7 @@ PrefabInstance:
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: monster.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 1ff2888cfaa6eb94f985dd2be5fd608d, type: 2}
+      objectReference: {fileID: 11400000, guid: babe3013c12eee34a8653000f45b0c6b, type: 2}
     - target: {fileID: 2260478454259702325, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: m_Name
       value: EnemyBase

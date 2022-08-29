@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98b542c17296ab428a6cbe9f73348a4, type: 3}
+  m_Name: EffectsPool
+  m_EditorClassIdentifier: 
+  ElementalEffects:
+    DefaultElemental: {fileID: 2198164410692003160, guid: 69e8659c23e205c4a922b85bfd95b941, type: 3}
+    EarthElemental: {fileID: 2198164410692003160, guid: 59cf4839eea4fd04cba1a279cd46e9ac, type: 3}
+    AirElemental: {fileID: 2198164410692003160, guid: 69e8659c23e205c4a922b85bfd95b941, type: 3}
+    DarknessElemental: {fileID: 2198164410692003160, guid: 18657365b2ab3974aa5e209c86788c4f, type: 3}
+    FireElemental: {fileID: 2198164410692003160, guid: 0edc71203d396c44a88b3439894fece0, type: 3}
+    WaterElemental: {fileID: 2198164410692003160, guid: 0a92d99d1a6b72c44b104410c43f3cb5, type: 3}
+  MonstersEffects:
+    SparkyExplosion: {fileID: 134696, guid: ab08f7c76afbee743a5ab93f931b59bc, type: 3}
+    TinkiThunderbolt: {fileID: 120358, guid: d32aea4a256a20e4fb1276c3493aecce, type: 3}
+    SlevDebuffAura: {fileID: 0}
+    BableProtectionAura: {fileID: 0}

@@ -153,7 +153,7 @@ namespace Client
 
             float levelingMultiply = CalculateLevelingMultiply(undergoEntityLevelComponent.Value, damagingEntityLevelComponent.Value);
 
-            float damageToUnit = _damageValue * levelingMultiply / elementalDivider;
+            float damageToUnit = Mathf.Round(_damageValue * levelingMultiply / elementalDivider);
 
             health -= MatchDamageComparedHealth(damageToUnit, health);
         }

@@ -42,7 +42,7 @@ namespace Client
                 ref var healthComponent = ref _healthPool.Value.Get(_sparkyEntity);
                 ref var viewComponent = ref _viewPool.Value.Get(_sparkyEntity);
 
-                GameObject.Instantiate(_gameState.Value._mergeEffectsPool.MergeEffectPrefab[1], viewComponent.GameObject.transform.position, Quaternion.identity);
+                GameObject.Instantiate(_gameState.Value.EffectsPool.MonstersEffects.SparkyExplosion, viewComponent.GameObject.transform.position, Quaternion.identity);
 
                 CreateExplosionEntity();
 

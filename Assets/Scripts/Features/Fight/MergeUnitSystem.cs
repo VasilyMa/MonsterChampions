@@ -20,7 +20,8 @@ namespace Client {
 
         private Vector3 _ebenya = new Vector3(0, 100, 0);
 
-        public void Run (IEcsSystems systems) {
+        public void Run (IEcsSystems systems)
+        {
             foreach (var entity in _mergeFilter.Value)
             {
                 ref var mergeComp = ref _mergeFilter.Pools.Inc1.Get(entity);
@@ -58,7 +59,7 @@ namespace Client {
                 healthComp.CurrentValue = healthComp.MaxValue;
                 damageComp.Value *= 2;
 
-                GameObject.Instantiate(_state.Value._mergeEffectsPool.MergeEffectPrefab[0], viewCompMain.GameObject.transform.position, Quaternion.identity);
+                GameObject.Instantiate(_state.Value.EffectsPool.ElementalEffects.GetElementalEffect(elementComp.CurrentType), viewCompMain.GameObject.transform.position, Quaternion.identity);
 
                 //
                 ref var viewCompFirst = ref _viewPool.Value.Get(mergeComp.EntityfirstUnit);//there delete another unit and entity
