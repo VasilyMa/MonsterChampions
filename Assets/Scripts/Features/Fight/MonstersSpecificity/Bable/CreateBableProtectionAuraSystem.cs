@@ -80,6 +80,7 @@ namespace Client
 
                     if (!bableProtectComponent.isWork)
                     {
+                        bableProtectComponent.isWork = true;
                         bableProtectComponent.ProtectionValue = HealthComponent.MaxValue;
                     }
                 }
