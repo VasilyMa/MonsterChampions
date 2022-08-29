@@ -28,6 +28,7 @@ namespace Client
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
+        readonly EcsPoolInject<RangeUnitComponent> _rangeUnitPool = default;
 
         readonly EcsPoolInject<StoonComponent> _stoonPool = default;
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
@@ -98,6 +99,8 @@ namespace Client
                 targetableComponent.EntitysInDetectionZone = new List<int>();
                 targetableComponent.EntitysInMeleeZone = new List<int>();
                 targetableComponent.EntitysInRangeZone = new List<int>();
+                targetableComponent.MeleeZone = viewComponent.GameObject.GetComponentInChildren<MeleeZoneMB>().gameObject;
+                targetableComponent.RangeZone = viewComponent.GameObject.GetComponentInChildren<RangeZoneMB>().gameObject;
 
                 ref var healthComponent = ref _healthPool.Value.Add(_monsterEntity);
                 healthComponent.MaxValue = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].Health;
@@ -120,8 +123,24 @@ namespace Client
 
                 AddMonstersSpecificity();
 
+                DisableAttackZonesIfNeed();
+
                 _monsterEntity = BattleState.NULL_ENTITY;
                 _monsterSpawnerEntity = BattleState.NULL_ENTITY;
+            }
+        }
+
+        private void DisableAttackZonesIfNeed()
+        {
+            ref var targetableComponent = ref _targetablePool.Value.Get(_monsterEntity);
+
+            if (_rangeUnitPool.Value.Has(_monsterEntity))
+            {
+                targetableComponent.MeleeZone.SetActive(false);
+            }
+            else
+            {
+                targetableComponent.RangeZone.SetActive(false);
             }
         }
 
@@ -171,6 +190,11 @@ namespace Client
         private void TinkisComponents()
         {
             ref var tinkiComponent = ref _tinkiPool.Value.Add(_monsterEntity);
+            ref var rangeUnitComponent = ref _rangeUnitPool.Value.Add(_monsterEntity);
+
+            ref var viewComponent = ref _viewPool.Value.Get(_monsterEntity);
+
+            rangeUnitComponent.FirePoint = viewComponent.Model.GetComponent<FirePointMB>().GetFirePoint();
         }
 
         private void BablesComponents()

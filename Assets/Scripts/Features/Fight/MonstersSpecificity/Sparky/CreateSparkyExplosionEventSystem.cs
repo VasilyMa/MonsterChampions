@@ -80,6 +80,9 @@ namespace Client
 
                 InvokeDamageFromExplosion(_sparkyEntity);
 
+                ref var explosionComponent = ref _explosionPool.Value.Get(_explosionEntity);
+                explosionComponent.isCausedDamage = true;
+
                 DeleteEvent(eventEntity);
             }
         }

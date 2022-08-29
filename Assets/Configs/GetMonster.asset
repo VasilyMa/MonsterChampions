@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainMonsterPrefab: {fileID: 2592177473328330800, guid: 895bfdc751a5ad5408453c08718ff24e, type: 3}
   monster:
+  - {fileID: 11400000, guid: 24b76261267b25144a9846c9ffdaf114, type: 2}
   - {fileID: 11400000, guid: 5b85081711c81d34aa61767d6ae807ef, type: 2}
   - {fileID: 11400000, guid: babe3013c12eee34a8653000f45b0c6b, type: 2}
   - {fileID: 11400000, guid: ded8f01857070804c9d1393fdd647f16, type: 2}

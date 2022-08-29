@@ -51,9 +51,13 @@ namespace Client
             }
         }
 
-        private void CheckingForHash()
+        public void DealHitscanDamage()
         {
+            ref var damageComponent = ref _damageComponentPool.Get(_objectEntity);
+            ref var targetableComponent = ref _targetablePool.Get(_objectEntity);
 
+            ref var damagingEventComponent = ref _damagingEventPool.Add(_world.Value.NewEntity());
+            damagingEventComponent.Invoke(targetableComponent.TargetEntity, _objectEntity, damageComponent.Value);
         }
     }
 }

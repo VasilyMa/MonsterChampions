@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: Tinki
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: c26640f674646134db5239ed2fb912fc, type: 3}
   Cost: 10
   MonsterID: 3
   Damage: 5
   Health: 10
-  MoveSpeed: 13
+  MoveSpeed: 10
   VisualAndAnimations:
   - Name: Level 1
     Avatar: {fileID: 9000000, guid: 9c75c509a7b63d046b35b4b51e7f60c1, type: 3}

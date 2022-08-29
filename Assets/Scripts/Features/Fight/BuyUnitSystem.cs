@@ -19,6 +19,7 @@ namespace Client {
         readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
+        readonly EcsPoolInject<RangeUnitComponent> _rangeUnitPool = default;
 
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
@@ -47,6 +48,7 @@ namespace Client {
 
                 viewComponent.GameObject = unitObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
+                viewComponent.GameObject.layer = LayerMask.NameToLayer(nameof(viewComponent.OnBoardUnit));
                 viewComponent.GameObject.tag = "Friendly";
 
                 viewComponent.CardInfo = buyInfoComp.CardInfo;
@@ -87,6 +89,8 @@ namespace Client {
                 targetableComponent.EntitysInDetectionZone = new List<int>();
                 targetableComponent.EntitysInMeleeZone = new List<int>();
                 targetableComponent.EntitysInRangeZone = new List<int>();
+                targetableComponent.MeleeZone = viewComponent.GameObject.GetComponentInChildren<MeleeZoneMB>().gameObject;
+                targetableComponent.RangeZone = viewComponent.GameObject.GetComponentInChildren<RangeZoneMB>().gameObject;
 
                 ref var healthComponent = ref _healthPool.Value.Add(_unitEntity);
                 healthComponent.MaxValue = buyInfoComp.CardInfo.Health;
@@ -106,12 +110,26 @@ namespace Client {
 
                 AddMonstersSpecificity();
 
-                
+                DisableAttackZonesIfNeed();
 
                 _unitEntity = BattleState.NULL_ENTITY;
                 _buyFilter.Pools.Inc1.Del(entity);
             }
 
+        }
+
+        private void DisableAttackZonesIfNeed()
+        {
+            ref var targetableComponent = ref _targetablePool.Value.Get(_unitEntity);
+
+            if (_rangeUnitPool.Value.Has(_unitEntity))
+            {
+                targetableComponent.MeleeZone.SetActive(false);
+            }
+            else
+            {
+                targetableComponent.RangeZone.SetActive(false);
+            }
         }
 
         private void SetActualModelView()
@@ -185,6 +203,11 @@ namespace Client {
         private void TinkisComponents()
         {
             ref var tinkiComponent = ref _tinkiPool.Value.Add(_unitEntity);
+            ref var rangeUnitComponent = ref _rangeUnitPool.Value.Add(_unitEntity);
+
+            ref var viewComponent = ref _viewPool.Value.Get(_unitEntity);
+
+            rangeUnitComponent.FirePoint = viewComponent.Model.GetComponent<FirePointMB>().GetFirePoint();
         }
 
         private void BablesComponents()

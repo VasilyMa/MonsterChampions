@@ -93,6 +93,8 @@ namespace Client
                 .Add(new DamagingEventSystem())
                 .Add(new CreateSparkyExplosionEventSystem())
 
+                .Add(new CreateTinkiThunderboltEventSystem())
+
                 .Add(new RefreshHealthBarEventSystem())
                 .Add(new HealthBarLookToCamera())
 

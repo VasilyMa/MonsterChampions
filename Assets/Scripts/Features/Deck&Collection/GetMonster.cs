@@ -5,5 +5,7 @@ using UnityEngine;
 public class GetMonster : ScriptableObject
 {
     public GameObject MainMonsterPrefab;
+
+    [Header("MonsterElement == MonsterID")]
     public MonsterStorage[] monster;
 }

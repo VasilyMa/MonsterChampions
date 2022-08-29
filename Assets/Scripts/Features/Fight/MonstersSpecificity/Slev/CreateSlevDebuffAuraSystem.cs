@@ -19,7 +19,7 @@ namespace Client
         private float _timeToCreateAuraCurrentValue = 1f;
         private float _auraEffectMaxDuration = 5f;
 
-        private int _aliveUnitLayer = LayerMask.NameToLayer(nameof(ViewComponent.AliveUnit));
+        private int _aliveUnitLayer = LayerMask.GetMask(nameof(ViewComponent.AliveUnit));
 
         public void Run (IEcsSystems systems) // to do ay rewrite this system with methods. And check how OverlapSphere working with layers
         {
@@ -38,7 +38,7 @@ namespace Client
                 ref var viewComponent = ref _viewPool.Value.Get(slevEntity);
                 ref var fractionComponent = ref _fractionPool.Value.Get(slevEntity);
 
-                var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f);
+                var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f, _aliveUnitLayer);
 
                 Debug.Log($"Всего найдено: {_allUnitsInAura.Length}");
 
@@ -47,11 +47,6 @@ namespace Client
 
                 foreach (var unitInAura in _allUnitsInAura)
                 {
-                    if (unitInAura.gameObject.layer != _aliveUnitLayer)
-                    {
-                        continue;
-                    }
-
                     collidersCount++;
 
                     var unitEcsInfoMB = unitInAura.GetComponent<EcsInfoMB>();

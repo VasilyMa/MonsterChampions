@@ -16,6 +16,7 @@ namespace Client {
         readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
+        readonly EcsPoolInject<RangeUnitComponent> _rangeUnitPool = default;
 
         private Vector3 _ebenya = new Vector3(0, 100, 0);
 
@@ -40,6 +41,13 @@ namespace Client {
 
                 viewCompMain.Model = GameObject.Instantiate(viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].ModelPrefab, viewCompMain.GameObject.transform.position, Quaternion.identity);
                 viewCompMain.Model.transform.SetParent(viewCompMain.Transform);
+
+                if (_rangeUnitPool.Value.Has(entity))
+                {
+                    ref var rangeUnitComponent = ref _rangeUnitPool.Value.Get(entity);
+
+                    rangeUnitComponent.FirePoint = viewCompMain.Model.GetComponent<FirePointMB>().GetFirePoint();
+                }
 
                 animableComp.Animator.runtimeAnimatorController = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].RuntimeAnimatorController;
                 animableComp.Animator.avatar = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].Avatar;

@@ -14,6 +14,7 @@ namespace Client
         readonly EcsPoolInject<DieEvent> _dieEventPool = default;
         readonly EcsPoolInject<RefreshHealthBarEvent> _refreshHealthBarEventPool = default;
         readonly EcsPoolInject<CreateSparkyExplosionEvent> _sparkyExplosionEventPool = default;
+        readonly EcsPoolInject<CreateTinkiThunderboltEvent> _tinkiThunderboltEventPool = default;
 
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
         readonly EcsPoolInject<BableProtectionComponent> _bableProtectionPool = default; 
@@ -24,6 +25,7 @@ namespace Client
         readonly EcsPoolInject<Animable> _animablePool = default;
 
         readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
+        readonly EcsPoolInject<TinkiComponent> _tinkiPool = default;
 
         private const float LEVELING_STANDART_VALUE = 1f;
         private const float LEVELING_INCREASER = 0.5f;
@@ -104,6 +106,11 @@ namespace Client
                 InvokeSparkyExplosion();
             }
 
+            if (damagingEntityIsTinki())
+            {
+                InvokeTinkiThunderbolt();
+            }
+
             ref var damagingEntityElementalComponent = ref _elementalPool.Value.Get(_damagingEntity);
 
             float elementalDivider;
@@ -146,10 +153,19 @@ namespace Client
             return _sparkyPool.Value.Has(_damagingEntity);
         }
 
-
         private void InvokeSparkyExplosion()
         {
             _sparkyExplosionEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
+        }
+
+        private bool damagingEntityIsTinki()
+        {
+            return _tinkiPool.Value.Has(_damagingEntity);
+        }
+
+        private void InvokeTinkiThunderbolt()
+        {
+            _tinkiThunderboltEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity, _undergoEntity);
         }
 
         private bool BableProtectionIsZero()

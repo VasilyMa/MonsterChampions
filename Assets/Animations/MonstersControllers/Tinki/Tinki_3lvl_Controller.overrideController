@@ -9,9 +9,9 @@ AnimatorOverrideController:
   m_Name: Tinki_3lvl_Controller
   m_Controller: {fileID: 9100000, guid: 174fb361325565041ab81d7e2e4d11c2, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -1519603968563470464, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 58ee051afa361a24b84307aa03c1685e, type: 2}
-  - m_OriginalClip: {fileID: -1499171786975459842, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 0ba38da7f418aa44f99a024e2defbe3a, type: 2}
-  - m_OriginalClip: {fileID: -4694296973510364946, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 3387fef710642ca4da4895b8ffd7e381, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 73cf2341347750849bda44c0d2ee691c, type: 2}
+    m_OverrideClip: {fileID: 179807602434648781, guid: 5c2c7998587fc0746a79d95e07110c30, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 611f767f0d78469459b092d174decb92, type: 2}
+    m_OverrideClip: {fileID: 199208256736244717, guid: 5c2c7998587fc0746a79d95e07110c30, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 84077e327700c374cbc18fa919bd4425, type: 2}
+    m_OverrideClip: {fileID: -8379594061341597739, guid: 5c2c7998587fc0746a79d95e07110c30, type: 3}
