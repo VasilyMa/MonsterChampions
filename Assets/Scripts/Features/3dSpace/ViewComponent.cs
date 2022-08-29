@@ -10,6 +10,7 @@ namespace Client
         public Transform Transform;
         public EcsInfoMB EcsInfoMB;
         public CardInfo CardInfo;
+        public HealthbarMB HealthBarMB;
 
         public int LayerBeforeDeath;
 

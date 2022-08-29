@@ -23,7 +23,7 @@ TagManager:
   - Base
   - Place
   - BoardRaycast
-  - 
+  - AlwaysVisible
   - 
   - 
   - 

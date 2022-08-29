@@ -48,6 +48,8 @@ namespace Client {
                 viewComponent.GameObject = unitObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
                 viewComponent.GameObject.tag = "Friendly";
+                viewComponent.HealthBarMB = viewComponent.GameObject.transform.GetChild(4).GetComponent<HealthbarMB>();
+                viewComponent.HealthBarMB.Init(_world, systems.GetShared<GameState>());
 
                 viewComponent.CardInfo = buyInfoComp.CardInfo;
 
@@ -94,6 +96,9 @@ namespace Client {
                 healthComponent.HealthBar = viewComponent.Transform.GetComponentInChildren<HealthBarMB>().gameObject;
                 healthComponent.HealthBarMaxWidth = healthComponent.HealthBar.transform.localScale.x;
                 healthComponent.HealthBar.SetActive(false);
+
+                viewComponent.HealthBarMB.SetMaxHealth(healthComponent.MaxValue);
+                viewComponent.HealthBarMB.gameObject.SetActive(false);
 
                 ref var elementalComponent = ref _elementalPool.Value.Add(_unitEntity);
                 elementalComponent.CurrentType = buyInfoComp.CardInfo.Elemental;
