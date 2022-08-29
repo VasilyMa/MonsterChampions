@@ -85,7 +85,6 @@ namespace Client {
                     if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
                     {
                         viewComp.HealthBarMB.gameObject.SetActive(true);
-                        viewComp.HealthBarMB.SetMaxHealth();
                         viewComp.Transform.parent = null; 
                         _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.GameObject.GetComponent<Collider>().enabled = true;
