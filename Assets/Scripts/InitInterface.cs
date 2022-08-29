@@ -3,6 +3,7 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Client {
     sealed class InitInterface : MonoBehaviour, IEcsInitSystem  
@@ -26,6 +27,7 @@ namespace Client {
             interfaceComp.LosePanel = FindObjectOfType<LosePanelMB>();
             interfaceComp.Reward = FindObjectOfType<RewardMB>();
             interfaceComp.Resources = FindObjectOfType<ResourcesMB>();
+            interfaceComp.Progress = FindObjectOfType<ProgressMB>();
             interfaceComp.RewardPanelHolder = interfaceComp.RewardPanel.transform;
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
             interfaceComp.defaultPosCardHolder = interfaceComp.HolderCards.transform.position;
@@ -36,6 +38,7 @@ namespace Client {
             interfaceComp.LosePanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.Reward.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.Resources.Init(systems.GetWorld(), systems.GetShared<GameState>());
+            interfaceComp.Progress.Init(systems.GetWorld(), systems.GetShared<GameState>());
 
             interfaceComp.CollectionManager = FindObjectOfType<CollectionMB>();
             interfaceComp.CollectionMenu = interfaceComp.CollectionManager.transform;
@@ -67,6 +70,7 @@ namespace Client {
                 interfaceComp.DeckHolder.DOMove((GameObject.Find("TargetDeck").transform.position), 1f, false);
                 _state.Value.hubSystem = true;
                 _state.Value.runSysytem = false;
+                interfaceComp.Resources.UpdateCoin();
             }
             else
             {

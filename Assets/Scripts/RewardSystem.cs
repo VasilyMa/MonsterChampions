@@ -9,7 +9,10 @@ namespace Client {
         readonly EcsFilterInject<Inc<RewardComponentEvent>> _rewardFilter = default;
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
         readonly EcsPoolInject<NewMonster> _newMonsterPool = default;
-        public void Run (IEcsSystems systems)
+        private int newID;
+        private int countTries;
+        private bool isFullCollection;
+        public void Run(IEcsSystems systems)
         {
             foreach (var entity in _rewardFilter.Value)
             {
@@ -17,8 +20,15 @@ namespace Client {
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
                 interfaceComp.RewardHolder.gameObject.SetActive(true);
+                newUniqueID();
+                if (isFullCollection)
+                {
+                    _rewardFilter.Pools.Inc1.Del(entity);
+                    return;
+                }
                 var newCard = interfaceComp.RewardHolder.transform.GetChild(1).transform;
                 var infoNewCard = newCard.GetComponent<CardInfo>();
+                infoNewCard.UniqueID = newID;
                 infoNewCard.Cost = mosnterInfo.Cost;
                 infoNewCard.Sprite = mosnterInfo.Sprite;
                 infoNewCard.MonsterID = mosnterInfo.MonsterID;
@@ -34,6 +44,51 @@ namespace Client {
                 monsterComp.cardInfo = infoNewCard;
                 _rewardFilter.Pools.Inc1.Del(entity);
             }
+        }
+        private void newUniqueID()
+        {
+            var newId = Random.Range(1, 101);
+            var isCollection = FindEmptyInCollection(newId);
+            var isDeck = FindEmptyInDeck(newId);
+            if (isCollection | isDeck)
+            {
+                countTries++;
+                if (countTries < 100)
+                    newUniqueID();
+                else 
+                {
+                    isFullCollection = true;
+                    Debug.LogWarning("Your collection is full, please take it away");
+                }
+            }
+            else
+            {
+                isFullCollection = false;
+                newID = newId;
+            }
+        }
+        private bool FindEmptyInCollection(int value)
+        {
+            var collection = _state.Value.Collection.CollectionUnits;
+            var list = collection.FindAll(x => x.UniqueID == value);
+            if (list.Count == 0)
+                return false;
+            else
+                return true;
+        }
+        private bool FindEmptyInDeck(int value)
+        {
+            var deck = _state.Value.Deck.DeckPlayer;
+            foreach (var card in deck)
+            {
+                if (card.UniqueID == value)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            return false;
         }
     }
 }

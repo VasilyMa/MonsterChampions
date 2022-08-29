@@ -11,6 +11,7 @@ namespace Client {
         readonly EcsPoolInject<MergeUnitEvent> _mergeEventPool = default;
         readonly EcsPoolInject<Movable> _movablePool = default;
         readonly EcsPoolInject<OnBoardUnitTag> _onBoardPool = default;
+        readonly EcsPoolInject<HealthComponent> _healthPool = default;
         public void Run (IEcsSystems systems) {
             foreach (var entity in _touchFilter.Value)
             {
@@ -83,6 +84,8 @@ namespace Client {
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
                     {
+                        viewComp.HealthBarMB.gameObject.SetActive(true);
+                        //viewComp.HealthBarMB.SetMaxHealth();
                         viewComp.Transform.parent = null; 
                         _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.GameObject.GetComponent<Collider>().enabled = true;

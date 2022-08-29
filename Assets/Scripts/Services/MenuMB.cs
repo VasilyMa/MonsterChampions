@@ -28,7 +28,7 @@ namespace Client
             _playableDeckEventPool = _world.GetPool<PlayableDeckEvent>();
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             defaultPosCollectionButton = interfaceComp.MenuHolder.transform.GetChild(1).transform.position;
-            defaultPosPlayButton = interfaceComp.MenuHolder.transform.GetChild(0).transform.position;
+            defaultPosPlayButton = interfaceComp.MenuHolder.transform.GetChild(0).transform.GetChild(0).transform.position;
             defaultPosCollection = interfaceComp.CollectionMenu.transform.GetChild(1).transform.position;
             defaultPosCardPanel = interfaceComp.HolderCards.transform.position;
         }
@@ -57,8 +57,8 @@ namespace Client
                 _state.inCollection = true;
                 UpdateCollection();
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollection").transform.position), 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(0).transform.DOMove((GameObject.Find("TargetPlayButton").transform.position), 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(0).transform.DOScale(0.75f, 0.5f);
+                interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove((GameObject.Find("TargetPlayButton").transform.position), 1f, false);
+                interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(0.75f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.75f, 0.5f);
                 isOpen = true;
@@ -68,11 +68,10 @@ namespace Client
                 interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
                 _state.inCollection = false;
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(0).transform.DOMove(defaultPosPlayButton, 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(0).transform.DOScale(1f, 0.5f);
+                interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(defaultPosPlayButton, 1f, false);
+                interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(1f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(defaultPosCollectionButton, 1f, false).OnComplete(() => RemoveCollection());
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(1f, 0.5f);
-                //StartCoroutine(RemoveCollectionTimer());
                 isOpen = false;
             }
         }
@@ -87,6 +86,7 @@ namespace Client
                 {
                     var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), holder);
                     var cardInfo = addedCard.GetComponent<CardInfo>();
+                    cardInfo.UniqueID = card.UniqueID;
                     cardInfo.Cost = card.Cost;
                     cardInfo.Sprite = card.Sprite;
                     cardInfo.MonsterID = card.MonsterID;
@@ -111,6 +111,7 @@ namespace Client
                 {
                     var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
                     var cardInfo = addedCard.GetComponent<CardInfo>();
+                    cardInfo.UniqueID = item.UniqueID;
                     cardInfo.Cost = item.Cost;
                     cardInfo.Sprite = item.Sprite;
                     cardInfo.MonsterID = item.MonsterID;
@@ -122,17 +123,6 @@ namespace Client
                     cardInfo.VisualAndAnimations = item.VisualAndAnimations;
                     cardInfo.UpdateCardInfo();
                 }
-                
-                //if (item.UnitID > 0 && holder.childCount < 3)
-                //{
-                //    for (int i = 0; i < holder.childCount; i++)
-                //    {
-                //        if (holder.GetChild(i).GetComponent<CardInfo>().unitID == 0)
-                //        {
-                            
-                //        }
-                //    }
-                //}
             }
         }
         private IEnumerator RemoveCollectionTimer()
