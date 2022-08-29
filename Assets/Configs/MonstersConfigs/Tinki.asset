@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: Tinki
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
-  Cost: 0
+  Sprite: {fileID: 21300000, guid: c26640f674646134db5239ed2fb912fc, type: 3}
+  Cost: 12
   MonsterID: 3
   Damage: 5
   Health: 10

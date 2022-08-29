@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CardInfo : MonoBehaviour
 {
+    public int UniqueID;
     public Sprite Sprite;
     public int Cost;
     public float Damage;

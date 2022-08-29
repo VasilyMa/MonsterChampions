@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: Sparky
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: bc60cb9ff904f51408de7128b8021831, type: 3}
-  Cost: 0
+  Sprite: {fileID: 21300000, guid: 7746ad6ae8635154e934e2316c7bab7c, type: 3}
+  Cost: 14
   MonsterID: 2
   Damage: 10
   Health: 10

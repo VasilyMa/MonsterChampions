@@ -3,6 +3,7 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Client {
     sealed class InitInterface : MonoBehaviour, IEcsInitSystem  
@@ -67,6 +68,7 @@ namespace Client {
                 interfaceComp.DeckHolder.DOMove((GameObject.Find("TargetDeck").transform.position), 1f, false);
                 _state.Value.hubSystem = true;
                 _state.Value.runSysytem = false;
+                interfaceComp.Resources.UpdateCoin();
             }
             else
             {

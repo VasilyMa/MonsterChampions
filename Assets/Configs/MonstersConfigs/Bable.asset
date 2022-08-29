@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
   m_Name: Bable
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 8a1437f1aa5945d45adcb967157b30be, type: 3}
-  Cost: 0
+  Sprite: {fileID: 21300000, guid: 6306fbf0eb684f142adec4f16ae51be0, type: 3}
+  Cost: 10
   MonsterID: 4
   Damage: 2
   Health: 10

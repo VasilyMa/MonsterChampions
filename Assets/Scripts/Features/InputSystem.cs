@@ -42,7 +42,7 @@ namespace Client {
                         unitComp.defaultParent = unitComp.unit.transform.parent;
                         unitComp.unit.transform.parent = null;
                         _touchPool.Value.Add(entity);
-                        //Debug.Log($"StartDrag, {unit.Entity}");
+                        Debug.Log($"StartDrag, {unit.Entity}");
                     }
                 }
 
@@ -65,7 +65,7 @@ namespace Client {
                         cardComp.CardObject = result.gameObject;
                         cardComp.DefaultPos = result.gameObject.transform.position;
                         cardComp.DefaultParent = result.gameObject.transform.parent;
-                        cardComp.CardObject.transform.parent = GameObject.FindObjectOfType<CollectionMB>().transform;
+                        cardComp.CardObject.transform.SetParent(GameObject.FindObjectOfType<CollectionMB>().transform);
                         cardComp.CardObject.GetComponent<Image>().raycastTarget = false;
                         cardComp.CardObject.transform.DOScale(0.8f, 0.2f);
                         Debug.Log("Hit " + result.gameObject.name);
