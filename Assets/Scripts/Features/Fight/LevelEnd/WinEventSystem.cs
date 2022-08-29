@@ -21,6 +21,7 @@ namespace Client
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
                 interfaceComp.HolderCards.transform.DOMove(interfaceComp.defaultPosCardHolder, 1f, false);
+                interfaceComp.Progress.transform.GetChild(0).transform.DOMove(interfaceComp.defaultPosProgressHolder, 1f, false);
                 _rewardPool.Value.Add(_world.Value.NewEntity());
                 Time.timeScale = 1;
                 _state.Value.runSysytem = false;

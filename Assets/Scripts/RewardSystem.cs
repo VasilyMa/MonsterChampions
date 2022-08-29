@@ -16,7 +16,7 @@ namespace Client {
         {
             foreach (var entity in _rewardFilter.Value)
             {
-                ref var mosnterInfo = ref _state.Value._monsterStorage.monster[Random.Range(0, _state.Value.Settings.MaxLevelRewardedCard)];
+                ref var mosnterInfo = ref _state.Value._monsterStorage.monster[Random.Range(1, _state.Value.Settings.MaxLevelRewardedCard)];
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
                 interfaceComp.RewardHolder.gameObject.SetActive(true);

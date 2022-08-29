@@ -25,6 +25,7 @@ namespace Client {
         public Transform MenuHolder;
 
         public Vector3 defaultPosCardHolder;
+        public Vector3 defaultPosProgressHolder;
 
         public StartDeckForDevelop TempButton;
 

@@ -82,6 +82,7 @@ namespace Client
                     {
                         bableProtectComponent.isWork = true;
                         bableProtectComponent.ProtectionValue = HealthComponent.MaxValue;
+                        viewComponent.HealthBarMB.SetMaxShield(bableProtectComponent.ProtectionValue);
                     }
                 }
             }

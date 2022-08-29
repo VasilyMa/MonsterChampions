@@ -72,6 +72,9 @@ namespace Client
                 viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
                 viewComponent.Model = GameObject.Instantiate(monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].VisualAndAnimations[monsterSpawnerComponent.MonsterLevel - 1].ModelPrefab, viewComponent.GameObject.transform.position, Quaternion.identity);
                 viewComponent.Model.transform.SetParent(viewComponent.Transform);
+                viewComponent.HealthBarMB = viewComponent.GameObject.GetComponentInChildren<HealthbarMB>();
+                viewComponent.HealthBarMB.Init(_world, systems.GetShared<GameState>());
+                
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(_monsterEntity);
                 fractionComponent.isFriendly = false;
@@ -108,6 +111,8 @@ namespace Client
                 healthComponent.HealthBar = viewComponent.Transform.GetComponentInChildren<HealthBarMB>().gameObject;
                 healthComponent.HealthBarMaxWidth = healthComponent.HealthBar.transform.localScale.x;
                 healthComponent.HealthBar.SetActive(false);
+                viewComponent.HealthBarMB.SetMaxHealth(healthComponent.MaxValue);
+                viewComponent.HealthBarMB.gameObject.SetActive(true);
 
                 ref var elementalComponent = ref _elementalPool.Value.Add(_monsterEntity);
                 elementalComponent.CurrentType = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].Elemental;

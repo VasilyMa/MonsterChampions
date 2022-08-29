@@ -28,6 +28,8 @@ namespace Client
         readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
         readonly EcsPoolInject<TinkiComponent> _tinkiPool = default;
 
+        readonly EcsPoolInject<ViewComponent> _viewPool = default;
+
         private const float LEVELING_STANDART_VALUE = 1f;
         private const float LEVELING_INCREASER = 0.5f;
         private const float LEVELING_DECREASER = 0.25f;
@@ -133,6 +135,8 @@ namespace Client
                 elementalDivider = Elemental.GetDamageDivider(damagingEntityElementalComponent.CurrentType, undergoEntityElementalComponent.CurrentType);
 
                 DealDamage(ref undergoEntityHealthComponent.CurrentValue, elementalDivider);
+
+                UpdateHealthbar(undergoEntityHealthComponent.CurrentValue);
             }
             else
             {
@@ -141,10 +145,16 @@ namespace Client
                 elementalDivider = Elemental.GetDamageDivider(damagingEntityElementalComponent.CurrentType, _bableProtectionElement);
 
                 DealDamage(ref bableProtectionComponent.ProtectionValue, elementalDivider);
+
+                UpdateShield(bableProtectionComponent.ProtectionValue);
             }
 
         }
-
+        private void UpdateShield(float amount)
+        {
+            ref var viewComp = ref _viewPool.Value.Get(_undergoEntity);
+            viewComp.HealthBarMB.ShieldUpdate(amount);
+        }
         private void DealDamage(ref float health, float elementalDivider)
         {
 
@@ -156,6 +166,11 @@ namespace Client
             float damageToUnit = Mathf.Round(_damageValue * levelingMultiply / elementalDivider);
 
             health -= MatchDamageComparedHealth(damageToUnit, health);
+        }
+        private void UpdateHealthbar(float health)
+        {
+            ref var viewComp = ref _viewPool.Value.Get(_undergoEntity);
+            viewComp.HealthBarMB.UpdateHealth(health);
         }
 
         private bool damagingEntityIsSparky()

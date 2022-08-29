@@ -45,6 +45,7 @@ namespace Client
                 interfaceComp.DeckHolder.transform.DOMoveY(Screen.height * 1.5f, 1f, false);
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
+                interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 _playableDeckEventPool.Add(_world.NewEntity());
             }
