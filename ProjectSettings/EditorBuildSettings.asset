@@ -5,7 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Testing Rooms/Targeting + Running.unity
-    guid: 182d56b6da045634aa6abcc0a3460009
+    path: Assets/Scenes/Testing Rooms/Targeting + Running 1.unity
+    guid: 7618be4620812f54794d01babddf5a4d
+  - enabled: 1
+    path: Assets/Scenes/Testing Rooms/Targeting + Running 2.unity
+    guid: 9c610651f46c4294682eacc43fe78691
+  - enabled: 1
+    path: Assets/Scenes/Testing Rooms/Targeting + Running 3.unity
+    guid: e2fc18c3f8fd42b4d80fb4608bc2643f
+  - enabled: 1
+    path: Assets/Scenes/Testing Rooms/Targeting + Running 4.unity
+    guid: dbd00f0e1dedbf04a849d8e7b541c070
+  - enabled: 1
+    path: Assets/Scenes/Testing Rooms/Targeting + Running 5.unity
+    guid: 386a494d24c00c64ba437cce4314b9a5
   m_configObjects: {}

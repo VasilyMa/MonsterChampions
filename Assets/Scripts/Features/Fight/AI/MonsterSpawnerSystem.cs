@@ -108,9 +108,6 @@ namespace Client
                 ref var healthComponent = ref _healthPool.Value.Add(_monsterEntity);
                 healthComponent.MaxValue = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].Health;
                 healthComponent.CurrentValue = healthComponent.MaxValue;
-                healthComponent.HealthBar = viewComponent.Transform.GetComponentInChildren<HealthBarMB>().gameObject;
-                healthComponent.HealthBarMaxWidth = healthComponent.HealthBar.transform.localScale.x;
-                healthComponent.HealthBar.SetActive(false);
                 viewComponent.HealthBarMB.SetMaxHealth(healthComponent.MaxValue);
                 viewComponent.HealthBarMB.gameObject.SetActive(true);
 

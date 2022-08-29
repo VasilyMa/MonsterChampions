@@ -6,8 +6,5 @@ namespace Client
     {
         public float MaxValue;
         public float CurrentValue;
-
-        public GameObject HealthBar;
-        public float HealthBarMaxWidth;
     }
 }

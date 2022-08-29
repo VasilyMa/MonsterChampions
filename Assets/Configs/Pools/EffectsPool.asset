@@ -22,5 +22,5 @@ MonoBehaviour:
   MonstersEffects:
     SparkyExplosion: {fileID: 134696, guid: ab08f7c76afbee743a5ab93f931b59bc, type: 3}
     TinkiThunderbolt: {fileID: 120358, guid: d32aea4a256a20e4fb1276c3493aecce, type: 3}
-    SlevDebuffAura: {fileID: 0}
+    SlevDebuffAura: {fileID: 100000, guid: 286b848144535134e987f5fbdfb04c07, type: 3}
     BableProtectionAura: {fileID: 0}

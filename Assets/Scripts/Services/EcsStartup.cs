@@ -94,9 +94,6 @@ namespace Client
 
                 .Add(new CreateTinkiThunderboltEventSystem())
 
-                .Add(new RefreshHealthBarEventSystem())
-                .Add(new HealthBarLookToCamera())
-
                 .Add(new MonsterSpawnerSystem())
 
                 .Add(new DieEventSystem())

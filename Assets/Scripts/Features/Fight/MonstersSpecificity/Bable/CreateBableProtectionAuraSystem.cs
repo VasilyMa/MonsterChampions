@@ -16,8 +16,8 @@ namespace Client
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
         readonly EcsPoolInject<BableProtectionComponent> _bableProtectPool = default;
 
-        private float _timeToCreateAuraMaxValue = 1f;
-        private float _timeToCreateAuraCurrentValue = 1f;
+        private float _timeToCreateAuraMaxValue = 0.5f;
+        private float _timeToCreateAuraCurrentValue = 0.5f;
 
         private float _protectEffectMaxDuration = 5f;
 

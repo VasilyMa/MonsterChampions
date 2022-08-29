@@ -12,7 +12,6 @@ namespace Client
 
         readonly EcsPoolInject<DamagingEvent> _damagingEventPool = default;
         readonly EcsPoolInject<DieEvent> _dieEventPool = default;
-        readonly EcsPoolInject<RefreshHealthBarEvent> _refreshHealthBarEventPool = default;
         readonly EcsPoolInject<CreateSparkyExplosionEvent> _sparkyExplosionEventPool = default;
         readonly EcsPoolInject<CreateTinkiThunderboltEvent> _tinkiThunderboltEventPool = default;
 
@@ -24,6 +23,7 @@ namespace Client
         readonly EcsPoolInject<UnitTag> _unitTagPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
+        readonly EcsPoolInject<DeadTag> _deadPool = default;
 
         readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
         readonly EcsPoolInject<TinkiComponent> _tinkiPool = default;
@@ -48,8 +48,15 @@ namespace Client
 
                 _undergoEntity = damagingEvent.UndergoEntity;
                 _damagingEntity = damagingEvent.DamagingEntity;
+
                 if (damagingEvent.DamageValue != 0)
                     _damageValue = damagingEvent.DamageValue;
+
+                if (_deadPool.Value.Has(_undergoEntity))
+                {
+                    DeleteEvent(damagingEventEntity);
+                    continue;
+                }
 
                 ref var healthComponent = ref _healthPool.Value.Get(_undergoEntity);
 
@@ -70,7 +77,6 @@ namespace Client
                 }
 
                 InvokeDieEnent();
-                InvokeRefreshHealthBarEvent();
 
                 DeleteEvent(damagingEventEntity);
             }
@@ -245,11 +251,6 @@ namespace Client
             }
 
             _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
-        }
-
-        private void InvokeRefreshHealthBarEvent()
-        {
-            _refreshHealthBarEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
         }
 
         private void DeleteEvent(int damagingEventEntity)

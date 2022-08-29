@@ -59,7 +59,7 @@ namespace Client {
                 healthComp.CurrentValue = healthComp.MaxValue;
                 damageComp.Value *= 2;
 
-                GameObject.Instantiate(_state.Value.EffectsPool.ElementalEffects.GetElementalEffect(elementComp.CurrentType), viewCompMain.GameObject.transform.position, Quaternion.identity);
+                GameObject.Instantiate(_state.Value.EffectsPool.ElementalEffects.GetElementalEffect(elementComp.CurrentType), viewCompMain.GameObject.transform); // to do ay write normal'nii Quaternion
 
                 //
                 ref var viewCompFirst = ref _viewPool.Value.Get(mergeComp.EntityfirstUnit);//there delete another unit and entity
