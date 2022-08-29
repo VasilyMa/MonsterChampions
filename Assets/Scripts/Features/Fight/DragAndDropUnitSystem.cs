@@ -85,12 +85,15 @@ namespace Client {
                     if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
                     {
                         viewComp.HealthBarMB.gameObject.SetActive(true);
+                        //viewComp.HealthBarMB.SetMaxHealth();
                         viewComp.Transform.parent = null; 
                         _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
                         viewComp.GameObject.GetComponent<Collider>().enabled = true;
                         _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
                         _touchFilter.Pools.Inc2.Del(entity);
                         _touchFilter.Pools.Inc1.Del(entity);
+
+                        viewComp.GameObject.layer = LayerMask.NameToLayer(nameof(viewComp.AliveUnit));
                         break;
                     }
                     _touchFilter.Pools.Inc2.Del(entity);

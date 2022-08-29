@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a85e8a0d4244f64395436640e07072c, type: 3}
-  m_Name: Stoon
+  m_Name: 1.Stoon
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 28cc037a20cbb8541b9f0c45b8e27756, type: 3}
+  Sprite: {fileID: 21300000, guid: 5d32fd2b599156a47a68b34ed29c2816, type: 3}
   Cost: 10
   MonsterID: 1
   Damage: 5

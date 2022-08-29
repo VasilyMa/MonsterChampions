@@ -163,7 +163,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.6216216
-        functionName: DealRangeDamage
+        functionName: DealHitscanDamage
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

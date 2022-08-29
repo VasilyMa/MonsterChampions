@@ -10,5 +10,8 @@ namespace Client
         public List<int> EntitysInDetectionZone;
         public List<int> EntitysInMeleeZone;
         public List<int> EntitysInRangeZone;
+
+        public GameObject MeleeZone;
+        public GameObject RangeZone;
     }
 }

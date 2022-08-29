@@ -11,8 +11,8 @@ namespace Client
         {
             Default = 0,
             Stoon = 1,
-            Sparky = 2,
-            Tinki = 3,
+            Tinki = 2,
+            Sparky = 3,
             Bable = 4,
             Slev = 5,
         }

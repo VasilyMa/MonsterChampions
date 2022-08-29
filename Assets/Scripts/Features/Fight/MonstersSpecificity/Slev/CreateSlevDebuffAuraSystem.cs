@@ -12,23 +12,19 @@ namespace Client
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<UnitTag> _unitPool = default;
+        readonly EcsPoolInject<OnBoardUnitTag> _onBoardUnitPool = default;
         readonly EcsPoolInject<SlevAuraDebuff> _slevAuraDebuffPool = default;
-
 
         private float _timeToCreateAuraMaxValue = 1f;
         private float _timeToCreateAuraCurrentValue = 1f;
         private float _auraEffectMaxDuration = 5f;
 
-        private int _aliveUnitLayer = LayerMask.NameToLayer(nameof(ViewComponent.AliveUnit));
+        private int _aliveUnitLayer = LayerMask.GetMask(nameof(ViewComponent.AliveUnit));
 
         public void Run (IEcsSystems systems) // to do ay rewrite this system with methods. And check how OverlapSphere working with layers
         {
             foreach (var slevEntity in _slevFilter.Value)
             {
-                ref var slevComponent = ref _slevPool.Value.Get(slevEntity);
-                ref var viewComponent = ref _viewPool.Value.Get(slevEntity);
-                ref var fractionComponent = ref _fractionPool.Value.Get(slevEntity);
-
                 if (_timeToCreateAuraCurrentValue > 0)
                 {
                     _timeToCreateAuraCurrentValue -= Time.deltaTime;
@@ -39,7 +35,10 @@ namespace Client
                     _timeToCreateAuraCurrentValue = _timeToCreateAuraMaxValue;
                 }
 
-                var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f);
+                ref var viewComponent = ref _viewPool.Value.Get(slevEntity);
+                ref var fractionComponent = ref _fractionPool.Value.Get(slevEntity);
+
+                var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f, _aliveUnitLayer);
 
                 Debug.Log($"Всего найдено: {_allUnitsInAura.Length}");
 
@@ -48,11 +47,6 @@ namespace Client
 
                 foreach (var unitInAura in _allUnitsInAura)
                 {
-                    if (unitInAura.gameObject.layer != _aliveUnitLayer)
-                    {
-                        continue;
-                    }
-
                     collidersCount++;
 
                     var unitEcsInfoMB = unitInAura.GetComponent<EcsInfoMB>();
@@ -63,24 +57,31 @@ namespace Client
                         continue;
                     }
 
+                    if (_onBoardUnitPool.Value.Has(unitEntity))
+                    {
+                        continue;
+                    }
+
                     ref var unitFractionComponent = ref _fractionPool.Value.Get(unitEntity);
 
-                    if (unitFractionComponent.isFriendly != fractionComponent.isFriendly)
+                    if (unitFractionComponent.isFriendly == fractionComponent.isFriendly)
                     {
-                        if (!_slevAuraDebuffPool.Value.Has(unitEntity))
+                        continue;
+                    }
+
+                    if (!_slevAuraDebuffPool.Value.Has(unitEntity))
                         _slevAuraDebuffPool.Value.Add(unitEntity);
 
-                        ref var slevAuraDebuff = ref _slevAuraDebuffPool.Value.Get(unitEntity);
+                    ref var slevAuraDebuff = ref _slevAuraDebuffPool.Value.Get(unitEntity);
 
-                        if (!slevAuraDebuff.isWork)
-                        {
-                            slevAuraDebuff.TimerToClearMaxValue = _auraEffectMaxDuration;
-                        }
-
-                        slevAuraDebuff.TimerToClearCurrentValue = slevAuraDebuff.TimerToClearMaxValue;
-
-                        enemyCount++;
+                    if (!slevAuraDebuff.isWork)
+                    {
+                        slevAuraDebuff.TimerToClearMaxValue = _auraEffectMaxDuration;
                     }
+
+                    slevAuraDebuff.TimerToClearCurrentValue = slevAuraDebuff.TimerToClearMaxValue;
+
+                    enemyCount++;
                 }
 
                 Debug.Log($"Найдено коллайдеров: {collidersCount}. Найдено врагов: {enemyCount}");

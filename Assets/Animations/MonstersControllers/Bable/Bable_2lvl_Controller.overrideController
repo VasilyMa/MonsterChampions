@@ -9,9 +9,9 @@ AnimatorOverrideController:
   m_Name: Bable_2lvl_Controller
   m_Controller: {fileID: 9100000, guid: 174fb361325565041ab81d7e2e4d11c2, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -4694296973510364946, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 6008891770238222330, guid: 264a2385fc72cb9439c740fd7d650719, type: 3}
-  - m_OriginalClip: {fileID: -1499171786975459842, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 6159578380056011388, guid: 264a2385fc72cb9439c740fd7d650719, type: 3}
-  - m_OriginalClip: {fileID: -1519603968563470464, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e3616f109fdb29f43bd5b6fed8b0705c, type: 2}
     m_OverrideClip: {fileID: -6736196287475225231, guid: 264a2385fc72cb9439c740fd7d650719, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 73cf2341347750849bda44c0d2ee691c, type: 2}
+    m_OverrideClip: {fileID: 6008891770238222330, guid: 264a2385fc72cb9439c740fd7d650719, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 611f767f0d78469459b092d174decb92, type: 2}
+    m_OverrideClip: {fileID: 6159578380056011388, guid: 264a2385fc72cb9439c740fd7d650719, type: 3}

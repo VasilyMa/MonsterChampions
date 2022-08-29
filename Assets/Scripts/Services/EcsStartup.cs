@@ -86,10 +86,13 @@ namespace Client
                 .Add(new CreateSlevDebuffAuraSystem())
                 .Add(new WorkingSlevDebuffAuraSystem())
 
-                //.Add(new CreateBableBuffAuraSystem())
+                .Add(new CreateBableProtectionAuraSystem())
+                .Add(new CheckAndDeleteBableProtectSystem())
 
                 .Add(new DamagingEventSystem())
                 .Add(new CreateSparkyExplosionEventSystem())
+
+                .Add(new CreateTinkiThunderboltEventSystem())
 
                 .Add(new RefreshHealthBarEventSystem())
                 .Add(new HealthBarLookToCamera())

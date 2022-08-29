@@ -24,7 +24,7 @@ namespace Client
                     continue;
                 }
 
-                if (!healthComponent.HealthBar.activeSelf)
+                if (!healthComponent.HealthBar.activeSelf || healthComponent.CurrentValue < healthComponent.MaxValue)
                 {
                     healthComponent.HealthBar.SetActive(true);
                 }

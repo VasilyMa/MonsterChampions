@@ -9,9 +9,9 @@ AnimatorOverrideController:
   m_Name: Stoon_2lvl_Controller
   m_Controller: {fileID: 9100000, guid: 174fb361325565041ab81d7e2e4d11c2, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -1519603968563470464, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: -215448130237994806, guid: 543a94d1293834d4d98d0e36f1e4c77c, type: 3}
-  - m_OriginalClip: {fileID: -4694296973510364946, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: -3983808697720550920, guid: 543a94d1293834d4d98d0e36f1e4c77c, type: 3}
-  - m_OriginalClip: {fileID: -1499171786975459842, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 611f767f0d78469459b092d174decb92, type: 2}
     m_OverrideClip: {fileID: 8802622504725056852, guid: 543a94d1293834d4d98d0e36f1e4c77c, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 73cf2341347750849bda44c0d2ee691c, type: 2}
+    m_OverrideClip: {fileID: -3983808697720550920, guid: 543a94d1293834d4d98d0e36f1e4c77c, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e3616f109fdb29f43bd5b6fed8b0705c, type: 2}
+    m_OverrideClip: {fileID: -215448130237994806, guid: 543a94d1293834d4d98d0e36f1e4c77c, type: 3}

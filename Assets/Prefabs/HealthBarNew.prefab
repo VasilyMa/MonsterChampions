@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4172814791695287189}
-  - component: {fileID: 3697014711215618813}
+  - component: {fileID: 6386739612115436717}
   m_Layer: 13
   m_Name: HealthBarNew
   m_TagString: Untagged
@@ -109,7 +109,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3697014711215618813
+--- !u!114 &6386739612115436717
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

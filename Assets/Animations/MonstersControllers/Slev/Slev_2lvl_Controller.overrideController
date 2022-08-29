@@ -9,9 +9,9 @@ AnimatorOverrideController:
   m_Name: Slev_2lvl_Controller
   m_Controller: {fileID: 9100000, guid: 174fb361325565041ab81d7e2e4d11c2, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -1499171786975459842, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
-    m_OverrideClip: {fileID: 2816807925416541562, guid: a1459395007bb3a4293c499f7be8c29b, type: 3}
-  - m_OriginalClip: {fileID: -4694296973510364946, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 611f767f0d78469459b092d174decb92, type: 2}
+    m_OverrideClip: {fileID: 8128557017939280282, guid: a1459395007bb3a4293c499f7be8c29b, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 73cf2341347750849bda44c0d2ee691c, type: 2}
     m_OverrideClip: {fileID: -3254792384206943993, guid: a1459395007bb3a4293c499f7be8c29b, type: 3}
-  - m_OriginalClip: {fileID: -1519603968563470464, guid: b735b49766c46244d94dec59a7f97c9c, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e3616f109fdb29f43bd5b6fed8b0705c, type: 2}
     m_OverrideClip: {fileID: 5379124969643944105, guid: a1459395007bb3a4293c499f7be8c29b, type: 3}
