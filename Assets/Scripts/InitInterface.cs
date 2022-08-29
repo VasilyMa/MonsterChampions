@@ -27,6 +27,7 @@ namespace Client {
             interfaceComp.LosePanel = FindObjectOfType<LosePanelMB>();
             interfaceComp.Reward = FindObjectOfType<RewardMB>();
             interfaceComp.Resources = FindObjectOfType<ResourcesMB>();
+            interfaceComp.Progress = FindObjectOfType<ProgressMB>();
             interfaceComp.RewardPanelHolder = interfaceComp.RewardPanel.transform;
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
             interfaceComp.defaultPosCardHolder = interfaceComp.HolderCards.transform.position;
@@ -37,6 +38,7 @@ namespace Client {
             interfaceComp.LosePanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.Reward.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.Resources.Init(systems.GetWorld(), systems.GetShared<GameState>());
+            interfaceComp.Progress.Init(systems.GetWorld(), systems.GetShared<GameState>());
 
             interfaceComp.CollectionManager = FindObjectOfType<CollectionMB>();
             interfaceComp.CollectionMenu = interfaceComp.CollectionManager.transform;

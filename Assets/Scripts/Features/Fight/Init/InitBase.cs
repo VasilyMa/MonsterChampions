@@ -19,6 +19,7 @@ namespace Client
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
         readonly EcsPoolInject<MonsterSpawner> _monsterSpawnerPool = default;
+        readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
 
         public void Init (IEcsSystems systems)
         {
@@ -71,7 +72,13 @@ namespace Client
                 monsterSpawner.MonsterLevel = enemyBaseMB.MonsterLevel;
 
             }
-            if(allEnemyBasesMB.Length > 0)
+            ref var ourHealth = ref _healthPool.Value.Get(_battleState.Value.GetPlayerBaseEntity());
+            ref var enemyHealth = ref _healthPool.Value.Get(_battleState.Value.GetEnemyBaseEntity());
+
+            ref var interfaceComp = ref _interfacePool.Value.Get(_battleState.Value.InterfaceEntity);
+            interfaceComp.Progress.UpdateHealth(ourHealth.CurrentValue, enemyHealth.CurrentValue);
+
+            if (allEnemyBasesMB.Length > 0)
                 _battleState.Value.ActivateNextEnemyBase();
         }
     }

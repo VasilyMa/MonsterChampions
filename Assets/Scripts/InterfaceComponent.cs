@@ -17,6 +17,7 @@ namespace Client {
         public LosePanelMB LosePanel;
         public RewardMB Reward;
         public ResourcesMB Resources;
+        public ProgressMB Progress;
 
         public Transform RewardHolder;
         public Transform LoseHolder;

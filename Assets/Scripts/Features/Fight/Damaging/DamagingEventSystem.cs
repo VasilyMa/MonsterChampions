@@ -7,7 +7,7 @@ namespace Client
     sealed class DamagingEventSystem : IEcsRunSystem
     {
         readonly EcsWorldInject _world = default;
-
+        readonly EcsSharedInject<GameState> _state = default;
         readonly EcsFilterInject<Inc<DamagingEvent>> _damagingEventFilter = default;
 
         readonly EcsPoolInject<DamagingEvent> _damagingEventPool = default;
@@ -21,6 +21,7 @@ namespace Client
         readonly EcsPoolInject<BaseTag> _baseTagPool = default;
         readonly EcsPoolInject<UnitTag> _unitTagPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
+        readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
 
         readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
 
@@ -82,9 +83,18 @@ namespace Client
 
             baseHealthComponent.CurrentValue -= damageToBase;
 
+            RefreshProgressBar();
+
             animableComponent.Animator.SetTrigger(nameof(animableComponent.isDamaged));
 
             _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
+        }
+        private void RefreshProgressBar()
+        {
+            ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
+            ref var ourHealthComp = ref _healthPool.Value.Get(_state.Value.GetPlayerBaseEntity());
+            ref var enemyHealthComp = ref _healthPool.Value.Get(_state.Value.GetEnemyBaseEntity());
+            interfaceComp.Progress.UpdateHealth(ourHealthComp.CurrentValue, enemyHealthComp.CurrentValue);
         }
 
         private float CalculateDamageToBase(int unitLevel)
