@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stoon
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 5d32fd2b599156a47a68b34ed29c2816, type: 3}
-  Cost: 0
+  Cost: 10
   MonsterID: 1
   Damage: 5
   Health: 20

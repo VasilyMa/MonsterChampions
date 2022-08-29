@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tinki
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Cost: 0
+  Cost: 10
   MonsterID: 3
   Damage: 5
   Health: 10

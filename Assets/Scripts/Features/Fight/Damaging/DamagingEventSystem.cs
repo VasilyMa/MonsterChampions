@@ -16,6 +16,7 @@ namespace Client
         readonly EcsPoolInject<CreateSparkyExplosionEvent> _sparkyExplosionEventPool = default;
 
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
+        readonly EcsPoolInject<BableProtectionComponent> _bableProtectionPool = default; 
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
         readonly EcsPoolInject<BaseTag> _baseTagPool = default;
@@ -27,6 +28,8 @@ namespace Client
         private const float LEVELING_STANDART_VALUE = 1f;
         private const float LEVELING_INCREASER = 0.5f;
         private const float LEVELING_DECREASER = 0.25f;
+
+        private ElementalType _bableProtectionElement = ElementalType.Water;
 
         private int _undergoEntity = BattleState.NULL_ENTITY;
         private int _damagingEntity = BattleState.NULL_ENTITY;
@@ -48,11 +51,11 @@ namespace Client
 
                 if (_unitTagPool.Value.Has(_undergoEntity))
                 {
-                    DoDamageToUnit(_undergoEntity, _damagingEntity, damagingEvent.DamageValue);
+                    UnitDamage();
                 }
-                else if (_baseTagPool.Value.Has(damagingEvent.UndergoEntity))
+                else if (_baseTagPool.Value.Has(_undergoEntity))
                 {
-                    DoDamageToBase(_undergoEntity, _damagingEntity);
+                    BaseDamage(_undergoEntity, _damagingEntity);
                 }
                 else
                 {
@@ -69,7 +72,7 @@ namespace Client
         }
 
         #region BaseDamage
-        private void DoDamageToBase(int baseEntity, int unitEntity)
+        private void BaseDamage(int baseEntity, int unitEntity)
         {
             ref var baseHealthComponent = ref _healthPool.Value.Get(baseEntity);
             ref var animableComponent = ref _animablePool.Value.Get(baseEntity);
@@ -94,25 +97,71 @@ namespace Client
         #endregion BaseDamage
 
         #region UnitDamage
-        private void DoDamageToUnit(int undergoEntity, int whoDoDamageEntity, float damageValue)
+        private void UnitDamage()
         {
-            ref var undergoUnitHealthComponent = ref _healthPool.Value.Get(undergoEntity);
-            ref var undergoUnitLevelComponent = ref _levelPool.Value.Get(undergoEntity);
-            ref var undergoUnitElementalComponent = ref _elementalPool.Value.Get(undergoEntity);
+            if (damagingEntityIsSparky())
+            {
+                InvokeSparkyExplosion();
+            }
 
-            ref var whoDoDamageLevelComponent = ref _levelPool.Value.Get(whoDoDamageEntity);
-            ref var whoDoDamageElementalComponent = ref _elementalPool.Value.Get(whoDoDamageEntity);
+            ref var damagingEntityElementalComponent = ref _elementalPool.Value.Get(_damagingEntity);
 
-            float levelingMultiply = CalculateLevelingMultiply(undergoUnitLevelComponent.Value, whoDoDamageLevelComponent.Value);
-            float elementalDivider = Elemental.GetDamageDivider(whoDoDamageElementalComponent.CurrentType, undergoUnitElementalComponent.CurrentType);
+            float elementalDivider;
 
-            float damageToUnit = damageValue * levelingMultiply / elementalDivider;
+            if (BableProtectionIsZero())
+            {
+                ref var undergoEntityElementalComponent = ref _elementalPool.Value.Get(_undergoEntity);
+                ref var undergoEntityHealthComponent = ref _healthPool.Value.Get(_undergoEntity);
 
-            damageToUnit = MatchDamageComparedHealth(damageToUnit, undergoUnitHealthComponent.CurrentValue);
+                elementalDivider = Elemental.GetDamageDivider(damagingEntityElementalComponent.CurrentType, undergoEntityElementalComponent.CurrentType);
 
-            undergoUnitHealthComponent.CurrentValue -= damageToUnit;
+                DealDamage(ref undergoEntityHealthComponent.CurrentValue, elementalDivider);
+            }
+            else
+            {
+                ref var bableProtectionComponent = ref _bableProtectionPool.Value.Get(_undergoEntity);
 
-            InvokeSparkyExplosion();
+                elementalDivider = Elemental.GetDamageDivider(damagingEntityElementalComponent.CurrentType, _bableProtectionElement);
+
+                DealDamage(ref bableProtectionComponent.ProtectionValue, elementalDivider);
+            }
+
+        }
+
+        private void DealDamage(ref float health, float elementalDivider)
+        {
+
+            ref var damagingEntityLevelComponent = ref _levelPool.Value.Get(_damagingEntity);
+            ref var undergoEntityLevelComponent = ref _levelPool.Value.Get(_undergoEntity);
+
+            float levelingMultiply = CalculateLevelingMultiply(undergoEntityLevelComponent.Value, damagingEntityLevelComponent.Value);
+
+            float damageToUnit = _damageValue * levelingMultiply / elementalDivider;
+
+            health -= MatchDamageComparedHealth(damageToUnit, health);
+        }
+
+        private bool damagingEntityIsSparky()
+        {
+            return _sparkyPool.Value.Has(_damagingEntity);
+        }
+
+
+        private void InvokeSparkyExplosion()
+        {
+            _sparkyExplosionEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
+        }
+
+        private bool BableProtectionIsZero()
+        {
+            if (!_bableProtectionPool.Value.Has(_undergoEntity))
+            {
+                return true;
+            }
+
+            ref var bableProtectionComponent = ref _bableProtectionPool.Value.Get(_undergoEntity);
+
+            return bableProtectionComponent.ProtectionValue <= 0;
         }
 
         private float CalculateLevelingMultiply(int undergoUnitLevel, int whoDoDamageLevel)
@@ -130,16 +179,6 @@ namespace Client
             return LEVELING_STANDART_VALUE + (levelingOperand * (whoDoDamageLevel - undergoUnitLevel));
         }
 
-        private void InvokeSparkyExplosion()
-        {
-            if (!_sparkyPool.Value.Has(_damagingEntity))
-            {
-                return;
-            }
-
-            _sparkyExplosionEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
-        }
-
         #endregion UnitDamage
 
         private float MatchDamageComparedHealth(float damage, float health)
@@ -150,11 +189,6 @@ namespace Client
             }
 
             return damage;
-        }
-
-        private void InvokeRefreshHealthBarEvent()
-        {
-            _refreshHealthBarEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
         }
 
         private void InvokeDieEnent()
@@ -172,12 +206,18 @@ namespace Client
             _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
         }
 
+        private void InvokeRefreshHealthBarEvent()
+        {
+            _refreshHealthBarEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
+        }
+
         private void DeleteEvent(int damagingEventEntity)
         {
             _damagingEventPool.Value.Del(damagingEventEntity);
 
             _undergoEntity = BattleState.NULL_ENTITY;
             _damagingEntity = BattleState.NULL_ENTITY;
+            _damageValue = 0;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Client
 
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<UnitTag> _unitPool = default;
+        readonly EcsPoolInject<OnBoardUnitTag> _onBoardUnitPool = default;
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
@@ -60,6 +61,11 @@ namespace Client
                     var unitEntity = unitEcsInfoMB.GetEntity();
                     Debug.Log("Заход");
                     if (!_unitPool.Value.Has(unitEntity))
+                    {
+                        continue;
+                    }
+
+                    if (_onBoardUnitPool.Value.Has(unitEntity))
                     {
                         continue;
                     }
