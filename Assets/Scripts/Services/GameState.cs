@@ -30,7 +30,7 @@ namespace Client
         public bool inCollection;
         public bool runSysytem = false, hubSystem = true;
 
-        public int PlayerGold;
+        private int PlayerGold;
 
         public PlayableDeck PlayableDeck = new PlayableDeck();
         private int _playerBaseEntity = -1;
@@ -47,6 +47,8 @@ namespace Client
             }
 
             PlayerGold += value;
+
+            UpdateCoinInInterface();
         }
 
         public void RevomePlayerGold(int value)
@@ -58,6 +60,17 @@ namespace Client
             }
 
             PlayerGold -= value;
+
+            UpdateCoinInInterface();
+        }
+
+        private void UpdateCoinInInterface()
+        {
+            EcsPool<InterfaceComponent> interfacePool = _ecsWorld.GetPool<InterfaceComponent>();
+
+            ref var interfaceComp = ref interfacePool.Get(InterfaceEntity);
+
+            interfaceComp.Resources.UpdateCoin();
         }
 
         public int GetPlayerGold()

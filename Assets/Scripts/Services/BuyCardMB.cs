@@ -30,10 +30,10 @@ namespace Client
                 if (boardComp.Transform.GetChild(i).transform.childCount == 0)
                 {
                     var dataCard = transform.GetChild(buttonId).GetComponentInChildren<CardInfo>();
-                    if (_state.PlayerGold >= dataCard.Cost)
+                    if (_state.GetPlayerGold() >= dataCard.Cost)
                     {
                         interfaceComp.HolderCards.GetChild(buttonId).transform.DOScale(0.9f, 0.2f).OnComplete(() => ScaleDefault(buttonId));
-                        _state.PlayerGold-=dataCard.Cost;
+                        _state.RevomePlayerGold(dataCard.Cost);
                         _interfacePool.Get(_state.InterfaceEntity).Resources.UpdateCoin();
                         ref var buyComp = ref _buyPool.Add(_world.NewEntity());
                         buyComp.CardInfo = dataCard;
