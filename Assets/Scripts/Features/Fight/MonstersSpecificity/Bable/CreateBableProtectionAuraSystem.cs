@@ -6,6 +6,8 @@ namespace Client
 {
     sealed class CreateBableProtectionAuraSystem : IEcsRunSystem
     {
+        readonly EcsSharedInject<GameState> _gameState = default;
+
         readonly EcsFilterInject<Inc<BableComponent, ViewComponent>, Exc<DeadTag, OnBoardUnitTag>> _bableFilter = default;
 
         readonly EcsPoolInject<BableComponent> _bablePool = default;
@@ -16,8 +18,8 @@ namespace Client
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
         readonly EcsPoolInject<BableProtectionComponent> _bableProtectPool = default;
 
-        private float _timeToCreateAuraMaxValue = 0.5f;
-        private float _timeToCreateAuraCurrentValue = 0.5f;
+        private float _timeToCreateAuraMaxValue = 1f;
+        private float _timeToCreateAuraCurrentValue = 1f;
 
         private float _protectEffectMaxDuration = 5f;
 
@@ -25,21 +27,22 @@ namespace Client
 
         public void Run (IEcsSystems systems)
         {
+            if (_timeToCreateAuraCurrentValue > 0)
+            {
+                _timeToCreateAuraCurrentValue -= Time.deltaTime;
+                return;
+            }
+            else
+            {
+                _timeToCreateAuraCurrentValue = _timeToCreateAuraMaxValue;
+            }
+
             foreach (var bableEntity in _bableFilter.Value)
             {
-                if (_timeToCreateAuraCurrentValue > 0)
-                {
-                    _timeToCreateAuraCurrentValue -= Time.deltaTime;
-                    return;
-                }
-                else
-                {
-                    _timeToCreateAuraCurrentValue = _timeToCreateAuraMaxValue;
-                }
 
                 ref var viewComponent = ref _viewPool.Value.Get(bableEntity);
                 ref var fractionComponent = ref _fractionPool.Value.Get(bableEntity);
-                ref var HealthComponent = ref _healthPool.Value.Get(bableEntity);
+                ref var healthComponent = ref _healthPool.Value.Get(bableEntity);
 
                 var _allUnitsInAura = Physics.OverlapSphere(viewComponent.Transform.position, 10f);
 
@@ -81,8 +84,12 @@ namespace Client
                     if (!bableProtectComponent.isWork)
                     {
                         bableProtectComponent.isWork = true;
-                        bableProtectComponent.ProtectionValue = HealthComponent.MaxValue;
-                        viewComponent.HealthBarMB.SetMaxShield(bableProtectComponent.ProtectionValue);
+                        bableProtectComponent.ProtectionValue = healthComponent.MaxValue;
+
+                        ref var protectedMonsterViewComponent = ref _viewPool.Value.Get(monsterInAuraEntity);
+                        protectedMonsterViewComponent.HealthBarMB.SetMaxShield(bableProtectComponent.ProtectionValue);
+
+                        GameObject.Instantiate(_gameState.Value.EffectsPool.MonstersEffects.BableProtectionBuff, protectedMonsterViewComponent.GameObject.transform);
                     }
                 }
             }

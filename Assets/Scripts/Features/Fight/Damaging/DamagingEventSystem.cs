@@ -49,14 +49,26 @@ namespace Client
                 _undergoEntity = damagingEvent.UndergoEntity;
                 _damagingEntity = damagingEvent.DamagingEntity;
 
-                if (damagingEvent.DamageValue != 0)
-                    _damageValue = damagingEvent.DamageValue;
+                if (_undergoEntity == BattleState.NULL_ENTITY)
+                {
+                    DeleteEvent(damagingEventEntity);
+                    continue;
+                }
+
+                if (_damagingEntity == BattleState.NULL_ENTITY)
+                {
+                    DeleteEvent(damagingEventEntity);
+                    continue;
+                }
 
                 if (_deadPool.Value.Has(_undergoEntity))
                 {
                     DeleteEvent(damagingEventEntity);
                     continue;
                 }
+
+                if (damagingEvent.DamageValue != 0)
+                    _damageValue = damagingEvent.DamageValue;
 
                 ref var healthComponent = ref _healthPool.Value.Get(_undergoEntity);
 
@@ -100,7 +112,7 @@ namespace Client
 
             animableComponent.Animator.SetTrigger(nameof(animableComponent.isDamaged));
 
-            _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity);
+            _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity, isTouchedBase: true);
         }
         private void RefreshProgressBar()
         {
