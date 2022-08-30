@@ -41,7 +41,7 @@ namespace Client {
 
             interfaceComp.CollectionManager = FindObjectOfType<CollectionMB>();
             interfaceComp.CollectionMenu = interfaceComp.CollectionManager.transform;
-            interfaceComp.CollectionHolder = interfaceComp.CollectionManager.transform.GetChild(1).transform.GetChild(0).transform;
+            interfaceComp.CollectionHolder = interfaceComp.CollectionManager.transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform;
             interfaceComp.DeckHolder = interfaceComp.CollectionManager.transform.GetChild(0).transform;
             interfaceComp.CollectionCards = new System.Collections.Generic.List<GameObject>();
             interfaceComp.DeckCards = new System.Collections.Generic.List<GameObject>();
