@@ -24,8 +24,12 @@ namespace Client
                 var deck = _state.Value.Deck.DeckPlayer;
                 var collection = _state.Value.Collection.CollectionUnits;
                 var cardInfo = dragComp.CardObject.GetComponent<CardInfo>();
+
+
                 if (Input.GetMouseButton(0)) //if finger touch already
+                {
                     dragComp.CardObject.transform.position = Input.mousePosition;
+                }
                 if (Input.GetMouseButtonUp(0)) //if finger end touch
                 {
                     inputComp.PointerEventData = new PointerEventData(inputComp.EventSystem);

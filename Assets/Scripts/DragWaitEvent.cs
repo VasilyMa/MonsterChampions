@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Client {
-    struct DragCardEvent {
+    struct DragWaitEvent {
         public GameObject CardObject;
         public Vector3 DefaultPos;
         public Transform DefaultParent;

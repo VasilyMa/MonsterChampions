@@ -17,6 +17,7 @@ namespace Client {
         readonly EcsPoolInject<NewMonster> _newMonsterPool = default;
         readonly EcsPoolInject<DragCardEvent> _cardEventPool = default;
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
+        readonly EcsPoolInject<DragWaitEvent> _waitPool = default;
         public void Run (IEcsSystems systems) {
             foreach (var entity in _inputFilter.Value)
             {
@@ -25,7 +26,6 @@ namespace Client {
 
                 if (!Input.GetMouseButtonDown(0))
                     return;
-                
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition); //create are raycast to target
                 if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Place"))&&_state.Value.runSysytem)
                 {
@@ -55,22 +55,19 @@ namespace Client {
                 //Raycast using the Graphics Raycaster and mouse click position
                 inputComp.Raycaster.Raycast(inputComp.PointerEventData, results);
                 //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+                
                 foreach (RaycastResult result in results)
                 {
                     if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && _state.Value.inCollection)
                     {
-                        _state.Value.isDrag = true;
-                        interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = false;
-                        ref var cardComp = ref _cardEventPool.Value.Add(_world.Value.NewEntity());
-                        cardComp.CardObject = result.gameObject;
-                        cardComp.DefaultPos = result.gameObject.transform.position;
-                        cardComp.DefaultParent = result.gameObject.transform.parent;
-                        cardComp.CardObject.transform.SetParent(GameObject.FindObjectOfType<CollectionMB>().transform);
-                        cardComp.CardObject.GetComponent<Image>().raycastTarget = false;
-                        cardComp.CardObject.transform.DOScale(0.8f, 0.2f);
+                        ref var waitComp = ref _waitPool.Value.Add(_world.Value.NewEntity());
+                        waitComp.CardObject = result.gameObject;
+                        waitComp.DefaultPos = result.gameObject.transform.position;
+                        waitComp.DefaultParent = result.gameObject.transform.parent;
+                        waitComp.timerDrag = 1.5f;
                         Debug.Log("Hit " + result.gameObject.name);
                     }
-                    if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && !_state.Value.inCollection)
+                    else if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && !_state.Value.inCollection)
                     {
                         interfaceComp.MainMenu.ToCollection();
                     }

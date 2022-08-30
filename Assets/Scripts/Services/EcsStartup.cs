@@ -54,6 +54,7 @@ namespace Client
                 ;
             _hubSystems
                .Add(new DragAndDropCardSystem())
+               .Add(new DragWaitSystem())
                 ;
 
             _fightSystems
