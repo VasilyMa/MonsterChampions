@@ -59,7 +59,7 @@ namespace Client
                         }
                         dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
                         dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
-                        break;
+                        //break;
                     }
                     _state.Value.Save();
                     dragComp.CardObject.transform.DOScale(1f, 0.2f).OnComplete(()=>Complete());
@@ -125,6 +125,17 @@ namespace Client
                             if (collection[i].UniqueID == cardInfo.UniqueID)
                             {
                                 collection.Remove(collection[i]);
+                                UnitData unitData = new UnitData(); //there save the new card in collection
+                                unitData.UniqueID = resultNew.gameObject.GetComponent<CardInfo>().UniqueID;
+                                unitData.Sprite = resultNew.gameObject.GetComponent<CardInfo>().Sprite;
+                                unitData.Cost = resultNew.gameObject.GetComponent<CardInfo>().Cost;
+                                unitData.MonsterID = resultNew.gameObject.GetComponent<CardInfo>().MonsterID;
+                                unitData.Damage = resultNew.gameObject.GetComponent<CardInfo>().Damage;
+                                unitData.Health = resultNew.gameObject.GetComponent<CardInfo>().Health;
+                                unitData.Elemental = resultNew.gameObject.GetComponent<CardInfo>().Elemental;
+                                unitData.VisualAndAnimations = resultNew.gameObject.GetComponent<CardInfo>().VisualAndAnimations;
+                                unitData.MoveSpeed = resultNew.gameObject.GetComponent<CardInfo>().MoveSpeed;
+                                collection.Add(unitData);
                                 break;
                             }
                         }
@@ -144,8 +155,8 @@ namespace Client
                                 break;
                             }
                         }
+                        dragComp.CardObject.transform.SetParent(resultNew.gameObject.transform.parent);
                         resultNew.gameObject.transform.SetParent(dragComp.DefaultParent);
-                        dragComp.CardObject.transform.SetParent(resultNew.gameObject.transform);
                         dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                         break;
                     }

@@ -61,7 +61,7 @@ namespace Client {
             interfaceComp.Resources.gameObject.SetActive(false);
 
 
-            _state.Value.PlayerGold = 50;
+            _state.Value.PlayerGold = 5000;
             if (_state.Value.Settings.TutorialStage == 0)
             {
                 GameState.isStartMenu = false;
