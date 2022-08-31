@@ -8,7 +8,7 @@ namespace Client
     {
         readonly EcsSharedInject<GameState> _gameState;
 
-        private static float _timerMaxValue = 2;
+        private static float _timerMaxValue = 1;
         private static float _timerCurrentValue = _timerMaxValue;
         private static int _goldReward = 2;
 

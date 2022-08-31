@@ -162,7 +162,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.77905405
+      - time: 0.5358108
         functionName: DealMeleeDamage
         data: 
         objectReferenceParameter: {instanceID: 0}

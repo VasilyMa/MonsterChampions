@@ -39,7 +39,7 @@ namespace Client
         private int _monsterEntity = BattleState.NULL_ENTITY;
         private int _monsterSpawnerEntity = BattleState.NULL_ENTITY;
 
-        private int _standartGoldValue = 5;
+        private int _standartGoldValue = 10;
 
         private int _spawnOnlyFirstMonster = 0;
 

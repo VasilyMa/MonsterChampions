@@ -91,8 +91,10 @@ namespace Client
                 .Add(new CheckAndDeleteBableProtectSystem())
 
                 .Add(new DamagingEventSystem())
+
                 .Add(new CreateSparkyExplosionEventSystem())
 
+                .Add(new MoveTinkiThunderboltEffectSystem())
                 .Add(new CreateTinkiThunderboltEventSystem())
 
                 .Add(new MonsterSpawnerSystem())

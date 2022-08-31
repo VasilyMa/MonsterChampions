@@ -64,7 +64,7 @@ namespace Client {
                         waitComp.CardObject = result.gameObject;
                         waitComp.DefaultPos = result.gameObject.transform.position;
                         waitComp.DefaultParent = result.gameObject.transform.parent;
-                        waitComp.timerDrag = 0.5f;
+                        waitComp.timerDrag = 0.2f;
                         Debug.Log("Hit " + result.gameObject.name);
                     }
                     else if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && !_state.Value.inCollection)

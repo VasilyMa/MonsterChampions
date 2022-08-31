@@ -34,7 +34,7 @@ namespace Client {
                 infoNewCard.MonsterID = mosnterInfo.MonsterID;
                 infoNewCard.Damage = Mathf.Round(Random.Range(mosnterInfo.Damage - mosnterInfo.Damage * 0.5f, mosnterInfo.Damage + mosnterInfo.Damage * 0.5f));
                 infoNewCard.Health = Mathf.Round(Random.Range(mosnterInfo.Health - mosnterInfo.Health * 0.5f, mosnterInfo.Health + mosnterInfo.Health * 0.5f));
-                infoNewCard.MoveSpeed = Mathf.Round(Random.Range(mosnterInfo.MoveSpeed - mosnterInfo.MoveSpeed * 0.5f, mosnterInfo.MoveSpeed + mosnterInfo.MoveSpeed * 0.5f));
+                infoNewCard.MoveSpeed = mosnterInfo.MoveSpeed;
                 infoNewCard.Prefabs = mosnterInfo.Prefabs;
                 infoNewCard.Elemental = mosnterInfo.Elemental;
                 infoNewCard.VisualAndAnimations = mosnterInfo.VisualAndAnimations;

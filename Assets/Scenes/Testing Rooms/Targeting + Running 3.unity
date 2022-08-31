@@ -752,7 +752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: TimeToSpawn
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonsterLevel
