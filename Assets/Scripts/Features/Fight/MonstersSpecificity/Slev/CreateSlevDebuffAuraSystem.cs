@@ -6,6 +6,8 @@ namespace Client
 {
     sealed class CreateSlevDebuffAuraSystem : IEcsRunSystem
     {
+        readonly EcsSharedInject<GameState> _gameState = default;
+
         readonly EcsFilterInject<Inc<SlevComponent, ViewComponent>, Exc<DeadTag, OnBoardUnitTag>> _slevFilter = default;
 
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
@@ -24,18 +26,18 @@ namespace Client
 
         public void Run (IEcsSystems systems) // to do ay rewrite this system with methods. And check how OverlapSphere working with layers
         {
+            if (_timeToCreateAuraCurrentValue > 0)
+            {
+                _timeToCreateAuraCurrentValue -= Time.deltaTime;
+                return;
+            }
+            else
+            {
+                _timeToCreateAuraCurrentValue = _timeToCreateAuraMaxValue;
+            }
+
             foreach (var slevEntity in _slevFilter.Value)
             {
-                if (_timeToCreateAuraCurrentValue > 0)
-                {
-                    _timeToCreateAuraCurrentValue -= Time.deltaTime;
-                    return;
-                }
-                else
-                {
-                    _timeToCreateAuraCurrentValue = _timeToCreateAuraMaxValue;
-                }
-
                 ref var viewComponent = ref _viewPool.Value.Get(slevEntity);
                 ref var fractionComponent = ref _fractionPool.Value.Get(slevEntity);
 
@@ -51,33 +53,37 @@ namespace Client
                     collidersCount++;
 
                     var unitEcsInfoMB = unitInAura.GetComponent<EcsInfoMB>();
-                    var unitEntity = unitEcsInfoMB.GetEntity();
+                    var unitInAuraEntity = unitEcsInfoMB.GetEntity();
                     Debug.Log("Заход");
-                    if (!_unitPool.Value.Has(unitEntity))
+                    if (!_unitPool.Value.Has(unitInAuraEntity))
                     {
                         continue;
                     }
 
-                    if (_onBoardUnitPool.Value.Has(unitEntity))
+                    if (_onBoardUnitPool.Value.Has(unitInAuraEntity))
                     {
                         continue;
                     }
 
-                    ref var unitFractionComponent = ref _fractionPool.Value.Get(unitEntity);
+                    ref var unitFractionComponent = ref _fractionPool.Value.Get(unitInAuraEntity);
 
                     if (unitFractionComponent.isFriendly == fractionComponent.isFriendly)
                     {
                         continue;
                     }
 
-                    if (!_slevAuraDebuffPool.Value.Has(unitEntity))
-                        _slevAuraDebuffPool.Value.Add(unitEntity);
+                    if (!_slevAuraDebuffPool.Value.Has(unitInAuraEntity))
+                        _slevAuraDebuffPool.Value.Add(unitInAuraEntity);
 
-                    ref var slevAuraDebuff = ref _slevAuraDebuffPool.Value.Get(unitEntity);
+                    ref var slevAuraDebuff = ref _slevAuraDebuffPool.Value.Get(unitInAuraEntity);
 
                     if (!slevAuraDebuff.isWork)
                     {
                         slevAuraDebuff.TimerToClearMaxValue = _auraEffectMaxDuration;
+
+                        ref var debuffedMonsterViewComponent = ref _viewPool.Value.Get(unitInAuraEntity);
+
+                        GameObject.Instantiate(_gameState.Value.EffectsPool.MonstersEffects.SlevDebuff, debuffedMonsterViewComponent.GameObject.transform);
                     }
 
                     slevAuraDebuff.TimerToClearCurrentValue = slevAuraDebuff.TimerToClearMaxValue;

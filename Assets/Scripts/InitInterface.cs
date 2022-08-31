@@ -15,6 +15,8 @@ namespace Client {
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
         readonly EcsPoolInject<PlayableDeckEvent> _playDeckPool = default;
 
+        private int _startGoldValue = 50;
+
         public void Init(IEcsSystems systems)
         {
             var entity = _world.Value.NewEntity();
@@ -61,7 +63,7 @@ namespace Client {
             interfaceComp.Resources.gameObject.SetActive(false);
 
 
-            _state.Value.PlayerGold = 5000;
+            _state.Value.AddPlayerGold(_startGoldValue);
             if (_state.Value.Settings.TutorialStage == 0)
             {
                 GameState.isStartMenu = false;

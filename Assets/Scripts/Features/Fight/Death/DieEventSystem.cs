@@ -8,6 +8,8 @@ namespace Client
     {
         readonly EcsWorldInject _world = default;
 
+        readonly EcsSharedInject<GameState> _gameState;
+
         readonly EcsFilterInject<Inc<DieEvent>> _dieEventFilter = default;
 
         readonly EcsPoolInject<DieEvent> _dieEventPool = default;
@@ -22,6 +24,7 @@ namespace Client
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<UnitTag> _unitPool = default;
         readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
+        readonly EcsPoolInject<ElementalComponent> _elementalPool = default;
 
         readonly EcsPoolInject<DropGoldEvent> _dropGoldEventPool = default;
         readonly EcsPoolInject<WinEvent> _winEventPool = default;
@@ -51,7 +54,12 @@ namespace Client
 
                 PlayDeadAnimation();
 
-                DropGold();
+                if (!dieEvent.IsTouchedBase)
+                {
+                    CreateElementalEffect();
+
+                    DropGold();
+                }
 
                 SetDeadLayer();
 
@@ -61,8 +69,6 @@ namespace Client
                 {
                     InvokeWinOrLoseEvent();
                 }
-
-                
 
                 DestroyUnit();
 
@@ -85,6 +91,19 @@ namespace Client
 
             ref var animableComponent = ref _animablePool.Value.Get(_dyingEntity);
             animableComponent.Animator.SetTrigger(nameof(animableComponent.Die));
+        }
+
+        private void CreateElementalEffect()
+        {
+            if (!_elementalPool.Value.Has(_dyingEntity) || !_viewPool.Value.Has(_dyingEntity))
+            {
+                return;
+            }
+
+            ref var elementalComponent = ref _elementalPool.Value.Get(_dyingEntity);
+            ref var viewComponent = ref _viewPool.Value.Get(_dyingEntity);
+
+            GameObject.Instantiate(_gameState.Value.EffectsPool.ElementalEffects.GetElementalEffect(elementalComponent.CurrentType), viewComponent.GameObject.transform.position, Quaternion.identity);
         }
 
         private void DropGold()

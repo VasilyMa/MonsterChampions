@@ -48,6 +48,6 @@ public class MonstersEffects
 {
     public GameObject SparkyExplosion;
     public GameObject TinkiThunderbolt;
-    public GameObject SlevDebuffAura;
-    public GameObject BableProtectionAura;
+    public GameObject SlevDebuff;
+    public GameObject BableProtectionBuff;
 }

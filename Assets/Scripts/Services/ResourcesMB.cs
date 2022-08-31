@@ -21,7 +21,7 @@ namespace Client
         }
         public void UpdateCoin()
         {
-            amountCoin.text = _state.PlayerGold.ToString();
+            amountCoin.text = _state.GetPlayerGold().ToString();
         }
     }
 }
