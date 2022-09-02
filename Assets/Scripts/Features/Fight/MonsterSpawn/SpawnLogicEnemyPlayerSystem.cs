@@ -6,6 +6,8 @@ namespace Client
 {
     sealed class SpawnLogicEnemyPlayerSystem : IEcsRunSystem
     {
+        readonly EcsWorldInject _world;
+
         readonly EcsSharedInject<GameState> _gameState;
 
         readonly EcsFilterInject<Inc<MonsterSpawner>, Exc<DeadTag>> _monsterSpawnerFilter = default;
@@ -25,6 +27,8 @@ namespace Client
         {
             if (_timeToSpawnCurrentValue > 0)
             {
+                _timeToSpawnCurrentValue -= Time.deltaTime;
+
                 return;
             }
 
@@ -51,7 +55,47 @@ namespace Client
 
                 _gameState.Value.RevomeEnemyGold(_neededGoldForSpawn);
 
+                var monstersLevel = monsterSpawner.MonsterSpawnerInfo.MonstersSquads[_actualSquadToSpawn].MonstersLevel;
 
+                float monsterCount = monsterSpawner.MonsterSpawnerInfo.MonstersSquads[_actualSquadToSpawn].Monsters.Count;
+
+                float maxRangeX = monsterCount - 1;
+
+                float maxLeftPositionX = 0 - (maxRangeX);
+
+                int monsterIndex = 0;
+
+                foreach (var monster in monsterSpawner.MonsterSpawnerInfo.MonstersSquads[_actualSquadToSpawn].Monsters)
+                {
+                    var monsterSpawnEventEntity = _world.Value.NewEntity();
+
+                    ref var monsterSpawnEventComponent = ref _monsterSpawnEventPool.Value.Add(monsterSpawnEventEntity);
+
+                    monsterSpawnEventComponent.SpawnPoint = new Vector3(maxLeftPositionX + (monsterIndex * 2),
+                                                                        monsterSpawner.MonsterSpawnerInfo.SpawnPoint.position.y,
+                                                                        monsterSpawner.MonsterSpawnerInfo.SpawnPoint.position.z);
+
+
+                    monsterSpawnEventComponent.Direction = monsterSpawner.MonsterSpawnerInfo.SpawnPoint.rotation;
+                    monsterSpawnEventComponent.Cost = monster.Cost;
+                    monsterSpawnEventComponent.Damage = monster.Damage;
+                    monsterSpawnEventComponent.Elemental = monster.Elemental;
+                    monsterSpawnEventComponent.Health = monster.Health;
+                    monsterSpawnEventComponent.MoveSpeed = monster.MoveSpeed;
+                    monsterSpawnEventComponent.MonsterID = monster.MonsterID;
+                    monsterSpawnEventComponent.Level = monstersLevel;
+                    monsterSpawnEventComponent.VisualAndAnimations = monster.VisualAndAnimations[monstersLevel - 1];
+                    monsterSpawnEventComponent.isFriendly = false;
+
+                    monsterIndex++;
+                }
+
+                monsterSpawner.ActualSquad++;
+
+                if (monsterSpawner.ActualSquad > monsterSpawner.MonsterSpawnerInfo.MonstersSquads.Count - 1)
+                {
+                    monsterSpawner.ActualSquad = 0;
+                }
             }
 
             _monsterSpawnerEntity = BattleState.NULL_ENTITY;

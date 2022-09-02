@@ -6,6 +6,9 @@ public class BaseTagMB : MonoBehaviour
 {
     public bool isFriendly; // to do ay del this after create baseSpawnSystems
 
+    [Range(1, 50)]
+    public int BaseHealth;
+
     [Range(-5, 5)]
     public int GoldAddingModifier;
 

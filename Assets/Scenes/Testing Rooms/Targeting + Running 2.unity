@@ -707,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ded8f01857070804c9d1393fdd647f16, type: 2}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.data[0].Name
@@ -715,7 +715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.data[1].Name
-      value: Squad_2
+      value: Squad_1
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.data[2].Name
@@ -723,16 +723,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.data[0].MonstersLevel
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
+      propertyPath: MonstersSquads.Array.data[1].MonstersLevel
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.data[0].Monsters.Array.size
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
+      propertyPath: MonstersSquads.Array.data[1].Monsters.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.data[0].Monsters.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 05e988a256cb2b94cbd6167d4c0809fc, type: 2}
+    - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
+      propertyPath: MonstersSquads.Array.data[0].Monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ff2888cfaa6eb94f985dd2be5fd608d, type: 2}
+    - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
+      propertyPath: MonstersSquads.Array.data[0].Monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 05e988a256cb2b94cbd6167d4c0809fc, type: 2}
+    - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
+      propertyPath: MonstersSquads.Array.data[1].Monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ded8f01857070804c9d1393fdd647f16, type: 2}
+    - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
+      propertyPath: MonstersSquads.Array.data[1].Monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: babe3013c12eee34a8653000f45b0c6b, type: 2}
     - target: {fileID: 2260478454259702325, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: m_Name
       value: EnemyBase

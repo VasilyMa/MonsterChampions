@@ -10,7 +10,7 @@ namespace Client
 
         private static float _timerMaxValue = 1;
         private static float _timerCurrentValue = _timerMaxValue;
-        private static int _goldReward = 2;
+        private static int _goldReward = 20;
 
         public void Run (IEcsSystems systems)
         {
@@ -25,6 +25,7 @@ namespace Client
 
             // to do ay effect for added gold
             _gameState.Value.AddPlayerGold(_goldReward);
+            _gameState.Value.AddEnemyGold(_goldReward);
         }
     }
 }

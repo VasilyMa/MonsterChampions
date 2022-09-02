@@ -34,7 +34,7 @@ namespace Client {
 
         public void Run (IEcsSystems systems)
         {
-            foreach (var entity in _buyFilter.Value)
+            foreach (var entity in _buyFilter.Value) // to do ay write spawn event
             {
                 ref var buyInfoComp = ref _buyFilter.Pools.Inc1.Get(entity); //there save are info of new monster buyed buyInfoComp.CardInfo...
                 _unitEntity = _world.Value.NewEntity();
@@ -59,7 +59,7 @@ namespace Client {
                 viewComponent.Model = GameObject.Instantiate(viewComponent.CardInfo.VisualAndAnimations[0].ModelPrefab, viewComponent.GameObject.transform.position, Quaternion.identity);
                 viewComponent.Model.transform.SetParent(viewComponent.Transform);
 
-                SetActualModelView(); // to do ay write this method
+                SetActualModelView();
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(_unitEntity);
                 fractionComponent.isFriendly = true;

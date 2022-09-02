@@ -8,9 +8,16 @@ namespace Client
     sealed class WinEventSystem : IEcsRunSystem
     {
         readonly EcsWorldInject _world = default;
+
         readonly EcsFilterInject<Inc<WinEvent>> _winEventFilter = default;
+
+        readonly EcsFilterInject<Inc<UnitTag>, Exc<DeadTag, OnBoardUnitTag>> _aliveUnitsFilter = default;
+
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
         readonly EcsPoolInject<RewardComponentEvent> _rewardPool = default;
+
+        readonly EcsPoolInject<DieEvent> _dieEventPool = default;
+
         readonly EcsSharedInject<GameState> _state = default;
         
 
@@ -49,10 +56,22 @@ namespace Client
                     _state.Value.Settings.MaxLevelRewardedCard = 5;
                 }
 
+                KillAllUnits();
+
                 _state.Value.Settings.Level += 1;
                 _state.Value.Save();
                 _state.Value.SaveGameSetting();
                 _winEventFilter.Pools.Inc1.Del(eventEntity);
+            }
+        }
+
+        private void KillAllUnits()
+        {
+            foreach (var unitEntity in _aliveUnitsFilter.Value)
+            {
+                var dieEventEntity = _world.Value.NewEntity();
+
+                _dieEventPool.Value.Add(dieEventEntity).Invoke(unitEntity);
             }
         }
     }
