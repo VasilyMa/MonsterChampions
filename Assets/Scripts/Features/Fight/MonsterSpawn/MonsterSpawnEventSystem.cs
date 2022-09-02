@@ -107,7 +107,7 @@ namespace Client
                 damageComponent.Value = monsterSpawnEvent.Damage * Mathf.Pow(2, levelComponent.Value - 1);
 
                 ref var droppingGoldComponent = ref _droppingGoldPool.Value.Add(_monsterEntity);
-                droppingGoldComponent.GoldValue = monsterSpawnEvent.Cost;
+                droppingGoldComponent.GoldValue = monsterSpawnEvent.Cost * Mathf.RoundToInt(Mathf.Pow(2, levelComponent.Value - 1));
 
                 AddMonstersSpecificity();
 
