@@ -6,5 +6,6 @@ namespace Client {
         public Vector3 DefaultPos;
         public Transform DefaultParent;
         public float timerDrag;
+        public Vector3 dragPosition;
     }
 }

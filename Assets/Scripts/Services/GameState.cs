@@ -152,7 +152,7 @@ namespace Client
                 Settings.BaseDeck = false;
                 Settings.TutorialStage = 0;
                 Settings.SceneNumber = 0;
-                Settings.GameVersion = Application.unityVersion;
+                Settings.GameVersion = Application.version;
                 Settings.Level = 1;
                 Settings.MaxLevelRewardedCard = 2;
                 SaveGameSetting();
