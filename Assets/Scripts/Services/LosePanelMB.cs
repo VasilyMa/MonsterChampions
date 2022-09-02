@@ -22,12 +22,6 @@ namespace Client
         }
         public void Retry()
         {
-            GameState.isStartMenu = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        public void BackToMenu()
-        {
-            GameState.isStartMenu = true;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

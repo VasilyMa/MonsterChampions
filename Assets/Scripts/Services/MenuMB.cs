@@ -19,6 +19,7 @@ namespace Client
         private Vector3 defaultPosPlayButton;
         private Vector3 defaultPosCollection;
         private Vector3 defaultPosCardPanel;
+        private Vector3 deafaultPosDeck;
         public void Init(EcsWorld world, GameState state)
         {
             _world = world;
@@ -31,10 +32,12 @@ namespace Client
             defaultPosPlayButton = interfaceComp.MenuHolder.transform.GetChild(0).transform.GetChild(0).transform.position;
             defaultPosCollection = interfaceComp.CollectionMenu.transform.GetChild(1).transform.position;
             defaultPosCardPanel = interfaceComp.HolderCards.transform.position;
+            deafaultPosDeck = interfaceComp.DeckHolder.transform.position;
+            interfaceComp.DeckHolder.transform.DOMove(GameObject.Find("TargetDeck").transform.position, 1f, false);
         }
         public void Play()
         {
-            if (!_state.isDrag)
+            if (!_state.isDrag && !_state.inCollection)
             {
                 ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
                 _state.hubSystem = false;
@@ -42,12 +45,16 @@ namespace Client
                 _state.inCollection = false;
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
-                interfaceComp.DeckHolder.transform.DOMoveY(Screen.height * 1.5f, 1f, false);
+                interfaceComp.DeckHolder.transform.DOMove(deafaultPosDeck, 1f, false);
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 _playableDeckEventPool.Add(_world.NewEntity());
+            }
+            else if (_state.inCollection)
+            {
+                ToCollection();
             }
         }
         public void ToCollection()

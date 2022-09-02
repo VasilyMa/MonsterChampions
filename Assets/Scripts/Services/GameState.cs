@@ -19,7 +19,6 @@ namespace Client
         public Collection Collection = new Collection();
         public Deck Deck = new Deck();
         public GameSettings Settings = new GameSettings();
-        public static bool isStartMenu = true; 
         public int StorageEntity;
         public int InputEntity;
         public int BoardEntity;

@@ -66,19 +66,6 @@ namespace Client {
             _state.Value.AddPlayerGold(_startGoldValue);
             if (_state.Value.Settings.TutorialStage == 0)
             {
-                GameState.isStartMenu = false;
-            }
-
-            if (GameState.isStartMenu)
-            {
-                interfaceComp.MenuHolder.gameObject.SetActive(true);
-                interfaceComp.DeckHolder.DOMove((GameObject.Find("TargetDeck").transform.position), 1f, false);
-                _state.Value.hubSystem = true;
-                _state.Value.runSysytem = false;
-                interfaceComp.Resources.UpdateCoin();
-            }
-            else
-            {
                 _state.Value.hubSystem = false;
                 _state.Value.runSysytem = true;
                 _playDeckPool.Value.Add(_world.Value.NewEntity());
@@ -89,7 +76,13 @@ namespace Client {
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);
             }
-                
+            else 
+            {
+                interfaceComp.MenuHolder.gameObject.SetActive(true);
+                _state.Value.hubSystem = true;
+                _state.Value.runSysytem = false;
+                interfaceComp.Resources.UpdateCoin();
+            }
         }
     }
 }
