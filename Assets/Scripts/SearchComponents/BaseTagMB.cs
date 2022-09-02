@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class BaseTagMB : MonoBehaviour
@@ -9,21 +10,13 @@ public class BaseTagMB : MonoBehaviour
     public int GoldAddingModifier;
 
     public Transform SpawnPoint;
-
-    [Range(1, 10)]
-    public int TimeToSpawn = 5;
-
-    [Range(1, 4)]
-    public int MonsterLevel;
     public List<MonstersSquad> MonstersSquads = new List<MonstersSquad>();
-    public List<MonsterStorage> monster = new List<MonsterStorage>();
-
-    
 }
 
-[System.Serializable]
+[Serializable]
 public class MonstersSquad
 {
+    public string Name = "Squad_";
     [Range(1, 4)]
     public int MonstersLevel;
     public List<MonsterStorage> Monsters = new List<MonsterStorage>();

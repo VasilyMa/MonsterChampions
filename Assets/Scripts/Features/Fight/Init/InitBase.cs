@@ -59,17 +59,14 @@ namespace Client
                     _battleState.Value.AddEnemyBaseEntity(baseEntity);
                 }
 
-                if (enemyBaseMB.monster.Count <= 0) // to do rewrite thin in method
+                if (enemyBaseMB.MonstersSquads.Count <= 0) // to do rewrite thin in method
                 {
                     continue;
                 }
 
                 ref var monsterSpawner = ref _monsterSpawnerPool.Value.Add(baseEntity);
-                monsterSpawner.TimerMaxValue = (float)enemyBaseMB.TimeToSpawn;
-                monsterSpawner.TimerCurrentValue = monsterSpawner.TimerMaxValue;
-                monsterSpawner.MonsterStorage = new List<MonsterStorage>();
-                monsterSpawner.MonsterStorage = enemyBaseMB.monster;
-                monsterSpawner.MonsterLevel = enemyBaseMB.MonsterLevel;
+                monsterSpawner.MonsterSpawnerInfo = enemyBaseMB;
+                monsterSpawner.ActualSquad = 0;
 
             }
             ref var ourHealth = ref _healthPool.Value.Get(_battleState.Value.GetPlayerBaseEntity());

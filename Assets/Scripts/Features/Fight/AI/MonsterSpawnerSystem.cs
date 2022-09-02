@@ -39,8 +39,6 @@ namespace Client
         private int _monsterEntity = BattleState.NULL_ENTITY;
         private int _monsterSpawnerEntity = BattleState.NULL_ENTITY;
 
-        private int _standartGoldValue = 10;
-
         private int _spawnOnlyFirstMonster = 0;
 
         public void Run (IEcsSystems systems)
@@ -121,7 +119,7 @@ namespace Client
                 damageComponent.Value = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].Damage;
 
                 ref var droppingGoldComponent = ref _droppingGoldPool.Value.Add(_monsterEntity);
-                droppingGoldComponent.GoldValue = _standartGoldValue;
+                droppingGoldComponent.GoldValue = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].Cost;
 
                 AddMonstersSpecificity();
 
