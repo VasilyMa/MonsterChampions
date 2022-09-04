@@ -29,6 +29,7 @@ namespace Client
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
         readonly EcsPoolInject<RangeUnitComponent> _rangeUnitPool = default;
+        readonly EcsPoolInject<OnBoardUnitTag> _onboardUnit = default;
 
         readonly EcsPoolInject<StoonComponent> _stoonPool = default;
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
@@ -108,6 +109,17 @@ namespace Client
 
                 ref var droppingGoldComponent = ref _droppingGoldPool.Value.Add(_monsterEntity);
                 droppingGoldComponent.GoldValue = monsterSpawnEvent.Cost * Mathf.RoundToInt(Mathf.Pow(2, levelComponent.Value - 1));
+
+                if (fractionComponent.isFriendly)
+                {
+                    _onboardUnit.Value.Add(_monsterEntity);
+
+                    viewComponent.Transform.SetParent(monsterSpawnEvent.Holder);
+                    viewComponent.GameObject.tag = "Friendly";
+                    viewComponent.GameObject.GetComponent<UnitTagMB>().IsFriendly = true;
+
+                    movableComponent.NavMeshAgent.enabled = false;
+                }
 
                 AddMonstersSpecificity();
 

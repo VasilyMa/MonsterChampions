@@ -98,7 +98,6 @@ namespace Client
 
                 .Add(new SpawnLogicEnemyPlayerSystem())
                 .Add(new BuyUnitSystem())
-                //.Add(new MonsterSpawnerSystem())
                 .Add(new MonsterSpawnEventSystem())
 
                 .Add(new DieEventSystem())

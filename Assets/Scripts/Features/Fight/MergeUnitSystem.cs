@@ -17,6 +17,7 @@ namespace Client {
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
         readonly EcsPoolInject<RangeUnitComponent> _rangeUnitPool = default;
+        readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
 
         private Vector3 _ebenya = new Vector3(0, 100, 0);
 
@@ -35,12 +36,13 @@ namespace Client {
                 ref var levelComp = ref _levelPool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var damageComp = ref _damagePool.Value.Get(mergeComp.EntitysecondUnit);
                 ref var animableComp = ref _animablePool.Value.Get(mergeComp.EntitysecondUnit);
+                ref var droppingGoldComponent = ref _droppingGoldPool.Value.Get(mergeComp.EntitysecondUnit);
 
                 // to do ay create objectPool for reuse models
                 viewCompMain.Model.transform.SetParent(null);
                 viewCompMain.Model.transform.position = _ebenya;
 
-                viewCompMain.Model = GameObject.Instantiate(viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].ModelPrefab, viewCompMain.GameObject.transform.position, Quaternion.identity);
+                viewCompMain.Model = GameObject.Instantiate(viewCompMain.VisualAndAnimations[levelComp.Value].ModelPrefab, viewCompMain.GameObject.transform.position, Quaternion.identity);
                 viewCompMain.Model.transform.SetParent(viewCompMain.Transform);
 
                 if (_rangeUnitPool.Value.Has(entity))
@@ -50,14 +52,15 @@ namespace Client {
                     rangeUnitComponent.FirePoint = viewCompMain.Model.GetComponent<FirePointMB>().GetFirePoint();
                 }
 
-                animableComp.Animator.runtimeAnimatorController = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].RuntimeAnimatorController;
-                animableComp.Animator.avatar = viewCompMain.CardInfo.VisualAndAnimations[levelComp.Value].Avatar;
+                animableComp.Animator.runtimeAnimatorController = viewCompMain.VisualAndAnimations[levelComp.Value].RuntimeAnimatorController;
+                animableComp.Animator.avatar = viewCompMain.VisualAndAnimations[levelComp.Value].Avatar;
                 // end to do ay
 
                 levelComp.Value++;
                 healthComp.MaxValue *= 2;
                 healthComp.CurrentValue = healthComp.MaxValue;
                 damageComp.Value *= 2;
+                droppingGoldComponent.GoldValue *= 2;
 
                 GameObject.Instantiate(_state.Value.EffectsPool.ElementalEffects.GetElementalEffect(elementComp.CurrentType), viewCompMain.GameObject.transform); // to do ay write normal'nii Quaternion
 

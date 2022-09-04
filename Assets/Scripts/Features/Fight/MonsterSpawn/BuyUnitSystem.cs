@@ -53,10 +53,10 @@ namespace Client {
                 viewComponent.HealthBarMB = viewComponent.Transform.GetComponentInChildren<HealthbarMB>();
                 viewComponent.HealthBarMB.Init(_world, systems.GetShared<GameState>());
 
-                viewComponent.CardInfo = buyInfoComp.CardInfo;
+                //viewComponent.CardInfo = buyInfoComp.CardInfo;
 
                 viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
-                viewComponent.Model = GameObject.Instantiate(viewComponent.CardInfo.VisualAndAnimations[0].ModelPrefab, viewComponent.GameObject.transform.position, Quaternion.identity);
+                //viewComponent.Model = GameObject.Instantiate(viewComponent.CardInfo.VisualAndAnimations[0].ModelPrefab, viewComponent.GameObject.transform.position, Quaternion.identity);
                 viewComponent.Model.transform.SetParent(viewComponent.Transform);
 
                 SetActualModelView();
@@ -71,8 +71,8 @@ namespace Client {
                 ref var animableComponent = ref _animablePool.Value.Add(_unitEntity);
                 animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
 
-                animableComponent.Animator.runtimeAnimatorController = viewComponent.CardInfo.VisualAndAnimations[0].RuntimeAnimatorController;
-                animableComponent.Animator.avatar = viewComponent.CardInfo.VisualAndAnimations[0].Avatar;
+                //animableComponent.Animator.runtimeAnimatorController = viewComponent.CardInfo.VisualAndAnimations[0].RuntimeAnimatorController;
+                //animableComponent.Animator.avatar = viewComponent.CardInfo.VisualAndAnimations[0].Avatar;
 
                 ref var unitComponent = ref _unitPool.Value.Add(_unitEntity);
 
@@ -160,7 +160,7 @@ namespace Client {
         {
             ref var viewComponent = ref _viewPool.Value.Get(_unitEntity);
 
-            switch (viewComponent.CardInfo.MonsterID)
+            /*switch (viewComponent.CardInfo.MonsterID)
             {
                 case MonstersID.Value.Default:
                     Debug.Log($"Monster {viewComponent.GameObject} have Default MonsterID.");
@@ -183,7 +183,7 @@ namespace Client {
                 default:
                     Debug.Log($"Monster {viewComponent.GameObject} have Unknown MonsterID or dont have it.");
                     break;
-            }
+            }*/
         }
 
         private void StoonComponents()

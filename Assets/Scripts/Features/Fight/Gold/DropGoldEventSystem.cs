@@ -11,6 +11,7 @@ namespace Client
         readonly EcsFilterInject<Inc<DropGoldEvent>> _dropGoldEventFilter = default;
 
         readonly EcsPoolInject<DropGoldEvent> _dropGoldEventPool = default;
+        readonly EcsPoolInject<FractionComponent> _fractionPool = default;
 
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
 
@@ -19,11 +20,20 @@ namespace Client
             foreach (var eventEntity in _dropGoldEventFilter.Value)
             {
                 ref var dropGoldEvent = ref _dropGoldEventPool.Value.Get(eventEntity);
+                ref var fractionComponent = ref _fractionPool.Value.Get(eventEntity);
 
-                _gameState.Value.AddPlayerGold(dropGoldEvent.GoldValue);
-                _interfacePool.Value.Get(_gameState.Value.InterfaceEntity).Resources.UpdateCoin();
-                //GameObject.Instantiate(_gameState.Value._mergeEffectsPool.MergeEffectPrefab[0], dropGoldEvent.DropPoint, Quaternion.identity);
-                Debug.Log($"Player Gold = {_gameState.Value.GetPlayerGold()}");
+                if (fractionComponent.isFriendly)
+                {
+                    _gameState.Value.AddEnemyGold(dropGoldEvent.GoldValue);
+                }
+                else
+                {
+                    _gameState.Value.AddPlayerGold(dropGoldEvent.GoldValue);
+                    _interfacePool.Value.Get(_gameState.Value.InterfaceEntity).Resources.UpdateCoin();
+                    //GameObject.Instantiate(_gameState.Value._mergeEffectsPool.MergeEffectPrefab[0], dropGoldEvent.DropPoint, Quaternion.identity);
+                    Debug.Log($"Player Gold = {_gameState.Value.GetPlayerGold()}");
+                }
+
                 DeleteEvent(eventEntity);
             }
         }
