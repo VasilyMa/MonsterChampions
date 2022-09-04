@@ -63,9 +63,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFriendly: 1
-  TimeToSpawn: 5
-  MonsterLevel: 0
-  monster: []
+  BaseHealth: 0
+  GoldAddingModifier: 0
+  SpawnPoint: {fileID: 0}
+  MonstersSquads: []
 --- !u!114 &2160463913026185066
 MonoBehaviour:
   m_ObjectHideFlags: 0
