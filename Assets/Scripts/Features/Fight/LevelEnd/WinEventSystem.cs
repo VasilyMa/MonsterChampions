@@ -37,19 +37,12 @@ namespace Client
                 }
                 _state.Value.Settings.TutorialStage = 1;
                 _state.Value.Settings.SceneNumber = index;
-
-                // costili
-                if (_state.Value.Settings.Level == 1)
+                _state.Value.Settings.Level++;
+                if (_state.Value.Settings.Level % 3 == 0)
                 {
-                    _state.Value.Settings.MaxLevelRewardedCard = 4;
+                    if (_state.Value.Settings.MaxLevelRewardedCard < _state.Value._monsterStorage.monster.Length)
+                        _state.Value.Settings.MaxLevelRewardedCard++;
                 }
-
-                if (_state.Value.Settings.Level == 2)
-                {
-                    _state.Value.Settings.MaxLevelRewardedCard = 5;
-                }
-
-                _state.Value.Settings.Level += 1;
                 _state.Value.Save();
                 _state.Value.SaveGameSetting();
                 _winEventFilter.Pools.Inc1.Del(eventEntity);

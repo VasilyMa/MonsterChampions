@@ -16,7 +16,6 @@ namespace Client {
         {
             foreach (var entity in _rewardFilter.Value)
             {
-                ref var mosnterInfo = ref _state.Value._monsterStorage.monster[Random.Range(1, _state.Value.Settings.MaxLevelRewardedCard)];
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
                 interfaceComp.RewardHolder.gameObject.SetActive(true);
@@ -26,22 +25,48 @@ namespace Client {
                     _rewardFilter.Pools.Inc1.Del(entity);
                     return;
                 }
-                var newCard = interfaceComp.RewardHolder.transform.GetChild(1).transform;
-                var infoNewCard = newCard.GetComponent<CardInfo>();
-                infoNewCard.UniqueID = newID;
-                infoNewCard.Cost = mosnterInfo.Cost;
-                infoNewCard.Sprite = mosnterInfo.Sprite;
-                infoNewCard.MonsterID = mosnterInfo.MonsterID;
-                infoNewCard.Damage = Mathf.Round(Random.Range(mosnterInfo.Damage - mosnterInfo.Damage * 0.5f, mosnterInfo.Damage + mosnterInfo.Damage * 0.5f));
-                infoNewCard.Health = Mathf.Round(Random.Range(mosnterInfo.Health - mosnterInfo.Health * 0.5f, mosnterInfo.Health + mosnterInfo.Health * 0.5f));
-                infoNewCard.MoveSpeed = Mathf.Round(Random.Range(mosnterInfo.MoveSpeed - mosnterInfo.MoveSpeed * 0.5f, mosnterInfo.MoveSpeed + mosnterInfo.MoveSpeed * 0.5f));
-                infoNewCard.Prefabs = mosnterInfo.Prefabs;
-                infoNewCard.Elemental = mosnterInfo.Elemental;
-                infoNewCard.VisualAndAnimations = mosnterInfo.VisualAndAnimations;
+                if (_state.Value.Settings.Level % 3 == 0)
+                {
+                    ref var unlockedMonster = ref _state.Value._monsterStorage.monster[_state.Value.Settings.MaxLevelRewardedCard];
 
-                newCard.gameObject.SetActive(false);
-                ref var monsterComp = ref _newMonsterPool.Value.Add(_world.Value.NewEntity());
-                monsterComp.cardInfo = infoNewCard;
+                    var newCard = interfaceComp.RewardHolder.transform.GetChild(1).transform;
+                    var infoNewCard = newCard.GetComponent<CardInfo>();
+                    infoNewCard.UniqueID = newID;
+                    infoNewCard.Cost = unlockedMonster.Cost;
+                    infoNewCard.Sprite = unlockedMonster.Sprite;
+                    infoNewCard.MonsterID = unlockedMonster.MonsterID;
+                    infoNewCard.Damage = Mathf.Round(Random.Range(unlockedMonster.Damage + _state.Value.Settings.Level - unlockedMonster.Damage * 0.5f, unlockedMonster.Damage + _state.Value.Settings.Level + unlockedMonster.Damage * 0.5f));
+                    infoNewCard.Health = Mathf.Round(Random.Range(unlockedMonster.Health + _state.Value.Settings.Level - unlockedMonster.Health * 0.5f, unlockedMonster.Health + _state.Value.Settings.Level + unlockedMonster.Health * 0.5f));
+                    infoNewCard.MoveSpeed = unlockedMonster.MoveSpeed;
+                    infoNewCard.Prefabs = unlockedMonster.Prefabs;
+                    infoNewCard.Elemental = unlockedMonster.Elemental;
+                    infoNewCard.VisualAndAnimations = unlockedMonster.VisualAndAnimations;
+
+                    newCard.gameObject.SetActive(false);
+                    ref var monsterComp = ref _newMonsterPool.Value.Add(_world.Value.NewEntity());
+                    monsterComp.cardInfo = infoNewCard;
+                }
+                else
+                {
+                    ref var mosnterInfo = ref _state.Value._monsterStorage.monster[Random.Range(1, _state.Value.Settings.MaxLevelRewardedCard)];
+
+                    var newCard = interfaceComp.RewardHolder.transform.GetChild(1).transform;
+                    var infoNewCard = newCard.GetComponent<CardInfo>();
+                    infoNewCard.UniqueID = newID;
+                    infoNewCard.Cost = mosnterInfo.Cost;
+                    infoNewCard.Sprite = mosnterInfo.Sprite;
+                    infoNewCard.MonsterID = mosnterInfo.MonsterID;
+                    infoNewCard.Damage = Mathf.Round(Random.Range(mosnterInfo.Damage + _state.Value.Settings.Level - mosnterInfo.Damage * 0.5f, mosnterInfo.Damage + _state.Value.Settings.Level + mosnterInfo.Damage * 0.5f));
+                    infoNewCard.Health = Mathf.Round(Random.Range(mosnterInfo.Health + _state.Value.Settings.Level - mosnterInfo.Health * 0.5f, mosnterInfo.Health + _state.Value.Settings.Level + mosnterInfo.Health * 0.5f));
+                    infoNewCard.MoveSpeed = mosnterInfo.MoveSpeed;
+                    infoNewCard.Prefabs = mosnterInfo.Prefabs;
+                    infoNewCard.Elemental = mosnterInfo.Elemental;
+                    infoNewCard.VisualAndAnimations = mosnterInfo.VisualAndAnimations;
+
+                    newCard.gameObject.SetActive(false);
+                    ref var monsterComp = ref _newMonsterPool.Value.Add(_world.Value.NewEntity());
+                    monsterComp.cardInfo = infoNewCard;
+                }
                 _rewardFilter.Pools.Inc1.Del(entity);
             }
         }

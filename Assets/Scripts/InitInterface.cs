@@ -72,6 +72,7 @@ namespace Client {
                 interfaceComp.HolderCards.gameObject.SetActive(true);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 interfaceComp.Resources.gameObject.SetActive(true);
+                interfaceComp.DeckHolder.gameObject.SetActive(false);
                 interfaceComp.Resources.UpdateCoin();
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);

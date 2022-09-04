@@ -152,7 +152,7 @@ namespace Client
                 Settings.TutorialStage = 0;
                 Settings.SceneNumber = 0;
                 Settings.GameVersion = Application.version;
-                Settings.Level = 1;
+                Settings.Level = 0;
                 Settings.MaxLevelRewardedCard = 2;
                 SaveGameSetting();
             }
