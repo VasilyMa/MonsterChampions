@@ -6,15 +6,15 @@ using UnityEngine.AI;
 
 namespace Client
 {
-    sealed class MonsterSpawnerSystem : IEcsRunSystem
-    {        
+    sealed class MonsterSpawnEventSystem : IEcsRunSystem
+    {
         readonly EcsWorldInject _world = default;
 
         readonly EcsSharedInject<GameState> _gameState;
 
-        readonly EcsFilterInject<Inc<MonsterSpawner, ViewComponent>, Exc<DeadTag>> _monsterSpawnerFilter = default;
+        readonly EcsFilterInject<Inc<MonsterSpawnEvent>> _monsterSpawnEventFilter = default;
 
-        readonly EcsPoolInject<MonsterSpawner> _monsterSpawnerPool = default;
+        readonly EcsPoolInject<MonsterSpawnEvent> _monsterSpawnEventPool = default;
 
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
@@ -29,6 +29,7 @@ namespace Client
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
         readonly EcsPoolInject<RangeUnitComponent> _rangeUnitPool = default;
+        readonly EcsPoolInject<OnBoardUnitTag> _onboardUnit = default;
 
         readonly EcsPoolInject<StoonComponent> _stoonPool = default;
         readonly EcsPoolInject<SlevComponent> _slevPool = default;
@@ -36,48 +37,41 @@ namespace Client
         readonly EcsPoolInject<TinkiComponent> _tinkiPool = default;
         readonly EcsPoolInject<BableComponent> _bablePool = default;
 
+        private int _monsterSpawnEventEntity = BattleState.NULL_ENTITY;
         private int _monsterEntity = BattleState.NULL_ENTITY;
-        private int _monsterSpawnerEntity = BattleState.NULL_ENTITY;
-
-        private int _standartGoldValue = 5;
-
-        private int _spawnOnlyFirstMonster = 0;
 
         public void Run (IEcsSystems systems)
         {
-            foreach (var monsterSpawnerEntity in _monsterSpawnerFilter.Value)
+            foreach (var monsterSpawnEventEntity in _monsterSpawnEventFilter.Value)
             {
-                _monsterSpawnerEntity = monsterSpawnerEntity;
+                _monsterSpawnEventEntity = monsterSpawnEventEntity;
 
-                ref var monsterSpawnerComponent = ref _monsterSpawnerPool.Value.Get(monsterSpawnerEntity);
-                ref var monsterSpawnerViewComponent = ref _viewPool.Value.Get(monsterSpawnerEntity);
-
-                if (monsterSpawnerComponent.TimerCurrentValue > 0)
-                {
-                    monsterSpawnerComponent.TimerCurrentValue -= Time.deltaTime;
-                    continue;
-                }
-                else
-                {
-                    monsterSpawnerComponent.TimerCurrentValue = monsterSpawnerComponent.TimerMaxValue;
-                }
+                ref var monsterSpawnEvent = ref _monsterSpawnEventPool.Value.Get(_monsterSpawnEventEntity);
 
                 _monsterEntity = _world.Value.NewEntity();
 
                 ref var viewComponent = ref _viewPool.Value.Add(_monsterEntity);
                 viewComponent.EntityNumber = _monsterEntity;
 
-                viewComponent.GameObject = GameObject.Instantiate(_gameState.Value._monsterStorage.MainMonsterPrefab, monsterSpawnerViewComponent.Transform.position, Quaternion.identity); // to do ay write universale system for so more monsters in MonsterStorage
+                ref var levelComponent = ref _levelPool.Value.Add(_monsterEntity);
+                levelComponent.Value = monsterSpawnEvent.Level;
+
+                viewComponent.GameObject = GameObject.Instantiate(_gameState.Value._monsterStorage.MainMonsterPrefab, monsterSpawnEvent.SpawnPoint, monsterSpawnEvent.Direction);
                 viewComponent.Transform = viewComponent.GameObject.transform;
+
                 viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
-                viewComponent.Model = GameObject.Instantiate(monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].VisualAndAnimations[monsterSpawnerComponent.MonsterLevel - 1].ModelPrefab, viewComponent.GameObject.transform.position, Quaternion.identity);
+                viewComponent.Model = GameObject.Instantiate(monsterSpawnEvent.VisualAndAnimations[levelComponent.Value - 1].ModelPrefab, viewComponent.GameObject.transform.position, monsterSpawnEvent.Direction);
                 viewComponent.Model.transform.SetParent(viewComponent.Transform);
+                viewComponent.VisualAndAnimations = monsterSpawnEvent.VisualAndAnimations;
+
                 viewComponent.HealthBarMB = viewComponent.GameObject.GetComponentInChildren<HealthbarMB>();
                 viewComponent.HealthBarMB.Init(_world, systems.GetShared<GameState>());
-                
+
+                viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
+                viewComponent.EcsInfoMB?.Init(_world, _monsterEntity);
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(_monsterEntity);
-                fractionComponent.isFriendly = false;
+                fractionComponent.isFriendly = monsterSpawnEvent.isFriendly;
 
                 ref var physicsComponent = ref _physicsPool.Value.Add(_monsterEntity);
                 physicsComponent.Rigidbody = viewComponent.GameObject.GetComponent<Rigidbody>();
@@ -85,17 +79,14 @@ namespace Client
                 ref var animableComponent = ref _animablePool.Value.Add(_monsterEntity);
                 animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
 
-                animableComponent.Animator.runtimeAnimatorController = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].VisualAndAnimations[monsterSpawnerComponent.MonsterLevel - 1].RuntimeAnimatorController;
-                animableComponent.Animator.avatar = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].VisualAndAnimations[monsterSpawnerComponent.MonsterLevel - 1].Avatar;
+                animableComponent.Animator.runtimeAnimatorController = monsterSpawnEvent.VisualAndAnimations[levelComponent.Value - 1].RuntimeAnimatorController;
+                animableComponent.Animator.avatar = monsterSpawnEvent.VisualAndAnimations[levelComponent.Value - 1].Avatar;
 
                 ref var unitComponent = ref _unitPool.Value.Add(_monsterEntity);
 
                 ref var movableComponent = ref _movablePool.Value.Add(_monsterEntity);
                 movableComponent.NavMeshAgent = viewComponent.GameObject.GetComponent<NavMeshAgent>();
-                movableComponent.NavMeshAgent.speed = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].MoveSpeed;
-
-                viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
-                viewComponent.EcsInfoMB?.Init(_world, _monsterEntity);
+                movableComponent.NavMeshAgent.speed = monsterSpawnEvent.MoveSpeed;
 
                 ref var targetableComponent = ref _targetablePool.Value.Add(_monsterEntity);
                 targetableComponent.TargetEntity = BattleState.NULL_ENTITY;
@@ -106,51 +97,44 @@ namespace Client
                 targetableComponent.RangeZone = viewComponent.GameObject.GetComponentInChildren<RangeZoneMB>().gameObject;
 
                 ref var healthComponent = ref _healthPool.Value.Add(_monsterEntity);
-                healthComponent.MaxValue = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].Health;
+                healthComponent.MaxValue = monsterSpawnEvent.Health * Mathf.Pow(2, levelComponent.Value - 1);
                 healthComponent.CurrentValue = healthComponent.MaxValue;
                 viewComponent.HealthBarMB.SetMaxHealth(healthComponent.MaxValue);
                 viewComponent.HealthBarMB.gameObject.SetActive(true);
 
                 ref var elementalComponent = ref _elementalPool.Value.Add(_monsterEntity);
-                elementalComponent.CurrentType = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].Elemental;
+                elementalComponent.CurrentType = monsterSpawnEvent.Elemental;
 
-                ref var levelComponent = ref _levelPool.Value.Add(_monsterEntity);
                 ref var damageComponent = ref _damagePool.Value.Add(_monsterEntity);
-
-                levelComponent.Value = monsterSpawnerComponent.MonsterLevel;
-                damageComponent.Value = monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].Damage;
+                damageComponent.Value = monsterSpawnEvent.Damage * Mathf.Pow(2, levelComponent.Value - 1);
 
                 ref var droppingGoldComponent = ref _droppingGoldPool.Value.Add(_monsterEntity);
-                droppingGoldComponent.GoldValue = _standartGoldValue;
+                droppingGoldComponent.GoldValue = monsterSpawnEvent.Cost * Mathf.RoundToInt(Mathf.Pow(2, levelComponent.Value - 1));
+
+                if (fractionComponent.isFriendly)
+                {
+                    _onboardUnit.Value.Add(_monsterEntity);
+
+                    viewComponent.Transform.SetParent(monsterSpawnEvent.Holder);
+                    viewComponent.GameObject.tag = "Friendly";
+                    viewComponent.GameObject.GetComponent<UnitTagMB>().IsFriendly = true;
+
+                    movableComponent.NavMeshAgent.enabled = false;
+                }
 
                 AddMonstersSpecificity();
 
                 DisableAttackZonesIfNeed();
 
-                _monsterEntity = BattleState.NULL_ENTITY;
-                _monsterSpawnerEntity = BattleState.NULL_ENTITY;
-            }
-        }
-
-        private void DisableAttackZonesIfNeed()
-        {
-            ref var targetableComponent = ref _targetablePool.Value.Get(_monsterEntity);
-
-            if (_rangeUnitPool.Value.Has(_monsterEntity))
-            {
-                targetableComponent.MeleeZone.SetActive(false);
-            }
-            else
-            {
-                targetableComponent.RangeZone.SetActive(false);
+                DeleteEvent();
             }
         }
 
         private void AddMonstersSpecificity()
         {
-            ref var monsterSpawnerComponent = ref _monsterSpawnerPool.Value.Get(_monsterSpawnerEntity); // to do rewrite this, be couse this will do more problem with more different monsters in enemyBaseTag
+            ref var monsterSpawnEvent = ref _monsterSpawnEventPool.Value.Get(_monsterSpawnEventEntity); // to do rewrite this, be couse this will do more problem with more different monsters in enemyBaseTag
 
-            switch (monsterSpawnerComponent.MonsterStorage[_spawnOnlyFirstMonster].MonsterID)
+            switch (monsterSpawnEvent.MonsterID)
             {
                 case MonstersID.Value.Default:
                     break;
@@ -203,5 +187,27 @@ namespace Client
         {
             ref var bableComponent = ref _bablePool.Value.Add(_monsterEntity);
         }
+
+        private void DisableAttackZonesIfNeed()
+        {
+            ref var targetableComponent = ref _targetablePool.Value.Get(_monsterEntity);
+
+            if (_rangeUnitPool.Value.Has(_monsterEntity))
+            {
+                targetableComponent.MeleeZone.SetActive(false);
+            }
+            else
+            {
+                targetableComponent.RangeZone.SetActive(false);
+            }
+        }
+
+        private void DeleteEvent()
+        {
+            _monsterSpawnEventPool.Value.Del(_monsterSpawnEventEntity);
+
+            _monsterSpawnEventEntity = BattleState.NULL_ENTITY;
+            _monsterEntity = BattleState.NULL_ENTITY;
+    }
     }
 }

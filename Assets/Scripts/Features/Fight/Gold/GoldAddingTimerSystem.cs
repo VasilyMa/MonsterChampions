@@ -8,7 +8,9 @@ namespace Client
     {
         readonly EcsSharedInject<GameState> _gameState;
 
-        private static float _timerMaxValue = 2;
+        readonly EcsPoolInject<GoldAddingComponent> _goldAddingPool = default;
+
+        private static float _timerMaxValue = 1;
         private static float _timerCurrentValue = _timerMaxValue;
         private static int _goldReward = 2;
 
@@ -23,8 +25,15 @@ namespace Client
 
             _timerCurrentValue = _timerMaxValue;
 
+            int friendlyBaseEntity = _gameState.Value.GetPlayerBaseEntity();
+            int enemyBaseEntity = _gameState.Value.GetEnemyBaseEntity();
+
+            ref var friendlyGoldAddingComponent = ref _goldAddingPool.Value.Get(friendlyBaseEntity);
+            ref var enemyGoldAddingComponent = ref _goldAddingPool.Value.Get(enemyBaseEntity);
+
             // to do ay effect for added gold
-            _gameState.Value.AddPlayerGold(_goldReward);
+            _gameState.Value.AddPlayerGold(_goldReward + friendlyGoldAddingComponent.Modifier);
+            _gameState.Value.AddEnemyGold(_goldReward + enemyGoldAddingComponent.Modifier);
         }
     }
 }

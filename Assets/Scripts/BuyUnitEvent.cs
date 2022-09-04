@@ -1,5 +1,7 @@
-namespace Client {
-    struct BuyUnitEvent {
+namespace Client
+{
+    struct BuyUnitEvent
+    {
         public CardInfo CardInfo;
     }
 }

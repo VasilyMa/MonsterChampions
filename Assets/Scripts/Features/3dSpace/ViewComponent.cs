@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Client
 {
@@ -9,7 +10,7 @@ namespace Client
         public GameObject Model;
         public Transform Transform;
         public EcsInfoMB EcsInfoMB;
-        public CardInfo CardInfo;
+        public List<MonsterVisualAndAnimations> VisualAndAnimations;
         public HealthbarMB HealthBarMB;
 
         public int LayerBeforeDeath;

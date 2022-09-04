@@ -27,6 +27,8 @@ namespace Client
 
         private int _aliveUnitLayer = LayerMask.NameToLayer(nameof(ViewComponent.AliveUnit));
 
+        private float _explosionRange = 10f;
+
         private int _sparkyEntity = BattleState.NULL_ENTITY;
         private int _explosionEntity = BattleState.NULL_ENTITY;
 
@@ -46,7 +48,7 @@ namespace Client
 
                 CreateExplosionEntity();
 
-                var _allUnitsInExplosion = Physics.OverlapSphere(viewComponent.Transform.position, 10f);
+                var _allUnitsInExplosion = Physics.OverlapSphere(viewComponent.Transform.position, _explosionRange);
 
                 Debug.Log($"Всего найдено: {_allUnitsInExplosion.Length}");
 

@@ -29,13 +29,44 @@ namespace Client
         public bool inCollection;
         public bool runSysytem = false, hubSystem = true;
 
-        private int PlayerGold;
-
-        public PlayableDeck PlayableDeck = new PlayableDeck();
         private int _playerBaseEntity = -1;
         private List<int> _enemyBaseEntity = new List<int>();
         private int _currentActiveEnemyBaseInArray = -1;
+
+        private int PlayerGold;
+        private int EnemyGold;
+
+        public PlayableDeck PlayableDeck = new PlayableDeck();
         public const int NULL_ENTITY = -1;
+
+
+        #region /// Gold Manipulations ///
+        public void AddEnemyGold(int value)
+        {
+            if (value <= 0)
+            {
+                Debug.LogError("Trying to added minus value for EnemyGold!");
+                return;
+            }
+
+            EnemyGold += value;
+        }
+
+        public void RevomeEnemyGold(int value)
+        {
+            if (value <= 0)
+            {
+                Debug.LogError("Trying to remove minus value for EnemyGold!");
+                return;
+            }
+
+            EnemyGold -= value;
+        }
+
+        public int GetEnemyGold()
+        {
+            return EnemyGold;
+        }
 
         public void AddPlayerGold(int value)
         {
@@ -63,6 +94,11 @@ namespace Client
             UpdateCoinInInterface();
         }
 
+        public int GetPlayerGold()
+        {
+            return PlayerGold;
+        }
+
         private void UpdateCoinInInterface()
         {
             EcsPool<InterfaceComponent> interfacePool = _ecsWorld.GetPool<InterfaceComponent>();
@@ -72,10 +108,7 @@ namespace Client
             interfaceComp.Resources.UpdateCoin();
         }
 
-        public int GetPlayerGold()
-        {
-            return PlayerGold;
-        }
+        #endregion
 
         public void SetPlayerBaseEntity(int baseEntity)
         {

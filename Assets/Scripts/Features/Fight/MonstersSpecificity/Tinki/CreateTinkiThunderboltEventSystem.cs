@@ -1,6 +1,7 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Client
 {
@@ -44,9 +45,13 @@ namespace Client
                 ref var healthComponent = ref _healthPool.Value.Get(_tinkiEntity);
                 ref var viewComponent = ref _viewPool.Value.Get(_tinkiEntity);
 
+                ref var targetViewComponent = ref _viewPool.Value.Get(_targetEntity);
+
                 CreateThunderboltEntity();
 
-                var _allUnitsInThunderboltRange = Physics.OverlapSphere(viewComponent.Transform.position, 10f, _aliveUnitLayer);
+                var _allUnitsInThunderboltRange = Physics.OverlapSphere(targetViewComponent.Transform.position, 4f, _aliveUnitLayer);
+
+                CreateThunderboltEffect(viewComponent.Transform.position, targetViewComponent.Transform.position);
 
                 Debug.Log($"Всего найдено: {_allUnitsInThunderboltRange.Length}");
 
@@ -74,7 +79,10 @@ namespace Client
 
                     if (unitFractionComponent.isFriendly != fractionComponent.isFriendly)
                     {
+                        ref var unitViewComponent = ref _viewPool.Value.Get(unitEntity);
+
                         InvokeDamageFromThunderbolt(unitEntity);
+                        CreateThunderboltEffect(targetViewComponent.Transform.position, unitViewComponent.Transform.position);
                     }
                 }
 
@@ -83,6 +91,20 @@ namespace Client
 
                 DeleteEvent(eventEntity);
             }
+        }
+
+        private void CreateThunderboltEffect(Vector3 form, Vector3 to)
+        {
+            var tinkiThunderbolt = GameObject.Instantiate(_gameState.Value.EffectsPool.MonstersEffects.TinkiThunderbolt, form, Quaternion.identity);
+            ref var thunderboltComponent = ref _thunderboltPool.Value.Get(_thunderboltEntity);
+
+            var thunderboltEffect = new TinkiThunderboltEffect
+            {
+                Object = tinkiThunderbolt,
+                Destination = to
+            };
+
+            thunderboltComponent.ThunderboltEffects.Add(thunderboltEffect);
         }
 
         private void InvokeDamageFromThunderbolt(int undergoEntity)
@@ -107,6 +129,7 @@ namespace Client
 
             ref var thunderboltComponent = ref _thunderboltPool.Value.Add(_thunderboltEntity);
             thunderboltComponent.isCausedDamage = false;
+            thunderboltComponent.ThunderboltEffects = new List<TinkiThunderboltEffect>();
 
             ref var thunderboltElementalComponent = ref _elementalPool.Value.Add(_thunderboltEntity);
             thunderboltElementalComponent.CurrentType = ElementalType.Air;

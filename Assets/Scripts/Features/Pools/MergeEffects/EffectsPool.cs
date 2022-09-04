@@ -9,6 +9,8 @@ public class EffectsPool : ScriptableObject
     public ElementalEffects ElementalEffects;
 
     public MonstersEffects MonstersEffects;
+
+    public OtherEffects OtherEffects;
 }
 
 [System.Serializable]
@@ -50,4 +52,11 @@ public class MonstersEffects
     public GameObject TinkiThunderbolt;
     public GameObject SlevDebuff;
     public GameObject BableProtectionBuff;
+}
+
+[System.Serializable]
+public class OtherEffects
+{
+    public GameObject DroppingGold;
+    public GameObject GoldShower;
 }

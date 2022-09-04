@@ -12,7 +12,12 @@ namespace Client
 
         readonly EcsPoolInject<DropGoldEvent> _dropGoldEventPool = default;
 
+        readonly EcsPoolInject<DroppingGoldComponent> _droppingGoldPool = default;
+        readonly EcsPoolInject<FractionComponent> _fractionPool = default;
+        readonly EcsPoolInject<ViewComponent> _viewPool = default;
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
+
+        private int _dropGoldEntity = BattleState.NULL_ENTITY;
 
         public void Run (IEcsSystems systems)
         {
@@ -20,10 +25,28 @@ namespace Client
             {
                 ref var dropGoldEvent = ref _dropGoldEventPool.Value.Get(eventEntity);
 
-                _gameState.Value.AddPlayerGold(dropGoldEvent.GoldValue);
-                _interfacePool.Value.Get(_gameState.Value.InterfaceEntity).Resources.UpdateCoin();
-                //GameObject.Instantiate(_gameState.Value._mergeEffectsPool.MergeEffectPrefab[0], dropGoldEvent.DropPoint, Quaternion.identity);
-                Debug.Log($"Player Gold = {_gameState.Value.GetPlayerGold()}");
+                _dropGoldEntity = dropGoldEvent.DropGoldEntity;
+
+                ref var droppingGoldComponent = ref _droppingGoldPool.Value.Get(_dropGoldEntity);
+                ref var fractionComponent = ref _fractionPool.Value.Get(_dropGoldEntity);
+
+                if (_viewPool.Value.Has(_dropGoldEntity))
+                {
+                    ref var viewComponent = ref _viewPool.Value.Get(_dropGoldEntity);
+
+                    GameObject.Instantiate(_gameState.Value.EffectsPool.OtherEffects.DroppingGold, viewComponent.Transform.position, Quaternion.identity);
+                }
+
+                if (fractionComponent.isFriendly)
+                {
+                    _gameState.Value.AddEnemyGold(droppingGoldComponent.GoldValue);
+                }
+                else
+                {
+                    _gameState.Value.AddPlayerGold(droppingGoldComponent.GoldValue);
+                    _interfacePool.Value.Get(_gameState.Value.InterfaceEntity).Resources.UpdateCoin();
+                }
+
                 DeleteEvent(eventEntity);
             }
         }
@@ -31,6 +54,8 @@ namespace Client
         private void DeleteEvent(int eventEntity)
         {
             _dropGoldEventPool.Value.Del(eventEntity);
+
+            _dropGoldEntity = BattleState.NULL_ENTITY;
         }
     }
 }

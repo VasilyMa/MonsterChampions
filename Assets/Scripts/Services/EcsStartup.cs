@@ -63,7 +63,6 @@ namespace Client
 
                 .Add(new InitBoard())
                 
-                .Add(new BuyUnitSystem())
                 .Add(new InitBase())
                 .Add(new InitUnits())
                 .Add(new InitMergeEffectPool())
@@ -91,11 +90,15 @@ namespace Client
                 .Add(new CheckAndDeleteBableProtectSystem())
 
                 .Add(new DamagingEventSystem())
+
                 .Add(new CreateSparkyExplosionEventSystem())
 
+                .Add(new MoveTinkiThunderboltEffectSystem())
                 .Add(new CreateTinkiThunderboltEventSystem())
 
-                .Add(new MonsterSpawnerSystem())
+                .Add(new SpawnLogicEnemyPlayerSystem())
+                //.Add(new BuyUnitSystem())
+                .Add(new MonsterSpawnEventSystem())
 
                 .Add(new DieEventSystem())
                 .Add(new ResetIsTargetComponentAfterDeath())

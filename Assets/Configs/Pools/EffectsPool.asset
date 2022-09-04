@@ -24,3 +24,6 @@ MonoBehaviour:
     TinkiThunderbolt: {fileID: 120358, guid: d32aea4a256a20e4fb1276c3493aecce, type: 3}
     SlevDebuff: {fileID: 100000, guid: 2f4f32bd652cae9438bf04ad8a3ed69a, type: 3}
     BableProtectionBuff: {fileID: 100006, guid: 73b695380d4021a4bb783700f95e329a, type: 3}
+  OtherEffects:
+    DroppingGold: {fileID: 118250, guid: 0c7f2c888eff31341817bad18bf0a37d, type: 3}
+    GoldShower: {fileID: 110212, guid: 6ec1c10ee954c344084c839288426ec8, type: 3}
