@@ -30,13 +30,14 @@ namespace Client
         public bool inCollection;
         public bool runSysytem = false, hubSystem = true;
 
+        private int _playerBaseEntity = -1;
+        private List<int> _enemyBaseEntity = new List<int>();
+        private int _currentActiveEnemyBaseInArray = -1;
+
         private int PlayerGold;
         private int EnemyGold;
 
         public PlayableDeck PlayableDeck = new PlayableDeck();
-        private int _playerBaseEntity = -1;
-        private List<int> _enemyBaseEntity = new List<int>();
-        private int _currentActiveEnemyBaseInArray = -1;
         public const int NULL_ENTITY = -1;
 
 

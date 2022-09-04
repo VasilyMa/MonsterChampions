@@ -19,20 +19,21 @@ namespace Client
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
         readonly EcsPoolInject<MonsterSpawner> _monsterSpawnerPool = default;
+        readonly EcsPoolInject<GoldAddingComponent> _goldAddingPool = default;
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
 
         public void Init (IEcsSystems systems)
         {
-            var allEnemyBasesMB = GameObject.FindObjectsOfType<BaseTagMB>();
+            var allBasesMB = GameObject.FindObjectsOfType<BaseTagMB>();
 
-            foreach (var enemyBaseMB in allEnemyBasesMB)
+            foreach (var baseMB in allBasesMB)
             {
                 int baseEntity = _world.Value.NewEntity();
 
                 ref var viewComponent = ref _viewPool.Value.Add(baseEntity);
                 viewComponent.EntityNumber = baseEntity;
 
-                viewComponent.GameObject = enemyBaseMB.gameObject;
+                viewComponent.GameObject = baseMB.gameObject;
                 viewComponent.Transform = viewComponent.GameObject.transform;
                 viewComponent.EcsInfoMB = viewComponent.GameObject.GetComponent<EcsInfoMB>();
                 viewComponent.EcsInfoMB?.Init(_world, baseEntity);
@@ -40,14 +41,17 @@ namespace Client
                 ref var enemyBaseComponent = ref _enemyBasePool.Value.Add(baseEntity);
 
                 ref var healthComponent = ref _healthPool.Value.Add(baseEntity);
-                healthComponent.MaxValue = 10;
+                healthComponent.MaxValue = baseMB.BaseHealth;
                 healthComponent.CurrentValue = healthComponent.MaxValue;
 
                 ref var fractionComponent = ref _fractionPool.Value.Add(baseEntity);
-                fractionComponent.isFriendly = enemyBaseMB.isFriendly;
+                fractionComponent.isFriendly = baseMB.isFriendly;
 
                 ref var animableComponent = ref _animablePool.Value.Add(baseEntity);
                 animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
+
+                ref var goldAddingComponent = ref _goldAddingPool.Value.Add(baseEntity);
+                goldAddingComponent.Modifier = baseMB.GoldAddingModifier;
 
                 if (fractionComponent.isFriendly)
                 {
@@ -59,13 +63,13 @@ namespace Client
                     _battleState.Value.AddEnemyBaseEntity(baseEntity);
                 }
 
-                if (enemyBaseMB.MonstersSquads.Count <= 0) // to do rewrite thin in method
+                if (baseMB.MonstersSquads.Count <= 0) // to do rewrite thin in method
                 {
                     continue;
                 }
 
                 ref var monsterSpawner = ref _monsterSpawnerPool.Value.Add(baseEntity);
-                monsterSpawner.MonsterSpawnerInfo = enemyBaseMB;
+                monsterSpawner.MonsterSpawnerInfo = baseMB;
                 monsterSpawner.ActualSquad = 0;
 
             }
@@ -75,7 +79,7 @@ namespace Client
             ref var interfaceComp = ref _interfacePool.Value.Get(_battleState.Value.InterfaceEntity);
             interfaceComp.Progress.UpdateHealth(ourHealth.CurrentValue, enemyHealth.CurrentValue);
 
-            if (allEnemyBasesMB.Length > 0)
+            if (allBasesMB.Length > 0)
                 _battleState.Value.ActivateNextEnemyBase();
         }
     }

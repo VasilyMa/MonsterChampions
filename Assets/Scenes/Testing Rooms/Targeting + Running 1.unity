@@ -1164,6 +1164,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FriendlyBase
       objectReference: {fileID: 0}
+    - target: {fileID: 3449028038747366274, guid: e95e986983eb0fc4ab01019a3fe1cd1d, type: 3}
+      propertyPath: BaseHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449028038747366274, guid: e95e986983eb0fc4ab01019a3fe1cd1d, type: 3}
+      propertyPath: GoldAddingModifier
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4444676400635480940, guid: e95e986983eb0fc4ab01019a3fe1cd1d, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -3175,12 +3183,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
+      propertyPath: BaseHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: TimeToSpawn
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonsterLevel
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
+      propertyPath: GoldAddingModifier
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: monster.Array.size
@@ -3209,7 +3225,7 @@ PrefabInstance:
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.data[0].Monsters.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 05e988a256cb2b94cbd6167d4c0809fc, type: 2}
+      objectReference: {fileID: 11400000, guid: 5b85081711c81d34aa61767d6ae807ef, type: 2}
     - target: {fileID: 2260478454259702325, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: m_Name
       value: EnemyBase
