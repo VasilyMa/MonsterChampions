@@ -60,8 +60,9 @@ namespace Client
                 viewComponent.Transform = viewComponent.GameObject.transform;
 
                 viewComponent.Model = viewComponent.Transform.GetComponentInChildren<UnitModelMB>().gameObject;
-                viewComponent.Model = GameObject.Instantiate(monsterSpawnEvent.VisualAndAnimations.ModelPrefab, viewComponent.GameObject.transform.position, monsterSpawnEvent.Direction);
+                viewComponent.Model = GameObject.Instantiate(monsterSpawnEvent.VisualAndAnimations[levelComponent.Value - 1].ModelPrefab, viewComponent.GameObject.transform.position, monsterSpawnEvent.Direction);
                 viewComponent.Model.transform.SetParent(viewComponent.Transform);
+                viewComponent.VisualAndAnimations = monsterSpawnEvent.VisualAndAnimations;
 
                 viewComponent.HealthBarMB = viewComponent.GameObject.GetComponentInChildren<HealthbarMB>();
                 viewComponent.HealthBarMB.Init(_world, systems.GetShared<GameState>());
@@ -78,8 +79,8 @@ namespace Client
                 ref var animableComponent = ref _animablePool.Value.Add(_monsterEntity);
                 animableComponent.Animator = viewComponent.GameObject.GetComponent<Animator>();
 
-                animableComponent.Animator.runtimeAnimatorController = monsterSpawnEvent.VisualAndAnimations.RuntimeAnimatorController;
-                animableComponent.Animator.avatar = monsterSpawnEvent.VisualAndAnimations.Avatar;
+                animableComponent.Animator.runtimeAnimatorController = monsterSpawnEvent.VisualAndAnimations[levelComponent.Value - 1].RuntimeAnimatorController;
+                animableComponent.Animator.avatar = monsterSpawnEvent.VisualAndAnimations[levelComponent.Value - 1].Avatar;
 
                 ref var unitComponent = ref _unitPool.Value.Add(_monsterEntity);
 

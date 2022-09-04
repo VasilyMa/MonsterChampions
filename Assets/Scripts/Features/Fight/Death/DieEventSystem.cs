@@ -113,16 +113,7 @@ namespace Client
                 return;
             }
 
-            if (!_viewPool.Value.Has(_dyingEntity))
-            {
-                Debug.LogError($"{_dyingEntity} have the DroppingGoldComponent, but dont have the ViewComponent! DropGoldEvent wasnt start.");
-                return;
-            }
-
-            ref var droppingGoldComponent = ref _droppingGoldPool.Value.Get(_dyingEntity);
-            ref var viewComponent = ref _viewPool.Value.Get(_dyingEntity);
-
-            _dropGoldEventPool.Value.Add(_world.Value.NewEntity()).Invoke(droppingGoldComponent.GoldValue, viewComponent.Transform.position);
+            _dropGoldEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_dyingEntity);
         }
 
         private void InvokeWinOrLoseEvent()
@@ -197,6 +188,7 @@ namespace Client
             }
 
             ref var movableComponent = ref _movablePool.Value.Get(_dyingEntity);
+
             movableComponent.NavMeshAgent.isStopped = true;
         }
 

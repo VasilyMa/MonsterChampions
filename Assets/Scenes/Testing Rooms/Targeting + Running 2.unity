@@ -707,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ded8f01857070804c9d1393fdd647f16, type: 2}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1950590218810358241, guid: d4d2769b3ae72134faa53d5922cb7a89, type: 3}
       propertyPath: MonstersSquads.Array.data[0].Name

@@ -84,7 +84,7 @@ namespace Client
                     monsterSpawnEventComponent.MoveSpeed = monster.MoveSpeed;
                     monsterSpawnEventComponent.MonsterID = monster.MonsterID;
                     monsterSpawnEventComponent.Level = monstersLevel;
-                    monsterSpawnEventComponent.VisualAndAnimations = monster.VisualAndAnimations[monstersLevel - 1];
+                    monsterSpawnEventComponent.VisualAndAnimations = monster.VisualAndAnimations;
                     monsterSpawnEventComponent.isFriendly = false;
 
                     monsterIndex++;

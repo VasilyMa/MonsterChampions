@@ -51,7 +51,7 @@ namespace Client
                                                     dataCard.MoveSpeed,
                                                     dataCard.Elemental,
                                                     dataCard.MonsterID,
-                                                    dataCard.VisualAndAnimations[0],
+                                                    dataCard.VisualAndAnimations,
                                                     slot);
 
                         /*ref var buyComp = ref _buyPool.Add(_world.NewEntity());

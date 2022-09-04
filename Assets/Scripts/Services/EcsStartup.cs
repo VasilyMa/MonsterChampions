@@ -97,7 +97,7 @@ namespace Client
                 .Add(new CreateTinkiThunderboltEventSystem())
 
                 .Add(new SpawnLogicEnemyPlayerSystem())
-                .Add(new BuyUnitSystem())
+                //.Add(new BuyUnitSystem())
                 .Add(new MonsterSpawnEventSystem())
 
                 .Add(new DieEventSystem())

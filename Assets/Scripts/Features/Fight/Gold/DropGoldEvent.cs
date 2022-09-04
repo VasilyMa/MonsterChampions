@@ -4,18 +4,11 @@ namespace Client
 {
     struct DropGoldEvent
     {
-        public int GoldValue;
-        public Vector3 DropPoint;
+        public int DropGoldEntity;
 
-        /// <summary>
-        /// Usually dropPoint = unit's death place
-        /// </summary>
-        /// <param name="goldValue"></param>
-        /// <param name="dropPoint"></param>
-        public void Invoke(int goldValue, Vector3 dropPoint)
+        public void Invoke(int dropGoldEntity)
         {
-            GoldValue = goldValue;
-            DropPoint = dropPoint;
+            DropGoldEntity = dropGoldEntity;
         }
     }
 }
