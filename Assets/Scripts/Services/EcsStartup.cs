@@ -124,12 +124,16 @@ namespace Client
 
         void Update()
         {
+            bool zaglushka;
+
             _globalInitSystem?.Run();
 
             _initSystems?.Run();
 
             if(_state.hubSystem) _hubSystems?.Run();
             if(_state.runSysytem) _fightSystems?.Run();
+
+            if (!_state.hubSystem && !_state.runSysytem) zaglushka = true;
 
             _delhereEvents?.Run();
         }

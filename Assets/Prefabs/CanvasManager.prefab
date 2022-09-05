@@ -3945,7 +3945,7 @@ GameObject:
   - component: {fileID: 2649425589678089341}
   - component: {fileID: 5780915584613617307}
   m_Layer: 5
-  m_Name: ResourcesHolder
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4207,7 +4207,7 @@ GameObject:
   - component: {fileID: 6953249844821889450}
   - component: {fileID: 913461666509593919}
   m_Layer: 5
-  m_Name: ResorcesBackground
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4261,7 +4261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4d8668e9aa8f6584a8db78d954e64e43, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2a100d6075bf75f419d5e70e655f0fbf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4438,7 +4438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 906d844cf76dbc04496c789971ef6d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountCoin: {fileID: 3964169917167905706}
+  _playerCoinAmount: {fileID: 2360235349994773353}
+  _enemyCoinAmount: {fileID: 3964169917167905706}
 --- !u!1 &6834239887590098503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4533,7 +4534,7 @@ GameObject:
   - component: {fileID: 2141564853792128938}
   - component: {fileID: 204683852793978782}
   m_Layer: 5
-  m_Name: ResourcesHolderEnemy
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5217,7 +5218,7 @@ GameObject:
   - component: {fileID: 8274159374993152147}
   - component: {fileID: 1535619924272486439}
   m_Layer: 5
-  m_Name: ResorcesBackground
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5271,7 +5272,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4d8668e9aa8f6584a8db78d954e64e43, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82a811f2f8a2d79459ba8d2c1ab0de8b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -12,6 +12,9 @@ namespace Client {
         readonly EcsPoolInject<Movable> _movablePool = default;
         readonly EcsPoolInject<OnBoardUnitTag> _onBoardPool = default;
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
+
+        private int _maxLevelForMerge = 4;
+
         public void Run (IEcsSystems systems) {
             foreach (var entity in _touchFilter.Value)
             {
@@ -42,6 +45,18 @@ namespace Client {
                             {
                                 ref var levelComponentFirstUnit = ref _levelPool.Value.Get(_unitPool.Value.Get(entity).entity);
                                 ref var levelComponentSecondUnit = ref _levelPool.Value.Get(hit.transform.GetComponentInChildren<EcsInfoMB>().Entity);
+
+                                if (levelComponentFirstUnit.Value >= _maxLevelForMerge || levelComponentSecondUnit.Value >= _maxLevelForMerge)
+                                {
+                                    viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
+                                    viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
+                                    viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
+                                    viewComp.GameObject.GetComponent<Collider>().enabled = true;
+
+                                    _touchFilter.Pools.Inc2.Del(entity);
+                                    _touchFilter.Pools.Inc1.Del(entity);
+                                    break;
+                                }
 
                                 if (levelComponentFirstUnit.Value == levelComponentSecondUnit.Value)
                                 {

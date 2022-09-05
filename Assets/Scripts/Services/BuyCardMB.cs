@@ -36,7 +36,7 @@ namespace Client
                     {
                         interfaceComp.HolderCards.GetChild(buttonId).transform.DOScale(0.9f, 0.2f).OnComplete(() => ScaleDefault(buttonId));
                         _state.RevomePlayerGold(dataCard.Cost);
-                        _interfacePool.Get(_state.InterfaceEntity).Resources.UpdateCoin();
+                        _interfacePool.Get(_state.InterfaceEntity).Resources.UpdatePlayerCoinAmount();
 
                         var slot = FindEmptySlot();
 

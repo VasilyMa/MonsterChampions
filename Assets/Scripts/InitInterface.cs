@@ -15,7 +15,7 @@ namespace Client {
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
         readonly EcsPoolInject<PlayableDeckEvent> _playDeckPool = default;
 
-        private int _startGoldValue = 20;
+        private int _startGoldValue = 200;
 
         public void Init(IEcsSystems systems)
         {
@@ -73,7 +73,7 @@ namespace Client {
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.DeckHolder.gameObject.SetActive(false);
-                interfaceComp.Resources.UpdateCoin();
+                interfaceComp.Resources.UpdatePlayerCoinAmount();
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);
             }
@@ -82,7 +82,7 @@ namespace Client {
                 interfaceComp.MenuHolder.gameObject.SetActive(true);
                 _state.Value.hubSystem = true;
                 _state.Value.runSysytem = false;
-                interfaceComp.Resources.UpdateCoin();
+                interfaceComp.Resources.UpdatePlayerCoinAmount();
             }
         }
     }
