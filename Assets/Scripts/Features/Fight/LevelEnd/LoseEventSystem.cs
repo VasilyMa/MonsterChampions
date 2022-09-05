@@ -23,6 +23,7 @@ namespace Client
             foreach (var eventEntity in _loseEventFilter.Value)
             {
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
+                interfaceComp.Resources.gameObject.SetActive(false);
                 interfaceComp.LoseHolder.gameObject.SetActive(true);
                 interfaceComp.LoseHolder.DOMove(GameObject.Find("TargetLoseWin").transform.position, 1f, false);
                 interfaceComp.HolderCards.transform.DOMove(interfaceComp.defaultPosCardHolder, 1f, false);
