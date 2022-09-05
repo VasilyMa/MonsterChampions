@@ -47,6 +47,7 @@ MonoBehaviour:
   _uguiEmitter: {fileID: 0}
   _monsterStorage: {fileID: 11400000, guid: 2d02acd0384d13946a0880baf4c57ab5, type: 2}
   _effectsPool: {fileID: 11400000, guid: 5de80f0116754c44c89e070f1562ad18, type: 2}
+  _interfaceConfigs: {fileID: 11400000, guid: 62bf5c9e8e5180f40b8361b8f0019cd1, type: 2}
   collection:
     CollectionUnits: []
   deck:
