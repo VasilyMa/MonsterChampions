@@ -51,6 +51,8 @@ namespace Client
             }
 
             EnemyGold += value;
+
+            UpdateEnemyCoinInterface();
         }
 
         public void RevomeEnemyGold(int value)
@@ -62,11 +64,22 @@ namespace Client
             }
 
             EnemyGold -= value;
+
+            UpdateEnemyCoinInterface();
         }
 
         public int GetEnemyGold()
         {
             return EnemyGold;
+        }
+
+        private void UpdateEnemyCoinInterface()
+        {
+            EcsPool<InterfaceComponent> interfacePool = _ecsWorld.GetPool<InterfaceComponent>();
+
+            ref var interfaceComp = ref interfacePool.Get(InterfaceEntity);
+
+            interfaceComp.Resources.UpdateEnemyCoinAmount();
         }
 
         public void AddPlayerGold(int value)
@@ -79,7 +92,7 @@ namespace Client
 
             PlayerGold += value;
 
-            UpdateCoinInInterface();
+            UpdatePlayerCoinInterface();
         }
 
         public void RevomePlayerGold(int value)
@@ -92,7 +105,7 @@ namespace Client
 
             PlayerGold -= value;
 
-            UpdateCoinInInterface();
+            UpdatePlayerCoinInterface();
         }
 
         public int GetPlayerGold()
@@ -100,13 +113,13 @@ namespace Client
             return PlayerGold;
         }
 
-        private void UpdateCoinInInterface()
+        private void UpdatePlayerCoinInterface()
         {
             EcsPool<InterfaceComponent> interfacePool = _ecsWorld.GetPool<InterfaceComponent>();
 
             ref var interfaceComp = ref interfacePool.Get(InterfaceEntity);
 
-            interfaceComp.Resources.UpdateCoin();
+            interfaceComp.Resources.UpdatePlayerCoinAmount();
         }
 
         #endregion
