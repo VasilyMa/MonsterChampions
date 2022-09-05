@@ -68,7 +68,7 @@ namespace Client
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove((GameObject.Find("TargetPlayButton").transform.position), 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(0.75f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.75f, 0.5f);
+                //interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.75f, 0.5f);
                 isOpen = true;
             }
             else if (isOpen)
@@ -79,7 +79,7 @@ namespace Client
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(defaultPosPlayButton, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(1f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(defaultPosCollectionButton, 1f, false).OnComplete(() => RemoveCollection());
-                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(1f, 0.5f);
+                //interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(1f, 0.5f);
                 isOpen = false;
             }
         }
