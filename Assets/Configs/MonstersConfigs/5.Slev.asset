@@ -15,8 +15,8 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 6d3bbb3d86103d3448532a618c5e21d9, type: 3}
   Cost: 10
   MonsterID: 5
-  Damage: 2
-  Health: 10
+  Damage: 3
+  Health: 15
   MoveSpeed: 4
   VisualAndAnimations:
   - Name: Level 1

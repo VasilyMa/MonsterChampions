@@ -15,7 +15,7 @@ namespace Client {
         readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
         readonly EcsPoolInject<PlayableDeckEvent> _playDeckPool = default;
 
-        private int _startGoldValue = 50;
+        private int _startGoldValue = 20;
 
         public void Init(IEcsSystems systems)
         {
@@ -62,8 +62,8 @@ namespace Client {
             interfaceComp.RewardHolder.gameObject.SetActive(false);
             interfaceComp.Resources.gameObject.SetActive(false);
 
+            _state.Value.AddPlayerGold(_startGoldValue); // to do ay write it in another system
 
-            _state.Value.AddPlayerGold(_startGoldValue);
             if (_state.Value.Settings.TutorialStage == 0)
             {
                 _state.Value.hubSystem = false;

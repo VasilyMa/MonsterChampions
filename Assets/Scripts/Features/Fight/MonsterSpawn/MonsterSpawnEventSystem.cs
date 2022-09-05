@@ -118,6 +118,7 @@ namespace Client
                     viewComponent.Transform.SetParent(monsterSpawnEvent.Holder);
                     viewComponent.GameObject.tag = "Friendly";
                     viewComponent.GameObject.GetComponent<UnitTagMB>().IsFriendly = true;
+                    viewComponent.GameObject.layer = LayerMask.NameToLayer(nameof(viewComponent.OnBoardUnit));
 
                     movableComponent.NavMeshAgent.enabled = false;
                 }

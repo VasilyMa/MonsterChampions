@@ -62,6 +62,8 @@ namespace Client {
                 damageComp.Value *= 2;
                 droppingGoldComponent.GoldValue *= 2;
 
+                viewCompMain.HealthBarMB.UpdateHealth(healthComp.CurrentValue);
+
                 GameObject.Instantiate(_state.Value.EffectsPool.ElementalEffects.GetElementalEffect(elementComp.CurrentType), viewCompMain.GameObject.transform); // to do ay write normal'nii Quaternion
 
                 //

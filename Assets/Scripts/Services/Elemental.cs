@@ -41,7 +41,7 @@ namespace Client
                 case ElementalType.Darkness:
                     return LOW_RESIST;
                 case ElementalType.Fire:
-                    return HIGH_RESIST;
+                    return MEDIUM_RESIST;
                 case ElementalType.Water:
                     return MEDIUM_RESIST;
                 default:
@@ -54,7 +54,7 @@ namespace Client
             switch (healthElemental)
             {
                 case ElementalType.Earth:
-                    return HIGH_RESIST;
+                    return LOW_RESIST;
                 case ElementalType.Air:
                     return HIGH_RESIST;
                 case ElementalType.Darkness:
@@ -62,7 +62,7 @@ namespace Client
                 case ElementalType.Fire:
                     return MEDIUM_RESIST;
                 case ElementalType.Water:
-                    return LOW_RESIST;
+                    return MEDIUM_RESIST;
                 default:
                     return DEFAULT_MEDIUM_RESIST;
             }
@@ -92,7 +92,7 @@ namespace Client
             switch (healthElemental)
             {
                 case ElementalType.Earth:
-                    return LOW_RESIST;
+                    return MEDIUM_RESIST;
                 case ElementalType.Air:
                     return MEDIUM_RESIST;
                 case ElementalType.Darkness:
@@ -100,7 +100,7 @@ namespace Client
                 case ElementalType.Fire:
                     return HIGH_RESIST;
                 case ElementalType.Water:
-                    return HIGH_RESIST;
+                    return LOW_RESIST;
                 default:
                     return DEFAULT_MEDIUM_RESIST;
             }
@@ -113,7 +113,7 @@ namespace Client
                 case ElementalType.Earth:
                     return MEDIUM_RESIST;
                 case ElementalType.Air:
-                    return HIGH_RESIST;
+                    return MEDIUM_RESIST;
                 case ElementalType.Darkness:
                     return LOW_RESIST;
                 case ElementalType.Fire:
