@@ -27,7 +27,7 @@ namespace Client
         {
             transform.GetComponent<Image>().raycastTarget = false;
             var cardInfo = card.GetComponent<CardInfo>();
-            cardInfo.UpdateCardInfo();
+            cardInfo.UpdateCardInfo(_state.InterfaceConfigs.elementsShirt);
             card.gameObject.SetActive(true);
             vfx.transform.GetChild(2).gameObject.SetActive(true);
             card.GetComponent<Image>().raycastTarget = false;

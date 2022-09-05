@@ -11,6 +11,7 @@ namespace Client
         [SerializeField] EcsUguiEmitter _uguiEmitter;
         [SerializeField] GetMonster _monsterStorage;
         [SerializeField] EffectsPool _effectsPool;
+        [SerializeField] InterfaceConfigs _interfaceConfigs;
         public Collection collection;
         public Deck deck;
         private BattleState _battleState;
@@ -21,7 +22,7 @@ namespace Client
         void Start()
         {
             _world = new EcsWorld();
-            _state = new GameState(_world, _monsterStorage, _effectsPool);
+            _state = new GameState(_world, _monsterStorage, _effectsPool, _interfaceConfigs);
             _state.hubSystem = false;
             _state.runSysytem = true;
 

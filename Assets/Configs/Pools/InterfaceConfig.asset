@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2ab817e4e60244fbcf14533d6f015b, type: 3}
+  m_Name: InterfaceConfig
+  m_EditorClassIdentifier: 
+  elementsShirt:
+  - {fileID: 21300000, guid: 25e6456b1e449744eb301036a10f1890, type: 3}
+  - {fileID: 21300000, guid: 8a4747538fd75a843a755043e54805e0, type: 3}
+  - {fileID: 21300000, guid: f9ecf74e3be225e45a92f1dbfcbde49f, type: 3}
+  - {fileID: 21300000, guid: 437a670ebbd67d64483d2f67e358bfb9, type: 3}
+  - {fileID: 21300000, guid: 768276942cb48984ea50cb83b121a9dd, type: 3}

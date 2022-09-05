@@ -104,7 +104,7 @@ namespace Client
                     cardInfo.MoveSpeed = card.MoveSpeed;
                     cardInfo.Prefabs = card.Prefabs;
                     cardInfo.VisualAndAnimations = card.VisualAndAnimations;
-                    cardInfo.UpdateCardInfo();
+                    cardInfo.UpdateCardInfo(_state.InterfaceConfigs.elementsShirt);
                 }
             }
         }
@@ -129,7 +129,7 @@ namespace Client
                     cardInfo.MoveSpeed = item.MoveSpeed;
                     cardInfo.Prefabs = item.Prefabs;
                     cardInfo.VisualAndAnimations = item.VisualAndAnimations;
-                    cardInfo.UpdateCardInfo();
+                    cardInfo.UpdateCardInfo(_state.InterfaceConfigs.elementsShirt);
                 }
             }
         }

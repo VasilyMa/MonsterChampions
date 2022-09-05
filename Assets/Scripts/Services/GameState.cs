@@ -16,6 +16,7 @@ namespace Client
         private EcsWorld _ecsWorld;
         public GetMonster _monsterStorage;
         public EffectsPool EffectsPool;
+        public InterfaceConfigs InterfaceConfigs;
         public Collection Collection = new Collection();
         public Deck Deck = new Deck();
         public GameSettings Settings = new GameSettings();
@@ -170,11 +171,12 @@ namespace Client
             }
         }
 
-        public GameState(EcsWorld EcsWorld, GetMonster monsterStorage, EffectsPool effectsPool)
+        public GameState(EcsWorld EcsWorld, GetMonster monsterStorage, EffectsPool effectsPool, InterfaceConfigs interfaceConfigs)
         {
             _ecsWorld = EcsWorld;
             _monsterStorage = monsterStorage;
             EffectsPool = effectsPool;
+            InterfaceConfigs = interfaceConfigs;
             if (File.Exists(savePathSettings))
             {
                 LoadGameSettings();
