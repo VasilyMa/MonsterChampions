@@ -128,6 +128,10 @@ namespace Client
                 DisableAttackZonesIfNeed();
 
                 DeleteEvent();
+
+                Debug.Log(Tutorial.CurrentStage);
+                Tutorial.SetNextStage();
+                Debug.Log(Tutorial.CurrentStage);
             }
         }
 
