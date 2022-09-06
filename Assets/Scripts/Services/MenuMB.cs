@@ -88,6 +88,12 @@ namespace Client
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             var collection = _state.Collection.CollectionUnits;
             var holder = interfaceComp.CollectionHolder;
+
+            if (collection.Count <= 3)
+                holder.parent.parent.GetComponentInParent<Image>().sprite = _state.InterfaceConfigs.collectionBackground[0];
+            if(collection.Count > 3 && collection.Count < 6)
+                holder.parent.parent.GetComponentInParent<Image>().sprite = _state.InterfaceConfigs.collectionBackground[1];
+
             if (collection.Count > 0)
             {
                 foreach (var card in collection)

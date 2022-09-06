@@ -6,4 +6,5 @@ using UnityEngine.UI;
 public class InterfaceConfigs : ScriptableObject
 {
     public Sprite[] elementsShirt;
+    public Sprite[] collectionBackground;
 }

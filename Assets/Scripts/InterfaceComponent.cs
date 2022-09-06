@@ -26,6 +26,7 @@ namespace Client {
 
         public Vector3 defaultPosCardHolder;
         public Vector3 defaultPosProgressHolder;
+        public Vector3 defaultPosRemoveButton;
 
         public StartDeckForDevelop TempButton;
 

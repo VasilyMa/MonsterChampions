@@ -48,7 +48,7 @@ namespace Client
                 _state.Value.Settings.Level++;
                 if (_state.Value.Settings.Level % 3 == 0)
                 {
-                    if (_state.Value.Settings.MaxLevelRewardedCard < _state.Value._monsterStorage.monster.Length)
+                    if (_state.Value.Settings.MaxLevelRewardedCard < _state.Value._monsterStorage.monster.Length - 1)
                         _state.Value.Settings.MaxLevelRewardedCard++;
                 }
                 KillAllUnits();
