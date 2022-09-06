@@ -57,6 +57,11 @@ namespace Client
                             DragInCollection(result, entity);
                             break;
                         }
+                        if (result.gameObject.CompareTag("Remove"))
+                        {
+                            RemoveCard(result, entity);
+                            break;
+                        }
                         dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
                         dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                         //break;
@@ -68,6 +73,43 @@ namespace Client
                 }
             }
         }
+
+        private void RemoveCard(RaycastResult result, int entity)
+        {
+            ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
+            ref var inputComp = ref _inputPool.Value.Get(_state.Value.InputEntity);
+            ref var dragComp = ref _dragPool.Value.Get(entity);
+            var deck = _state.Value.Deck.DeckPlayer;
+            var collection = _state.Value.Collection.CollectionUnits;
+            var cardInfo = dragComp.CardObject.GetComponent<CardInfo>();
+            foreach (var card in collection)
+            {
+                if (card.UniqueID == cardInfo.UniqueID)
+                {
+                    collection.Remove(card);
+                    break;
+                }
+            }
+            for (int i = 0; i < deck.Length; i++)
+            {
+                if (cardInfo.UniqueID == deck[i].UniqueID)
+                {
+                    deck[i].UniqueID = 0;
+                    deck[i].Sprite = null;
+                    deck[i].Cost = 0;
+                    deck[i].Damage = 0;
+                    deck[i].MonsterID = 0;
+                    deck[i].Health = 0;
+                    deck[i].Elemental = 0;
+                    deck[i].Prefabs = null;
+                    deck[i].MoveSpeed = 0;
+                    break;
+                }
+            }
+            GameObject.Destroy(dragComp.CardObject);
+            UpdateCollection();
+        }
+
         private void DragInDeck(RaycastResult result, int entity)
         {
             ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
@@ -162,6 +204,7 @@ namespace Client
                     }
                 }
             }
+            UpdateCollection();
         }
         private void DragInCollection(RaycastResult result, int entity)
         {
@@ -207,7 +250,19 @@ namespace Client
             {
                 dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
             }
+            UpdateCollection();
             dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
+        }
+        private void UpdateCollection()
+        {
+            ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
+            var collection = _state.Value.Collection.CollectionUnits;
+            var holder = interfaceComp.CollectionHolder;
+
+            if (collection.Count <= 3)
+                holder.parent.parent.GetComponentInParent<Image>().sprite = _state.Value.InterfaceConfigs.collectionBackground[0];
+            if (collection.Count > 3 && collection.Count < 6)
+                holder.parent.parent.GetComponentInParent<Image>().sprite = _state.Value.InterfaceConfigs.collectionBackground[1];
         }
 
         private void Complete()

@@ -48,11 +48,7 @@ namespace Client {
 
                                 if (levelComponentFirstUnit.Value >= _maxLevelForMerge || levelComponentSecondUnit.Value >= _maxLevelForMerge)
                                 {
-                                    viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
-                                    viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
-                                    viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
-                                    viewComp.GameObject.GetComponent<Collider>().enabled = true;
-
+                                    ReturnToDefault(entity);
                                     _touchFilter.Pools.Inc2.Del(entity);
                                     _touchFilter.Pools.Inc1.Del(entity);
                                     break;
@@ -70,11 +66,7 @@ namespace Client {
                                 }
                                 else
                                 {
-                                    viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
-                                    viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
-                                    viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
-                                    viewComp.GameObject.GetComponent<Collider>().enabled = true;
-
+                                    ReturnToDefault(entity);
                                     _touchFilter.Pools.Inc2.Del(entity);
                                     _touchFilter.Pools.Inc1.Del(entity); 
                                     break;
@@ -82,10 +74,7 @@ namespace Client {
                             }
                             else
                             {
-                                viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
-                                viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
-                                viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
-                                viewComp.GameObject.GetComponent<Collider>().enabled = true;
+                                ReturnToDefault(entity);
                                 _touchFilter.Pools.Inc2.Del(entity);
                                 _touchFilter.Pools.Inc1.Del(entity);
                                 break;
@@ -103,12 +92,9 @@ namespace Client {
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitBoard, float.MaxValue, LayerMask.GetMask("BoardRaycast")))
                     {
-                        viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
-                        viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
-                        viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
+                        ReturnToDefault(entity);
                         _touchFilter.Pools.Inc2.Del(entity);
                         _touchFilter.Pools.Inc1.Del(entity);
-                        viewComp.GameObject.GetComponent<Collider>().enabled = true;
                         break;
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
@@ -130,6 +116,16 @@ namespace Client {
                     _touchFilter.Pools.Inc1.Del(entity);
                 }
             }
+        }
+        private void ReturnToDefault(int entity)
+        {
+            ref var unitComp = ref _unitPool.Value.Get(entity);
+            ref var viewComp = ref _viewPool.Value.Get(_unitPool.Value.Get(entity).entity);
+
+            viewComp.Transform.position = _unitPool.Value.Get(entity).defaultPos;
+            viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
+            viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
+            viewComp.GameObject.GetComponent<Collider>().enabled = true;
         }
     }
 }
