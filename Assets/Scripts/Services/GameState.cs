@@ -28,7 +28,10 @@ namespace Client
         public int CurrentLevel = 1;
         public bool isDrag;
         public bool inCollection;
-        public bool runSysytem = false, hubSystem = true;
+
+        public bool PreparedSystems { set; get; } = false;
+        public bool FightSystems { set; get; } = false;
+        public bool HubSystems { set; get; } = true;
 
         private int _playerBaseEntity = -1;
         private List<int> _enemyBaseEntity = new List<int>();

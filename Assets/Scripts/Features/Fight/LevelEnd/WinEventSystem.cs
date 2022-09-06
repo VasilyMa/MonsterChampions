@@ -32,7 +32,7 @@ namespace Client
                 interfaceComp.Resources.gameObject.SetActive(false);
                 _rewardPool.Value.Add(_world.Value.NewEntity());
                 Time.timeScale = 1;
-                _state.Value.runSysytem = false;
+                _state.Value.FightSystems = false;
                 Debug.Log("Ты победил, умничка"); 
                 int index = 0;
                 if (SceneManager.GetActiveScene().buildIndex + 1 > SceneManager.sceneCountInBuildSettings - 1)

@@ -17,25 +17,39 @@ namespace Client
         private BattleState _battleState;
         private EcsWorld _world;
         private GameState _state;
-        private EcsSystems _fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _fightSystems, _delhereEvents;
+        private EcsSystems _fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _preparedSystems, _fightSystems, _delhereEvents, _tutorialSystems;
         
         void Start()
         {
             _world = new EcsWorld();
             _state = new GameState(_world, _monsterStorage, _effectsPool, _interfaceConfigs);
-            _state.hubSystem = false;
-            _state.runSysytem = true;
+            _state.HubSystems = false;
+            _state.FightSystems = true;
+            collection = _state.Collection;
+            deck = _state.Deck;
 
             _battleState = new BattleState(_world);
 
             _fixedTimeSystems = new EcsSystems(_world);
             _globalInitSystem = new EcsSystems(_world, _state);
-            collection = _state.Collection;
-            deck = _state.Deck;
+
             _initSystems = new EcsSystems (_world, _state);
             _hubSystems = new EcsSystems(_world, _state);
+
+            _preparedSystems = new EcsSystems(_world, _state);
             _fightSystems = new EcsSystems(_world, _state);
+
             _delhereEvents = new EcsSystems(_world, _state);
+
+            _tutorialSystems = new EcsSystems(_world, _state);
+
+            _tutorialSystems
+                .Add(new TwoBuysMonsters())
+                .Add(new MergeMonsters())
+                .Add(new DragAndDropMonster())
+                .Add(new OpenCollection())
+                .Add(new DragAndDropNewCardInDeck())
+                ;
 
             _fixedTimeSystems
                 .Add(new UnitLookingSystem())
@@ -51,11 +65,13 @@ namespace Client
                 ;
             //_initSystems
                 
-
                 ;
             _hubSystems
                .Add(new DragAndDropCardSystem())
                .Add(new DragWaitSystem())
+                ;
+
+            _preparedSystems
                 ;
 
             _fightSystems
@@ -118,22 +134,28 @@ namespace Client
             _initSystems.Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(/*events*/));
 #endif
 
-            InjectAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _fightSystems, _delhereEvents);
-            InitAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _fightSystems, _delhereEvents);
+            InjectAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _preparedSystems, _fightSystems, _delhereEvents, _tutorialSystems);
+            InitAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _preparedSystems, _fightSystems, _delhereEvents, _tutorialSystems);
         }
 
         void Update()
         {
-            bool zaglushka;
+            bool zaglushkaForCamera;
 
             _globalInitSystem?.Run();
 
             _initSystems?.Run();
 
-            if(_state.hubSystem) _hubSystems?.Run();
-            if(_state.runSysytem) _fightSystems?.Run();
+            if (!Tutorial.isOver())
+            {
+                _tutorialSystems?.Run();
+            }
 
-            if (!_state.hubSystem && !_state.runSysytem) zaglushka = true;
+            if (_state.HubSystems) _hubSystems?.Run();
+            if (_state.PreparedSystems) _preparedSystems?.Run();
+            if (_state.FightSystems) _fightSystems?.Run();
+
+            if (!_state.HubSystems && !_state.FightSystems) zaglushkaForCamera = true;
 
             _delhereEvents?.Run();
         }
@@ -145,7 +167,7 @@ namespace Client
 
         void OnDestroy()
         {
-            OnDestroyAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _fightSystems, _delhereEvents);
+            OnDestroyAllSystems(_fixedTimeSystems, _globalInitSystem, _initSystems, _hubSystems, _preparedSystems, _fightSystems, _delhereEvents, _tutorialSystems);
 
             if (_world != null)
             {

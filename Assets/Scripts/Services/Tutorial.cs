@@ -10,14 +10,13 @@ namespace Client
 
         public enum Stage
         {
-            TapToPlay = 0,
-            TwoBuysMonsters = 1,
-            MergeMonsters = 2,
-            DragAndDropMonster = 3,
-            OpenCollection = 4,
-            DragAndDropNewCardInDeck = 5,
+            TwoBuysMonsters = 0,
+            MergeMonsters = 1,
+            DragAndDropMonster = 2,
+            OpenCollection = 3,
+            DragAndDropNewCardInDeck = 4,
 
-            TutorialsOver = 6,
+            TutorialsOver = 5,
         }
 
         public static void SetNextStage()
@@ -34,9 +33,24 @@ namespace Client
             }
         }
 
-        public static bool isOver(Stage stage)
+        public static bool isOver()
+        {
+            return ((int)CurrentStage >= (int)Stage.TutorialsOver);
+        }
+
+        public static bool StageisOver(Stage stage)
         {
             return ((int)stage >= (int)Stage.TutorialsOver);
+        }
+
+        public static bool StageisOver(int stage)
+        {
+            return (stage >= (int)Stage.TutorialsOver);
+        }
+
+        public static void LoadCurrentStage(int currentStage)
+        {
+            CurrentStage = (Stage)currentStage;
         }
     }
 }
