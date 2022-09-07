@@ -34,6 +34,7 @@ namespace Client {
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
             interfaceComp.LoseHolder = interfaceComp.LosePanel.transform.GetChild(0).transform;
             interfaceComp.RewardHolder = interfaceComp.Reward.transform;
+            interfaceComp.AttentionHolder = interfaceComp.MainMenu.transform.GetChild(2).transform;
             interfaceComp.BuyCard.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.RewardPanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.LosePanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
@@ -45,6 +46,7 @@ namespace Client {
             interfaceComp.CollectionMenu = interfaceComp.CollectionManager.transform;
             interfaceComp.CollectionHolder = interfaceComp.CollectionManager.transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform;
             interfaceComp.DeckHolder = interfaceComp.CollectionManager.transform.GetChild(0).transform;
+            interfaceComp.RemoveHolder = interfaceComp.CollectionMenu.transform.GetChild(2).transform;
             interfaceComp.CollectionCards = new System.Collections.Generic.List<GameObject>();
             interfaceComp.DeckCards = new System.Collections.Generic.List<GameObject>();
             interfaceComp.CollectionManager.Init(systems.GetWorld(), systems.GetShared<GameState>());
@@ -54,6 +56,7 @@ namespace Client {
 
             interfaceComp.defaultPosProgressHolder = interfaceComp.Progress.transform.GetChild(0).transform.position;
             interfaceComp.defaultPosCardHolder = interfaceComp.HolderCards.transform.position;
+            interfaceComp.defaultPosRemoveButton = interfaceComp.CollectionMenu.transform.GetChild(2).transform.position;
 
             interfaceComp.MainMenu.UpdateDeck();
             interfaceComp.HolderCards.gameObject.SetActive(false);
@@ -61,6 +64,7 @@ namespace Client {
             interfaceComp.LoseHolder.gameObject.SetActive(false);
             interfaceComp.RewardHolder.gameObject.SetActive(false);
             interfaceComp.Resources.gameObject.SetActive(false);
+            interfaceComp.AttentionHolder.gameObject.SetActive(false);
 
             _state.Value.AddPlayerGold(_startGoldValue); // to do ay write it in another system
 

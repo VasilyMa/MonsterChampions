@@ -9,6 +9,7 @@ TagManager:
   - Card
   - Deck
   - Collection
+  - Remove
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,6 @@ TagManager:
   - BoardRaycast
   - OnBoardUnit
   - AlwaysVisible
-  - 
   - 
   - 
   - 

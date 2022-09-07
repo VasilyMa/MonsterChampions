@@ -23,6 +23,8 @@ namespace Client {
         public Transform LoseHolder;
         public Transform RewardPanelHolder;
         public Transform MenuHolder;
+        public Transform RemoveHolder;
+        public Transform AttentionHolder;
 
         public Vector3 defaultPosCardHolder;
         public Vector3 defaultPosProgressHolder;

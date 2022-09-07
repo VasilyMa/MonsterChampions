@@ -25,7 +25,6 @@ namespace Client
                 var collection = _state.Value.Collection.CollectionUnits;
                 var cardInfo = dragComp.CardObject.GetComponent<CardInfo>();
 
-
                 if (Input.GetMouseButton(0)) //if finger touch already
                 {
                     dragComp.CardObject.transform.position = Input.mousePosition;
@@ -67,7 +66,7 @@ namespace Client
                         //break;
                     }
                     _state.Value.Save();
-                    dragComp.CardObject.transform.DOScale(1f, 0.2f).OnComplete(()=>Complete());
+                    dragComp.CardObject.transform.DOScale(1f, 0.2f).OnComplete(() => Complete());
                     interfaceComp.CollectionHolder.GetComponentInParent<ScrollRect>().enabled = true;
                     _touchFilter.Pools.Inc1.Del(entity);
                 }
@@ -82,6 +81,8 @@ namespace Client
             var deck = _state.Value.Deck.DeckPlayer;
             var collection = _state.Value.Collection.CollectionUnits;
             var cardInfo = dragComp.CardObject.GetComponent<CardInfo>();
+            if (collection.Count <= 1)
+                return;
             foreach (var card in collection)
             {
                 if (card.UniqueID == cardInfo.UniqueID)
@@ -109,7 +110,6 @@ namespace Client
             GameObject.Destroy(dragComp.CardObject);
             UpdateCollection();
         }
-
         private void DragInDeck(RaycastResult result, int entity)
         {
             ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
@@ -264,7 +264,6 @@ namespace Client
             if (collection.Count > 3 && collection.Count < 6)
                 holder.parent.parent.GetComponentInParent<Image>().sprite = _state.Value.InterfaceConfigs.collectionBackground[1];
         }
-
         private void Complete()
         {
             _state.Value.isDrag = false;

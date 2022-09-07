@@ -37,24 +37,41 @@ namespace Client
         }
         public void Play()
         {
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            int emptyCard = 0;
+            if (_state.inCollection)
+            {
+                ToCollection();
+                return;
+            }
             if (!_state.isDrag && !_state.inCollection)
             {
-                ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+                for (int i = 0; i < _state.Deck.DeckPlayer.Length; i++)
+                {
+                    if (_state.Deck.DeckPlayer[i].MonsterID == MonstersID.Value.Default)
+                        emptyCard++;
+                    if (emptyCard == 3)
+                    {
+                        interfaceComp.AttentionHolder.gameObject.SetActive(true);
+                        interfaceComp.AttentionHolder.DOScale(1, 0.25f).OnComplete(() => StartCoroutine(WaitScale()));
+                        break;
+                    }
+                }
+            }
+            if (!_state.isDrag && !_state.inCollection && emptyCard < 3)
+            {
                 _state.hubSystem = false;
                 _state.runSysytem = true;
                 _state.inCollection = false;
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
                 interfaceComp.DeckHolder.transform.DOMove(deafaultPosDeck, 1f, false);
+                interfaceComp.RemoveHolder.transform.DOMove(interfaceComp.defaultPosRemoveButton, 1f, false);
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 _playableDeckEventPool.Add(_world.NewEntity());
-            }
-            else if (_state.inCollection)
-            {
-                ToCollection();
             }
         }
         public void ToCollection()
@@ -64,6 +81,7 @@ namespace Client
             {
                 _state.inCollection = true;
                 UpdateCollection();
+                interfaceComp.RemoveHolder.transform.DOMove((GameObject.Find("TargetRemove").transform.position), 1f, false);
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollection").transform.position), 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove((GameObject.Find("TargetPlayButton").transform.position), 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(0.75f, 0.5f);
@@ -75,6 +93,7 @@ namespace Client
             {
                 interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
                 _state.inCollection = false;
+                interfaceComp.RemoveHolder.transform.DOMove(interfaceComp.defaultPosRemoveButton, 1f, false);
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(defaultPosPlayButton, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(1f, 0.5f);
@@ -173,6 +192,21 @@ namespace Client
                     Destroy(holder.GetChild(i).gameObject);
                 }
             }
+        }
+        private IEnumerator WaitScale()
+        {
+            yield return new WaitForSeconds(1.5f);
+            ScaleToZero();
+        }
+        void ScaleToZero()
+        {
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.AttentionHolder.transform.DOScale(0, 0.25f).OnComplete(()=>Off());
+        }
+        void Off()
+        {
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.AttentionHolder.gameObject.SetActive(false);
         }
         public void Exit()
         {
