@@ -44,7 +44,7 @@ namespace Client
                 ToCollection();
                 return;
             }
-            if (!_state.isDrag && !_state.inCollection)
+            else if (!_state.isDrag && !_state.inCollection)
             {
                 for (int i = 0; i < _state.Deck.DeckPlayer.Length; i++)
                 {
@@ -58,7 +58,7 @@ namespace Client
                     }
                 }
             }
-            if (!_state.isDrag && !_state.inCollection && emptyCard < 3)
+            else if (!_state.isDrag && !_state.inCollection && emptyCard < 3)
             {
                 _state.hubSystem = false;
                 _state.runSysytem = true;
@@ -86,7 +86,6 @@ namespace Client
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove((GameObject.Find("TargetPlayButton").transform.position), 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(0.75f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false);
-                //interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.75f, 0.5f);
                 isOpen = true;
             }
             else if (isOpen)
@@ -98,7 +97,6 @@ namespace Client
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(defaultPosPlayButton, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(1f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(defaultPosCollectionButton, 1f, false).OnComplete(() => RemoveCollection());
-                //interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(1f, 0.5f);
                 isOpen = false;
             }
         }
