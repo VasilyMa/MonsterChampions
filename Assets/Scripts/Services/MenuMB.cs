@@ -41,7 +41,8 @@ namespace Client
             {
                 ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
                 _state.HubSystems = false;
-                _state.FightSystems = true;
+                _state.PreparedSystems = true;
+                _state.FightSystems = false;
                 _state.inCollection = false;
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.HolderCards.gameObject.SetActive(true);

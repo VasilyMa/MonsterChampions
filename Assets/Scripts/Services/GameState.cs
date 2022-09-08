@@ -260,6 +260,8 @@ namespace Client
             FileStream file = File.Open(string.Concat(savePathSettings), FileMode.Open, FileAccess.Read);
             JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), Settings);
             file.Close();
+
+            Tutorial.LoadCurrentStage(Settings.TutorialStage);
         }
         private void LoadCollection()
         {

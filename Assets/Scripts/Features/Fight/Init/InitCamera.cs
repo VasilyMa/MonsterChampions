@@ -28,6 +28,7 @@ namespace Client
             cameraComponent.CameraHolderObject = cameraGameObject.transform.parent.gameObject;
             cameraComponent.CameraTransform = cameraGameObject.transform;
             cameraComponent.CameraHolderTransform = cameraGameObject.transform.parent.transform;
+            cameraComponent.CameraAnimationCurve = cameraComponent.CameraObject.GetComponent<CameraMB>().AnimationCurve;
         }
     }
 }

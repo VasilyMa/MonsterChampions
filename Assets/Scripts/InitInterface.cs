@@ -73,10 +73,11 @@ namespace Client {
 
             _state.Value.AddPlayerGold(_startGoldValue); // to do ay write it in another system
 
-            if (_state.Value.Settings.TutorialStage == 0)
+            if (Tutorial.CurrentStage == 0)
             {
                 _state.Value.HubSystems = false;
-                _state.Value.FightSystems = true;
+                _state.Value.PreparedSystems = true;
+                _state.Value.FightSystems = false;
                 _playDeckPool.Value.Add(_world.Value.NewEntity());
                 interfaceComp.HolderCards.gameObject.SetActive(true);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
@@ -90,6 +91,7 @@ namespace Client {
             {
                 interfaceComp.MenuHolder.gameObject.SetActive(true);
                 _state.Value.HubSystems = true;
+                _state.Value.PreparedSystems = false;
                 _state.Value.FightSystems = false;
                 interfaceComp.Resources.UpdatePlayerCoinAmount();
             }

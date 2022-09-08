@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using UnityEngine;
 
 namespace Client
@@ -7,6 +9,8 @@ namespace Client
     public static class Tutorial
     {
         public static Stage CurrentStage { get; private set; } = (Stage)0;
+
+        public static bool StageIsEnable { get; set; } = false;
 
         public enum Stage
         {
@@ -19,7 +23,7 @@ namespace Client
             TutorialsOver = 5,
         }
 
-        public static void SetNextStage()
+        public static void SetNextStage(EcsSharedInject<GameState> gameState)
         {
             int nextStage = (int)CurrentStage + 1;
             if (nextStage >= (int)Stage.TutorialsOver)
@@ -30,6 +34,8 @@ namespace Client
             else
             {
                 CurrentStage = (Stage)nextStage;
+                gameState.Value.Settings.TutorialStage++;
+                gameState.Value.SaveGameSetting();
             }
         }
 
@@ -52,5 +58,35 @@ namespace Client
         {
             CurrentStage = (Stage)currentStage;
         }
+
+        #region Stages
+
+        #region TwoBuysMonsters
+        public static class TwoBuysMonsters
+        {
+            private static int _maxBuysValue = 2;
+            private static int _buysCurrentValue = 0;
+
+            public static void AddBuys()
+            {
+                if (_buysCurrentValue < _maxBuysValue)
+                {
+                    _buysCurrentValue++;
+                }
+            }
+
+            public static int GetBuysValue()
+            {
+                return _buysCurrentValue;
+            }
+
+            public static int GetMaxBuysValue()
+            {
+                return _maxBuysValue;
+            }
+        }
+        #endregion
+
+        #endregion
     }
 }

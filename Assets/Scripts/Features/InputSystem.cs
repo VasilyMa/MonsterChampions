@@ -27,7 +27,7 @@ namespace Client {
                 if (!Input.GetMouseButtonDown(0))
                     return;
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition); //create are raycast to target
-                if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Place"))&&_state.Value.FightSystems)
+                if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Place"))&&_state.Value.PreparedSystems)
                 {
                     if (hit.transform.childCount >= 1) //find the object under finger and save it
                     {

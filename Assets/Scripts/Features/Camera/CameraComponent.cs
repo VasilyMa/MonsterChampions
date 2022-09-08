@@ -8,5 +8,8 @@ namespace Client
         public GameObject CameraHolderObject;
         public Transform CameraTransform;
         public Transform CameraHolderTransform;
+        public AnimationCurve CameraAnimationCurve;
+
+        public bool isOnBoard;
     }
 }

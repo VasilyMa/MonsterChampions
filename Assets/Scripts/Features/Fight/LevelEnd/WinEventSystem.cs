@@ -32,6 +32,8 @@ namespace Client
                 interfaceComp.Resources.gameObject.SetActive(false);
                 _rewardPool.Value.Add(_world.Value.NewEntity());
                 Time.timeScale = 1;
+
+                _state.Value.PreparedSystems = false;
                 _state.Value.FightSystems = false;
                 Debug.Log("Ты победил, умничка"); 
                 int index = 0;

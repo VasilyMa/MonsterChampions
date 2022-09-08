@@ -44,11 +44,11 @@ namespace Client
             _tutorialSystems = new EcsSystems(_world, _state);
 
             _tutorialSystems
-                .Add(new TwoBuysMonsters())
-                .Add(new MergeMonsters())
-                .Add(new DragAndDropMonster())
-                .Add(new OpenCollection())
-                .Add(new DragAndDropNewCardInDeck())
+                .Add(new TwoBuysMonsters()) // to do ay
+                .Add(new MergeMonsters()) // to do ay
+                .Add(new DragAndDropMonster()) // to do ay
+                .Add(new OpenCollection()) // to do ay
+                .Add(new DragAndDropNewCardInDeck()) // to do ay
                 ;
 
             _fixedTimeSystems
@@ -72,23 +72,27 @@ namespace Client
                 ;
 
             _preparedSystems
+                .Add(new InitCamera())
+                .Add(new CameraMoveToBoardSystem())
+
+                .Add(new InitBoard())
+                .Add(new InitBase())
+                .Add(new InitUnits())
+
+                .Add(new InitMergeEffectPool()) // to do ay
+
+                .Add(new DragAndDropUnitSystem())
+                .Add(new MergeUnitSystem())
+                .Add(new ActivateEnemyBaseEventSystem())
+
+                .Add(new MonsterSpawnEventSystem())
+
+                .Add(new PlayableDeckSystem())
                 ;
 
             _fightSystems
                 .Add(new WinEventSystem())
                 .Add(new LoseEventSystem())
-
-                .Add(new InitBoard())
-                
-                .Add(new InitBase())
-                .Add(new InitUnits())
-                .Add(new InitMergeEffectPool())
-
-                .Add(new InitCamera())
-
-                .Add(new DragAndDropUnitSystem())
-                .Add(new MergeUnitSystem())
-                .Add(new ActivateEnemyBaseEventSystem())
 
                 .Add(new UnitMoveToTargetSystem())
                 .Add(new StopUnitSystem())
@@ -115,15 +119,12 @@ namespace Client
 
                 .Add(new SpawnLogicEnemyPlayerSystem())
                 //.Add(new BuyUnitSystem())
-                .Add(new MonsterSpawnEventSystem())
 
                 .Add(new DieEventSystem())
                 .Add(new ResetIsTargetComponentAfterDeath())
 
                 .Add(new DropGoldEventSystem())
                 .Add(new GoldAddingTimerSystem())
-
-                .Add(new PlayableDeckSystem())
                 ;
 
             //_delhereEvents
@@ -140,8 +141,6 @@ namespace Client
 
         void Update()
         {
-            bool zaglushkaForCamera;
-
             _globalInitSystem?.Run();
 
             _initSystems?.Run();
@@ -154,8 +153,6 @@ namespace Client
             if (_state.HubSystems) _hubSystems?.Run();
             if (_state.PreparedSystems) _preparedSystems?.Run();
             if (_state.FightSystems) _fightSystems?.Run();
-
-            if (!_state.HubSystems && !_state.FightSystems) zaglushkaForCamera = true;
 
             _delhereEvents?.Run();
         }
