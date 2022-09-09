@@ -81,6 +81,11 @@ namespace Client {
                 _animablePool.Value.Del(mergeComp.EntityfirstUnit);
                 //
                 _mergeFilter.Pools.Inc1.Del(entity);
+
+                if (Tutorial.CurrentStage == Tutorial.Stage.MergeMonsters)
+                {
+                    Tutorial.MergeMonsters.SetMonstersIsMerged();
+                }
             }
         }
     }

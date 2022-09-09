@@ -5,10 +5,11 @@ namespace Client
     struct CameraComponent
     {
         public GameObject CameraObject;
-        public GameObject CameraHolderObject;
+        public GameObject HolderObject;
         public Transform CameraTransform;
-        public Transform CameraHolderTransform;
+        public Transform HolderTransform;
         public AnimationCurve CameraAnimationCurve;
+        public Camera Camera;
 
         public bool isOnBoard;
     }

@@ -23,9 +23,11 @@ namespace Client
             TutorialsOver = 5,
         }
 
-        public static void SetNextStage(EcsSharedInject<GameState> gameState)
+        #region Servises
+        public static void SetNextStage(EcsSharedInject<GameState> gameState, bool isSave = true)
         {
             int nextStage = (int)CurrentStage + 1;
+
             if (nextStage >= (int)Stage.TutorialsOver)
             {
                 CurrentStage = Stage.TutorialsOver;
@@ -34,8 +36,14 @@ namespace Client
             else
             {
                 CurrentStage = (Stage)nextStage;
-                gameState.Value.Settings.TutorialStage++;
-                gameState.Value.SaveGameSetting();
+
+                if (isSave)
+                {
+                    gameState.Value.Settings.TutorialStage = nextStage;
+                    gameState.Value.SaveGameSetting();
+                }
+
+                Debug.Log("Change stage on "+ CurrentStage);
             }
         }
 
@@ -44,12 +52,12 @@ namespace Client
             return ((int)CurrentStage >= (int)Stage.TutorialsOver);
         }
 
-        public static bool StageisOver(Stage stage)
+        public static bool StageIsTutorialOver(Stage stage)
         {
             return ((int)stage >= (int)Stage.TutorialsOver);
         }
 
-        public static bool StageisOver(int stage)
+        public static bool StageIsTutorialOver(int stage)
         {
             return (stage >= (int)Stage.TutorialsOver);
         }
@@ -59,32 +67,152 @@ namespace Client
             CurrentStage = (Stage)currentStage;
         }
 
+        public static bool isStage(Stage stage)
+        {
+            return stage == CurrentStage;
+        }
+        #endregion
+
         #region Stages
 
         #region TwoBuysMonsters
         public static class TwoBuysMonsters
         {
-            private static int _maxBuysValue = 2;
-            private static int _buysCurrentValue = 0;
+            private static int _maxSpawnsValue = 2;
+            private static int _SpawnsCurrentValue = 0;
 
-            public static void AddBuys()
+            public static void AddSpawn()
             {
-                if (_buysCurrentValue < _maxBuysValue)
+                if (_SpawnsCurrentValue < _maxSpawnsValue)
                 {
-                    _buysCurrentValue++;
+                    _SpawnsCurrentValue++;
                 }
             }
 
-            public static int GetBuysValue()
+            public static int GetSpawnsValue()
             {
-                return _buysCurrentValue;
+                return _SpawnsCurrentValue;
             }
 
-            public static int GetMaxBuysValue()
+            public static int GetMaxSpawnsValue()
             {
-                return _maxBuysValue;
+                return _maxSpawnsValue;
             }
         }
+        #endregion
+
+        #region MergeMonsters
+        public static class MergeMonsters
+        {
+            private static bool _monstersIsMerged = false;
+
+            public static void SetMonstersIsMerged()
+            {
+                _monstersIsMerged = true;
+            }
+
+            public static bool isMerged()
+            {
+                return _monstersIsMerged;
+            }
+        }
+        #endregion
+
+        #region DragAndDropMonster
+        public static class DragAndDropMonster
+        {
+            private static bool _tryDropSoFar = false;
+            private static bool _monsterIsDropped = false;
+
+            public static void SetTryingFarDrop()
+            {
+                _tryDropSoFar = true;
+            }
+
+            public static bool isTryDropSoFar()
+            {
+                return _tryDropSoFar;
+            }
+
+            public static void SetMonsterIsDropped()
+            {
+                _monsterIsDropped = true;
+            }
+
+            public static bool isDropped()
+            {
+                return _monsterIsDropped;
+            }
+        }
+        #endregion
+
+        #region OpenCollection
+        public static class OpenCollection
+        {
+            private static bool _collectionIsOpened = false;
+
+            public static void SetCollectionIsOpened()
+            {
+                _collectionIsOpened = true;
+            }
+
+            public static bool isOpened()
+            {
+                return _collectionIsOpened;
+            }
+        }
+        #endregion
+
+        #region DragAndDropNewCardInDeck
+        public static class DragAndDropNewCardInDeck
+        {
+            private static bool _panelIsOpened = false;
+
+            private static bool _cardIsDragged = false;
+            private static bool _cardIsDroppedBack = false;
+            private static bool _cardIsDroppedInDeck = false;
+
+            private static void SetPanelIsOpened()
+            {
+                _panelIsOpened = true;
+            }
+
+            public static bool PanelIsOpened()
+            {
+                return _panelIsOpened;
+            }
+
+            private static void SetCardIsDragged()
+            {
+                _cardIsDragged = true;
+            }
+
+            public static bool isDragged()
+            {
+                return _cardIsDragged;
+            }
+
+            private static void SetCardIsDroppedBack()
+            {
+                _cardIsDroppedBack = true;
+            }
+
+            public static bool isDroppedBack()
+            {
+                return _cardIsDroppedBack;
+            }
+
+            private static void SetCardIsDroppedInDeck()
+            {
+                _cardIsDroppedInDeck = true;
+            }
+
+            public static bool isDroppedInDeck()
+            {
+                return _cardIsDroppedInDeck;
+            }
+        }
+
         #endregion
 
         #endregion

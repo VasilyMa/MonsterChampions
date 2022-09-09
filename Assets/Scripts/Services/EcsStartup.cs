@@ -44,10 +44,10 @@ namespace Client
             _tutorialSystems = new EcsSystems(_world, _state);
 
             _tutorialSystems
-                .Add(new TwoBuysMonsters()) // to do ay
-                .Add(new MergeMonsters()) // to do ay
-                .Add(new DragAndDropMonster()) // to do ay
-                .Add(new OpenCollection()) // to do ay
+                .Add(new TwoBuysMonsters())
+                .Add(new MergeMonsters())
+                .Add(new DragAndDropMonster()) // to do ay if player off game before overed first level
+                .Add(new OpenCollection())
                 .Add(new DragAndDropNewCardInDeck()) // to do ay
                 ;
 

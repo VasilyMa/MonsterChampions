@@ -25,10 +25,11 @@ namespace Client
 
             ref var cameraComponent = ref _cameraPool.Value.Add(cameraEntity);
             cameraComponent.CameraObject = cameraGameObject;
-            cameraComponent.CameraHolderObject = cameraGameObject.transform.parent.gameObject;
+            cameraComponent.HolderObject = cameraGameObject.transform.parent.gameObject;
             cameraComponent.CameraTransform = cameraGameObject.transform;
-            cameraComponent.CameraHolderTransform = cameraGameObject.transform.parent.transform;
+            cameraComponent.HolderTransform = cameraGameObject.transform.parent.transform;
             cameraComponent.CameraAnimationCurve = cameraComponent.CameraObject.GetComponent<CameraMB>().AnimationCurve;
+            cameraComponent.Camera = cameraComponent.CameraObject.GetComponent<Camera>();
         }
     }
 }

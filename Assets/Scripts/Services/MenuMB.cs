@@ -39,6 +39,11 @@ namespace Client
         {
             if (!_state.isDrag && !_state.inCollection)
             {
+                if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection)
+                {
+                    return;
+                }
+
                 ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
                 _state.HubSystems = false;
                 _state.PreparedSystems = true;
@@ -63,11 +68,21 @@ namespace Client
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             if (!isOpen)
             {
+                if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection)
+                {
+                    Tutorial.OpenCollection.SetCollectionIsOpened();
+                }
+
                 _state.inCollection = true;
                 UpdateCollection();
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollection").transform.position), 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove((GameObject.Find("TargetPlayButton").transform.position), 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(0.75f, 0.5f);
+
+                if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection || Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
+                {
+                    interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false).OnComplete(() => Tutorial.DragAndDropNewCardInDeck.PanelIsOpened());
+                }
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false);
                 //interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.75f, 0.5f);
                 isOpen = true;

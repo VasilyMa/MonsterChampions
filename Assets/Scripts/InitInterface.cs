@@ -67,9 +67,13 @@ namespace Client {
             tutorialComponent.Panel = interfaceComp.MainCanvas.transform.GetComponentInChildren<TutorialPanelMB>().transform;
             tutorialComponent.Hand = tutorialComponent.Panel.GetComponentInChildren<TutorialHandMB>().transform;
             tutorialComponent.Focus = tutorialComponent.Panel.GetComponentInChildren<TutorialFocusMB>().transform;
+            tutorialComponent.Message = tutorialComponent.Panel.GetComponentInChildren<TutorialMessageMB>().transform;
+            tutorialComponent.MessageRectTransform = tutorialComponent.Message.GetComponent<RectTransform>();
+            tutorialComponent.MessageText = tutorialComponent.Message.GetComponent<Text>();
 
             tutorialComponent.Hand.gameObject.SetActive(false);
             tutorialComponent.Focus.gameObject.SetActive(false);
+            tutorialComponent.Message.gameObject.SetActive(false);
 
             _state.Value.AddPlayerGold(_startGoldValue); // to do ay write it in another system
 

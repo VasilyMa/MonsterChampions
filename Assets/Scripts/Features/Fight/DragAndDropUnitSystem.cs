@@ -95,6 +95,12 @@ namespace Client {
                         ReturnToDefault(entity);
                         _touchFilter.Pools.Inc2.Del(entity);
                         _touchFilter.Pools.Inc1.Del(entity);
+
+                        if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropMonster)
+                        {
+                            Tutorial.DragAndDropMonster.SetTryingFarDrop();
+                        }
+
                         break;
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
@@ -110,6 +116,12 @@ namespace Client {
                         _touchFilter.Pools.Inc1.Del(entity);
 
                         viewComp.GameObject.layer = LayerMask.NameToLayer(nameof(viewComp.AliveUnit));
+
+                        if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropMonster)
+                        {
+                            Tutorial.DragAndDropMonster.SetMonsterIsDropped();
+                        }
+
                         break;
                     }
                     _touchFilter.Pools.Inc2.Del(entity);

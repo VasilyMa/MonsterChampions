@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Client
 {
@@ -7,5 +8,9 @@ namespace Client
         public Transform Panel;
         public Transform Hand;
         public Transform Focus;
+
+        public Transform Message;
+        public RectTransform MessageRectTransform;
+        public Text MessageText;
     }
 }

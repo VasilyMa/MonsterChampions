@@ -54,11 +54,6 @@ namespace Client
                                                     dataCard.VisualAndAnimations,
                                                     slot);
 
-                        if (Tutorial.CurrentStage == Tutorial.Stage.TwoBuysMonsters)
-                        {
-                            Tutorial.TwoBuysMonsters.AddBuys();
-                        }
-
                         break;
                     }
                     else
