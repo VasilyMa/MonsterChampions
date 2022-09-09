@@ -15,7 +15,7 @@ namespace Client
             {
                 var deck = _state.Value.Deck.DeckPlayer;
                 var storage = _state.Value._monsterStorage.monster;
-                deck[0].UniqueID = 1;
+                deck[0].LevelCard = 0;
                 deck[0].MonsterID = storage[_startMonster].MonsterID;
                 deck[0].Sprite = storage[_startMonster].Sprite;
                 deck[0].Cost = storage[_startMonster].Cost;
@@ -25,9 +25,8 @@ namespace Client
                 deck[0].Elemental = storage[_startMonster].Elemental;
                 deck[0].VisualAndAnimations = storage[_startMonster].VisualAndAnimations;
 
-                _state.Value.Settings.MaxLevelRewardedCard = 3;
                 _state.Value.Settings.BaseDeck = true;
-                _state.Value.Save();
+                _state.Value.SaveDeck();
             } 
         }
     }

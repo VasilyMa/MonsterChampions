@@ -2,6 +2,8 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
+
 namespace Client {
     sealed class RewardSystem : IEcsRunSystem {
         readonly EcsWorldInject _world = default;
@@ -19,24 +21,18 @@ namespace Client {
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
                 interfaceComp.RewardHolder.gameObject.SetActive(true);
-                newUniqueID();
-                if (isFullCollection)
-                {
-                    _rewardFilter.Pools.Inc1.Del(entity);
-                    return;
-                }
-                if (_state.Value.Settings.Level % 3 == 0)
+                if (_state.Value.Settings.Level % 3 == 0 && _state.Value.Settings.Level <= _state.Value._monsterStorage.monster.Length * 3 - 6)
                 {
                     ref var unlockedMonster = ref _state.Value._monsterStorage.monster[_state.Value.Settings.MaxLevelRewardedCard];
 
                     var newCard = interfaceComp.RewardHolder.transform.GetChild(1).transform;
                     var infoNewCard = newCard.GetComponent<CardInfo>();
-                    infoNewCard.UniqueID = newID;
+                    infoNewCard.LevelCard = 0;
                     infoNewCard.Cost = unlockedMonster.Cost;
                     infoNewCard.Sprite = unlockedMonster.Sprite;
                     infoNewCard.MonsterID = unlockedMonster.MonsterID;
-                    infoNewCard.Damage = Mathf.Round(Random.Range(unlockedMonster.Damage + _state.Value.Settings.Level - unlockedMonster.Damage * 0.5f, unlockedMonster.Damage + _state.Value.Settings.Level + unlockedMonster.Damage * 0.5f));
-                    infoNewCard.Health = Mathf.Round(Random.Range(unlockedMonster.Health + _state.Value.Settings.Level - unlockedMonster.Health * 0.5f, unlockedMonster.Health + _state.Value.Settings.Level + unlockedMonster.Health * 0.5f));
+                    infoNewCard.Damage = unlockedMonster.Damage;
+                    infoNewCard.Health = unlockedMonster.Health;
                     infoNewCard.MoveSpeed = unlockedMonster.MoveSpeed;
                     infoNewCard.Prefabs = unlockedMonster.Prefabs;
                     infoNewCard.Elemental = unlockedMonster.Elemental;
@@ -48,27 +44,110 @@ namespace Client {
                 }
                 else
                 {
-                    ref var mosnterInfo = ref _state.Value._monsterStorage.monster[Random.Range(1, _state.Value.Settings.MaxLevelRewardedCard)];
+                    var deck = _state.Value.Deck.DeckPlayer;
+                    var collection = _state.Value.Collection.CollectionUnits;
+                    var tempAllCards = new List<UnitData>();
+                    foreach (var card in collection)
+                    {
+                        if (card.MonsterID != MonstersID.Value.Default)
+                        {
+                            tempAllCards.Add(card);
+                        }
+                    }
+                    for (int i = 0; i < deck.Length; i++)
+                    {
+                        if (deck[i].MonsterID != MonstersID.Value.Default)
+                        {
+                            tempAllCards.Add(deck[i]);
+                        }
+                    }
+                    //ref var mosnterInfo = ref _state.Value._monsterStorage.monster[Random.Range(1, _state.Value.Settings.MaxLevelRewardedCard)];
 
+                    var tempCard = FindCardAndUpgrade(tempAllCards);
+
+                    foreach (var card in collection)
+                    {
+                        if (card.MonsterID == tempCard.MonsterID)
+                        {
+                            card.LevelCard = tempCard.LevelCard;
+                            card.Cost = tempCard.Cost;
+                            card.Sprite = tempCard.Sprite;
+                            card.MonsterID = tempCard.MonsterID;
+                            card.Damage = tempCard.Damage;
+                            card.Health = tempCard.Health;
+                            card.MoveSpeed = tempCard.MoveSpeed;
+                            card.Prefabs = tempCard.Prefabs;
+                            card.Elemental = tempCard.Elemental;
+                            card.VisualAndAnimations = tempCard.VisualAndAnimations; 
+                            _state.Value.SaveCollection();
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < deck.Length; i++)
+                    {
+                        if (deck[i].MonsterID == tempCard.MonsterID)
+                        {
+                            deck[i].LevelCard = tempCard.LevelCard;
+                            deck[i].Cost = tempCard.Cost;
+                            deck[i].Sprite = tempCard.Sprite;
+                            deck[i].MonsterID = tempCard.MonsterID;
+                            deck[i].Damage = tempCard.Damage;
+                            deck[i].Health = tempCard.Health;
+                            deck[i].MoveSpeed = tempCard.MoveSpeed;
+                            deck[i].Prefabs = tempCard.Prefabs;
+                            deck[i].Elemental = tempCard.Elemental;
+                            deck[i].VisualAndAnimations = tempCard.VisualAndAnimations;
+                            _state.Value.SaveDeck();
+                            break;
+                        }
+                    }
                     var newCard = interfaceComp.RewardHolder.transform.GetChild(1).transform;
                     var infoNewCard = newCard.GetComponent<CardInfo>();
-                    infoNewCard.UniqueID = newID;
-                    infoNewCard.Cost = mosnterInfo.Cost;
-                    infoNewCard.Sprite = mosnterInfo.Sprite;
-                    infoNewCard.MonsterID = mosnterInfo.MonsterID;
-                    infoNewCard.Damage = Mathf.Round(Random.Range(mosnterInfo.Damage + _state.Value.Settings.Level - mosnterInfo.Damage * 0.5f, mosnterInfo.Damage + _state.Value.Settings.Level + mosnterInfo.Damage * 0.5f));
-                    infoNewCard.Health = Mathf.Round(Random.Range(mosnterInfo.Health + _state.Value.Settings.Level - mosnterInfo.Health * 0.5f, mosnterInfo.Health + _state.Value.Settings.Level + mosnterInfo.Health * 0.5f));
-                    infoNewCard.MoveSpeed = mosnterInfo.MoveSpeed;
-                    infoNewCard.Prefabs = mosnterInfo.Prefabs;
-                    infoNewCard.Elemental = mosnterInfo.Elemental;
-                    infoNewCard.VisualAndAnimations = mosnterInfo.VisualAndAnimations;
-
+                    //infoNewCard.UniqueID = newID;
+                    infoNewCard.LevelCard = tempCard.LevelCard;
+                    infoNewCard.Cost = tempCard.Cost;
+                    infoNewCard.Sprite = tempCard.Sprite;
+                    infoNewCard.MonsterID = tempCard.MonsterID;
+                    infoNewCard.Damage = tempCard.Damage;
+                    infoNewCard.Health = tempCard.Health;
+                    infoNewCard.MoveSpeed = tempCard.MoveSpeed;
+                    infoNewCard.Prefabs = tempCard.Prefabs;
+                    infoNewCard.Elemental = tempCard.Elemental;
+                    infoNewCard.VisualAndAnimations = tempCard.VisualAndAnimations;
                     newCard.gameObject.SetActive(false);
-                    ref var monsterComp = ref _newMonsterPool.Value.Add(_world.Value.NewEntity());
-                    monsterComp.cardInfo = infoNewCard;
                 }
                 _rewardFilter.Pools.Inc1.Del(entity);
             }
+        }
+        UnitData FindCardAndUpgrade(List<UnitData> list)
+        {
+            var deck = _state.Value.Deck.DeckPlayer;
+            var collection = _state.Value.Collection.CollectionUnits;
+            foreach (var item in list)
+            {
+                var idCard = Random.Range(0, list.Count);
+                list[idCard].LevelCard++;
+                if (list[idCard].LevelCard % 3 == 0)
+                {
+                    list.Remove(list[idCard]);
+                    break;
+                }
+                else if (list[idCard].LevelCard % 3 == 1)
+                {
+                    list[idCard].Health++;
+                    return list[idCard];
+                }
+                else if (list[idCard].LevelCard % 3 == 2)
+                {
+                    list[idCard].Damage++;
+                    return list[idCard];
+                }
+            }
+            if (list.Count > 0)
+            {
+                return FindCardAndUpgrade(list);
+            }
+            return null;  
         }
         private void newUniqueID()
         {

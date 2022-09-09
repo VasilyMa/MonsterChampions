@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CardInfo : MonoBehaviour
 {
+    public int LevelCard;
     public int UniqueID;
     public Sprite Sprite;
     public int Cost;
@@ -24,12 +25,12 @@ public class CardInfo : MonoBehaviour
     [SerializeField] private GameObject cost;
     [SerializeField] private GameObject[] elementalType;
     [SerializeField] private Image Background;
-    [SerializeField] private Image Shirt;
+    //[SerializeField] private Image Shirt;
 
     [SerializeField] private Sprite[] sprites;
 
 
-    public void UpdateCardInfo(Sprite[] spritesShirt)
+    public void UpdateCardInfo()
     {
         nameCard.GetComponentInChildren<Text>().text = MonsterID.ToString();
         unitImage.GetComponentInChildren<Image>().sprite = Sprite;
@@ -37,7 +38,7 @@ public class CardInfo : MonoBehaviour
         damageAmount.GetComponentInChildren<Text>().text = Damage.ToString();
         cost.GetComponentInChildren<Text>().text = Cost.ToString();
 
-        var cardShirts = spritesShirt;
+        //var cardShirts = spritesShirt;
 
         switch (Elemental)
         {
@@ -45,7 +46,7 @@ public class CardInfo : MonoBehaviour
                 break;
             case ElementalType.Earth:
                 Background.sprite = sprites[0];
-                Shirt.sprite = cardShirts[0];
+                //Shirt.sprite = cardShirts[0];
                 elementalType[0].gameObject.SetActive(true);
                 elementalType[1].gameObject.SetActive(false);
                 elementalType[2].gameObject.SetActive(false);
@@ -54,7 +55,7 @@ public class CardInfo : MonoBehaviour
                 break;
             case ElementalType.Air:
                 Background.sprite = sprites[1];
-                Shirt.sprite = cardShirts[1];
+                //Shirt.sprite = cardShirts[1];
                 elementalType[0].gameObject.SetActive(false);
                 elementalType[1].gameObject.SetActive(true);
                 elementalType[2].gameObject.SetActive(false);
@@ -63,7 +64,7 @@ public class CardInfo : MonoBehaviour
                 break;
             case ElementalType.Darkness:
                 Background.sprite = sprites[2];
-                Shirt.sprite = cardShirts[2];
+                //Shirt.sprite = cardShirts[2];
                 elementalType[0].gameObject.SetActive(false);
                 elementalType[1].gameObject.SetActive(false);
                 elementalType[2].gameObject.SetActive(true);
@@ -72,7 +73,7 @@ public class CardInfo : MonoBehaviour
                 break;
             case ElementalType.Fire:
                 Background.sprite = sprites[3];
-                Shirt.sprite = cardShirts[3];
+                //Shirt.sprite = cardShirts[3];
                 elementalType[0].gameObject.SetActive(false);
                 elementalType[1].gameObject.SetActive(false);
                 elementalType[2].gameObject.SetActive(false);
@@ -81,7 +82,7 @@ public class CardInfo : MonoBehaviour
                 break;
             case ElementalType.Water:
                 Background.sprite = sprites[4];
-                Shirt.sprite = cardShirts[4];
+                //Shirt.sprite = cardShirts[4];
                 elementalType[0].gameObject.SetActive(false);
                 elementalType[1].gameObject.SetActive(false);
                 elementalType[2].gameObject.SetActive(false);

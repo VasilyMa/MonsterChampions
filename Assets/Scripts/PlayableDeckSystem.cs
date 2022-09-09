@@ -36,7 +36,7 @@ namespace Client
                         newCardInfo.Prefabs = _state.Value.Deck.DeckPlayer[i].Prefabs;
                         newCardInfo.MoveSpeed = _state.Value.Deck.DeckPlayer[i].MoveSpeed;
                         newCardInfo.VisualAndAnimations = _state.Value.Deck.DeckPlayer[i].VisualAndAnimations;
-                        newCardInfo.UpdateCardInfo(_state.Value.InterfaceConfigs.elementsShirt);
+                        newCardInfo.UpdateCardInfo();
                     }
                 }
 

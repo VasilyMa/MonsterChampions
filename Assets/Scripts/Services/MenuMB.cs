@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
+using System;
 
 namespace Client
 {
@@ -15,11 +16,6 @@ namespace Client
         private EcsPool<InterfaceComponent> _interfacePool;
         private EcsPool<PlayableDeckEvent> _playableDeckEventPool;
         private bool isOpen;
-        private Vector3 defaultPosCollectionButton;
-        private Vector3 defaultPosPlayButton;
-        private Vector3 defaultPosCollection;
-        private Vector3 defaultPosCardPanel;
-        private Vector3 deafaultPosDeck;
         public void Init(EcsWorld world, GameState state)
         {
             _world = world;
@@ -28,12 +24,7 @@ namespace Client
             _interfacePool = _world.GetPool<InterfaceComponent>();
             _playableDeckEventPool = _world.GetPool<PlayableDeckEvent>();
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
-            defaultPosCollectionButton = interfaceComp.MenuHolder.transform.GetChild(1).transform.position;
-            defaultPosPlayButton = interfaceComp.MenuHolder.transform.GetChild(0).transform.GetChild(0).transform.position;
-            defaultPosCollection = interfaceComp.CollectionMenu.transform.GetChild(1).transform.position;
-            defaultPosCardPanel = interfaceComp.HolderCards.transform.position;
-            deafaultPosDeck = interfaceComp.DeckHolder.transform.position;
-            interfaceComp.DeckHolder.transform.DOMove(GameObject.Find("TargetDeck").transform.position, 1f, false);
+            interfaceComp.DeckHolder.transform.DOMove(interfaceComp.TargetDeck.transform.position, 1f, false);
         }
         public void Play()
         {
@@ -58,18 +49,18 @@ namespace Client
                     }
                 }
             }
-            else if (!_state.isDrag && !_state.inCollection && emptyCard < 3)
+            if (!_state.isDrag && !_state.inCollection && emptyCard < 3)
             {
                 _state.hubSystem = false;
                 _state.runSysytem = true;
                 _state.inCollection = false;
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
-                interfaceComp.DeckHolder.transform.DOMove(deafaultPosDeck, 1f, false);
+                interfaceComp.DeckHolder.transform.DOMove(interfaceComp.deafaultPosDeck, 1f, false);
                 interfaceComp.RemoveHolder.transform.DOMove(interfaceComp.defaultPosRemoveButton, 1f, false);
-                interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
-                interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
-                interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);
+                interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(interfaceComp.defaultPosCollection, 1f, false);
+                interfaceComp.HolderCards.transform.DOMove(interfaceComp.TargetCardPanel.position, 1f, false);
+                interfaceComp.Progress.transform.GetChild(0).transform.DOMove(interfaceComp.TargetProgressBar.position, 1f, false);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 _playableDeckEventPool.Add(_world.NewEntity());
             }
@@ -79,13 +70,14 @@ namespace Client
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             if (!isOpen)
             {
+                interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
                 _state.inCollection = true;
                 UpdateCollection();
-                interfaceComp.RemoveHolder.transform.DOMove((GameObject.Find("TargetRemove").transform.position), 1f, false);
-                interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollection").transform.position), 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove((GameObject.Find("TargetPlayButton").transform.position), 1f, false);
+                //interfaceComp.RemoveHolder.transform.DOMove((GameObject.Find("TargetRemove").transform.position), 1f, false);
+                interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(interfaceComp.TargetCollection.position, 1f, false).OnComplete(()=>Open());
+                interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(interfaceComp.TargetPlayButton.position, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(0.75f, 0.5f);
-                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false);
+                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(interfaceComp.TargetCollectionButton.position, 1f, false);
                 isOpen = true;
             }
             else if (isOpen)
@@ -93,13 +85,20 @@ namespace Client
                 interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
                 _state.inCollection = false;
                 interfaceComp.RemoveHolder.transform.DOMove(interfaceComp.defaultPosRemoveButton, 1f, false);
-                interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);
-                interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(defaultPosPlayButton, 1f, false);
+                interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(interfaceComp.defaultPosCollection, 1f, false).OnComplete(() => RemoveCollection());
+                interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(interfaceComp.defaultPosPlayButton, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(1f, 0.5f);
-                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(defaultPosCollectionButton, 1f, false).OnComplete(() => RemoveCollection());
+                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(interfaceComp.defaultPosCollectionButton, 1f, false);
                 isOpen = false;
             }
         }
+
+        private void Open()
+        {
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = true;
+        }
+
         public void UpdateCollection()
         {
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
@@ -117,6 +116,7 @@ namespace Client
                 {
                     var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), holder);
                     var cardInfo = addedCard.GetComponent<CardInfo>();
+                    cardInfo.LevelCard = card.LevelCard;
                     cardInfo.UniqueID = card.UniqueID;
                     cardInfo.Cost = card.Cost;
                     cardInfo.Sprite = card.Sprite;
@@ -127,7 +127,7 @@ namespace Client
                     cardInfo.MoveSpeed = card.MoveSpeed;
                     cardInfo.Prefabs = card.Prefabs;
                     cardInfo.VisualAndAnimations = card.VisualAndAnimations;
-                    cardInfo.UpdateCardInfo(_state.InterfaceConfigs.elementsShirt);
+                    cardInfo.UpdateCardInfo();
                 }
             }
         }
@@ -142,6 +142,7 @@ namespace Client
                 {
                     var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
                     var cardInfo = addedCard.GetComponent<CardInfo>();
+                    cardInfo.LevelCard = item.LevelCard;
                     cardInfo.UniqueID = item.UniqueID;
                     cardInfo.Cost = item.Cost;
                     cardInfo.Sprite = item.Sprite;
@@ -152,16 +153,8 @@ namespace Client
                     cardInfo.MoveSpeed = item.MoveSpeed;
                     cardInfo.Prefabs = item.Prefabs;
                     cardInfo.VisualAndAnimations = item.VisualAndAnimations;
-                    cardInfo.UpdateCardInfo(_state.InterfaceConfigs.elementsShirt);
+                    cardInfo.UpdateCardInfo();
                 }
-            }
-        }
-        private IEnumerator RemoveCollectionTimer()
-        {
-            yield return new WaitForSeconds(1);
-            if (!isOpen)
-            {
-                RemoveCollection();
             }
         }
         public void RemoveCollection()

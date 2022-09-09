@@ -52,7 +52,6 @@ namespace Client
                         _state.Value.Settings.MaxLevelRewardedCard++;
                 }
                 KillAllUnits();
-                _state.Value.Save();
                 _state.Value.SaveGameSetting();
                 _winEventFilter.Pools.Inc1.Del(eventEntity);
             }

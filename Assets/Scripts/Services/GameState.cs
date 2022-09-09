@@ -192,7 +192,7 @@ namespace Client
             InterfaceConfigs = interfaceConfigs;
             if (File.Exists(savePathSettings))
             {
-                LoadGameSettings();
+                LoadGame();
             }
             else
             {
@@ -200,17 +200,13 @@ namespace Client
                 Settings.TutorialStage = 0;
                 Settings.SceneNumber = 0;
                 Settings.GameVersion = Application.version;
-                Settings.Level = 0;
-                Settings.MaxLevelRewardedCard = 2;
+                Settings.Level = 1;
+                Settings.MaxLevelRewardedCard = 1;
                 SaveGameSetting();
-            }
-            if (File.Exists(savePathDeck) && File.Exists(savePathCollection))
-            {
-                Load();
-            }
-            else
-            {
-                Save();
+                if (File.Exists(savePathCollection)) LoadCollection();
+                else SaveCollection();
+                if(File.Exists(savePathDeck)) LoadDeck();
+                else SaveDeck();
             }
         }
         public void Save()
@@ -218,24 +214,19 @@ namespace Client
             SaveCollection();
             SaveDeck();
         }
-        public void Load()
-        {
-            LoadCollection();
-            LoadDeck();
-        }
-
-
         #region Save/Load
         public void SaveGameSetting()
         {
+            File.Delete(savePathSettings);
             string saveDataSettings = JsonUtility.ToJson(Settings, true);
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = File.Create(string.Concat(savePathSettings));
             binaryFormatter.Serialize(file, saveDataSettings);
             file.Close();
         }
-        private void SaveDeck()
+        public void SaveDeck()
         {
+            File.Delete(savePathDeck);
             string saveDataDeck = JsonUtility.ToJson(Deck, true);
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = File.Create(string.Concat(savePathDeck));
@@ -243,20 +234,63 @@ namespace Client
             file.Close();
         }
 
-        private void SaveCollection()
+        public void SaveCollection()
         {
+            File.Delete(savePathCollection);
             string saveDataCollection = JsonUtility.ToJson(Collection, true);
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = File.Create(string.Concat(savePathCollection));
             binaryFormatter.Serialize(file, saveDataCollection);
             file.Close();
         }
-        private void LoadGameSettings()
+        private void LoadGame()
         {
+            var tmpSettigns = new GameSettings();
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = File.Open(string.Concat(savePathSettings), FileMode.Open, FileAccess.Read);
-            JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), Settings);
-            file.Close();
+            FileStream file = File.Open(string.Concat(savePathSettings), FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), tmpSettigns);
+            if (tmpSettigns.GameVersion == Application.version)
+            {
+                Settings = tmpSettigns;
+                if(File.Exists(savePathDeck)) LoadDeck();
+                else SaveDeck();
+                if (File.Exists(savePathCollection)) LoadCollection();
+                else SaveCollection();
+                file.Close();
+            }
+            else
+            {
+                file.Close();
+                File.Delete(savePathSettings);
+                file = File.Create((string.Concat(savePathSettings)));
+                Settings.BaseDeck = false;
+                Settings.TutorialStage = 0;
+                Settings.SceneNumber = 0;
+                Settings.GameVersion = Application.version;
+                Settings.Level = 1;
+                Settings.MaxLevelRewardedCard = 1;
+
+                if (File.Exists(savePathDeck))
+                {
+                    LoadDeck();
+                }
+                else
+                {
+                    SaveDeck();
+                }
+                if (File.Exists(savePathCollection))
+                {
+                    LoadCollection();
+                }
+                else
+                {
+                    SaveCollection();
+                }
+                string saveDataSettings = JsonUtility.ToJson(Settings, true);
+                binaryFormatter.Serialize(file, saveDataSettings);
+                file.Close();
+            }
+            
         }
         private void LoadCollection()
         {
@@ -271,6 +305,11 @@ namespace Client
             FileStream file = File.Open(string.Concat(savePathDeck), FileMode.Open, FileAccess.Read);
             JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), Deck);
             file.Close();
+        }
+        private void RemoveData()
+        {
+            File.Delete(savePathDeck);
+            File.Delete(savePathCollection);
         }
         #endregion Save/Load
     }

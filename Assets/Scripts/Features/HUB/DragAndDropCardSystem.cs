@@ -56,11 +56,11 @@ namespace Client
                             DragInCollection(result, entity);
                             break;
                         }
-                        if (result.gameObject.CompareTag("Remove"))
-                        {
-                            RemoveCard(result, entity);
-                            break;
-                        }
+                        //if (result.gameObject.CompareTag("Remove"))
+                        //{
+                        //    RemoveCard(result, entity);
+                        //    break;
+                        //}
                         dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
                         dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                         //break;
@@ -85,7 +85,7 @@ namespace Client
                 return;
             foreach (var card in collection)
             {
-                if (card.UniqueID == cardInfo.UniqueID)
+                if (card.MonsterID == cardInfo.MonsterID)
                 {
                     collection.Remove(card);
                     break;
@@ -93,13 +93,14 @@ namespace Client
             }
             for (int i = 0; i < deck.Length; i++)
             {
-                if (cardInfo.UniqueID == deck[i].UniqueID)
+                if (cardInfo.MonsterID == deck[i].MonsterID)
                 {
+                    deck[i].LevelCard = 0;
                     deck[i].UniqueID = 0;
                     deck[i].Sprite = null;
                     deck[i].Cost = 0;
                     deck[i].Damage = 0;
-                    deck[i].MonsterID = 0;
+                    deck[i].MonsterID = MonstersID.Value.Default;
                     deck[i].Health = 0;
                     deck[i].Elemental = 0;
                     deck[i].Prefabs = null;
@@ -124,8 +125,9 @@ namespace Client
                 {
                     for (int i = 0; i < deck.Length; i++) //add card to deck
                     {
-                        if (deck[i].UniqueID == 0)
+                        if (deck[i].MonsterID == MonstersID.Value.Default)
                         {
+                            deck[i].LevelCard = cardInfo.LevelCard;
                             deck[i].UniqueID = cardInfo.UniqueID;
                             deck[i].Cost = cardInfo.Cost;
                             deck[i].Sprite = cardInfo.Sprite;
@@ -140,7 +142,7 @@ namespace Client
                     }
                     for (int y = 0; y < collection.Count; y++) //remove are card from collection 
                     {
-                        if (collection[y].UniqueID == cardInfo.UniqueID)
+                        if (collection[y].MonsterID == cardInfo.MonsterID)
                         {
                             collection.Remove(collection[y]);
                             break;
@@ -164,11 +166,12 @@ namespace Client
                     {
                         for (int i = 0; i < collection.Count; i++)
                         {
-                            if (collection[i].UniqueID == cardInfo.UniqueID)
+                            if (collection[i].MonsterID == cardInfo.MonsterID)
                             {
                                 collection.Remove(collection[i]);
                                 UnitData unitData = new UnitData(); //there save the new card in collection
-                                unitData.UniqueID = resultNew.gameObject.GetComponent<CardInfo>().UniqueID;
+                                //unitData.UniqueID = resultNew.gameObject.GetComponent<CardInfo>().UniqueID;
+                                unitData.LevelCard = resultNew.gameObject.GetComponent<CardInfo>().LevelCard;
                                 unitData.Sprite = resultNew.gameObject.GetComponent<CardInfo>().Sprite;
                                 unitData.Cost = resultNew.gameObject.GetComponent<CardInfo>().Cost;
                                 unitData.MonsterID = resultNew.gameObject.GetComponent<CardInfo>().MonsterID;
@@ -183,9 +186,10 @@ namespace Client
                         }
                         for (int i = 0; i < deck.Length; i++)
                         {
-                            if (deck[i].UniqueID == resultNew.gameObject.GetComponent<CardInfo>().UniqueID)
+                            if (deck[i].MonsterID == resultNew.gameObject.GetComponent<CardInfo>().MonsterID)
                             {
-                                deck[i].UniqueID = cardInfo.UniqueID;
+                                //deck[i].UniqueID = cardInfo.UniqueID;
+                                deck[i].LevelCard = cardInfo.LevelCard;
                                 deck[i].Cost = cardInfo.Cost;
                                 deck[i].Sprite = cardInfo.Sprite;
                                 deck[i].MonsterID = cardInfo.MonsterID;
@@ -218,8 +222,9 @@ namespace Client
             {
                 for (int i = 0; i < deck.Length; i++)
                 {
-                    if (deck[i].UniqueID == cardInfo.UniqueID)
+                    if (deck[i].MonsterID == cardInfo.MonsterID)
                     {
+                        deck[i].LevelCard = 0;
                         deck[i].UniqueID = 0;
                         deck[i].Sprite = null;
                         deck[i].Cost = 0;
@@ -233,7 +238,8 @@ namespace Client
                     }
                 }
                 UnitData unitData = new UnitData(); //there save the new card in collection
-                unitData.UniqueID = cardInfo.UniqueID;
+                //unitData.UniqueID = cardInfo.UniqueID;
+                unitData.LevelCard = cardInfo.LevelCard;
                 unitData.Sprite = cardInfo.Sprite;
                 unitData.Cost = cardInfo.Cost;
                 unitData.MonsterID = cardInfo.MonsterID;

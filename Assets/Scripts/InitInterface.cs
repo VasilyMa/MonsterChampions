@@ -30,6 +30,15 @@ namespace Client {
             interfaceComp.Reward = FindObjectOfType<RewardMB>();
             interfaceComp.Resources = FindObjectOfType<ResourcesMB>();
             interfaceComp.Progress = FindObjectOfType<ProgressMB>();
+
+            interfaceComp.TargetCardPanel = GameObject.Find("TargetCardPanel").transform;
+            interfaceComp.TargetCollection = GameObject.Find("TargetCollection").transform;
+            interfaceComp.TargetCollectionButton = GameObject.Find("TargetCollectionName").transform;
+            interfaceComp.TargetDeck = GameObject.Find("TargetDeck").transform;
+            interfaceComp.TargetLoseWin = GameObject.Find("TargetLoseWin").transform;
+            interfaceComp.TargetProgressBar = GameObject.Find("TargetProgress").transform;
+            interfaceComp.TargetPlayButton = GameObject.Find("TargetPlayButton").transform;
+
             interfaceComp.RewardPanelHolder = interfaceComp.RewardPanel.transform;
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
             interfaceComp.LoseHolder = interfaceComp.LosePanel.transform.GetChild(0).transform;
@@ -54,6 +63,11 @@ namespace Client {
             interfaceComp.MainMenu.Init(systems.GetWorld(), systems.GetShared<GameState>());
 
 
+            interfaceComp.defaultPosCollectionButton = interfaceComp.MenuHolder.transform.GetChild(1).transform.position;
+            interfaceComp.defaultPosPlayButton = interfaceComp.MenuHolder.transform.GetChild(0).transform.GetChild(0).transform.position;
+            interfaceComp.defaultPosCollection = interfaceComp.CollectionMenu.transform.GetChild(1).transform.position;
+            interfaceComp.defaultPosCardPanel = interfaceComp.HolderCards.transform.position;
+            interfaceComp.deafaultPosDeck = interfaceComp.DeckHolder.transform.position;
             interfaceComp.defaultPosProgressHolder = interfaceComp.Progress.transform.GetChild(0).transform.position;
             interfaceComp.defaultPosCardHolder = interfaceComp.HolderCards.transform.position;
             interfaceComp.defaultPosRemoveButton = interfaceComp.CollectionMenu.transform.GetChild(2).transform.position;

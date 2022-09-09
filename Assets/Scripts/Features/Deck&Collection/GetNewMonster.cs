@@ -18,7 +18,7 @@ namespace Client {
                 //ref var firstMonster = ref _state.Value._monsterStorage.monster[Random.Range(0, _state.Value._monsterStorage.monster.Length)];
                 ref var monster = ref monsterComp.cardInfo;
                 UnitData newUnitData = new UnitData();
-                newUnitData.UniqueID = monster.UniqueID;
+                //newUnitData.UniqueID = monster.UniqueID;
                 newUnitData.Sprite = monster.Sprite;
                 newUnitData.Cost = monster.Cost;
                 newUnitData.MonsterID = monster.MonsterID;
@@ -29,8 +29,9 @@ namespace Client {
                 newUnitData.Elemental = monster.Elemental;
                 newUnitData.VisualAndAnimations = monster.VisualAndAnimations;
                 _state.Value.Collection.CollectionUnits.Add(newUnitData);
-                _state.Value.Save();
+                _state.Value.SaveCollection();
                 _monsterFilter.Pools.Inc1.Del(entity);
+
                 /*
                 if (_state.Value.Collection.CollectionUnits.Count == 0)
                 {

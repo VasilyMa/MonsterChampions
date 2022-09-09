@@ -5,6 +5,7 @@ using Client;
 [System.Serializable]
 public class UnitData
 {
+    public int LevelCard;
     public int UniqueID;
     public MonstersID.Value MonsterID;
     public float Damage;
