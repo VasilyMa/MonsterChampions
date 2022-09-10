@@ -27,6 +27,11 @@ namespace Client
                 return;
             }
 
+            if (_gameState.Value.FightSystems == false && Tutorial.StageIsEnable == false)
+            {
+                return;
+            }
+
             if (!Tutorial.StageIsEnable)
             {
                 Tutorial.StageIsEnable = true;

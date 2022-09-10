@@ -81,7 +81,7 @@ namespace Client
 
                 if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection || Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
                 {
-                    interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false).OnComplete(() => Tutorial.DragAndDropNewCardInDeck.PanelIsOpened());
+                    interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false).OnComplete(() => Tutorial.DragAndDropNewCardInDeck.SetPanelIsOpened());
                 }
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false);
                 //interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.75f, 0.5f);
@@ -89,6 +89,11 @@ namespace Client
             }
             else if (isOpen)
             {
+                if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
+                {
+                    return;
+                }
+
                 interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
                 _state.inCollection = false;
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(defaultPosCollection, 1f, false);

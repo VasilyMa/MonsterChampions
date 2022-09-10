@@ -127,7 +127,7 @@ namespace Client
             tutorialComponent.Hand.transform.localScale = Vector3.one;
 
             Tutorial.StageIsEnable = false;
-            Tutorial.SetNextStage(_gameState);
+            Tutorial.SetNextStage(_gameState, isSave: false);
         }
     }
 }

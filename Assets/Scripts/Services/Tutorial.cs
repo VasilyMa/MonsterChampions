@@ -36,10 +36,10 @@ namespace Client
             else
             {
                 CurrentStage = (Stage)nextStage;
+                gameState.Value.Settings.TutorialStage = nextStage;
 
                 if (isSave)
                 {
-                    gameState.Value.Settings.TutorialStage = nextStage;
                     gameState.Value.SaveGameSetting();
                 }
 
@@ -172,7 +172,7 @@ namespace Client
             private static bool _cardIsDroppedBack = false;
             private static bool _cardIsDroppedInDeck = false;
 
-            private static void SetPanelIsOpened()
+            public static void SetPanelIsOpened()
             {
                 _panelIsOpened = true;
             }
@@ -182,9 +182,11 @@ namespace Client
                 return _panelIsOpened;
             }
 
-            private static void SetCardIsDragged()
+            public static void SetCardIsDragged()
             {
                 _cardIsDragged = true;
+
+                _cardIsDroppedBack = false;
             }
 
             public static bool isDragged()
@@ -192,9 +194,11 @@ namespace Client
                 return _cardIsDragged;
             }
 
-            private static void SetCardIsDroppedBack()
+            public static void SetCardIsDroppedBack()
             {
                 _cardIsDroppedBack = true;
+
+                _cardIsDragged = false;
             }
 
             public static bool isDroppedBack()
@@ -202,9 +206,11 @@ namespace Client
                 return _cardIsDroppedBack;
             }
 
-            private static void SetCardIsDroppedInDeck()
+            public static void SetCardIsDroppedInDeck()
             {
                 _cardIsDroppedInDeck = true;
+
+                _cardIsDragged = false;
             }
 
             public static bool isDroppedInDeck()

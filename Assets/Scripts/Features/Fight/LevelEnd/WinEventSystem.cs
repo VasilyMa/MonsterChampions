@@ -45,7 +45,7 @@ namespace Client
                 {
                     index = SceneManager.GetActiveScene().buildIndex + 1;
                 }
-                _state.Value.Settings.TutorialStage = 1;
+                
                 _state.Value.Settings.SceneNumber = index;
                 _state.Value.Settings.Level++;
                 if (_state.Value.Settings.Level % 3 == 0)

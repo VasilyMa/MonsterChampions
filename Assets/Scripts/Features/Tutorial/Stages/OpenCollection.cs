@@ -89,8 +89,6 @@ namespace Client
             tutorialComponent.Focus.gameObject.SetActive(false);
             tutorialComponent.MessageText.gameObject.SetActive(false);
 
-            _gameState.Value.FightSystems = true;
-
             _sequence.Kill();
             tutorialComponent.Hand.transform.localScale = Vector3.one;
 

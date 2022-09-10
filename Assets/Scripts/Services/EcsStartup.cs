@@ -24,7 +24,7 @@ namespace Client
             _world = new EcsWorld();
             _state = new GameState(_world, _monsterStorage, _effectsPool, _interfaceConfigs);
             _state.HubSystems = false;
-            _state.FightSystems = true;
+            _state.FightSystems = false;
             collection = _state.Collection;
             deck = _state.Deck;
 
@@ -48,7 +48,7 @@ namespace Client
                 .Add(new MergeMonsters())
                 .Add(new DragAndDropMonster()) // to do ay if player off game before overed first level
                 .Add(new OpenCollection())
-                .Add(new DragAndDropNewCardInDeck()) // to do ay
+                .Add(new DragAndDropNewCardInDeck())
                 ;
 
             _fixedTimeSystems

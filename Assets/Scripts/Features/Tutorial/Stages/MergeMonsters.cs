@@ -27,6 +27,11 @@ namespace Client
                 return;
             }
 
+            if (_gameState.Value.PreparedSystems != true)
+            {
+                return;
+            }
+
             if (!Tutorial.StageIsEnable)
             {
                 Tutorial.StageIsEnable = true;

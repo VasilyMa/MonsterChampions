@@ -29,6 +29,11 @@ namespace Client
                 if (Input.GetMouseButton(0)) //if finger touch already
                 {
                     dragComp.CardObject.transform.position = Input.mousePosition;
+
+                    if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
+                    {
+                        Tutorial.DragAndDropNewCardInDeck.SetCardIsDragged();
+                    }
                 }
                 if (Input.GetMouseButtonUp(0)) //if finger end touch
                 {
@@ -50,11 +55,23 @@ namespace Client
                         if (result.gameObject.CompareTag("Deck"))
                         {
                             DragInDeck(result, entity);
+
+                            Debug.Log("Отработал Deck");
+                            if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
+                            {
+                                Tutorial.DragAndDropNewCardInDeck.SetCardIsDroppedInDeck();
+                            }
                             break;
                         }
                         if (result.gameObject.CompareTag("Collection"))
                         {
                             DragInCollection(result, entity);
+
+                            Debug.Log("Отработал Collection");
+                            if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
+                            {
+                                Tutorial.DragAndDropNewCardInDeck.SetCardIsDroppedBack();
+                            }
                             break;
                         }
                         if (result.gameObject.CompareTag("Remove"))

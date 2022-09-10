@@ -18,6 +18,14 @@ namespace Client {
         public void Run (IEcsSystems systems) {
             foreach (var entity in _touchFilter.Value)
             {
+                if (Tutorial.CurrentStage == Tutorial.Stage.TwoBuysMonsters)
+                {
+                    ReturnToDefault(entity);
+                    _touchFilter.Pools.Inc2.Del(entity);
+                    _touchFilter.Pools.Inc1.Del(entity);
+                    break;
+                }
+
                 ref var unitComp = ref _unitPool.Value.Get(entity);
                 ref var viewComp = ref _viewPool.Value.Get(_unitPool.Value.Get(entity).entity);
                 if (Input.GetMouseButton(0))
@@ -82,6 +90,14 @@ namespace Client {
                         }
                         else
                         {
+                            if (Tutorial.CurrentStage == Tutorial.Stage.MergeMonsters || Tutorial.CurrentStage == Tutorial.Stage.DragAndDropMonster)
+                            {
+                                ReturnToDefault(entity);
+                                _touchFilter.Pools.Inc2.Del(entity);
+                                _touchFilter.Pools.Inc1.Del(entity);
+                                break;
+                            }
+
                             viewComp.Transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 1.5f, hit.collider.transform.position.z);
                             viewComp.Transform.SetParent(hit.collider.transform);
                             viewComp.GameObject.GetComponent<Collider>().enabled = true;
@@ -105,6 +121,14 @@ namespace Client {
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitGround, float.MaxValue, LayerMask.GetMask("Ground")))
                     {
+                        if (Tutorial.CurrentStage == Tutorial.Stage.MergeMonsters)
+                        {
+                            ReturnToDefault(entity);
+                            _touchFilter.Pools.Inc2.Del(entity);
+                            _touchFilter.Pools.Inc1.Del(entity);
+                            break;
+                        }
+
                         ref var healthComp = ref _healthPool.Value.Get(_unitPool.Value.Get(entity).entity);
                         viewComp.HealthBarMB.gameObject.SetActive(true);
                         viewComp.HealthBarMB.SetMaxHealth(healthComp.MaxValue);
@@ -129,6 +153,7 @@ namespace Client {
                 }
             }
         }
+
         private void ReturnToDefault(int entity)
         {
             ref var unitComp = ref _unitPool.Value.Get(entity);
@@ -138,6 +163,11 @@ namespace Client {
             viewComp.Transform.rotation = _unitPool.Value.Get(entity).defaultRot;
             viewComp.Transform.parent = _unitPool.Value.Get(entity).defaultParent;
             viewComp.GameObject.GetComponent<Collider>().enabled = true;
+        }
+
+        private void DeleteFilterEntity()
+        {
+
         }
     }
 }
