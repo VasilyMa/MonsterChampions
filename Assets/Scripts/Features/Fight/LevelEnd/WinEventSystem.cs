@@ -47,12 +47,12 @@ namespace Client
                 }
                 
                 _state.Value.Settings.SceneNumber = index;
-                _state.Value.Settings.Level++;
                 if (_state.Value.Settings.Level % 3 == 0)
                 {
                     if (_state.Value.Settings.MaxLevelRewardedCard < _state.Value._monsterStorage.monster.Length - 1)
                         _state.Value.Settings.MaxLevelRewardedCard++;
                 }
+                _state.Value.Settings.Level++;
                 KillAllUnits();
                 _state.Value.SaveGameSetting();
                 _winEventFilter.Pools.Inc1.Del(eventEntity);

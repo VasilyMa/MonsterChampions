@@ -4,6 +4,7 @@ using UnityEngine;
 using Leopotam.EcsLite;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Client
 {
@@ -25,6 +26,8 @@ namespace Client
         }
         public void OpenNewCard()
         {
+            var button = GameObject.Find("ButtonNext");
+            button.GetComponent<Button>().enabled = false;
             transform.GetComponent<Image>().raycastTarget = false;
             var cardInfo = card.GetComponent<CardInfo>();
             cardInfo.UpdateCardInfo();
@@ -34,7 +37,20 @@ namespace Client
             var Sequence = DOTween.Sequence();
             
             Sequence.Append(vfx.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.5f));
-            Sequence.Append(card.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f));
+            Sequence.Append(card.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f)).OnComplete(()=>StartCoroutine(WaitNextLevel()));
+        }
+        private IEnumerator WaitNextLevel()
+        {
+            yield return new WaitForSeconds(1.5f);
+            NextLevel();
+        }
+        void NextLevel()
+        {
+            SceneManager.LoadScene(_state.Settings.SceneNumber);
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
+            interfaceComp.HolderCards.gameObject.SetActive(false);
+            interfaceComp.MenuHolder.gameObject.SetActive(true);
         }
     }
 }
