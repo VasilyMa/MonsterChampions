@@ -51,8 +51,13 @@ namespace Client
             }
             if (!_state.isDrag && !_state.inCollection && emptyCard < 3)
             {
-                _state.hubSystem = false;
-                _state.runSysytem = true;
+                if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection)
+                {
+                    return;
+                }
+                _state.HubSystems = false;
+                _state.PreparedSystems = true;
+                _state.FightSystems = false;
                 _state.inCollection = false;
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
@@ -71,6 +76,10 @@ namespace Client
             if (!isOpen)
             {
                 interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
+                if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection)
+                {
+                    Tutorial.OpenCollection.SetCollectionIsOpened();
+                }
                 _state.inCollection = true;
                 UpdateCollection();
                 //interfaceComp.RemoveHolder.transform.DOMove((GameObject.Find("TargetRemove").transform.position), 1f, false);
@@ -78,10 +87,21 @@ namespace Client
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(interfaceComp.TargetPlayButton.position, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(0.75f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(interfaceComp.TargetCollectionButton.position, 1f, false);
+                if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection || Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
+                {
+                    interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false).OnComplete(() => Tutorial.DragAndDropNewCardInDeck.SetPanelIsOpened());
+                }
+                interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false);
+                //interfaceComp.MenuHolder.transform.GetChild(1).transform.DOScale(0.75f, 0.5f);
                 isOpen = true;
             }
             else if (isOpen)
             {
+                if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
+                {
+                    return;
+                }
+
                 interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
                 _state.inCollection = false;
                 interfaceComp.RemoveHolder.transform.DOMove(interfaceComp.defaultPosRemoveButton, 1f, false);

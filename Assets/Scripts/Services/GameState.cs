@@ -28,7 +28,10 @@ namespace Client
         public int CurrentLevel = 1;
         public bool isDrag;
         public bool inCollection;
-        public bool runSysytem = false, hubSystem = true;
+
+        public bool PreparedSystems { set; get; } = false;
+        public bool FightSystems { set; get; } = false;
+        public bool HubSystems { set; get; } = true;
 
         private int _playerBaseEntity = -1;
         private List<int> _enemyBaseEntity = new List<int>();
@@ -272,7 +275,7 @@ namespace Client
 
                 if (File.Exists(savePathDeck))
                 {
-                    LoadDeck();
+                    SaveDeck();
                 }
                 else
                 {
@@ -280,7 +283,7 @@ namespace Client
                 }
                 if (File.Exists(savePathCollection))
                 {
-                    LoadCollection();
+                    SaveCollection();
                 }
                 else
                 {
@@ -290,7 +293,7 @@ namespace Client
                 binaryFormatter.Serialize(file, saveDataSettings);
                 file.Close();
             }
-            
+            Tutorial.LoadCurrentStage(Settings.TutorialStage);
         }
         private void LoadCollection()
         {

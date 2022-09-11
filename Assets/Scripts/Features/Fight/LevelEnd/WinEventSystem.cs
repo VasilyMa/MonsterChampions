@@ -32,7 +32,9 @@ namespace Client
                 interfaceComp.Resources.gameObject.SetActive(false);
                 _rewardPool.Value.Add(_world.Value.NewEntity());
                 Time.timeScale = 1;
-                _state.Value.runSysytem = false;
+
+                _state.Value.PreparedSystems = false;
+                _state.Value.FightSystems = false;
                 Debug.Log("Ты победил, умничка"); 
                 int index = 0;
                 if (SceneManager.GetActiveScene().buildIndex + 1 > SceneManager.sceneCountInBuildSettings - 1)
@@ -43,7 +45,7 @@ namespace Client
                 {
                     index = SceneManager.GetActiveScene().buildIndex + 1;
                 }
-                _state.Value.Settings.TutorialStage = 1;
+                
                 _state.Value.Settings.SceneNumber = index;
                 _state.Value.Settings.Level++;
                 if (_state.Value.Settings.Level % 3 == 0)

@@ -121,6 +121,11 @@ namespace Client
                     viewComponent.GameObject.layer = LayerMask.NameToLayer(nameof(viewComponent.OnBoardUnit));
 
                     movableComponent.NavMeshAgent.enabled = false;
+
+                    if (Tutorial.CurrentStage == Tutorial.Stage.TwoBuysMonsters)
+                    {
+                        Tutorial.TwoBuysMonsters.AddSpawn();
+                    }
                 }
 
                 AddMonstersSpecificity();

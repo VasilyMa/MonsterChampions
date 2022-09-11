@@ -31,7 +31,8 @@ namespace Client
 
                 KillAllUnits();
 
-                _state.Value.runSysytem = false;
+                _state.Value.PreparedSystems = false;
+                _state.Value.FightSystems = false;
                 Debug.Log("Ты всрал, дружок-пирожок");
                 _loseEventFilter.Pools.Inc1.Del(eventEntity);
             }

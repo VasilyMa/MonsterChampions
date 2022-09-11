@@ -54,8 +54,6 @@ namespace Client
                                                     dataCard.VisualAndAnimations,
                                                     slot);
 
-                        /*ref var buyComp = ref _buyPool.Add(_world.NewEntity());
-                        buyComp.CardInfo = dataCard;*/
                         break;
                     }
                     else

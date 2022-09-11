@@ -21,6 +21,29 @@ namespace Client {
                 ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
                 interfaceComp.RewardPanelHolder.gameObject.SetActive(true);
                 interfaceComp.RewardHolder.gameObject.SetActive(true);
+                if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection)
+                {
+                    ref var unlockedMonster = ref _state.Value._monsterStorage.monster[2];
+
+                    var newCard = interfaceComp.RewardHolder.transform.GetChild(1).transform;
+                    var infoNewCard = newCard.GetComponent<CardInfo>();
+                    infoNewCard.LevelCard = 0;
+                    infoNewCard.Cost = unlockedMonster.Cost;
+                    infoNewCard.Sprite = unlockedMonster.Sprite;
+                    infoNewCard.MonsterID = unlockedMonster.MonsterID;
+                    infoNewCard.Damage = unlockedMonster.Damage;
+                    infoNewCard.Health = unlockedMonster.Health;
+                    infoNewCard.MoveSpeed = unlockedMonster.MoveSpeed;
+                    infoNewCard.Prefabs = unlockedMonster.Prefabs;
+                    infoNewCard.Elemental = unlockedMonster.Elemental;
+                    infoNewCard.VisualAndAnimations = unlockedMonster.VisualAndAnimations;
+
+                    newCard.gameObject.SetActive(false);
+                    ref var monsterComp = ref _newMonsterPool.Value.Add(_world.Value.NewEntity());
+                    monsterComp.cardInfo = infoNewCard;
+                    _rewardFilter.Pools.Inc1.Del(entity);
+                    break;
+                }
                 if (_state.Value.Settings.Level % 3 == 0 && _state.Value.Settings.Level <= _state.Value._monsterStorage.monster.Length * 3 - 6)
                 {
                     ref var unlockedMonster = ref _state.Value._monsterStorage.monster[_state.Value.Settings.MaxLevelRewardedCard];

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseTagMB : MonoBehaviour
 {
-    public bool isFriendly; // to do ay del this after create baseSpawnSystems
+    public bool isFriendly;
 
     [Range(1, 100)]
     public int BaseHealth = 10;

@@ -27,7 +27,7 @@ namespace Client {
                 if (!Input.GetMouseButtonDown(0))
                     return;
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition); //create are raycast to target
-                if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Place"))&&_state.Value.runSysytem)
+                if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Place"))&&_state.Value.PreparedSystems)
                 {
                     if (hit.transform.childCount >= 1) //find the object under finger and save it
                     {
@@ -58,7 +58,7 @@ namespace Client {
                 
                 foreach (RaycastResult result in results)
                 {
-                    if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && _state.Value.inCollection)
+                    if (result.gameObject.CompareTag("Card") && _state.Value.HubSystems && _state.Value.inCollection)
                     {
                         ref var waitComp = ref _waitPool.Value.Add(_world.Value.NewEntity());
                         waitComp.CardObject = result.gameObject;
@@ -68,7 +68,7 @@ namespace Client {
                         waitComp.timerDrag = 0.4f;
                         Debug.Log("Hit " + result.gameObject.name);
                     }
-                    else if (result.gameObject.CompareTag("Card") && _state.Value.hubSystem && !_state.Value.inCollection)
+                    else if (result.gameObject.CompareTag("Card") && _state.Value.HubSystems && !_state.Value.inCollection)
                     {
                         interfaceComp.MainMenu.ToCollection();
                     }
