@@ -204,11 +204,11 @@ namespace Client
                 Settings.SceneNumber = 0;
                 Settings.GameVersion = Application.version;
                 Settings.Level = 1;
-                Settings.MaxLevelRewardedCard = 1;
+                Settings.MaxLevelRewardedCard = 2;
                 SaveGameSetting();
-                if (File.Exists(savePathCollection)) LoadCollection();
+                if (File.Exists(savePathCollection)) SaveCollection();
                 else SaveCollection();
-                if(File.Exists(savePathDeck)) LoadDeck();
+                if(File.Exists(savePathDeck)) SaveDeck();
                 else SaveDeck();
             }
         }
