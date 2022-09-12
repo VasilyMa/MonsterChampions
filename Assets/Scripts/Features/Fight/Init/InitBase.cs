@@ -56,6 +56,7 @@ namespace Client
                 if (fractionComponent.isFriendly)
                 {
                     _battleState.Value.SetPlayerBaseEntity(baseEntity);
+                    viewComponent.Model = viewComponent.GameObject.GetComponentInChildren<BaseModelMB>().gameObject;
                 }
                 else
                 {

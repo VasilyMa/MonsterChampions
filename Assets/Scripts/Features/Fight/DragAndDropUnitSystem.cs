@@ -139,6 +139,8 @@ namespace Client {
                         _touchFilter.Pools.Inc2.Del(entity);
                         _touchFilter.Pools.Inc1.Del(entity);
 
+                        viewComp.Model.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
                         viewComp.GameObject.layer = LayerMask.NameToLayer(nameof(viewComp.AliveUnit));
 
                         if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropMonster)
