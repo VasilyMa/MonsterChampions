@@ -28,9 +28,8 @@ namespace Client
         {
             int nextStage = (int)CurrentStage + 1;
 
-            if (nextStage >= (int)Stage.TutorialsOver)
+            if (nextStage > (int)Stage.TutorialsOver)
             {
-                CurrentStage = Stage.TutorialsOver;
                 Debug.LogWarning("You try set next tutorial stage on last stage.");
             }
             else
