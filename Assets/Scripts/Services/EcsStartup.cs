@@ -73,7 +73,6 @@ namespace Client
 
             _preparedSystems
                 .Add(new InitCamera())
-                .Add(new CameraMoveToBoardSystem())
 
                 .Add(new InitBoard())
                 .Add(new InitBase())
@@ -88,6 +87,10 @@ namespace Client
                 .Add(new MonsterSpawnEventSystem())
 
                 .Add(new PlayableDeckSystem())
+
+                .Add(new CameraMoveToBoardSystem())
+                .Add(new BoardMoveToScreenSystem())
+                .Add(new DoBaseSoSmall())
                 ;
 
             _fightSystems

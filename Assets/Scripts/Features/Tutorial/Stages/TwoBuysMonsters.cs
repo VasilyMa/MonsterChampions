@@ -79,7 +79,7 @@ namespace Client
                 tutorialComponent.Hand.position = cardTransform.position;
                 tutorialComponent.Focus.position = cardTransform.position;
 
-                tutorialComponent.MessageRectTransform.pivot = new Vector2(0.5f, 0);
+                tutorialComponent.MessageRectTransform.pivot = new Vector2(1f, 0);
                 tutorialComponent.Message.position = cardTransform.position;
                 tutorialComponent.MessageText.text = "Buy Monster!";
 
