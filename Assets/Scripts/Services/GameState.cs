@@ -271,7 +271,7 @@ namespace Client
                 Settings.SceneNumber = 0;
                 Settings.GameVersion = Application.version;
                 Settings.Level = 1;
-                Settings.MaxLevelRewardedCard = 1;
+                Settings.MaxLevelRewardedCard = 2;
 
                 if (File.Exists(savePathDeck))
                 {
