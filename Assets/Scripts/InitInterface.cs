@@ -31,6 +31,7 @@ namespace Client {
             interfaceComp.Reward = FindObjectOfType<RewardMB>();
             interfaceComp.Resources = FindObjectOfType<ResourcesMB>();
             interfaceComp.Progress = FindObjectOfType<ProgressMB>();
+            interfaceComp.BiomPanel = FindObjectOfType<BiomPanelMB>();
 
             interfaceComp.TargetCardPanel = GameObject.Find("TargetCardPanel").transform;
             interfaceComp.TargetCollection = GameObject.Find("TargetCollection").transform;
@@ -41,6 +42,7 @@ namespace Client {
             interfaceComp.TargetPlayButton = GameObject.Find("TargetPlayButton").transform;
             interfaceComp.Hide = interfaceComp.MainCanvas.transform.GetChild(0).transform;
 
+            interfaceComp.BiomHolder = interfaceComp.BiomPanel.transform.GetChild(0).transform;
             interfaceComp.RewardPanelHolder = interfaceComp.RewardPanel.transform;
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
             interfaceComp.LoseHolder = interfaceComp.LosePanel.transform.GetChild(0).transform;
@@ -52,6 +54,7 @@ namespace Client {
             interfaceComp.Reward.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.Resources.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.Progress.Init(systems.GetWorld(), systems.GetShared<GameState>());
+            interfaceComp.BiomPanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
 
             interfaceComp.CollectionManager = FindObjectOfType<CollectionMB>();
             interfaceComp.CollectionMenu = interfaceComp.CollectionManager.transform;
@@ -81,6 +84,7 @@ namespace Client {
             interfaceComp.RewardHolder.gameObject.SetActive(false);
             interfaceComp.Resources.gameObject.SetActive(false);
             interfaceComp.AttentionHolder.gameObject.SetActive(false);
+            interfaceComp.BiomHolder.gameObject.SetActive(false);
 
             ref var tutorialComponent = ref _tutorialPool.Value.Add(entity);
             tutorialComponent.Panel = interfaceComp.MainCanvas.transform.GetComponentInChildren<TutorialPanelMB>().transform;

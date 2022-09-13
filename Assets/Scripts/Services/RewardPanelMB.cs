@@ -17,7 +17,24 @@ namespace Client
             _state = state;
             _interfacePool = _world.GetPool<InterfaceComponent>();
         }
-
+        private void OpenBiomPanel()
+        {
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.BiomHolder.gameObject.SetActive(true);
+            interfaceComp.RewardHolder.gameObject.SetActive(false);
+        }
+        public void StartEndLevel()
+        {
+            OpenBiomPanel();
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
+            StartCoroutine(WaitNextLevel());
+        }
+        private IEnumerator WaitNextLevel()
+        {
+            yield return new WaitForSeconds(2.5f);
+            NextLevel();
+        }
         public void NextLevel()
         {
 

@@ -73,12 +73,15 @@ namespace Client
                             }
                             break;
                         }
-                        //if (result.gameObject.CompareTag("Remove"))
-                        //{
-                        //    RemoveCard(result, entity);
-                        //    break;
-                        //}
-                        dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
+                        if (result.gameObject.CompareTag("Deck"))
+                        {
+                            dragComp.CardObject.transform.SetParent(dragComp.DefaultParent);
+                            dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
+                            break;
+                        }
+                        dragComp.CardObject.transform.SetParent(dragComp.DefaultParent); 
+                        var cardRectTransform = dragComp.CardObject.transform.GetComponent<RectTransform>();
+                        cardRectTransform.anchoredPosition = Vector2.zero;
                         dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                         //break;
                     }
