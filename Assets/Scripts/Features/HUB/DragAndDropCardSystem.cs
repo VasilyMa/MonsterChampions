@@ -51,7 +51,7 @@ namespace Client
                     //for every result returned, output the name of the GameObject on the Canvas hit by the Ray
                     foreach (RaycastResult result in results) 
                     {
-                        if (result.gameObject.CompareTag("Deck"))
+                        if (result.gameObject.CompareTag("Holder"))
                         {
                             DragInDeck(result, entity);
 
@@ -136,7 +136,7 @@ namespace Client
             var deck = _state.Value.Deck.DeckPlayer;
             var collection = _state.Value.Collection.CollectionUnits;
             var cardInfo = dragComp.CardObject.GetComponent<CardInfo>();
-            if (result.gameObject.transform.childCount <= 2)
+            if (result.gameObject.transform.childCount == 0)
             {
                 if (dragComp.DefaultParent.name == "Cards")
                 {
@@ -166,67 +166,115 @@ namespace Client
                         }
                     }
                     dragComp.CardObject.transform.SetParent(result.gameObject.transform);
+                    var cardRectTransform = dragComp.CardObject.transform.GetComponent<RectTransform>();
+                    cardRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.pivot = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.anchoredPosition = Vector2.zero;
+                }
+                else if (dragComp.DefaultParent.CompareTag("Holder"))
+                {
+                    dragComp.CardObject.transform.SetParent(result.gameObject.transform);
+                    var cardRectTransform = dragComp.CardObject.transform.GetComponent<RectTransform>();
+                    cardRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.pivot = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.anchoredPosition = Vector2.zero;
                 }
                 dragComp.DefaultParent = result.gameObject.transform;
                 dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
                 Debug.Log("Hit " + result.gameObject.name);
+                UpdateCollection();
+                return;
             }
-            else //there we swap are card in deck and dragged
+            if (result.gameObject.transform.childCount > 0)
             {
-                var PointerEventData = new PointerEventData(inputComp.EventSystem);
-                PointerEventData.position = Input.mousePosition;
-                List<RaycastResult> resultsNew = new List<RaycastResult>();
-                inputComp.Raycaster.Raycast(inputComp.PointerEventData, resultsNew);
-                foreach (var resultNew in resultsNew)
+                if (dragComp.DefaultParent.CompareTag("Holder"))
                 {
-                    if (resultNew.gameObject.CompareTag("Card"))
+                    dragComp.CardObject.transform.SetParent(result.gameObject.transform);
+                    var cardRectTransform = dragComp.CardObject.transform.GetComponent<RectTransform>();
+                    cardRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.pivot = new Vector2(0.5f, 0.5f);
+                    cardRectTransform.anchoredPosition = Vector2.zero;
+
+                    var targetToSwap = result.gameObject.transform.GetChild(0).transform;
+                    targetToSwap.SetParent(dragComp.DefaultParent);
+                    var cardTargetRectTransform = targetToSwap.transform.GetComponent<RectTransform>();
+                    cardTargetRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                    cardTargetRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    cardTargetRectTransform.pivot = new Vector2(0.5f, 0.5f);
+                    cardTargetRectTransform.anchoredPosition = Vector2.zero;
+                }
+                else if (dragComp.DefaultParent.name == "Cards")
+                {
+                    var PointerEventData = new PointerEventData(inputComp.EventSystem);
+                    PointerEventData.position = Input.mousePosition;
+                    List<RaycastResult> resultsNew = new List<RaycastResult>();
+                    inputComp.Raycaster.Raycast(inputComp.PointerEventData, resultsNew);
+                    foreach (var resultNew in resultsNew)
                     {
-                        for (int i = 0; i < collection.Count; i++)
+                        if (resultNew.gameObject.CompareTag("Card"))
                         {
-                            if (collection[i].MonsterID == cardInfo.MonsterID)
+                            for (int i = 0; i < collection.Count; i++)
                             {
-                                collection.Remove(collection[i]);
-                                UnitData unitData = new UnitData(); //there save the new card in collection
-                                //unitData.UniqueID = resultNew.gameObject.GetComponent<CardInfo>().UniqueID;
-                                unitData.LevelCard = resultNew.gameObject.GetComponent<CardInfo>().LevelCard;
-                                unitData.Sprite = resultNew.gameObject.GetComponent<CardInfo>().Sprite;
-                                unitData.Cost = resultNew.gameObject.GetComponent<CardInfo>().Cost;
-                                unitData.MonsterID = resultNew.gameObject.GetComponent<CardInfo>().MonsterID;
-                                unitData.Damage = resultNew.gameObject.GetComponent<CardInfo>().Damage;
-                                unitData.Health = resultNew.gameObject.GetComponent<CardInfo>().Health;
-                                unitData.Elemental = resultNew.gameObject.GetComponent<CardInfo>().Elemental;
-                                unitData.VisualAndAnimations = resultNew.gameObject.GetComponent<CardInfo>().VisualAndAnimations;
-                                unitData.MoveSpeed = resultNew.gameObject.GetComponent<CardInfo>().MoveSpeed;
-                                collection.Add(unitData);
-                                break;
+                                if (collection[i].MonsterID == cardInfo.MonsterID)
+                                {
+                                    collection.Remove(collection[i]);
+                                    UnitData unitData = new UnitData(); //there save the new card in collection
+                                                                        //unitData.UniqueID = resultNew.gameObject.GetComponent<CardInfo>().UniqueID;
+                                    unitData.LevelCard = resultNew.gameObject.GetComponent<CardInfo>().LevelCard;
+                                    unitData.Sprite = resultNew.gameObject.GetComponent<CardInfo>().Sprite;
+                                    unitData.Cost = resultNew.gameObject.GetComponent<CardInfo>().Cost;
+                                    unitData.MonsterID = resultNew.gameObject.GetComponent<CardInfo>().MonsterID;
+                                    unitData.Damage = resultNew.gameObject.GetComponent<CardInfo>().Damage;
+                                    unitData.Health = resultNew.gameObject.GetComponent<CardInfo>().Health;
+                                    unitData.Elemental = resultNew.gameObject.GetComponent<CardInfo>().Elemental;
+                                    unitData.VisualAndAnimations = resultNew.gameObject.GetComponent<CardInfo>().VisualAndAnimations;
+                                    unitData.MoveSpeed = resultNew.gameObject.GetComponent<CardInfo>().MoveSpeed;
+                                    collection.Add(unitData);
+                                    break;
+                                }
                             }
-                        }
-                        for (int i = 0; i < deck.Length; i++)
-                        {
-                            if (deck[i].MonsterID == resultNew.gameObject.GetComponent<CardInfo>().MonsterID)
+                            for (int i = 0; i < deck.Length; i++)
                             {
-                                //deck[i].UniqueID = cardInfo.UniqueID;
-                                deck[i].LevelCard = cardInfo.LevelCard;
-                                deck[i].Cost = cardInfo.Cost;
-                                deck[i].Sprite = cardInfo.Sprite;
-                                deck[i].MonsterID = cardInfo.MonsterID;
-                                deck[i].Damage = cardInfo.Damage;
-                                deck[i].Health = cardInfo.Health;
-                                deck[i].Elemental = cardInfo.Elemental;
-                                deck[i].MoveSpeed = cardInfo.MoveSpeed;
-                                deck[i].VisualAndAnimations = cardInfo.VisualAndAnimations;
-                                break;
+                                if (deck[i].MonsterID == resultNew.gameObject.GetComponent<CardInfo>().MonsterID)
+                                {
+                                    //deck[i].UniqueID = cardInfo.UniqueID;
+                                    deck[i].LevelCard = cardInfo.LevelCard;
+                                    deck[i].Cost = cardInfo.Cost;
+                                    deck[i].Sprite = cardInfo.Sprite;
+                                    deck[i].MonsterID = cardInfo.MonsterID;
+                                    deck[i].Damage = cardInfo.Damage;
+                                    deck[i].Health = cardInfo.Health;
+                                    deck[i].Elemental = cardInfo.Elemental;
+                                    deck[i].MoveSpeed = cardInfo.MoveSpeed;
+                                    deck[i].VisualAndAnimations = cardInfo.VisualAndAnimations;
+                                    break;
+                                }
                             }
+                            dragComp.CardObject.transform.SetParent(resultNew.gameObject.transform.parent);
+                            var cardRectTransform = dragComp.CardObject.transform.GetComponent<RectTransform>();
+                            cardRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                            cardRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                            cardRectTransform.pivot = new Vector2(0.5f, 0.5f);
+                            cardRectTransform.anchoredPosition = Vector2.zero;
+                            dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
+
+                            resultNew.gameObject.transform.SetParent(dragComp.DefaultParent);
+
+                            break;
                         }
-                        dragComp.CardObject.transform.SetParent(resultNew.gameObject.transform.parent);
-                        resultNew.gameObject.transform.SetParent(dragComp.DefaultParent);
-                        dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
-                        break;
                     }
+                    dragComp.DefaultParent = result.gameObject.transform;
+                    dragComp.CardObject.GetComponent<Image>().raycastTarget = true;
+                    Debug.Log("Hit " + result.gameObject.name);
+                    UpdateCollection();
+                    return;
                 }
             }
-            UpdateCollection();
         }
+
         private void DragInCollection(RaycastResult result, int entity)
         {
             ref var interfaceComp = ref _interfacePool.Value.Get(_state.Value.InterfaceEntity);
@@ -235,7 +283,7 @@ namespace Client
             var deck = _state.Value.Deck.DeckPlayer;
             var collection = _state.Value.Collection.CollectionUnits;
             var cardInfo = dragComp.CardObject.GetComponent<CardInfo>();
-            if (dragComp.DefaultParent.CompareTag("Deck"))
+            if (dragComp.DefaultParent.CompareTag("Holder"))
             {
                 for (int i = 0; i < deck.Length; i++)
                 {
