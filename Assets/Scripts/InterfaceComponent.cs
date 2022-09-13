@@ -8,6 +8,7 @@ namespace Client {
 
         public List<GameObject> CollectionCards;
         public List<GameObject> DeckCards;
+        public Transform Hide;
         public Transform CollectionMenu;
         public Transform CollectionHolder;
         public Transform DeckHolder;

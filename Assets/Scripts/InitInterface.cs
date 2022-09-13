@@ -39,6 +39,7 @@ namespace Client {
             interfaceComp.TargetLoseWin = GameObject.Find("TargetLoseWin").transform;
             interfaceComp.TargetProgressBar = GameObject.Find("TargetProgress").transform;
             interfaceComp.TargetPlayButton = GameObject.Find("TargetPlayButton").transform;
+            interfaceComp.Hide = interfaceComp.MainCanvas.transform.GetChild(0).transform;
 
             interfaceComp.RewardPanelHolder = interfaceComp.RewardPanel.transform;
             interfaceComp.HolderCards = interfaceComp.BuyCard.transform;
@@ -101,6 +102,7 @@ namespace Client {
                 _state.Value.PreparedSystems = true;
                 _state.Value.FightSystems = false;
                 _playDeckPool.Value.Add(_world.Value.NewEntity());
+                interfaceComp.Hide.gameObject.SetActive(false);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 interfaceComp.Resources.gameObject.SetActive(true);
