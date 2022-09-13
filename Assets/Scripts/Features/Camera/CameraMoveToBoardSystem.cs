@@ -12,8 +12,8 @@ namespace Client
 
         readonly EcsPoolInject<CameraComponent> _cameraPool = default;
 
-        private Vector3 _startPosition = new Vector3(45, 35, -17);
-        private Quaternion _startRotation = Quaternion.Euler(10, 305, 0);
+        private Vector3 _startPosition = new Vector3(60, 47, -9.5f);
+        private Quaternion _startRotation = Quaternion.Euler(12, 296, 0);
 
         private Vector3 _endPosition = new Vector3(2, 19, 0);
         private Quaternion _endRotation = Quaternion.Euler(65, 356, 0);
