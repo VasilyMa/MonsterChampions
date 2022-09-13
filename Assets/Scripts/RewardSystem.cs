@@ -44,7 +44,7 @@ namespace Client {
                     _rewardFilter.Pools.Inc1.Del(entity);
                     break;
                 }
-                if (_state.Value.Settings.Level % 3 == 0 && _state.Value.Settings.Level <= _state.Value._monsterStorage.monster.Length * 3 - 6)
+                if (_state.Value.Settings.Level % 3 == 0 && _state.Value.Settings.Level <= _state.Value._monsterStorage.monster.Length * 3 - 9)
                 {
                     ref var unlockedMonster = ref _state.Value._monsterStorage.monster[_state.Value.Settings.MaxLevelRewardedCard];
 
