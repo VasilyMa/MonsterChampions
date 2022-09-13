@@ -152,6 +152,24 @@ namespace Client {
                 list[idCard].LevelCard++;
                 if (list[idCard].LevelCard % 3 == 0)
                 {
+                    foreach (var card in collection)
+                    {
+                        if (card.MonsterID == list[idCard].MonsterID)
+                        {
+                            card.LevelCard = list[idCard].LevelCard;
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < deck.Length; i++)
+                    {
+                        if (deck[i].MonsterID == list[idCard].MonsterID)
+                        {
+                            deck[i].LevelCard = list[idCard].LevelCard;
+                            break;
+                        }
+                    }
+                    _state.Value.SaveCollection();
+                    _state.Value.SaveDeck();
                     list.Remove(list[idCard]);
                     break;
                 }
