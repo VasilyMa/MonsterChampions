@@ -253,7 +253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4563901895182254987
 RectTransform:
   m_ObjectHideFlags: 0
@@ -482,6 +482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f73c6b144818d745973f1564255d0ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfx: {fileID: 5800811942211868759}
+  card: {fileID: 3182141720070812807}
 --- !u!1 &691993452686323184
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,8 +3337,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5159686777328438598}
-          m_TargetAssemblyTypeName: Client.RewardMB, Assembly-CSharp
+        - m_Target: {fileID: 989105831}
+          m_TargetAssemblyTypeName: Client.RewardPanelMB, Assembly-CSharp
           m_MethodName: OpenNewCard
           m_Mode: 1
           m_Arguments:
@@ -3522,7 +3524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8754966963526650407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5362,7 +5364,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6471903174213414688}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -6614,7 +6616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &973926518243716830
 RectTransform:
   m_ObjectHideFlags: 0

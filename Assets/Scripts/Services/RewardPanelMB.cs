@@ -38,19 +38,19 @@ namespace Client
         }
         private IEnumerator WaitBiomLevel()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2.5f);
             OpenBiomPanel();
         }
         private void OpenBiomPanel()
         {
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             interfaceComp.BiomHolder.gameObject.SetActive(true);
-            interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
+            interfaceComp.RewardHolder.gameObject.SetActive(false);
             StartCoroutine(WaitNextLevel());
         }
         private IEnumerator WaitNextLevel()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2.5f);
             NextLevel();
         }
         void NextLevel()

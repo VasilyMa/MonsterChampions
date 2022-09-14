@@ -20,6 +20,7 @@ namespace Client {
         readonly EcsPoolInject<LevelComponent> _levelPool = default;
         readonly EcsPoolInject<DamageComponent> _damagePool = default;
         readonly EcsPoolInject<RangeUnitComponent> _rangeUnitPool = default;
+        
 
         readonly EcsPoolInject<FractionComponent> _fractionPool = default;
         readonly EcsPoolInject<Animable> _animablePool = default;
@@ -100,6 +101,8 @@ namespace Client {
 
                 viewComponent.HealthBarMB.SetMaxHealth(healthComponent.MaxValue);
                 viewComponent.HealthBarMB.gameObject.SetActive(false);
+
+                if()
 
                 ref var elementalComponent = ref _elementalPool.Value.Add(_unitEntity);
                 elementalComponent.CurrentType = buyInfoComp.CardInfo.Elemental;
