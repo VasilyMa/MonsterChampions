@@ -8,6 +8,7 @@ namespace Client {
 
         public List<GameObject> CollectionCards;
         public List<GameObject> DeckCards;
+        public Transform Hide;
         public Transform CollectionMenu;
         public Transform CollectionHolder;
         public Transform DeckHolder;
@@ -18,6 +19,8 @@ namespace Client {
         public RewardMB Reward;
         public ResourcesMB Resources;
         public ProgressMB Progress;
+        public BiomPanelMB BiomPanel;
+
         /// <summary>
         /// Панель наград для перемещения и обращеиня к дочерним элементам
         /// </summary>
@@ -30,6 +33,7 @@ namespace Client {
         public Transform MenuHolder;
         public Transform RemoveHolder;
         public Transform AttentionHolder;
+        public Transform BiomHolder;
         /// <summary>
         /// Коородинаты, где окажется коллекция при ее вызове
         /// </summary>

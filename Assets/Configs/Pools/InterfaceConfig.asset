@@ -19,5 +19,25 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 437a670ebbd67d64483d2f67e358bfb9, type: 3}
   - {fileID: 21300000, guid: 768276942cb48984ea50cb83b121a9dd, type: 3}
   collectionBackground:
+  - {fileID: 21300000, guid: 4c75f382d5de6dc43adf8de470ac0d44, type: 3}
+  - {fileID: 21300000, guid: 4c75f382d5de6dc43adf8de470ac0d44, type: 3}
+  BiomsSprites:
+  - {fileID: 21300000, guid: dd1d14df81ea0a14d8152ae87f362465, type: 3}
+  - {fileID: 21300000, guid: f8758837674ae8a468dd00fddc196275, type: 3}
+  - {fileID: 21300000, guid: 801569d813b85b840a9e47999fdc8f8b, type: 3}
+  StartBiomTypes: 010000000200000003000000
+  StartBiomLevels: 00000000060000000b000000
+  CurrentPointColor: {r: 1, g: 0.82806325, b: 0.19339621, a: 1}
+  CompletePointColor: {r: 0.5917982, g: 1, b: 0.25, a: 1}
+  AnCompletePointColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
   - {fileID: 21300000, guid: 77fc6f449e6b8504eb3931874aaf288d, type: 3}
   - {fileID: 21300000, guid: 77fc6f449e6b8504eb3931874aaf288d, type: 3}
+  BiomsSprites:
+  - {fileID: 21300000, guid: dd1d14df81ea0a14d8152ae87f362465, type: 3}
+  - {fileID: 21300000, guid: dd1d14df81ea0a14d8152ae87f362465, type: 3}
+  - {fileID: 21300000, guid: dd1d14df81ea0a14d8152ae87f362465, type: 3}
+  StartBiomTypes: 010000000200000003000000
+  StartBiomLevels: 00000000060000000b000000
+  CurrentPointColor: {r: 1, g: 0.78683865, b: 0, a: 1}
+  CompletePointColor: {r: 0, g: 1, b: 0.052975178, a: 1}
+  AnCompletePointColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}

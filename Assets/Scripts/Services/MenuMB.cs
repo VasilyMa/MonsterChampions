@@ -67,6 +67,7 @@ namespace Client
                 interfaceComp.HolderCards.transform.DOMove(interfaceComp.TargetCardPanel.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(interfaceComp.TargetProgressBar.position, 1f, false);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
+                interfaceComp.Hide.GetComponent<Image>().DOFade(0, 0.5f);
                 _playableDeckEventPool.Add(_world.NewEntity());
             }
         }
@@ -155,25 +156,32 @@ namespace Client
         {
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             var deck = _state.Deck.DeckPlayer;
-            var holder = interfaceComp.DeckHolder;
+            var holderDeck = interfaceComp.DeckHolder;
             foreach (var item in deck)
             {
                 if (item.MonsterID > 0)
                 {
-                    var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), interfaceComp.DeckHolder);
-                    var cardInfo = addedCard.GetComponent<CardInfo>();
-                    cardInfo.LevelCard = item.LevelCard;
-                    cardInfo.UniqueID = item.UniqueID;
-                    cardInfo.Cost = item.Cost;
-                    cardInfo.Sprite = item.Sprite;
-                    cardInfo.MonsterID = item.MonsterID;
-                    cardInfo.Health = item.Health;
-                    cardInfo.Damage = item.Damage;
-                    cardInfo.Elemental = item.Elemental;
-                    cardInfo.MoveSpeed = item.MoveSpeed;
-                    cardInfo.Prefabs = item.Prefabs;
-                    cardInfo.VisualAndAnimations = item.VisualAndAnimations;
-                    cardInfo.UpdateCardInfo();
+                    for (int i = 0; i < holderDeck.childCount; i++)
+                    {
+                        if (holderDeck.GetChild(i).childCount == 0)
+                        {
+                            var addedCard = (GameObject)GameObject.Instantiate(Resources.Load("CollectionCard"), holderDeck.GetChild(i).transform);
+                            var cardInfo = addedCard.GetComponent<CardInfo>();
+                            cardInfo.LevelCard = item.LevelCard;
+                            cardInfo.UniqueID = item.UniqueID;
+                            cardInfo.Cost = item.Cost;
+                            cardInfo.Sprite = item.Sprite;
+                            cardInfo.MonsterID = item.MonsterID;
+                            cardInfo.Health = item.Health;
+                            cardInfo.Damage = item.Damage;
+                            cardInfo.Elemental = item.Elemental;
+                            cardInfo.MoveSpeed = item.MoveSpeed;
+                            cardInfo.Prefabs = item.Prefabs;
+                            cardInfo.VisualAndAnimations = item.VisualAndAnimations;
+                            cardInfo.UpdateCardInfo();
+                            break;
+                        }
+                    }
                 }
             }
         }

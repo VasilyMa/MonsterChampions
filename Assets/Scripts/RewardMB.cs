@@ -37,13 +37,27 @@ namespace Client
             var Sequence = DOTween.Sequence();
             
             Sequence.Append(vfx.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.5f));
-            Sequence.Append(card.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f)).OnComplete(()=>StartCoroutine(WaitNextLevel()));
+            Sequence.Append(card.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f)).OnComplete(()=>StartCoroutine(WaitBiomLevel()));
+        }
+        private IEnumerator WaitBiomLevel()
+        {
+            yield return new WaitForSeconds(1.5f);
+            OpenBiomPanel();
+        }
+        private void OpenBiomPanel()
+        {
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            interfaceComp.BiomHolder.gameObject.SetActive(true);
+            interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
+            StartCoroutine(WaitNextLevel());
         }
         private IEnumerator WaitNextLevel()
         {
             yield return new WaitForSeconds(1.5f);
             NextLevel();
         }
+
+
         void NextLevel()
         {
             SceneManager.LoadScene(_state.Settings.SceneNumber);
