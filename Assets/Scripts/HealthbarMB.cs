@@ -19,6 +19,8 @@ namespace Client
         [SerializeField] private float _maxHP;
         [SerializeField] private GameObject _healthBar;
         [SerializeField] private Text _amount;
+        [SerializeField] private Image border_01;
+        [SerializeField] private Image border_02;
 
         [Header("ShieldInfo")]
         [SerializeField] private Slider _sliderShield;
@@ -33,6 +35,7 @@ namespace Client
             _state = state;
             _cameraPool = _world.Value.GetPool<CameraComponent>();
             _sliderShield.gameObject.SetActive(false);
+            
         }
         public void SetMaxShield(float amount)
         {
@@ -57,7 +60,15 @@ namespace Client
             _maxHP = health;
             _curHp = health;
             _amount.text = health.ToString();
-            _image.color = _gradient.Evaluate(1f);
+            _image.color = _gradient.Evaluate(1f); 
+            var parent = transform.parent.GetComponent<UnitTagMB>();
+            border_01.color = Color.red;
+            border_02.color = Color.red;
+            if (parent.IsFriendly)
+            {
+                border_01.color = Color.white;
+                border_02.color = Color.white;
+            }
         }
         public void SetHealth(float health)
         {
