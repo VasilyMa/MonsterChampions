@@ -131,7 +131,7 @@ namespace Client
                 tutorialComponent.Hand.gameObject.SetActive(true);
                 tutorialComponent.Focus.gameObject.SetActive(true);
                 tutorialComponent.Message.gameObject.SetActive(true);
-                tutorialComponent.MessageText.text = "Tap to\nnew card!";
+                tutorialComponent.MessageText.text = "Take your\nnew card!";
             }
         }
 
