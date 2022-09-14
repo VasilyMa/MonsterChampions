@@ -102,8 +102,6 @@ namespace Client {
                 viewComponent.HealthBarMB.SetMaxHealth(healthComponent.MaxValue);
                 viewComponent.HealthBarMB.gameObject.SetActive(false);
 
-                if()
-
                 ref var elementalComponent = ref _elementalPool.Value.Add(_unitEntity);
                 elementalComponent.CurrentType = buyInfoComp.CardInfo.Elemental;
 
