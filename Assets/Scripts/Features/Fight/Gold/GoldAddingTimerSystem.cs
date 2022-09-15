@@ -9,6 +9,7 @@ namespace Client
         readonly EcsSharedInject<GameState> _gameState;
 
         readonly EcsPoolInject<GoldAddingComponent> _goldAddingPool = default;
+        readonly EcsPoolInject<InterfaceComponent> _interfacePool = default;
 
         private static float _timerMaxValue = 1;
         private static float _timerCurrentValue = _timerMaxValue;
@@ -34,6 +35,8 @@ namespace Client
             // to do ay effect for added gold
             _gameState.Value.AddPlayerGold(_goldReward + friendlyGoldAddingComponent.Modifier);
             _gameState.Value.AddEnemyGold(_goldReward + enemyGoldAddingComponent.Modifier);
+
+            _interfacePool.Value.Get(_gameState.Value.InterfaceEntity).BuyCard.CheckButtons();
         }
     }
 }

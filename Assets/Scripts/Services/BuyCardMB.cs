@@ -23,6 +23,7 @@ namespace Client
             _monsterSpawnEventPool = _world.GetPool<MonsterSpawnEvent>();
             _viewPool = _world.GetPool<ViewComponent>(); 
             _interfacePool = _world.GetPool<InterfaceComponent>();
+            
         }
 
         public void BuyUnit(int buttonId)
@@ -62,6 +63,7 @@ namespace Client
                         break;
                 }
             }
+            CheckButtons();
         }
         private void ScaleDefault(int index)
         {
@@ -86,11 +88,11 @@ namespace Client
             }
             return slot;
         }
-        private void Update()
+        public void CheckButtons()
         {
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             var holder = interfaceComp.HolderCards;
-            for (int i = 0; i < holder.childCount - 1; i++)
+            for (int i = 0; i < holder.childCount; i++)
             {
                 if (holder.GetChild(i).gameObject.activeSelf)
                 {

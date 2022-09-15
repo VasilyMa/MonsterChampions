@@ -103,13 +103,14 @@ namespace Client {
             tutorialComponent.Message.gameObject.SetActive(false);
 
             _state.Value.AddPlayerGold(_startGoldValue); // to do ay write it in another system
-
+            
             if (Tutorial.CurrentStage == 0)
             {
                 _state.Value.HubSystems = false;
                 _state.Value.PreparedSystems = true;
                 _state.Value.FightSystems = false;
                 _playDeckPool.Value.Add(_world.Value.NewEntity());
+                interfaceComp.BuyCard.CheckButtons();
                 interfaceComp.Hide.gameObject.SetActive(false);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
@@ -118,6 +119,7 @@ namespace Client {
                 interfaceComp.Resources.UpdatePlayerCoinAmount();
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);
+                interfaceComp.BuyCard.CheckButtons();
             }
             else 
             {
@@ -127,6 +129,7 @@ namespace Client {
                 _state.Value.FightSystems = false;
                 interfaceComp.Resources.UpdatePlayerCoinAmount();
             }
+            
         }
     }
 }

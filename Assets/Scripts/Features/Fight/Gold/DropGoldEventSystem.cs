@@ -46,6 +46,7 @@ namespace Client
                     _gameState.Value.AddPlayerGold(droppingGoldComponent.GoldValue);
                     _interfacePool.Value.Get(_gameState.Value.InterfaceEntity).Resources.UpdatePlayerCoinAmount();
                 }
+                _interfacePool.Value.Get(_gameState.Value.InterfaceEntity).BuyCard.CheckButtons();
 
                 DeleteEvent(eventEntity);
             }

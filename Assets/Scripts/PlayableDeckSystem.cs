@@ -62,6 +62,9 @@ namespace Client
                 //        GameObject.Destroy(holder.GetChild(i).gameObject);
                 //    }
                 //}
+
+                interfaceComp.BuyCard.CheckButtons();
+
                 _playableDeckFilter.Pools.Inc1.Del(entity);
             }   
         }
