@@ -255,6 +255,7 @@ namespace Client
             if (tmpSettigns.GameVersion == Application.version)
             {
                 Settings = tmpSettigns;
+                CurrentLevel = tmpSettigns.Level;
                 if(File.Exists(savePathDeck)) LoadDeck();
                 else SaveDeck();
                 if (File.Exists(savePathCollection)) LoadCollection();
