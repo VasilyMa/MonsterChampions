@@ -108,7 +108,7 @@ namespace Client {
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitBoard, float.MaxValue, LayerMask.GetMask("BoardRaycast")))
                     {
-                        ReturnToDefault(entity);
+                        TeleportToGround(entity);
                         _touchFilter.Pools.Inc2.Del(entity);
                         _touchFilter.Pools.Inc1.Del(entity);
 
@@ -154,6 +154,29 @@ namespace Client {
                     _touchFilter.Pools.Inc1.Del(entity);
                 }
             }
+        }
+        private void TeleportToGround(int entity)
+        {
+            ref var unitComp = ref _unitPool.Value.Get(entity);
+            ref var viewComp = ref _viewPool.Value.Get(_unitPool.Value.Get(entity).entity);
+
+            ref var healthComp = ref _healthPool.Value.Get(_unitPool.Value.Get(entity).entity);
+            viewComp.HealthBarMB.gameObject.SetActive(true);
+            viewComp.HealthBarMB.SetMaxHealth(healthComp.MaxValue);
+
+            viewComp.Transform.parent = null;
+            viewComp.Transform.position = GameObject.Find("ForLanding").transform.position;
+
+            _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
+            viewComp.GameObject.GetComponent<Collider>().enabled = true;
+            _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
+            _touchFilter.Pools.Inc2.Del(entity);
+            _touchFilter.Pools.Inc1.Del(entity);
+
+            viewComp.Model.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+            viewComp.GameObject.layer = LayerMask.NameToLayer(nameof(viewComp.AliveUnit));
+
         }
 
         private void ReturnToDefault(int entity)
