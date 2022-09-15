@@ -308,6 +308,8 @@ MonoBehaviour:
   _maxHP: 0
   _healthBar: {fileID: 4368154545423247480}
   _amount: {fileID: 4315441711855120179}
+  border_01: {fileID: 2586518989472202141}
+  border_02: {fileID: 0}
   _sliderShield: {fileID: 1499930726039749838}
   _imageShield: {fileID: 1310202071582683912}
   _durabilityCurrent: 0

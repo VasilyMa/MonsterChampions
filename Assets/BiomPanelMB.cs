@@ -17,6 +17,7 @@ namespace Client
         [SerializeField] private Image _nextBiomImage;
         [SerializeField] private Transform _biomPointHolder;
         [SerializeField] private GameObject _biomPointPrefab;
+        [SerializeField] private Text _currentLevel;
         public void Init(EcsWorld world, GameState state)
         {
             _world = world;
@@ -61,6 +62,7 @@ namespace Client
                 if (biom.BiomLevels.Contains(SceneManager.GetActiveScene().buildIndex))
                     CurrentBiom = biom;
             }
+            _currentLevel.text = $"Level {_state.CurrentLevel}";
         }
         public void InitBiomPoints()
         {

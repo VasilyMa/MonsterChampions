@@ -13,6 +13,7 @@ namespace Client {
         public Transform CollectionHolder;
         public Transform DeckHolder;
         public Transform Back;
+
         public CollectionMB CollectionManager;
         public MenuMB MainMenu;
         public RewardPanelMB RewardPanel;
@@ -22,6 +23,7 @@ namespace Client {
         public ProgressMB Progress;
         public BiomPanelMB BiomPanel;
 
+        
         /// <summary>
         /// Панель наград для перемещения и обращеиня к дочерним элементам
         /// </summary>
@@ -64,6 +66,7 @@ namespace Client {
         /// Коородинаты, где окажется прогрресс бар при ее вызове
         /// </summary>
         public Transform TargetProgressBar;
+        public Transform TargetBiom;
         
         /// <summary>
         /// Положение при инициализации
@@ -98,6 +101,7 @@ namespace Client {
         /// </summary>
         public Vector3 deafaultPosDeck;
         public Vector3 deafaultPosBack;
+        public Vector3 deafaultPosBiom;
 
 
         public StartDeckForDevelop TempButton;

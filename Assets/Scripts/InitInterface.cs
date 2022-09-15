@@ -41,6 +41,7 @@ namespace Client {
             interfaceComp.TargetProgressBar = GameObject.Find("TargetProgress").transform;
             interfaceComp.TargetPlayButton = GameObject.Find("TargetPlayButton").transform;
             interfaceComp.TargetBack = GameObject.Find("TargetBack").transform;
+            interfaceComp.TargetBiom = GameObject.Find("TargetBiom").transform;
             interfaceComp.Back = GameObject.Find("Back").transform;
             interfaceComp.Hide = interfaceComp.MainCanvas.transform.GetChild(0).transform;
 
@@ -50,6 +51,9 @@ namespace Client {
             interfaceComp.LoseHolder = interfaceComp.LosePanel.transform.GetChild(0).transform;
             interfaceComp.RewardHolder = interfaceComp.Reward.transform;
             interfaceComp.AttentionHolder = interfaceComp.MainMenu.transform.GetChild(2).transform;
+
+            interfaceComp.BiomHolder.gameObject.SetActive(false);
+
             interfaceComp.BuyCard.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.RewardPanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
             interfaceComp.LosePanel.Init(systems.GetWorld(), systems.GetShared<GameState>());
@@ -79,6 +83,7 @@ namespace Client {
             interfaceComp.defaultPosCardHolder = interfaceComp.HolderCards.transform.position;
             interfaceComp.defaultPosRemoveButton = interfaceComp.CollectionMenu.transform.GetChild(2).transform.position;
             interfaceComp.deafaultPosBack = interfaceComp.Back.position;
+            interfaceComp.deafaultPosBiom = interfaceComp.BiomHolder.position;
 
             interfaceComp.MainMenu.UpdateDeck();
             interfaceComp.HolderCards.gameObject.SetActive(false);
@@ -87,7 +92,6 @@ namespace Client {
             interfaceComp.RewardHolder.gameObject.SetActive(false);
             interfaceComp.Resources.gameObject.SetActive(false);
             interfaceComp.AttentionHolder.gameObject.SetActive(false);
-            interfaceComp.BiomHolder.gameObject.SetActive(false);
             interfaceComp.Back.gameObject.SetActive(false);
 
             ref var tutorialComponent = ref _tutorialPool.Value.Add(entity);
@@ -115,6 +119,7 @@ namespace Client {
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.DeckHolder.gameObject.SetActive(false);
+                interfaceComp.BiomHolder.gameObject.SetActive(false);
                 interfaceComp.Resources.UpdatePlayerCoinAmount();
                 interfaceComp.HolderCards.transform.DOMove(GameObject.Find("TargetCardPanel").transform.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(GameObject.Find("TargetProgress").transform.position, 1f, false);

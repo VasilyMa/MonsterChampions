@@ -40,7 +40,8 @@ namespace Client
         {
             transform.GetChild(3).gameObject.SetActive(false);
             yield return new WaitForSeconds(1.5f);
-            OpenBiomPanel();
+            NextLevel();
+            //OpenBiomPanel();
         }
         private void OpenBiomPanel()
         {
