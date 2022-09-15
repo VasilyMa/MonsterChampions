@@ -26,7 +26,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: eb598f7175778b747adbf23fe926f91c, type: 3}
   - {fileID: 21300000, guid: da4afd45fb724fd41bc7cff5f17f031e, type: 3}
   StartBiomTypes: 010000000200000003000000
-  StartBiomLevels: 00000000060000000b000000
+  StartBiomLevels: 00000000050000000a000000
   CurrentPointColor: {r: 1, g: 0.82806325, b: 0.19339621, a: 1}
   CompletePointColor: {r: 0.5917982, g: 1, b: 0.25, a: 1}
   AnCompletePointColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
