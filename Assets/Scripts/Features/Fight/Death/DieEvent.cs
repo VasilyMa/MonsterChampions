@@ -3,16 +3,16 @@ namespace Client
     struct DieEvent
     {
         public int DyingEntity;
-        public bool IsTouchedBase;
+        public bool WithoutGold;
 
         /// <summary>
         /// Write dying entity for DieEventSystem
         /// </summary>
         /// <param name="dyingEntity"></param>
-        public void Invoke(int dyingEntity, bool isTouchedBase = false)
+        public void Invoke(int dyingEntity, bool withoutGold = false)
         {
             DyingEntity = dyingEntity;
-            IsTouchedBase = isTouchedBase;
+            WithoutGold = withoutGold;
         }
     }
 }

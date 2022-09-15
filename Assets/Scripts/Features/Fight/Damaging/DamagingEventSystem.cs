@@ -26,6 +26,8 @@ namespace Client
         readonly EcsPoolInject<DeadTag> _deadPool = default;
 
         readonly EcsPoolInject<SparkyComponent> _sparkyPool = default;
+        readonly EcsPoolInject<ExplosionComponent> _explosionPool = default;
+
         readonly EcsPoolInject<TinkiComponent> _tinkiPool = default;
 
         readonly EcsPoolInject<ViewComponent> _viewPool = default;
@@ -112,7 +114,7 @@ namespace Client
 
             animableComponent.Animator.SetTrigger(nameof(animableComponent.isDamaged));
 
-            _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity, isTouchedBase: true);
+            _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_damagingEntity, withoutGold: true);
         }
         private void RefreshProgressBar()
         {
@@ -262,7 +264,23 @@ namespace Client
                 return;
             }
 
-            _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
+            bool typicalDeath = true;
+
+            if (_explosionPool.Value.Has(_damagingEntity))
+            {
+                ref var explosionComponent = ref _explosionPool.Value.Get(_damagingEntity);
+
+                if (_undergoEntity == explosionComponent.OwnerEntity)
+                {
+                    _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity, withoutGold: true);
+                    typicalDeath = false;
+                }
+            }
+
+            if (typicalDeath)
+            {
+                _dieEventPool.Value.Add(_world.Value.NewEntity()).Invoke(_undergoEntity);
+            }
         }
 
         private void DeleteEvent(int damagingEventEntity)

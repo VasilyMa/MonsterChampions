@@ -54,7 +54,7 @@ namespace Client
 
                 PlayDeadAnimation();
 
-                if (!dieEvent.IsTouchedBase)
+                if (!dieEvent.WithoutGold)
                 {
                     CreateElementalEffect();
 

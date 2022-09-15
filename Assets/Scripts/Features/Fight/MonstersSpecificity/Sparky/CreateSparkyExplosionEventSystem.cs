@@ -83,6 +83,7 @@ namespace Client
                 InvokeDamageFromExplosion(_sparkyEntity);
 
                 ref var explosionComponent = ref _explosionPool.Value.Get(_explosionEntity);
+                explosionComponent.OwnerEntity = _sparkyEntity;
                 explosionComponent.isCausedDamage = true;
 
                 DeleteEvent(eventEntity);
@@ -117,7 +118,7 @@ namespace Client
             ref var sparkyHealthCompnent = ref _healthPool.Value.Get(_sparkyEntity);
 
             ref var explosionDamageComponent = ref _damagePool.Value.Add(_explosionEntity);
-            explosionDamageComponent.Value = sparkyHealthCompnent.MaxValue * 2;
+            explosionDamageComponent.Value = sparkyHealthCompnent.MaxValue;
 
             ref var levelComponent = ref _levelPool.Value.Add(_explosionEntity);
             levelComponent.Value = _levelPool.Value.Get(_sparkyEntity).Value;
