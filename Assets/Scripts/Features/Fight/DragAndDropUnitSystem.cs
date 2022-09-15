@@ -12,6 +12,8 @@ namespace Client {
         readonly EcsPoolInject<Movable> _movablePool = default;
         readonly EcsPoolInject<OnBoardUnitTag> _onBoardPool = default;
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
+        readonly EcsFilterInject<Inc<WinEvent>> _winPool = default;
+        readonly EcsFilterInject<Inc<LoseEvent>> _losePool = default;
 
         private int _maxLevelForMerge = 4;
 
@@ -40,6 +42,20 @@ namespace Client {
                     {
                         var point = hit.point;
                         viewComp.Transform.position = new Vector3(point.x, point.y, point.z);
+                    }
+                    foreach (var win in _winPool.Value)
+                    {
+                        ReturnToDefault(entity);
+                        _touchFilter.Pools.Inc2.Del(entity);
+                        _touchFilter.Pools.Inc1.Del(entity);
+                        return;
+                    }
+                    foreach (var lose in _losePool.Value)
+                    {
+                        ReturnToDefault(entity);
+                        _touchFilter.Pools.Inc2.Del(entity);
+                        _touchFilter.Pools.Inc1.Del(entity);
+                        return;
                     }
                 }
                 if (Input.GetMouseButtonUp(0))
@@ -176,7 +192,6 @@ namespace Client {
             viewComp.Model.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
             viewComp.GameObject.layer = LayerMask.NameToLayer(nameof(viewComp.AliveUnit));
-
         }
 
         private void ReturnToDefault(int entity)
