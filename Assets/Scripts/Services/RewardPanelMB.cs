@@ -38,7 +38,7 @@ namespace Client
         }
         private IEnumerator WaitBiomLevel()
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(1.5f);
             OpenBiomPanel();
         }
         private void OpenBiomPanel()
@@ -50,7 +50,7 @@ namespace Client
         }
         private IEnumerator WaitNextLevel()
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(1.5f);
             NextLevel();
         }
         void NextLevel()

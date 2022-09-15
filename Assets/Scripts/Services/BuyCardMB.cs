@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Leopotam.EcsLite;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+
 namespace Client
 {
     public class BuyCardMB : MonoBehaviour
@@ -83,6 +85,21 @@ namespace Client
                 }
             }
             return slot;
+        }
+        private void Update()
+        {
+            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            var holder = interfaceComp.HolderCards;
+            for (int i = 0; i < holder.childCount - 1; i++)
+            {
+                if (holder.GetChild(i).gameObject.activeSelf)
+                {
+                    if (_state.GetPlayerGold() >= 10)
+                        holder.GetChild(i).transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().enabled = false;
+                    else
+                        holder.GetChild(i).transform.GetChild(0).transform.GetChild(2).GetComponent<Image>().enabled = true;
+                }
+            }
         }
     }
 }

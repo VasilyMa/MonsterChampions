@@ -59,6 +59,7 @@ namespace Client
                 _state.PreparedSystems = true;
                 _state.FightSystems = false;
                 _state.inCollection = false;
+                interfaceComp.Back.gameObject.SetActive(false);
                 interfaceComp.Resources.gameObject.SetActive(true);
                 interfaceComp.HolderCards.gameObject.SetActive(true);
                 interfaceComp.DeckHolder.transform.DOMove(interfaceComp.deafaultPosDeck, 1f, false);
@@ -66,6 +67,7 @@ namespace Client
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(interfaceComp.defaultPosCollection, 1f, false);
                 interfaceComp.HolderCards.transform.DOMove(interfaceComp.TargetCardPanel.position, 1f, false);
                 interfaceComp.Progress.transform.GetChild(0).transform.DOMove(interfaceComp.TargetProgressBar.position, 1f, false);
+                interfaceComp.Back.transform.DOMove(interfaceComp.deafaultPosBack, 1f, false);
                 interfaceComp.MenuHolder.gameObject.SetActive(false);
                 interfaceComp.Hide.GetComponent<Image>().DOFade(0, 0.5f);
                 _playableDeckEventPool.Add(_world.NewEntity());
@@ -83,11 +85,13 @@ namespace Client
                 }
                 _state.inCollection = true;
                 UpdateCollection();
+                interfaceComp.Back.gameObject.SetActive(true);
                 //interfaceComp.RemoveHolder.transform.DOMove((GameObject.Find("TargetRemove").transform.position), 1f, false);
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(interfaceComp.TargetCollection.position, 1f, false).OnComplete(()=>Open());
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(interfaceComp.TargetPlayButton.position, 1f, false);
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOScale(0.75f, 0.5f);
                 interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove(interfaceComp.TargetCollectionButton.position, 1f, false);
+                interfaceComp.Back.transform.DOMove(interfaceComp.TargetBack.position, 1f, false);
                 if (Tutorial.CurrentStage == Tutorial.Stage.OpenCollection || Tutorial.CurrentStage == Tutorial.Stage.DragAndDropNewCardInDeck)
                 {
                     interfaceComp.MenuHolder.transform.GetChild(1).transform.DOMove((GameObject.Find("TargetCollectionName").transform.position), 1f, false).OnComplete(() => Tutorial.DragAndDropNewCardInDeck.SetPanelIsOpened());
@@ -105,6 +109,7 @@ namespace Client
 
                 interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = false;
                 _state.inCollection = false;
+                interfaceComp.Back.transform.DOMove(interfaceComp.deafaultPosBack, 1f, false);
                 interfaceComp.RemoveHolder.transform.DOMove(interfaceComp.defaultPosRemoveButton, 1f, false);
                 interfaceComp.CollectionMenu.transform.GetChild(1).transform.DOMove(interfaceComp.defaultPosCollection, 1f, false).OnComplete(() => RemoveCollection());
                 interfaceComp.MenuHolder.transform.GetChild(0).GetChild(0).transform.DOMove(interfaceComp.defaultPosPlayButton, 1f, false);
@@ -189,6 +194,7 @@ namespace Client
         {
             ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
             interfaceComp.MenuHolder.transform.GetChild(1).GetComponent<Button>().interactable = true;
+            interfaceComp.Back.gameObject.SetActive(false);
             var collection = _state.Collection.CollectionUnits;
             var holder = interfaceComp.CollectionHolder;
             for (int i = 0; i < holder.childCount; i++)

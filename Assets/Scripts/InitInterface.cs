@@ -40,6 +40,8 @@ namespace Client {
             interfaceComp.TargetLoseWin = GameObject.Find("TargetLoseWin").transform;
             interfaceComp.TargetProgressBar = GameObject.Find("TargetProgress").transform;
             interfaceComp.TargetPlayButton = GameObject.Find("TargetPlayButton").transform;
+            interfaceComp.TargetBack = GameObject.Find("TargetBack").transform;
+            interfaceComp.Back = GameObject.Find("Back").transform;
             interfaceComp.Hide = interfaceComp.MainCanvas.transform.GetChild(0).transform;
 
             interfaceComp.BiomHolder = interfaceComp.BiomPanel.transform.GetChild(0).transform;
@@ -76,6 +78,7 @@ namespace Client {
             interfaceComp.defaultPosProgressHolder = interfaceComp.Progress.transform.GetChild(0).transform.position;
             interfaceComp.defaultPosCardHolder = interfaceComp.HolderCards.transform.position;
             interfaceComp.defaultPosRemoveButton = interfaceComp.CollectionMenu.transform.GetChild(2).transform.position;
+            interfaceComp.deafaultPosBack = interfaceComp.Back.position;
 
             interfaceComp.MainMenu.UpdateDeck();
             interfaceComp.HolderCards.gameObject.SetActive(false);
@@ -85,6 +88,7 @@ namespace Client {
             interfaceComp.Resources.gameObject.SetActive(false);
             interfaceComp.AttentionHolder.gameObject.SetActive(false);
             interfaceComp.BiomHolder.gameObject.SetActive(false);
+            interfaceComp.Back.gameObject.SetActive(false);
 
             ref var tutorialComponent = ref _tutorialPool.Value.Add(entity);
             tutorialComponent.Panel = interfaceComp.MainCanvas.transform.GetComponentInChildren<TutorialPanelMB>().transform;

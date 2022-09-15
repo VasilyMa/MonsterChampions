@@ -12,6 +12,7 @@ namespace Client {
         public Transform CollectionMenu;
         public Transform CollectionHolder;
         public Transform DeckHolder;
+        public Transform Back;
         public CollectionMB CollectionManager;
         public MenuMB MainMenu;
         public RewardPanelMB RewardPanel;
@@ -34,6 +35,7 @@ namespace Client {
         public Transform RemoveHolder;
         public Transform AttentionHolder;
         public Transform BiomHolder;
+        public Transform TargetBack;
         /// <summary>
         /// Коородинаты, где окажется коллекция при ее вызове
         /// </summary>
@@ -95,7 +97,7 @@ namespace Client {
         /// Положение при инициализации
         /// </summary>
         public Vector3 deafaultPosDeck;
-
+        public Vector3 deafaultPosBack;
 
 
         public StartDeckForDevelop TempButton;
