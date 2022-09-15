@@ -38,6 +38,7 @@ namespace Client
         }
         private IEnumerator WaitBiomLevel()
         {
+            transform.GetChild(3).gameObject.SetActive(false);
             yield return new WaitForSeconds(1.5f);
             OpenBiomPanel();
         }
@@ -56,10 +57,10 @@ namespace Client
         void NextLevel()
         {
             SceneManager.LoadScene(_state.Settings.SceneNumber);
-            ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
-            interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
-            interfaceComp.HolderCards.gameObject.SetActive(false);
-            interfaceComp.MenuHolder.gameObject.SetActive(true);
+            //ref var interfaceComp = ref _interfacePool.Get(_state.InterfaceEntity);
+            //interfaceComp.RewardPanelHolder.gameObject.SetActive(false);
+            //interfaceComp.HolderCards.gameObject.SetActive(false);
+            //interfaceComp.MenuHolder.gameObject.SetActive(true);
         }
 
 
