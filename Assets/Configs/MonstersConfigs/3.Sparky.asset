@@ -17,7 +17,7 @@ MonoBehaviour:
   MonsterID: 3
   Damage: 10
   Health: 8
-  MoveSpeed: 4
+  MoveSpeed: 5
   VisualAndAnimations:
   - Name: Level 1
     Avatar: {fileID: 9000000, guid: 45e42983055154b43beb5e6c8ace8b2b, type: 3}

@@ -16,7 +16,7 @@ MonoBehaviour:
   Cost: 10
   MonsterID: 2
   Damage: 3
-  Health: 15
+  Health: 12
   MoveSpeed: 3
   VisualAndAnimations:
   - Name: Level 1

@@ -12,11 +12,13 @@ namespace Client
 
         readonly EcsPoolInject<CameraComponent> _cameraPool = default;
 
-        private Vector3 _startPosition = new Vector3(60, 47, -9.5f);
-        private Quaternion _startRotation = Quaternion.Euler(12, 296, 0);
+        private Vector3 _startPosition = new Vector3(50.5f, 35f, -8f);
+        private Quaternion _startRotation = Quaternion.Euler(40, 297, 0);
+        private float _startFieldOfView = 75;
 
         private Vector3 _endPosition = new Vector3(2, 19, 0);
         private Quaternion _endRotation = Quaternion.Euler(65, 356, 0);
+        private float _endFieldOfView = 90;
 
         private float _currentTime = 0;
         private float _timeToMove = 0;
@@ -48,6 +50,7 @@ namespace Client
 
                 cameraComponent.CameraTransform.position = Vector3.Lerp(_startPosition, _endPosition, _currentTime);
                 cameraComponent.CameraTransform.rotation = Quaternion.Slerp(_startRotation, _endRotation, _currentTime);
+                cameraComponent.Camera.fieldOfView = Mathf.Lerp(_startFieldOfView, _endFieldOfView, _currentTime);
 
                 _timeToMove += Time.deltaTime;
 
