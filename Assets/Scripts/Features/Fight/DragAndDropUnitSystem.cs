@@ -12,6 +12,8 @@ namespace Client {
         readonly EcsPoolInject<Movable> _movablePool = default;
         readonly EcsPoolInject<OnBoardUnitTag> _onBoardPool = default;
         readonly EcsPoolInject<HealthComponent> _healthPool = default;
+        readonly EcsFilterInject<Inc<WinEvent>> _winPool = default;
+        readonly EcsFilterInject<Inc<LoseEvent>> _losePool = default;
 
         private int _maxLevelForMerge = 4;
 
@@ -40,6 +42,20 @@ namespace Client {
                     {
                         var point = hit.point;
                         viewComp.Transform.position = new Vector3(point.x, point.y, point.z);
+                    }
+                    foreach (var win in _winPool.Value)
+                    {
+                        ReturnToDefault(entity);
+                        _touchFilter.Pools.Inc2.Del(entity);
+                        _touchFilter.Pools.Inc1.Del(entity);
+                        return;
+                    }
+                    foreach (var lose in _losePool.Value)
+                    {
+                        ReturnToDefault(entity);
+                        _touchFilter.Pools.Inc2.Del(entity);
+                        _touchFilter.Pools.Inc1.Del(entity);
+                        return;
                     }
                 }
                 if (Input.GetMouseButtonUp(0))
@@ -108,7 +124,7 @@ namespace Client {
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitBoard, float.MaxValue, LayerMask.GetMask("BoardRaycast")))
                     {
-                        ReturnToDefault(entity);
+                        TeleportToGround(entity);
                         _touchFilter.Pools.Inc2.Del(entity);
                         _touchFilter.Pools.Inc1.Del(entity);
 
@@ -154,6 +170,28 @@ namespace Client {
                     _touchFilter.Pools.Inc1.Del(entity);
                 }
             }
+        }
+        private void TeleportToGround(int entity)
+        {
+            ref var unitComp = ref _unitPool.Value.Get(entity);
+            ref var viewComp = ref _viewPool.Value.Get(_unitPool.Value.Get(entity).entity);
+
+            ref var healthComp = ref _healthPool.Value.Get(_unitPool.Value.Get(entity).entity);
+            viewComp.HealthBarMB.gameObject.SetActive(true);
+            viewComp.HealthBarMB.SetMaxHealth(healthComp.MaxValue);
+
+            viewComp.Transform.parent = null;
+            viewComp.Transform.position = GameObject.Find("ForLanding").transform.position;
+
+            _movablePool.Value.Get(unitComp.entity).NavMeshAgent.enabled = true;
+            viewComp.GameObject.GetComponent<Collider>().enabled = true;
+            _onBoardPool.Value.Del(_unitPool.Value.Get(entity).entity);
+            _touchFilter.Pools.Inc2.Del(entity);
+            _touchFilter.Pools.Inc1.Del(entity);
+
+            viewComp.Model.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+            viewComp.GameObject.layer = LayerMask.NameToLayer(nameof(viewComp.AliveUnit));
         }
 
         private void ReturnToDefault(int entity)
