@@ -124,14 +124,18 @@ namespace Client {
                     }
                     if (Physics.Raycast(ray, out RaycastHit hitBoard, float.MaxValue, LayerMask.GetMask("BoardRaycast")))
                     {
-                        TeleportToGround(entity);
-                        _touchFilter.Pools.Inc2.Del(entity);
-                        _touchFilter.Pools.Inc1.Del(entity);
-
                         if (Tutorial.CurrentStage == Tutorial.Stage.DragAndDropMonster)
                         {
                             Tutorial.DragAndDropMonster.SetTryingFarDrop();
+                            ReturnToDefault(entity);
+                            _touchFilter.Pools.Inc2.Del(entity);
+                            _touchFilter.Pools.Inc1.Del(entity);
+                            break;
                         }
+
+                        TeleportToGround(entity);
+                        _touchFilter.Pools.Inc2.Del(entity);
+                        _touchFilter.Pools.Inc1.Del(entity);
 
                         break;
                     }

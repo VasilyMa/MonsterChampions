@@ -49,7 +49,7 @@ namespace Client
             {
                 EnableUI();
                 IdentifyPositions();
-                SetStartPositionsForUI();
+                SetStartPositionsAndTextForUI();
                 DoStartAnimation();
 
                 _isEnabledUI = true;
@@ -57,7 +57,7 @@ namespace Client
 
             if (!_messageChangedOnDroppedBack && Tutorial.DragAndDropNewCardInDeck.isDroppedBack())
             {
-                SetStartPositionsForUI();
+                SetStartPositionsAndTextForUI();
                 DoStartAnimation();
 
                 _messageChangedOnDroppedBack = true;
@@ -131,11 +131,10 @@ namespace Client
                 tutorialComponent.Hand.gameObject.SetActive(true);
                 tutorialComponent.Focus.gameObject.SetActive(true);
                 tutorialComponent.Message.gameObject.SetActive(true);
-                tutorialComponent.MessageText.text = "Take your\nnew card!";
             }
         }
 
-        private void SetStartPositionsForUI()
+        private void SetStartPositionsAndTextForUI()
         {
             foreach (var interfaceEntity in _tutorialFilter.Value)
             {
@@ -145,6 +144,7 @@ namespace Client
                 tutorialComponent.Focus.position = _newCardPositoin;
                 tutorialComponent.Message.position = _newCardPositoin;
                 tutorialComponent.MessageRectTransform.pivot = new Vector2(0.5f, 1);
+                tutorialComponent.MessageText.text = "Take your\nnew card!";
             }
         }
 
