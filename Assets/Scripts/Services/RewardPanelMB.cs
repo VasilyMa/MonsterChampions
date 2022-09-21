@@ -23,6 +23,7 @@ namespace Client
         }
         public void OpenNewCard()
         {
+            FindObjectOfType<RewardMB>().GetComponent<Image>().raycastTarget = false;
             var button = GameObject.Find("ButtonNext");
             button.GetComponent<Button>().enabled = false;
             transform.GetComponent<Image>().raycastTarget = false;
